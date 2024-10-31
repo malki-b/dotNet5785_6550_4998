@@ -2,7 +2,7 @@
 
 partial class Program
 {
-	static partial void Welcome4998()
+	static partial void Welcom4998()
 	{
 
 		Console.WriteLine("I am also");

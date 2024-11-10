@@ -1,17 +1,29 @@
 ﻿namespace DO;
 
-public enum Year
+public enum Role
 {
-    FirstYear,
-    SecondYear,
-    ThirdYear,
-    ExtraYear
+    Volunteer,
 }
-public enum SemesterNames
+public enum TypeDistance
 {
-    WinterA,
-    SpringB,
-    Year,
-    Summer,
-    Elul
+    Air,
+    Walking,
+    Drive
+}
+/// <summary>
+/// fot call
+/// </summary>
+public enum TypeOfReading
+{
+    FoodPreparation,
+    FoodTransportation,
+}
+/// <summary>
+/// for Assignment
+/// </summary>
+public enum TypeOfTreatmentTermination//סוג סיום הטיפול
+{
+    Teated,
+    SelfCancellation,//ביטול עצמי
+    CancellationHasExpired//ביטול פג תוקף
 }

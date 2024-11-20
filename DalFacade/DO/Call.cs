@@ -22,5 +22,5 @@ public record Call
     DateTime? MaxTimeFinishRead = null,
     TypeOfReading TypeOfReading = TypeOfReading.FoodPreparation
 );
-{public Call() : this(int 0 , string 'tr' , double 4 , double 42,  ) { Id = 0 ,  }}
+
 

@@ -8,6 +8,10 @@ public class VolunteerImplementation : IVolunteer
 {
     public void Create(Volunteer item)
     {
+        if(item.Id == )
+        {
+
+        }
         throw new NotImplementedException();
     }
 

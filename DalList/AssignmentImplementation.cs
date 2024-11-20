@@ -9,7 +9,8 @@ public class AssignmentImplementation : IAssignment
 {
     public void Create(Assignment item)
     {
-
+        int nextCallId = Config.NextCallId;
+        //item.Id = nextCallId;
         throw new NotImplementedException();
     }
 
@@ -20,6 +21,7 @@ public class AssignmentImplementation : IAssignment
 
     public void DeleteAll()
     {
+
         throw new NotImplementedException();
     }
 

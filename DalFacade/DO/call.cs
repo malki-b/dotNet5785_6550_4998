@@ -22,3 +22,5 @@ public record Call
     DateTime? MaxTimeFinishRead = null,
     TypeOfReading TypeOfReading = TypeOfReading.FoodPreparation
 );
+
+

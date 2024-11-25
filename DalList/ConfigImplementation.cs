@@ -10,6 +10,7 @@ internal class ConfigImplementation : IConfig
         set => Config.Clock = value;
     }
     //...
+
     public void Reset()
     {
         Config.Reset();

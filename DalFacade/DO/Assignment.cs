@@ -1,5 +1,4 @@
 ﻿
-
 namespace DO;
 /// <summary>
 /// 
@@ -12,10 +11,12 @@ namespace DO;
 /// <param name="TypeOfTreatmentTermination">The manner in which the handling of the current call was completed by the current volunteer (default empty)</param>
 public record Assignment
 (
-    int Id,
     int CallId,
     int VolunteerId,
     DateTime EntryTimeForTreatment,
     DateTime? EndOfTreatmentTime = null,
     TypeOfTreatmentTermination? TypeOfTreatmentTermination = null
-);
+)
+{
+ public int Id { get; init; }
+}

@@ -25,5 +25,3 @@ public record Call
 {
  public int Id {  get; init; }
 }
-
-

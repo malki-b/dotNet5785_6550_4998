@@ -20,7 +20,7 @@ public class CallImplementation : ICall
         if (currentCall != null)
          DataSource.Calls.Remove(currentCall);
         else
-            throw new Exception($"volunteer with id {id} no exists");
+            throw new Exception($"call with id {id} no exists");
         
     }
 
@@ -52,7 +52,7 @@ public class CallImplementation : ICall
             DataSource.Calls.Add(item);
         }
         else
-          throw new Exception($"volunteer with id {item.Id} no exists");
+          throw new Exception($"call with id {item.Id} no exists");
 
      
 

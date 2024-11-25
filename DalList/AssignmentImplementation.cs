@@ -9,22 +9,25 @@ public class AssignmentImplementation : IAssignment
 {
     public void Create(Assignment item)
     {
-        int idCall = Config.nextAssignmentId;
-        Assignment copy = item;
-        copy.Id = idCall;
-        DataSource.Assignments.Add(copy);   
-       return copy.Id
+        int idCall = Config.NextAssignmentId;
+        Assignment copy = item with { Id = idCall };
+        DataSource.Assignments.Add(copy);
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        Assignment? assignment = Read(id);
+        if (assignment != null)
+        {
+            DataSource.Assignments.Remove(assignment);
+        }
+        else
+            throw new Exception($"Assignment with id {id} no exists");
     }
 
     public void DeleteAll()
     {
-
-        throw new NotImplementedException();
+        DataSource.Assignments.Clear();
     }
 
     public Assignment? Read(int id)
@@ -34,11 +37,13 @@ public class AssignmentImplementation : IAssignment
 
     public List<Assignment> ReadAll()
     {
-        throw new NotImplementedException();
+        return DataSource.Assignments.ToList();
+
     }
 
     public void Update(Assignment item)
     {
-        throw new NotImplementedException();
+        Delete(item.Id);
+        DataSource.Assignments.Add(item);
     }
 }

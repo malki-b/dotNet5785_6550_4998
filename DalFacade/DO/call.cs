@@ -13,7 +13,7 @@ namespace DO;
 /// <param name="TypeOfReading">according to the type of specific system (food preparation, food transportation, etc.)</param>
 public record Call
 (
-    int Id,
+    
     string Address,
     double Latitude,
     double Longitude,
@@ -21,6 +21,9 @@ public record Call
      string? VerbalDescription = null,
     DateTime? MaxTimeFinishRead = null,
     TypeOfReading TypeOfReading = TypeOfReading.FoodPreparation
-);
+)
+{
+ public int Id {  get; init; }
+}
 
 

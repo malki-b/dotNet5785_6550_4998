@@ -9,9 +9,11 @@ public class AssignmentImplementation : IAssignment
 {
     public void Create(Assignment item)
     {
-        int nextCallId = Config.NextCallId;
-        //item.Id = nextCallId;
-        throw new NotImplementedException();
+        int idCall = Config.nextAssignmentId;
+        Assignment copy = item;
+        copy.Id = idCall;
+        DataSource.Assignments.Add(copy);   
+       return copy.Id
     }
 
     public void Delete(int id)
@@ -27,7 +29,7 @@ public class AssignmentImplementation : IAssignment
 
     public Assignment? Read(int id)
     {
-        throw new NotImplementedException();
+        return (DataSource.Assignments.Find(x => x.Id == id));
     }
 
     public List<Assignment> ReadAll()

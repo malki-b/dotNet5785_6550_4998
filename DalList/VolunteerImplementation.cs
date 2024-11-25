@@ -8,35 +8,55 @@ public class VolunteerImplementation : IVolunteer
 {
     public void Create(Volunteer item)
     {
-        if(item.Id == )
-        {
 
-        }
-        throw new NotImplementedException();
+        //if(DataSource.Volunteers.Find(v=> v.Id==item.Id) != null)
+        if(Read(item.Id) != null)
+            throw new Exception($"volunteer with id {item.Id} already exists");
+
+        else
+            DataSource.Volunteers.Add(item);    
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        Volunteer? currentVolunteer =Read(id);
+        if (currentVolunteer !=null)
+        {
+            DataSource.Volunteers.Remove(currentVolunteer);
+        }
+        else
+          throw new Exception($"volunteer with id {id} no exists");
     }
 
     public void DeleteAll()
     {
-        throw new NotImplementedException();
+       DataSource.Volunteers.Clear();
     }
 
     public Volunteer? Read(int id)
     {
-        throw new NotImplementedException();
+        return DataSource.Volunteers.Find(v => v.Id == id);
+           
     }
 
     public List<Volunteer> ReadAll()
     {
-        throw new NotImplementedException();
+      
+        List< Volunteer> s_volunteer = new List<Volunteer>();
+        foreach (var volunteer in DataSource.Volunteers)
+            s_volunteer.Add(volunteer);
+        return s_volunteer;
     }
 
     public void Update(Volunteer item)
     {
-        throw new NotImplementedException();
+        Volunteer? itemWithId = Read(item.Id);
+        if(itemWithId != null)
+        {
+           DataSource.Volunteers.Remove(itemWithId);
+           DataSource.Volunteers.Add(item);
+        }
+        else
+            throw new Exception($"volunteer with id {item.Id} no exists");
     }
 }

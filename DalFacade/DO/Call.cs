@@ -20,7 +20,7 @@ public record Call
     DateTime OpeningTime,
      string? VerbalDescription = null,
     DateTime? MaxTimeFinishRead = null,
-    TypeOfReading TypeOfReading = TypeOfReading.FoodPreparation
+    TypeOfReading TypeOfReading = TypeOfReading.FearOfHumanLife
 )
 {
  public int Id {  get; init; }

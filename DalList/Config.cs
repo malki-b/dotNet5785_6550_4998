@@ -9,7 +9,7 @@ internal static class Config
     //...
     internal const int startAssignmentId = 1000;
     private static int nextAssignmentId = startAssignmentId;
-    internal static int NextAssignmentId { get => nextAssignmentId++; }
+    public static int NextAssignmentId { get => nextAssignmentId++; }
     internal static DateTime Clock { get; set; } = DateTime.Now;
     //...
     internal static TimeSpan RiskRange { get; set; } = TimeSpan.Zero;

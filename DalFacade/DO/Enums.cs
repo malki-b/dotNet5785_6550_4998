@@ -3,6 +3,7 @@
 public enum Role
 {
     Volunteer,
+    Manager,
 }
 public enum TypeDistance
 {
@@ -15,13 +16,14 @@ public enum TypeDistance
 /// </summary>
 public enum TypeOfReading
 {
-    FoodPreparation,
-    FoodTransportation,
+    FearOfHumanLife,
+    ImmediateDanger,
+    LongTermDanger,
 }
 /// <summary>
 /// for Assignment
 /// </summary>
-public enum TypeOfTreatmentTermination//סוג סיום הטיפול
+public enum TypeOfEnding//סוג סיום הטיפול
 {
     Teated,
     SelfCancellation,//ביטול עצמי

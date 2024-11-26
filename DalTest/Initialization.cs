@@ -2,6 +2,7 @@
 using DalApi;
 using DO;
 using System.Data;
+using System.Data.Common;
 using System.Net.NetworkInformation;
 
 public static class Initialization
@@ -219,17 +220,18 @@ public static class Initialization
 
     private static void createAssigment()
     {
+        
+       List<Volunteer>? volunteersList = s_dalVolunteer.ReadAll();
+        List<Call>? callsList = s_dalCall.ReadAll();
+        DateTime start = new DateTime(s_dalConfig.Clock.Year, s_dalConfig.Clock.Month, s_dalConfig.Clock.Day, s_dalConfig.Clock.Hour - 7, 0, 0); // stage 1
 
         string[] studentNames =
             { "Dani Levy", "Eli Amar", "Yair Cohen", "Ariela Levin", "Dina Klein", "Shira Israelof" };
 
-        foreach (var name in studentNames)
+        for (int i = 0; i < 50; i++)
         {
-            int id;
-            do
-                id = s_rand.Next(MIN_ID, MAX_ID);
-            while (s_dalStudent!.Read(id) != null);
 
+            int callId = callsList[i].Id;
             bool? even = (id % 2) == 0 ? true : false;
             string? alias = even ? name + "ALIAS" : null;
             DateTime start = new DateTime(1995, 1, 1);

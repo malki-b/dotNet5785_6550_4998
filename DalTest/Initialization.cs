@@ -218,87 +218,45 @@ public static class Initialization
         }
     }
 
-    private static void createAssigment()
-    {
-
-        List<Volunteer>? volunteersList = s_dalVolunteer!.ReadAll();
-        List<Call>? callsList = s_dalCall!.ReadAll();
-        DateTime start = new DateTime(s_dalConfig.Clock.Year, s_dalConfig.Clock.Month, s_dalConfig.Clock.Day, s_dalConfig.Clock.Hour - 7, 0, 0); // stage 1
-
-        string[] studentNames =
-            { "Dani Levy", "Eli Amar", "Yair Cohen", "Ariela Levin", "Dina Klein", "Shira Israelof" };
-
-        for (int i = 0; i < 50; i++)
-        {
-
-            int callId = callsList[i].Id;
-            bool? even = (id % 2) == 0 ? true : false;
-            string? alias = even ? name + "ALIAS" : null;
-            DateTime start = new DateTime(1995, 1, 1);
-            DateTime bdt = start.AddDays(s_rand.Next((s_dalConfig.Clock - start).Days));
-
-            s_dalAssignment!.Create(new(callId, name, alias, even, bdt));
-        }
-    }
     private static void createAssignment()
     {
         List<Volunteer>? volunteers = s_dalVolunteer!.ReadAll();
         List<Call>? calls = s_dalCall!.ReadAll();
-        //DateTime startTime = new DateTime(s_dalConfig.Clock.Year, s_dalConfig.Clock.Month, s_dalConfig.Clock.Day, s_dalConfig.Clock.Hour - 5, 0, 0);
-        //כמה קריאות צריך עשינו 15
-        for (int i = 5; i < 50; i++)
+        for (int i = 15; i < 50; i++)
         {
             int volunteerId = volunteers[s_rand.Next(volunteers.Count)].Id;
             int callId = calls[s_rand.Next(calls.Count)].Id;
-            DateTime openingCase = DateTime.Now;
+            DateTime openingCase = s_dalConfig!.Clock;
             DateTime endingCase = (DateTime)calls[i].MaxTimeFinishRead!;
             TimeSpan rangeOfTime = endingCase - openingCase;
-
-            int randomHour = s_rand.Next(0, rangeOfTime);
-            new DateTime(openingCase.Hour + randomHour);
-            //private static Random s_rand = new Random();
-
-            //public static DateTime GenerateRandomTimeWithinRange(DateTime openingCase, int rangeOfTime)
-            //{
-
-            //}
-
-
-
-            //DateTime endingCase = openingCase + TimeSpan.FromHours(calls[i].MaxTimeFinishRead!);
-            DateTime randomHour = s_rand.Next(openingCase, endingCase);
-
-    //TimeSpan rangeOfTime = endingCase - openingCase;
-    //DateTime 
-    int validDifference = (int)Math.Max(difference.TotalMinutes, 0);
-    DateTime randomTime = minTime.AddMinutes(s_rand.Next(validDifference));
-    int volunteerId = volunteers[s_rand.Next(volunteers.Count)].Id;
-    s_dalAssignment!.Create(new Assignment(callId, volunteerId, randomTime, randomTime.AddHours(2), TypeOfEnding = 2),
-                (FinishCallType) s_rand.Next(Enum.GetValues(typeof(FinishCallType)).Length - 1)));
+            int validDifference = (int)Math.Max(rangeOfTime.TotalMinutes, 0);
+            int randomHour = s_rand.Next(0, validDifference);
+            DateTime time = openingCase.AddMinutes(randomHour);
+            s_dalAssignment!.Create(new Assignment(callId, volunteerId, openingCase, time,
+                (TypeOfEnding)s_rand.Next(Enum.GetValues(typeof(TypeOfEnding)).Length - 1)));
+        }
     }
-}
-public static void Do(IVolunteer? dalVolunteer, ICall? dalCall, IAssignment? dalAssignment, IConfig? dalConfig) //stage 1
-{
-    s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("DAL object can not be null!"); //stage 1
-    s_dalCall = dalCall ?? throw new NullReferenceException("DAL object can not be null!"); //stage 1
-    s_dalAssignment = dalAssignment ?? throw new NullReferenceException("DAL object can not be null!"); //stage 1
-    s_dalConfig = dalConfig ?? throw new NullReferenceException("DAL object can not be null!"); //stage 1
+    public static void Do(IVolunteer? dalVolunteer, ICall? dalCall, IAssignment? dalAssignment, IConfig? dalConfig) //stage 1
+    {
+        s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("DAL object can not be null!"); //stage 1
+        s_dalCall = dalCall ?? throw new NullReferenceException("DAL object can not be null!"); //stage 1
+        s_dalAssignment = dalAssignment ?? throw new NullReferenceException("DAL object can not be null!"); //stage 1
+        s_dalConfig = dalConfig ?? throw new NullReferenceException("DAL object can not be null!"); //stage 1
 
-    Console.WriteLine("Reset Configuration values and List values...");
-    s_dalConfig.Reset(); //stage 1
-    s_dalVolunteer.DeleteAll(); //stage 1
-    s_dalCall.DeleteAll(); //stage 1
-    s_dalAssignment.DeleteAll(); //stage 1
+        Console.WriteLine("Reset Configuration values and List values...");
+        s_dalConfig.Reset(); //stage 1
+        s_dalVolunteer.DeleteAll(); //stage 1
+        s_dalCall.DeleteAll(); //stage 1
+        s_dalAssignment.DeleteAll(); //stage 1
 
-    Console.WriteLine("Initializing Volunteer list ...");
-    createVolunteers();
+        Console.WriteLine("Initializing Volunteer list ...");
+        createVolunteers();
 
-    Console.WriteLine("Initializing Call list ...");
-    createCall();
+        Console.WriteLine("Initializing Call list ...");
+        createCall();
 
-    Console.WriteLine("Initializing IAssignment list ...");
-    createAssigment();
-}
-
+        Console.WriteLine("Initializing IAssignment list ...");
+        createAssignment();
+    }
 
 }

@@ -58,14 +58,6 @@ namespace DalTest
             Console.WriteLine("Enter Password:");
             string Password = Console.ReadLine()!;
             
-
-            Console.WriteLine("Enter Address (press Enter to skip):");
-            string inputId = Console.ReadLine()!;
-            if (!string.IsNullOrEmpty(inputId))
-            {
-                string id = inputId;
-            }
-
             Console.WriteLine("Enter Address (press Enter to skip):");
             string inputAddress = Console.ReadLine()!;
             if (!string.IsNullOrEmpty(inputAddress))

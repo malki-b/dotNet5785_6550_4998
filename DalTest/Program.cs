@@ -10,17 +10,17 @@ namespace DalTest
         private static ICall? s_dalCall = new CallImplementation(); //stage 1
         private static IAssignment? s_dalAssignment = new AssignmentImplementation(); //stage 1
         private static IConfig? s_dalConfig = new ConfigImplementation(); //stage 1
-        try
-        {
+
         static void Main(string[] args)
         {
-        }
-        }
-        catch(){}
-      }
-      
- }
+            try { }
 
-    
+            catch { }
+        }
+    }
+
+}
+
+
 
 

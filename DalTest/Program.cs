@@ -3,7 +3,9 @@ using DalApi;
 using DO;
 using System.Data;
 using System.Net;
+using System.Net.Mail;
 using System.Numerics;
+using System.Text;
 using System.Xml.Linq;
 
 namespace DalTest
@@ -43,8 +45,9 @@ namespace DalTest
         }
         public static void createVolunteer()
         {
+            Console.WriteLine("Enter Volunteer details:");
             Console.WriteLine("Enter Id:");
-            int Id = Convert.ToInt32(Console.ReadLine());
+            int Id = int.Parse(Console.ReadLine()!);
 
             Console.WriteLine("Enter Name:");
             string Name = Console.ReadLine()!;
@@ -57,58 +60,29 @@ namespace DalTest
 
             Console.WriteLine("Enter Password:");
             string Password = Console.ReadLine()!;
-            
-            Console.WriteLine("Enter Address (press Enter to skip):");
-            string inputAddress = Console.ReadLine()!;
-            if (!string.IsNullOrEmpty(inputAddress))
-            {
-                string Address = inputAddress;
-            }
 
-            Console.WriteLine("Enter Latitude (press Enter to skip):");
-            string inputLatitude = Console.ReadLine()!;
-            if (!string.IsNullOrEmpty(inputLatitude))
-            {
-                double Latitude = Convert.ToDouble(inputLatitude);
-            }
+            Console.WriteLine("Enter Address :");
+            string Address = Console.ReadLine()!;
 
-            Console.WriteLine("Enter Longitude (press Enter to skip):");
-            string inputLongitude = Console.ReadLine()!;
-            if (!string.IsNullOrEmpty(inputLongitude))
-            {
-                double Longitude = Convert.ToDouble(inputLongitude);
-            }
+            Console.WriteLine("Enter Latitude:");
+            double Latitude = double.Parse(Console.ReadLine()!);
 
-            Console.WriteLine("Enter Role (Volunteer, Coordinator, Admin - default is Volunteer):");
-            string inputRole = Console.ReadLine()!;
-            if (!string.IsNullOrEmpty(inputRole))
-            {
-                Enum.TryParse(inputRole, out Role role);
-                //Role = role;
-            }
+            Console.WriteLine("Enter Longitude:");
+            double Longitude = double.Parse(Console.ReadLine()!); ;
+
+            Console.WriteLine("Enter Role (Volunteer, Manager:");
+            Role Role = (Role)Enum.Parse(typeof(Role), Console.ReadLine()!, true);
 
             Console.WriteLine("Is User Active? (true/false - press Enter to skip):");
-            string inputIsActive = Console.ReadLine()!;
-            if (!string.IsNullOrEmpty(inputIsActive))
-            {
-                bool IsActive = Convert.ToBoolean(inputIsActive);
-            }
+            bool IsActive = bool.Parse(Console.ReadLine()!);
 
-            Console.WriteLine("Enter Max Distance (press Enter to skip):");
-            string inputMaxDistance = Console.ReadLine()!;
-            if (!string.IsNullOrEmpty(inputMaxDistance))
-            {
-                double Max_Distance = Convert.ToDouble(inputMaxDistance);
-            }
+            Console.WriteLine("Enter Max Distance :");
+            double MaxDistance = double.Parse(Console.ReadLine()!); ;
 
-            Console.WriteLine("Enter Type of Distance (Air, Road - default is Air):");
-            string inputTypeDistance = Console.ReadLine()!;
-            if (!string.IsNullOrEmpty(inputTypeDistance))
-            {
-                Enum.TryParse(inputTypeDistance, out TypeDistance typeDistance);
-                TypeDistance Type_Distance = typeDistance;
-            }
-            s_dalVolunteer!.Create(new Volunteer(Address, Latitude, Longitude, role, IsActive, Max_Distance, Type_Distance));
+            Console.WriteLine("Enter Type of Distance (Air,Walking, Road - default is Air):");
+            TypeDistance TypeDistance = (TypeDistance)Enum.Parse(typeof(TypeDistance), Console.ReadLine()!);
+
+            s_dalVolunteer!.Create(new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance));
 
         }
         public static void DisplayVolunteer()
@@ -125,28 +99,59 @@ namespace DalTest
                         return;
                     case Crud.Create:
                         createVolunteer();
-                        
                         break;
                     case Crud.Read:
-                        s_dalVolunteer!.Read(Console.ReadLine());
+                        Console.WriteLine("Enter Id:");
+                        int Id = int.Parse(Console.ReadLine()!);
+                        Console.WriteLine(s_dalVolunteer!.Read(Id));
                         break;
                     case Crud.ReadAll:
-                        s_dalVolunteer!.ReadAll();
+                        var volunteers = s_dalCall!.ReadAll();
+                        foreach (var volunteer in volunteers)
+                        {
+                            Console.WriteLine(volunteer);
+                        }
                         break;
                     case Crud.Update:
 
                         break;
                     case Crud.Delete:
-
+                        Console.WriteLine("Enter Id to delete:");
+                        int id= int.Parse(Console.ReadLine()!);
+                        s_dalVolunteer!.Delete(id);
+                        Console.WriteLine("Volunteer deleted.");
                         break;
                     case Crud.DeleteAll:
                         s_dalVolunteer!.DeleteAll();
-
                         break;
                     default:
                         break;
                 }
             }
+        }
+        public static void createAssignment()
+        {
+            Console.WriteLine("Enter Assignment details:");
+          
+            Random s_rand = new();
+            List<Volunteer>? volunteers = s_dalVolunteer!.ReadAll();
+            List<Call>? calls = s_dalCall!.ReadAll();
+           
+            int callId = calls[s_rand.Next(calls.Count)].Id;
+            int volunteerId = volunteers[s_rand.Next(volunteers.Count)].Id;
+
+            Console.Write("Enter Time (yyyy-MM-dd HH:mm:ss): ");
+            DateTime openingCase = DateTime.Parse(Console.ReadLine()!);
+
+            Console.Write("Exit Time (yyyy-MM-dd HH:mm:ss): ");
+            DateTime exitTime = DateTime.Parse(Console.ReadLine()!);
+
+            Console.Write("Finish Call Type (Teated, SelfCancellation, CancellationHasExpired): ");
+            TypeOfEnding finishCallType = (TypeOfEnding)Enum.Parse(typeof(TypeOfEnding), Console.ReadLine()!, true);
+
+            s_dalAssignment!.Create(new Assignment(callId, volunteerId, openingCase, exitTime, finishCallType));
+
+          
         }
         public static void DisplayAssignments()
         {
@@ -159,23 +164,67 @@ namespace DalTest
                     case Crud.Exit:
                         break;
                     case Crud.Create:
+                        createAssignment();
                         break;
                     case Crud.Read:
+                        Console.WriteLine("Enter Id:");
+                        int Id = int.Parse(Console.ReadLine()!);
+                        Console.WriteLine(s_dalAssignment!.Read(Id));
                         break;
                     case Crud.ReadAll:
+                        var assignments = s_dalAssignment!.ReadAll();
+                        foreach (var assignment in assignments)
+                        {
+                            Console.WriteLine(assignment);
+                        }
                         break;
+                       
                     case Crud.Update:
                         break;
                     case Crud.Delete:
+                        Console.WriteLine("Enter Id to delete:");
+                        int id = int.Parse(Console.ReadLine()!);
+                        s_dalAssignment!.Delete(id);
+                        Console.WriteLine("Assignment deleted.");
                         break;
                     case Crud.DeleteAll:
+                        s_dalAssignment!.DeleteAll();
                         break;
                     default:
                         break;
                 }
             }
         }
-            public static void DisplayCalls()
+        public static void createCall()
+        {
+            Console.WriteLine("Enter Call details:");
+            Console.WriteLine("Enter Address:");
+            string address = Console.ReadLine()!;
+
+            Console.WriteLine("Enter Latitude :");
+            double latitude = double.Parse(Console.ReadLine()!);
+
+            Console.WriteLine("Enter Longitude :");
+            double longitude = double.Parse(Console.ReadLine()!);
+
+            Console.Write("Enter Time (yyyy-MM-dd HH:mm:ss): ");
+            DateTime openingCase = DateTime.Parse(Console.ReadLine()!);
+
+
+            Console.WriteLine("Enter description :");
+            string description =Console.ReadLine()!;
+
+            Console.Write("Enter Time (yyyy-MM-dd HH:mm:ss): ");
+            DateTime ending = DateTime.Parse(Console.ReadLine()!);
+
+            Console.WriteLine("Enter description  Type (FearOfHumanLife, ImmediateDanger, LongTermDanger):");
+            TypeOfReading typeOfReading = (TypeOfReading)Enum.Parse(typeof(TypeOfReading), Console.ReadLine()!);
+
+            s_dalCall!.Create(new Call(address, latitude, longitude, openingCase, description, ending, typeOfReading));
+         
+
+        }
+        public static void DisplayCalls()
         {
             DisplayCrud();
             Console.ReadLine();
@@ -184,19 +233,33 @@ namespace DalTest
                 switch (choice)
                 {
                     case Crud.Exit:
-
                         break;
                     case Crud.Create:
+                        createCall();
                         break;
                     case Crud.Read:
+                        Console.WriteLine("Enter Id:");
+                        int Id = int.Parse(Console.ReadLine()!);
+                        Console.WriteLine(s_dalCall!.Read(Id));
                         break;
                     case Crud.ReadAll:
+                        var calls = s_dalCall!.ReadAll();
+                        foreach (var call in calls)
+                        {
+                            Console.WriteLine(call);
+                        }
                         break;
+                     
                     case Crud.Update:
                         break;
                     case Crud.Delete:
+                        Console.WriteLine("Enter Id to delete:");
+                        int id = int.Parse(Console.ReadLine()!);
+                        s_dalCall!.Delete(id);
+                        Console.WriteLine("Call deleted.");
                         break;
                     case Crud.DeleteAll:
+                        s_dalCall!.DeleteAll();
                         break;
                     default:
                         break;
@@ -255,6 +318,7 @@ namespace DalTest
 
                     };
                 };
+            }
 
             catch { }
         }

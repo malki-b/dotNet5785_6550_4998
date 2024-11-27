@@ -15,10 +15,10 @@ public static class Initialization
 
     private static void createVolunteers()
     {
-        string[] namesVolunteer = ["Yaakov Levi", "Moshe Cohen", "Avraham Goldstein", "David Friedman", "Shlomo Rabinowitz", "Menachem Green", "Aryeh Schwartz", "Shimon Baruch", "Yisrael Weiner", "Aharon Fried", "Shlomo Fisher", "Daniel Grossman", "Avraham Super", "Shmuel Gross", "Eliyahu Braun"]
-        string[] phoneVolunteer = ["0521234567", "0549876543", "0506543298", "0525432187", "0589876543", "0524321987", "0583219876", "0551987654", "0534567892", "0587654321", "0509876543", "0541234567", "0576543219", "0509876543", "0565432198"]
-        string[] emailVolunteer = ["yaakovlevi@gmail.com", "moshecohen@gmail.com", "avrahamgoldstein@gmail.com", "davidfriedman@gmail.com", "shlomorabinowitz@gmail.com", "menachemgreen@gmail.com", "aryehschwartz@gmail.com", "shimonbaruch@gmail.com", "yisraelweiner@gmail.com", "aharonfried@gmail.com", "shlomofisher@gmail.com", "danielgrossman@gmail.com", "avrahamsuper@gmail.com", "shmuelgross@gmail.com", "eliyahubraun@gmail.com"]
-        string[] passVolunteer = ["Passw0rd!", "SecurePass123", "Gmail1234", "Password123", "SecretPass", "Green2021", "AryehS!23", "Baruch2021", "WeinerPass", "Aharon12345", "Fish1234", "GrossPass!", "SuperPass2021", "ShmuelPass", "Braun2021"]
+        string[] namesVolunteer = ["Yaakov Levi", "Moshe Cohen", "Avraham Goldstein", "David Friedman", "Shlomo Rabinowitz", "Menachem Green", "Aryeh Schwartz", "Shimon Baruch", "Yisrael Weiner", "Aharon Fried", "Shlomo Fisher", "Daniel Grossman", "Avraham Super", "Shmuel Gross", "Eliyahu Braun"];
+        string[] phoneVolunteer = ["0521234567", "0549876543", "0506543298", "0525432187", "0589876543", "0524321987", "0583219876", "0551987654", "0534567892", "0587654321", "0509876543", "0541234567", "0576543219", "0509876543", "0565432198"];
+        string[] emailVolunteer = ["yaakovlevi@gmail.com", "moshecohen@gmail.com", "avrahamgoldstein@gmail.com", "davidfriedman@gmail.com", "shlomorabinowitz@gmail.com", "menachemgreen@gmail.com", "aryehschwartz@gmail.com", "shimonbaruch@gmail.com", "yisraelweiner@gmail.com", "aharonfried@gmail.com", "shlomofisher@gmail.com", "danielgrossman@gmail.com", "avrahamsuper@gmail.com", "shmuelgross@gmail.com", "eliyahubraun@gmail.com"];
+        string[] passVolunteer = ["Passw0rd!", "SecurePass123", "Gmail1234", "Password123", "SecretPass", "Green2021", "AryehS!23", "Baruch2021", "WeinerPass", "Aharon12345", "Fish1234", "GrossPass!", "SuperPass2021", "ShmuelPass", "Braun2021"];
         string[] addressVolunteer = [
     "הרצל 10 כיכר המדינה ישראל",
     "אלנבי 25 שינקין ישראל",
@@ -84,10 +84,9 @@ public static class Initialization
             {
                 r = Role.Volunteer;
             }
-            //bool? even = (id % 2) == 0 ? true : false;
-            //string? alias = even ? name + "ALIAS" : null;
+            
             DateTime start = new DateTime(1995, 1, 1);
-            //DateTime bdt = start.AddDays(s_rand.Next((s_dalConfig.Clock - start).Days));
+           
             Volunteer v = new(id, namesVolunteer[i], phoneVolunteer[i], emailVolunteer[i], passVolunteer[i], addressVolunteer[i], Latitude[i], Longitude[i], r, true, s_rand.Next(0, 20));
             s_dalVolunteer!.Create(v);
         }
@@ -95,7 +94,7 @@ public static class Initialization
 
     private static void createCall()
     {
-        DateTime start = new DateTime(s_dalConfig.Clock.Year, s_dalConfig.Clock.Hour - 2, 1); //stage 1
+        DateTime start = new DateTime(s_dalConfig!.Clock.Year, s_dalConfig.Clock.Hour - 2, 1); //stage 1
         int range = (s_dalConfig.Clock - start).Days; //stage 1
         start.AddDays(s_rand.Next(range));
 
@@ -212,9 +211,7 @@ public static class Initialization
                 type = TypeOfReading.LongTermDanger;
                 ending = start.AddMinutes(60);
             }
-            //DateTime bdt = start.AddDays(s_rand.Next((s_dalConfig.Clock - start).Days));
-            Call c = new(callAddresses[i], callLatitudes[i], callLongitudes[i], start, cases[i], ending, type);
-            s_dalCall!.Create(c);
+            s_dalCall!.Create(new Call(callAddresses[i], callLatitudes[i], callLongitudes[i], start, cases[i], ending, type));
         }
     }
 
@@ -232,8 +229,7 @@ public static class Initialization
             int validDifference = (int)Math.Max(rangeOfTime.TotalMinutes, 0);
             int randomHour = s_rand.Next(0, validDifference);
             DateTime time = openingCase.AddMinutes(randomHour);
-            s_dalAssignment!.Create(new Assignment(callId, volunteerId, openingCase, time,
-                (TypeOfEnding)s_rand.Next(Enum.GetValues(typeof(TypeOfEnding)).Length - 1)));
+            s_dalAssignment!.Create(new Assignment(callId, volunteerId, openingCase, time, (TypeOfEnding)s_rand.Next(Enum.GetValues(typeof(TypeOfEnding)).Length - 1)));
         }
     }
     public static void Do(IVolunteer? dalVolunteer, ICall? dalCall, IAssignment? dalAssignment, IConfig? dalConfig) //stage 1

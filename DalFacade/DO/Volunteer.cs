@@ -1,10 +1,6 @@
-﻿
-
-
-using System.Data;
+﻿using System.Data;
 
 namespace DO;
-
 /// <summary>
 /// 
 /// </summary>
@@ -32,8 +28,7 @@ public record Volunteer
     double? Latitude = null,
     double? Longitude = null,
     Role Role= Role.Volunteer,
-    Boolean? IsActive = null,
+    bool? IsActive = null,
     double? Max_Distance = null,
     TypeDistance Type_Distance = TypeDistance.Air
-
 );

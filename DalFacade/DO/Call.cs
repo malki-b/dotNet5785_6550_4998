@@ -18,7 +18,7 @@ public record Call
     double Latitude,
     double Longitude,
     DateTime OpeningTime,
-    string? VerbalDescription = null,
+     string? VerbalDescription = null,
     DateTime? MaxTimeFinishRead = null,
     TypeOfReading TypeOfReading = TypeOfReading.FearOfHumanLife
 )

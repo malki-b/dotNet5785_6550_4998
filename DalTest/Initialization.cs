@@ -215,8 +215,8 @@ public static class Initialization
 
     private static void createAssignment()
     {
-        List<Volunteer>? volunteers = s_dal!.Volunteer.ReadAll();
-        List<Call>? calls = s_dal!.Call.ReadAll();
+        List<Volunteer>? volunteers = s_dal!.Volunteer.ReadAll().ToList();
+        List<Call>? calls = s_dal!.Call.ReadAll().ToList();
         for (int i = 15; i < 50; i++)
         {
             int volunteerId = volunteers[s_rand.Next(volunteers.Count)].Id;

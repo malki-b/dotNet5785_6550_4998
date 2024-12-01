@@ -18,4 +18,6 @@ public interface ICrud<T> where T : class
     void Update(T item); //Updates entity object
     void Delete(int id); //Deletes an object by its Id
     void DeleteAll(); //Delete all entity objects
+
+    T? Read(Func<T, bool> filter); // stage 2
 }

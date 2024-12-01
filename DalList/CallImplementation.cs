@@ -34,6 +34,11 @@ internal class CallImplementation : ICall
         return DataSource.Calls.FirstOrDefault(item => item.Id == id); //stage 2
     }
 
+    public Call? Read(Func<Call, bool> filter)
+    {
+        return DataSource.Calls.FirstOrDefault(filter);
+    }
+
     //public List<Call> ReadAll()
     //{
     //    List<Call> list = new List<Call>();

@@ -30,7 +30,8 @@ internal class CallImplementation : ICall
 
     public Call? Read(int id)
     {
-        return DataSource.Calls.Find(c => c.Id == id);
+        //return DataSource.Calls.Find(c => c.Id == id);
+        return DataSource.Calls.FirstOrDefault(item => item.Id == id); //stage 2
     }
 
     public List<Call> ReadAll()

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 internal class VolunteerImplementation : IVolunteer
 {
-    internal void Create(Volunteer item)
+    public void Create(Volunteer item)
     {
 
         //if(DataSource.Volunteers.Find(v=> v.Id==item.Id) != null)
@@ -16,7 +16,7 @@ internal class VolunteerImplementation : IVolunteer
             DataSource.Volunteers.Add(item);
     }
 
-    internal void Delete(int id)
+    public void Delete(int id)
     {
         Volunteer? currentVolunteer = Read(id);
         if (currentVolunteer != null)
@@ -27,15 +27,15 @@ internal class VolunteerImplementation : IVolunteer
             throw new Exception($"volunteer with id {id} no exists");
     }
 
-    internal void DeleteAll()
+    public void DeleteAll()
     {
         DataSource.Volunteers.Clear();
     }
 
-    internal Volunteer? Read(int id)
+    public Volunteer? Read(int id)
     {
-        return DataSource.Volunteers.Find(v => v.Id == id);
-
+       // return DataSource.Volunteers.Find(v => v.Id == id);
+        return DataSource.Volunteers.FirstOrDefault(item => item.Id == id); //stage 2
     }
 
     public List<Volunteer> ReadAll()

@@ -11,8 +11,7 @@ internal  class AssignmentImplementation : IAssignment
     {
         int idCall = Config.NextAssignmentId;
         Assignment copy = item with { Id = idCall };
-        //DataSource.Assignments.Add(copy);
-        DataSource.Assignments.FirstOrDefault(item => item.Id == id); //stage 2
+        DataSource.Assignments.Add(copy);
 
     }
 
@@ -22,6 +21,7 @@ internal  class AssignmentImplementation : IAssignment
         if (assignment != null)
         {
             DataSource.Assignments.Remove(assignment);
+
         }
         else
             throw new Exception($"Assignment with id {id} no exists");
@@ -34,10 +34,11 @@ internal  class AssignmentImplementation : IAssignment
 
     public Assignment? Read(int id)
     {
-        return (DataSource.Assignments.Find(x => x.Id == id));
+        //return (DataSource.Assignments.Find(x => x.Id == id));
+        return DataSource.Assignments.FirstOrDefault(item => item.Id == id); //stage 2
     }
 
-    public List<Assignment> ReadAll()
+        public List<Assignment> ReadAll()
     {
         return DataSource.Assignments.ToList();
 

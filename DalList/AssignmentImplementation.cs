@@ -74,6 +74,6 @@ internal class AssignmentImplementation : IAssignment
             DataSource.Assignments.Add(item);
         }
         else
-            throw new DalDoesNotExistException($"call with id {item.Id} no exists");
+            throw new DalDoesNotExistException($"Assignment with id {item.Id} no exists");
     }
 }

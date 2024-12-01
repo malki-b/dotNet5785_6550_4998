@@ -14,5 +14,6 @@ public class DalAlreadyExistsException : Exception// האובייקט כבר ק�
 }
 public class DalDeletionImpossible : Exception// המחיקה בלתי אפשרית"
 {
-    public DalDeletionImpossible(string? message) : base(message) { }
+    public DalDeletionImpossible(string? message) : base(message) { 
+    }
 }

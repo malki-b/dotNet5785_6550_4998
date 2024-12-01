@@ -5,13 +5,15 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-public class AssignmentImplementation : IAssignment
+internal  class AssignmentImplementation : IAssignment
 {
     public void Create(Assignment item)
     {
         int idCall = Config.NextAssignmentId;
         Assignment copy = item with { Id = idCall };
-        DataSource.Assignments.Add(copy);
+        //DataSource.Assignments.Add(copy);
+        DataSource.Assignments.FirstOrDefault(item => item.Id == id); //stage 2
+
     }
 
     public void Delete(int id)

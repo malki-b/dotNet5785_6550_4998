@@ -2,7 +2,7 @@
 using DalApi;
 
 namespace Dal;
-public class ConfigImplementation : IConfig
+internal class ConfigImplementation : IConfig
 {
     public int NextAssignmentId { get => Config.NextAssignmentId; }
     public int NextCallId { get => Config.NextCallId; }

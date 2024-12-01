@@ -5,7 +5,7 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-internal  class AssignmentImplementation : IAssignment
+internal class AssignmentImplementation : IAssignment
 {
     public void Create(Assignment item)
     {
@@ -38,11 +38,16 @@ internal  class AssignmentImplementation : IAssignment
         return DataSource.Assignments.FirstOrDefault(item => item.Id == id); //stage 2
     }
 
-        public List<Assignment> ReadAll()
-    {
-        return DataSource.Assignments.ToList();
+    //    public List<Assignment> ReadAll()
+    //{
+    //    return DataSource.Assignments.ToList();
 
-    }
+    //}
+
+    public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null) => filter == null
+? DataSource.Assignments.Select(item => item)
+: DataSource.Assignments.Where(filter);
+
 
     public void Update(Assignment item)
     {

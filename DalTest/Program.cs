@@ -10,453 +10,452 @@ using System.Text;
 using System.Xml.Linq;
 
 
-namespace DalTest
+namespace DalTest;
+
+internal class Program
 {
-    internal class Program
+ 
+    static readonly IDal s_dal = new DalList(); 
+
+
+    enum MainMenu
     {
-     
-        static readonly IDal s_dal = new DalList(); 
+        Exit, DisplayVolunteer, DisplayAssignments, DisplayCalls, DisplayConfig, InitializeData, ResetDatabase, DisplayAllData
+    }
+    enum Crud
+    {
+        Exit, Create, Read, ReadAll, Update, Delete, DeleteAll
+    }
+
+    enum Config
+    {
+        Exit, AddClockMinute, AddClockHour, AddClockByDay, AddClockByMonth, AddClockByYear, ShowCurrentClock, ChangeClock, ShowCurrentRiskRange, ResetConfig
+    }
+
+    public static void DisplayMainMenu()
+    {
+        foreach (MainMenu choice in Enum.GetValues(typeof(MainMenu)))
+        {
+            Console.WriteLine($"press {(int)choice} to {choice}");
+        };
+
+    }
+
+    public static void DisplayCrud()
+    {
+        foreach (Crud choice in Enum.GetValues(typeof(Crud)))
+        {
+            Console.WriteLine($"press {(int)choice} to {choice}");
+        };
+    }
+
+    public static void CreateVolunteer()
+    {
+        Console.WriteLine("Enter Volunteer details:");
+        Console.WriteLine("Enter Id:");
+        int Id = int.Parse(Console.ReadLine()!);
+
+        Console.WriteLine("Enter Name:");
+        string Name = Console.ReadLine()!;
+
+        Console.WriteLine("Enter Phone:");
+        string Phone = Console.ReadLine()!;
+
+        Console.WriteLine("Enter Email:");
+        string Email = Console.ReadLine()!;
+
+        Console.WriteLine("Enter Password:");
+        string Password = Console.ReadLine()!;
+
+        Console.WriteLine("Enter Address :");
+        string? Address = Console.ReadLine()!;
+
+        Console.WriteLine("Enter Latitude:");
+        double? Latitude = double.Parse(Console.ReadLine()!);
+
+        Console.WriteLine("Enter Longitude:");
+        double? Longitude = double.Parse(Console.ReadLine()!);
+
+        Console.WriteLine("Enter Role (Volunteer, Manager:");
+        Role Role = (Role)Enum.Parse(typeof(Role), Console.ReadLine()!, true);
+
+        Console.WriteLine("Is User Active? (true/false - press Enter to skip):");
+        bool IsActive = bool.Parse(Console.ReadLine()!);
+
+        Console.WriteLine("Enter Max Distance :");
+        double MaxDistance = double.Parse(Console.ReadLine()!); ;
+
+        Console.WriteLine("Enter Type of Distance (Air,Walking, Road - default is Air):");
+        TypeDistance TypeDistance = (TypeDistance)Enum.Parse(typeof(TypeDistance), Console.ReadLine()!);
+        // return new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance);
+        s_dal.Volunteer!.Create(new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance));
+
+    }
+    public static void UpdateVolunteer()
+    {
+        Console.WriteLine("Enter Volunteer details:");
+        Console.WriteLine("Enter Id:");
+        int Id = int.Parse(Console.ReadLine()!);
+
+        Console.WriteLine("Enter Name:");
+        string? Name = Console.ReadLine()!;
+
+        Console.WriteLine("Enter Phone:");
+        string? Phone = Console.ReadLine()!;
+
+        Console.WriteLine("Enter Email:");
+        string? Email = Console.ReadLine()!;
+
+        Console.WriteLine("Enter Password:");
+        string? Password = Console.ReadLine()!;
+
+        Console.WriteLine("Enter Address :");
+        string? Address = Console.ReadLine()!;
+
+        Console.WriteLine("Enter Latitude:");
+        double? Latitude = Convert.ToDouble(Console.ReadLine());
+
+        Console.WriteLine("Enter Longitude:");
+        double? Longitude = double.Parse(Console.ReadLine()!); ;
+
+        Console.WriteLine("Enter Role (Volunteer, Manager:");
+        Role Role = (Role)Enum.Parse(typeof(Role), Console.ReadLine()!, true);
+
+        Console.WriteLine("Is User Active? (true/false - press Enter to skip):");
+        bool? IsActive = bool.Parse(Console.ReadLine()!);
+
+        Console.WriteLine("Enter Max Distance :");
+        double? MaxDistance = double.Parse(Console.ReadLine()!); ;
+
+        Console.WriteLine("Enter Type of Distance (Air,Walking, Road - default is Air):");
+        TypeDistance TypeDistance = (TypeDistance)Enum.Parse(typeof(TypeDistance), Console.ReadLine()!);
+        //return new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance);
+        s_dal.Volunteer!.Create(new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance));
+
+    }
+    public static Assignment CreateAssignment()
+    {
+        Console.WriteLine("Enter Assignment details:");
+        //int id = 6;
+        Random s_rand = new();
+        List<Volunteer>? volunteers = s_dal.Volunteer!.ReadAll();
+        List<Call>? calls = s_dal.Call!.ReadAll();
+
+        int callId = calls[s_rand.Next(calls.Count)].Id;
+        int volunteerId = volunteers[s_rand.Next(volunteers.Count)].Id;
+
+        Console.Write("Enter Time (yyyy-MM-dd HH:mm:ss): ");
+        DateTime openingCase = DateTime.Parse(Console.ReadLine()!);
+
+        Console.Write("Exit Time (yyyy-MM-dd HH:mm:ss): ");
+        DateTime exitTime = DateTime.Parse(Console.ReadLine()!);
+
+        Console.Write("Finish Call Type (Teated, SelfCancellation, CancellationHasExpired): ");
+        TypeOfEnding finishCallType = (TypeOfEnding)Enum.Parse(typeof(TypeOfEnding), Console.ReadLine()!, true);
+        return (new Assignment(callId, volunteerId, openingCase, exitTime, finishCallType));
+        // s_dalAssignment!.Create(new Assignment(callId, volunteerId, openingCase, exitTime, finishCallType));
 
 
-        enum MainMenu
-        {
-            Exit, DisplayVolunteer, DisplayAssignments, DisplayCalls, DisplayConfig, InitializeData, ResetDatabase, DisplayAllData
-        }
-        enum Crud
-        {
-            Exit, Create, Read, ReadAll, Update, Delete, DeleteAll
-        }
+    }
 
-        enum Config
-        {
-            Exit, AddClockMinute, AddClockHour, AddClockByDay, AddClockByMonth, AddClockByYear, ShowCurrentClock, ChangeClock, ShowCurrentRiskRange, ResetConfig
-        }
+    public static Call CreateCall()
+    {
+        Console.WriteLine("Enter Call details:");
+        Console.WriteLine("Enter Address:");
+        string address = Console.ReadLine()!;
 
-        public static void DisplayMainMenu()
+        Console.WriteLine("Enter Latitude :");
+        double latitude = double.Parse(Console.ReadLine()!);
+
+        Console.WriteLine("Enter Longitude :");
+        double longitude = double.Parse(Console.ReadLine()!);
+
+        Console.Write("Enter Time (yyyy-MM-dd HH:mm:ss): ");
+        DateTime openingCase = DateTime.Parse(Console.ReadLine()!);
+
+
+        Console.WriteLine("Enter description :");
+        string description = Console.ReadLine()!;
+
+        Console.Write("Enter Time (yyyy-MM-dd HH:mm:ss): ");
+        DateTime ending = DateTime.Parse(Console.ReadLine()!);
+
+        Console.WriteLine("Enter description  Type (FearOfHumanLife, ImmediateDanger, LongTermDanger):");
+        TypeOfReading typeOfReading = (TypeOfReading)Enum.Parse(typeof(TypeOfReading), Console.ReadLine()!);
+        return (new Call(address, latitude, longitude, openingCase, description, ending, typeOfReading));
+        //s_dalCall!.Create(new Call(address, latitude, longitude, openingCase, description, ending, typeOfReading));
+
+
+    }
+
+    public static void DisplayVolunteer()
+    {
+        while (true)
         {
-            foreach (MainMenu choice in Enum.GetValues(typeof(MainMenu)))
+            DisplayCrud();
+            if (Enum.TryParse(Console.ReadLine(), out Crud choice))
             {
-                Console.WriteLine($"press {(int)choice} to {choice}");
-            };
-
-        }
-
-        public static void DisplayCrud()
-        {
-            foreach (Crud choice in Enum.GetValues(typeof(Crud)))
-            {
-                Console.WriteLine($"press {(int)choice} to {choice}");
-            };
-        }
-
-        public static void CreateVolunteer()
-        {
-            Console.WriteLine("Enter Volunteer details:");
-            Console.WriteLine("Enter Id:");
-            int Id = int.Parse(Console.ReadLine()!);
-
-            Console.WriteLine("Enter Name:");
-            string Name = Console.ReadLine()!;
-
-            Console.WriteLine("Enter Phone:");
-            string Phone = Console.ReadLine()!;
-
-            Console.WriteLine("Enter Email:");
-            string Email = Console.ReadLine()!;
-
-            Console.WriteLine("Enter Password:");
-            string Password = Console.ReadLine()!;
-
-            Console.WriteLine("Enter Address :");
-            string? Address = Console.ReadLine()!;
-
-            Console.WriteLine("Enter Latitude:");
-            double? Latitude = double.Parse(Console.ReadLine()!);
-
-            Console.WriteLine("Enter Longitude:");
-            double? Longitude = double.Parse(Console.ReadLine()!);
-
-            Console.WriteLine("Enter Role (Volunteer, Manager:");
-            Role Role = (Role)Enum.Parse(typeof(Role), Console.ReadLine()!, true);
-
-            Console.WriteLine("Is User Active? (true/false - press Enter to skip):");
-            bool IsActive = bool.Parse(Console.ReadLine()!);
-
-            Console.WriteLine("Enter Max Distance :");
-            double MaxDistance = double.Parse(Console.ReadLine()!); ;
-
-            Console.WriteLine("Enter Type of Distance (Air,Walking, Road - default is Air):");
-            TypeDistance TypeDistance = (TypeDistance)Enum.Parse(typeof(TypeDistance), Console.ReadLine()!);
-            // return new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance);
-            s_dal.Volunteer!.Create(new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance));
-
-        }
-        public static void UpdateVolunteer()
-        {
-            Console.WriteLine("Enter Volunteer details:");
-            Console.WriteLine("Enter Id:");
-            int Id = int.Parse(Console.ReadLine()!);
-
-            Console.WriteLine("Enter Name:");
-            string? Name = Console.ReadLine()!;
-
-            Console.WriteLine("Enter Phone:");
-            string? Phone = Console.ReadLine()!;
-
-            Console.WriteLine("Enter Email:");
-            string? Email = Console.ReadLine()!;
-
-            Console.WriteLine("Enter Password:");
-            string? Password = Console.ReadLine()!;
-
-            Console.WriteLine("Enter Address :");
-            string? Address = Console.ReadLine()!;
-
-            Console.WriteLine("Enter Latitude:");
-            double? Latitude = Convert.ToDouble(Console.ReadLine());
-
-            Console.WriteLine("Enter Longitude:");
-            double? Longitude = double.Parse(Console.ReadLine()!); ;
-
-            Console.WriteLine("Enter Role (Volunteer, Manager:");
-            Role Role = (Role)Enum.Parse(typeof(Role), Console.ReadLine()!, true);
-
-            Console.WriteLine("Is User Active? (true/false - press Enter to skip):");
-            bool? IsActive = bool.Parse(Console.ReadLine()!);
-
-            Console.WriteLine("Enter Max Distance :");
-            double? MaxDistance = double.Parse(Console.ReadLine()!); ;
-
-            Console.WriteLine("Enter Type of Distance (Air,Walking, Road - default is Air):");
-            TypeDistance TypeDistance = (TypeDistance)Enum.Parse(typeof(TypeDistance), Console.ReadLine()!);
-            //return new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance);
-            s_dal.Volunteer!.Create(new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance));
-
-        }
-        public static Assignment CreateAssignment()
-        {
-            Console.WriteLine("Enter Assignment details:");
-
-            Random s_rand = new();
-            List<Volunteer>? volunteers = s_dal.Volunteer!.ReadAll();
-            List<Call>? calls = s_dal.Call!.ReadAll();
-
-            int callId = calls[s_rand.Next(calls.Count)].Id;
-            int volunteerId = volunteers[s_rand.Next(volunteers.Count)].Id;
-
-            Console.Write("Enter Time (yyyy-MM-dd HH:mm:ss): ");
-            DateTime openingCase = DateTime.Parse(Console.ReadLine()!);
-
-            Console.Write("Exit Time (yyyy-MM-dd HH:mm:ss): ");
-            DateTime exitTime = DateTime.Parse(Console.ReadLine()!);
-
-            Console.Write("Finish Call Type (Teated, SelfCancellation, CancellationHasExpired): ");
-            TypeOfEnding finishCallType = (TypeOfEnding)Enum.Parse(typeof(TypeOfEnding), Console.ReadLine()!, true);
-            return (new Assignment(callId, volunteerId, openingCase, exitTime, finishCallType));
-            // s_dalAssignment!.Create(new Assignment(callId, volunteerId, openingCase, exitTime, finishCallType));
-
-
-        }
-
-        public static Call CreateCall()
-        {
-            Console.WriteLine("Enter Call details:");
-            Console.WriteLine("Enter Address:");
-            string address = Console.ReadLine()!;
-
-            Console.WriteLine("Enter Latitude :");
-            double latitude = double.Parse(Console.ReadLine()!);
-
-            Console.WriteLine("Enter Longitude :");
-            double longitude = double.Parse(Console.ReadLine()!);
-
-            Console.Write("Enter Time (yyyy-MM-dd HH:mm:ss): ");
-            DateTime openingCase = DateTime.Parse(Console.ReadLine()!);
-
-
-            Console.WriteLine("Enter description :");
-            string description = Console.ReadLine()!;
-
-            Console.Write("Enter Time (yyyy-MM-dd HH:mm:ss): ");
-            DateTime ending = DateTime.Parse(Console.ReadLine()!);
-
-            Console.WriteLine("Enter description  Type (FearOfHumanLife, ImmediateDanger, LongTermDanger):");
-            TypeOfReading typeOfReading = (TypeOfReading)Enum.Parse(typeof(TypeOfReading), Console.ReadLine()!);
-            return (new Call(address, latitude, longitude, openingCase, description, ending, typeOfReading));
-            //s_dalCall!.Create(new Call(address, latitude, longitude, openingCase, description, ending, typeOfReading));
-
-
-        }
-
-        public static void DisplayVolunteer()
-        {
-            while (true)
-            {
-                DisplayCrud();
-                if (Enum.TryParse(Console.ReadLine(), out Crud choice))
+                switch (choice)
                 {
-                    switch (choice)
-                    {
 
-                        case Crud.Exit:
-                            return;
-                        case Crud.Create:
-                            CreateVolunteer();
-                            break;
-                        case Crud.Read:
-                            Console.WriteLine("Enter Id:");
-                            int Id = int.Parse(Console.ReadLine()!);
-                            Console.WriteLine(s_dal.Volunteer!.Read(Id));
-                            break;
-                        case Crud.ReadAll:
-                            //Console.WriteLine(s_dalVolunteer!.ReadAll());
-                            var volunteers = s_dal.Volunteer!.ReadAll();
-                            foreach (var volunteer in volunteers)
-                            {
-                                Console.WriteLine(volunteer);
-                            };
-                            break;
-                        case Crud.Update:
-                            UpdateVolunteer();
-                            break;
-                        case Crud.Delete:
-                            Console.WriteLine("Enter Id to delete:");
-                            int id = int.Parse(Console.ReadLine()!);
-                            s_dal.Volunteer!.Delete(id);
-                            Console.WriteLine("Volunteer deleted.");
-                            break;
-                        case Crud.DeleteAll:
-                            s_dal.Volunteer!.DeleteAll();
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("The number entered is invalid, Enter a new number.");
-                }
-
-            }
-        }
-
-        public static void DisplayAssignments()
-        {
-            while (true)
-            {
-                DisplayCrud();
-                if (Enum.TryParse(Console.ReadLine(), out Crud choice))
-                {
-                    switch (choice)
-                    {
-                        case Crud.Exit:
-                            return;
-                        case Crud.Create:
-                            s_dal.Assignment!.Create(CreateAssignment());
-                            break;
-                        case Crud.Read:
-                            Console.WriteLine("Enter Id:");
-                            int Id = int.Parse(Console.ReadLine()!);
-                            Console.WriteLine(s_dal.Assignment!.Read(Id));
-                            break;
-                        case Crud.ReadAll:
-                            var assignments = s_dal.Assignment!.ReadAll();
-                            foreach (var assignment in assignments)
-                                Console.WriteLine(assignment);
-                            break;
-                        case Crud.Update:
-                            s_dal.Assignment?.Update(CreateAssignment());
-                            break;
-                        case Crud.Delete:
-                            Console.WriteLine("Enter Id to delete:");
-                            int id = int.Parse(Console.ReadLine()!);
-                            s_dal.Assignment!.Delete(id);
-                            Console.WriteLine("Assignment deleted.");
-                            break;
-                        case Crud.DeleteAll:
-                            s_dal.Assignment!.DeleteAll();
-                            break;
-                        default:
-                            break;
-                    }
-                }
-
-                else
-                {
-                    Console.WriteLine("The number entered is invalid, Enter a new number.");
-                }
-
-            }
-        }
-
-        public static void DisplayCalls()
-        {
-            while (true)
-            {
-                DisplayCrud();
-                if (Enum.TryParse(Console.ReadLine(), out Crud choice))
-                {
-                    switch (choice)
-                    {
-                        case Crud.Exit:
-                            return;
-                        case Crud.Create:
-                            s_dal.Call!.Create(CreateCall());
-                            break;
-                        case Crud.Read:
-                            Console.WriteLine("Enter Id:");
-                            int Id = int.Parse(Console.ReadLine()!);
-                            Console.WriteLine(s_dal.Call!.Read(Id));
-                            break;
-                        case Crud.ReadAll:
-                            var calls = s_dal.Call!.ReadAll();
-                            foreach (var call in calls)
-                            {
-                                Console.WriteLine(call);
-                            }
-                            break;
-                        case Crud.Update:
-                            s_dal.Call!.Update(CreateCall());
-                            break;
-                        case Crud.Delete:
-                            Console.WriteLine("Enter Id to delete:");
-                            int id = int.Parse(Console.ReadLine()!);
-                            s_dal.Call!.Delete(id);
-                            Console.WriteLine("Call deleted.");
-                            break;
-                        case Crud.DeleteAll:
-                            s_dal.Call!.DeleteAll();
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("The number entered is invalid, Enter a new number.");
-                }
-            }
-
-        }
-        public static void DisplayConfig()
-        {
-            while (true)
-            {
-                foreach (Config c in Enum.GetValues(typeof(Config)))
-                {
-                    Console.WriteLine($"press{(int)c} to{c}");
-                };
-
-                if (Enum.TryParse(Console.ReadLine(), out Config choice))
-                {
-                    switch (choice)
-                    {
-                        case Config.Exit:
-                            return;
-                        case Config.AddClockMinute:
-                            s_dal.Config!.Clock.AddMinutes(1);
-                            break;
-                        case Config.AddClockHour:
-                            s_dal.Config!.Clock.AddHours(1);
-                            break;
-                        case Config.AddClockByDay:
-                            s_dal.Config!.Clock.AddDays(1);
-                            break;
-                        case Config.AddClockByMonth:
-                            s_dal.Config!.Clock.AddMonths(1);
-                            break;
-                        case Config.AddClockByYear:
-                            s_dal.Config!.Clock.AddYears(1);
-                            break;
-                        case Config.ShowCurrentClock:
-                            Console.WriteLine(s_dal.Config!.Clock);
-                            break;
-                        case Config.ChangeClock:
-                            s_dal.Config!.Clock.AddHours(1);//מעבר לשעון קיץ
-                            break;
-                        case Config.ShowCurrentRiskRange:
-                            Console.WriteLine(s_dal.Config!.RiskRange);
-                            break;
-                        case Config.ResetConfig:
-                            s_dal.Config!.Reset();
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("The number entered is invalid, Enter a new number.");
-                }
-            }
-        }
-        public static void InitializeData()
-        {
-            Initialization.Do(s_dal);
-        }
-        public static void ResetDatabase()
-        {
-            s_dal.Volunteer!.DeleteAll();
-            s_dal.Call!.DeleteAll();
-            s_dal.Assignment!.DeleteAll();
-            s_dal.Config!.Reset();
-        }
-        public static void DisplayAllData()
-        {
-            Console.WriteLine(s_dal.Volunteer!.ReadAll());
-            Console.WriteLine(s_dal.Call!.ReadAll());
-            Console.WriteLine(s_dal.Assignment!.ReadAll());
-        }
-
-        static void Main(string[] Args)
-        {
-
-            try
-            {
-                while (true)
-                {
-                    DisplayMainMenu();
-                    if (Enum.TryParse(Console.ReadLine(), out MainMenu choice))
-                    {
-                        switch (choice)
+                    case Crud.Exit:
+                        return;
+                    case Crud.Create:
+                        CreateVolunteer();
+                        break;
+                    case Crud.Read:
+                        Console.WriteLine("Enter Id:");
+                        int Id = int.Parse(Console.ReadLine()!);
+                        Console.WriteLine(s_dal.Volunteer!.Read(Id));
+                        break;
+                    case Crud.ReadAll:
+                        //Console.WriteLine(s_dalVolunteer!.ReadAll());
+                        var volunteers = s_dal.Volunteer!.ReadAll();
+                        foreach (var volunteer in volunteers)
                         {
-                            case MainMenu.Exit:
-                                return;
-                            case MainMenu.DisplayVolunteer:
-                                DisplayVolunteer();
-                                break;
-                            case MainMenu.DisplayAssignments:
-                                DisplayAssignments();
-                                break;
-                            case MainMenu.DisplayCalls:
-                                DisplayCalls();
-                                break;
-                            case MainMenu.DisplayConfig:
-                                DisplayConfig();
-                                break;
-                            case MainMenu.InitializeData:
-                                InitializeData();
-                                break;
-                            case MainMenu.ResetDatabase:
-                                ResetDatabase();
-                                break;
-                            case MainMenu.DisplayAllData:
-                                DisplayAllData();
-                                break;
+                            Console.WriteLine(volunteer);
+                        };
+                        break;
+                    case Crud.Update:
+                        UpdateVolunteer();
+                        break;
+                    case Crud.Delete:
+                        Console.WriteLine("Enter Id to delete:");
+                        int id = int.Parse(Console.ReadLine()!);
+                        s_dal.Volunteer!.Delete(id);
+                        Console.WriteLine("Volunteer deleted.");
+                        break;
+                    case Crud.DeleteAll:
+                        s_dal.Volunteer!.DeleteAll();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("The number entered is invalid, Enter a new number.");
+            }
 
+        }
+    }
+
+    public static void DisplayAssignments()
+    {
+        while (true)
+        {
+            DisplayCrud();
+            if (Enum.TryParse(Console.ReadLine(), out Crud choice))
+            {
+                switch (choice)
+                {
+                    case Crud.Exit:
+                        return;
+                    case Crud.Create:
+                        s_dal.Assignment!.Create(CreateAssignment());
+                        break;
+                    case Crud.Read:
+                        Console.WriteLine("Enter Id:");
+                        int Id = int.Parse(Console.ReadLine()!);
+                        Console.WriteLine(s_dal.Assignment!.Read(Id));
+                        break;
+                    case Crud.ReadAll:
+                        var assignments = s_dal.Assignment!.ReadAll();
+                        foreach (var assignment in assignments)
+                            Console.WriteLine(assignment);
+                        break;
+                    case Crud.Update:
+                        s_dal.Assignment?.Update(CreateAssignment());
+                        break;
+                    case Crud.Delete:
+                        Console.WriteLine("Enter Id to delete:");
+                        int id = int.Parse(Console.ReadLine()!);
+                        s_dal.Assignment!.Delete(id);
+                        Console.WriteLine("Assignment deleted.");
+                        break;
+                    case Crud.DeleteAll:
+                        s_dal.Assignment!.DeleteAll();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            else
+            {
+                Console.WriteLine("The number entered is invalid, Enter a new number.");
+            }
+
+        }
+    }
+
+    public static void DisplayCalls()
+    {
+        while (true)
+        {
+            DisplayCrud();
+            if (Enum.TryParse(Console.ReadLine(), out Crud choice))
+            {
+                switch (choice)
+                {
+                    case Crud.Exit:
+                        return;
+                    case Crud.Create:
+                        s_dal.Call!.Create(CreateCall());
+                        break;
+                    case Crud.Read:
+                        Console.WriteLine("Enter Id:");
+                        int Id = int.Parse(Console.ReadLine()!);
+                        Console.WriteLine(s_dal.Call!.Read(Id));
+                        break;
+                    case Crud.ReadAll:
+                        var calls = s_dal.Call!.ReadAll();
+                        foreach (var call in calls)
+                        {
+                            Console.WriteLine(call);
                         }
-                    }
-                    else
+                        break;
+                    case Crud.Update:
+                        s_dal.Call!.Update(CreateCall());
+                        break;
+                    case Crud.Delete:
+                        Console.WriteLine("Enter Id to delete:");
+                        int id = int.Parse(Console.ReadLine()!);
+                        s_dal.Call!.Delete(id);
+                        Console.WriteLine("Call deleted.");
+                        break;
+                    case Crud.DeleteAll:
+                        s_dal.Call!.DeleteAll();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("The number entered is invalid, Enter a new number.");
+            }
+        }
+
+    }
+    public static void DisplayConfig()
+    {
+        while (true)
+        {
+            foreach (Config c in Enum.GetValues(typeof(Config)))
+            {
+                Console.WriteLine($"press{(int)c} to{c}");
+            };
+
+            if (Enum.TryParse(Console.ReadLine(), out Config choice))
+            {
+                switch (choice)
+                {
+                    case Config.Exit:
+                        return;
+                    case Config.AddClockMinute:
+                        s_dal.Config!.Clock.AddMinutes(1);
+                        break;
+                    case Config.AddClockHour:
+                        s_dal.Config!.Clock.AddHours(1);
+                        break;
+                    case Config.AddClockByDay:
+                        s_dal.Config!.Clock.AddDays(1);
+                        break;
+                    case Config.AddClockByMonth:
+                        s_dal.Config!.Clock.AddMonths(1);
+                        break;
+                    case Config.AddClockByYear:
+                        s_dal.Config!.Clock.AddYears(1);
+                        break;
+                    case Config.ShowCurrentClock:
+                        Console.WriteLine(s_dal.Config!.Clock);
+                        break;
+                    case Config.ChangeClock:
+                        s_dal.Config!.Clock.AddHours(1);//מעבר לשעון קיץ
+                        break;
+                    case Config.ShowCurrentRiskRange:
+                        Console.WriteLine(s_dal.Config!.RiskRange);
+                        break;
+                    case Config.ResetConfig:
+                        s_dal.Config!.Reset();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("The number entered is invalid, Enter a new number.");
+            }
+        }
+    }
+    public static void InitializeData()
+    {
+        Initialization.Do(s_dal);
+    }
+    public static void ResetDatabase()
+    {
+        s_dal.Volunteer!.DeleteAll();
+        s_dal.Call!.DeleteAll();
+        s_dal.Assignment!.DeleteAll();
+        s_dal.Config!.Reset();
+    }
+    public static void DisplayAllData()
+    {
+        Console.WriteLine(s_dal.Volunteer!.ReadAll());
+        Console.WriteLine(s_dal.Call!.ReadAll());
+        Console.WriteLine(s_dal.Assignment!.ReadAll());
+    }
+
+    static void Main(string[] Args)
+    {
+
+        try
+        {
+            while (true)
+            {
+                DisplayMainMenu();
+                if (Enum.TryParse(Console.ReadLine(), out MainMenu choice))
+                {
+                    switch (choice)
                     {
-                        Console.WriteLine("The number entered is invalid, Enter a new number.");
+                        case MainMenu.Exit:
+                            return;
+                        case MainMenu.DisplayVolunteer:
+                            DisplayVolunteer();
+                            break;
+                        case MainMenu.DisplayAssignments:
+                            DisplayAssignments();
+                            break;
+                        case MainMenu.DisplayCalls:
+                            DisplayCalls();
+                            break;
+                        case MainMenu.DisplayConfig:
+                            DisplayConfig();
+                            break;
+                        case MainMenu.InitializeData:
+                            InitializeData();
+                            break;
+                        case MainMenu.ResetDatabase:
+                            ResetDatabase();
+                            break;
+                        case MainMenu.DisplayAllData:
+                            DisplayAllData();
+                            break;
+
                     }
                 }
+                else
+                {
+                    Console.WriteLine("The number entered is invalid, Enter a new number.");
+                }
+            }
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An error occurred: " + ex.Message);
-            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("An error occurred: " + ex.Message);
         }
     }
 }

@@ -34,13 +34,31 @@ internal class CallImplementation : ICall
         return DataSource.Calls.FirstOrDefault(item => item.Id == id); //stage 2
     }
 
-    public List<Call> ReadAll()
-    {
-        List<Call> list = new List<Call>();
-        foreach (var item in DataSource.Calls)
-            list.Add(item);
-        return list;
-    }
+    //public List<Call> ReadAll()
+    //{
+    //    List<Call> list = new List<Call>();
+    //    foreach (var item in DataSource.Calls)
+    //        list.Add(item);
+    //    return list;
+    //}
+
+    //public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null) => filter != null
+    //? from item in DataSource.Calls
+    //  where filter(item)
+    //  select item;
+    // : from item in DataSource.Calls
+    //   select item;
+    //}
+
+    //public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null) //stage 2
+    //    => filter == null
+    //  ? DataSource.Calls.Select(item => item);
+    //    : DataSource.Calls.Where(filter);
+
+
+    public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null)=> filter == null
+? DataSource.Calls.Select(item => item)
+: DataSource.Calls.Where(filter);
 
     public void Update(Call item)
     {

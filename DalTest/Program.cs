@@ -17,6 +17,7 @@ namespace DalTest
         private static ICall? s_dalCall = new CallImplementation();
         private static IAssignment? s_dalAssignment = new AssignmentImplementation();
         private static IConfig? s_dalConfig = new ConfigImplementation();
+
         enum MainMenu
         {
             Exit, DisplayVolunteer, DisplayAssignments, DisplayCalls, DisplayConfig, InitializeData, ResetDatabase, DisplayAllData

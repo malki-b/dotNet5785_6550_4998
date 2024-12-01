@@ -11,7 +11,9 @@ internal  class AssignmentImplementation : IAssignment
     {
         int idCall = Config.NextAssignmentId;
         Assignment copy = item with { Id = idCall };
-        DataSource.Assignments.Add(copy);
+        //DataSource.Assignments.Add(copy);
+        DataSource.Assignments.FirstOrDefault(item => item.Id == id); //stage 2
+
     }
 
     public void Delete(int id)

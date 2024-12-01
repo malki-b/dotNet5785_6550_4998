@@ -139,6 +139,7 @@ internal class Program
         //int id = 6;
         Random s_rand = new();
         List<Volunteer>? volunteers = s_dal.Volunteer!.ReadAll();
+
         List<Call>? calls = s_dal.Call!.ReadAll();
 
         int callId = calls[s_rand.Next(calls.Count)].Id;

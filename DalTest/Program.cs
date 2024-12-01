@@ -91,7 +91,7 @@ namespace DalTest
             Console.WriteLine("Enter Type of Distance (Air,Walking, Road - default is Air):");
             TypeDistance TypeDistance = (TypeDistance)Enum.Parse(typeof(TypeDistance), Console.ReadLine()!);
             // return new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance);
-            s_dalVolunteer!.Create(new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance));
+            s_dal.Volunteer!.Create(new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance));
 
         }
         public static void UpdateVolunteer()
@@ -133,7 +133,7 @@ namespace DalTest
             Console.WriteLine("Enter Type of Distance (Air,Walking, Road - default is Air):");
             TypeDistance TypeDistance = (TypeDistance)Enum.Parse(typeof(TypeDistance), Console.ReadLine()!);
             //return new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance);
-            s_dalVolunteer!.Create(new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance));
+            s_dal.Volunteer!.Create(new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance));
 
         }
         public static Assignment CreateAssignment()
@@ -141,8 +141,8 @@ namespace DalTest
             Console.WriteLine("Enter Assignment details:");
 
             Random s_rand = new();
-            List<Volunteer>? volunteers = s_dalVolunteer!.ReadAll();
-            List<Call>? calls = s_dalCall!.ReadAll();
+            List<Volunteer>? volunteers = s_dal.Volunteer!.ReadAll();
+            List<Call>? calls = s_dal.Call!.ReadAll();
 
             int callId = calls[s_rand.Next(calls.Count)].Id;
             int volunteerId = volunteers[s_rand.Next(volunteers.Count)].Id;
@@ -209,11 +209,11 @@ namespace DalTest
                         case Crud.Read:
                             Console.WriteLine("Enter Id:");
                             int Id = int.Parse(Console.ReadLine()!);
-                            Console.WriteLine(s_dalVolunteer!.Read(Id));
+                            Console.WriteLine(s_dal.Volunteer!.Read(Id));
                             break;
                         case Crud.ReadAll:
                             //Console.WriteLine(s_dalVolunteer!.ReadAll());
-                            var volunteers = s_dalVolunteer!.ReadAll();
+                            var volunteers = s_dal.Volunteer!.ReadAll();
                             foreach (var volunteer in volunteers)
                             {
                                 Console.WriteLine(volunteer);
@@ -225,11 +225,11 @@ namespace DalTest
                         case Crud.Delete:
                             Console.WriteLine("Enter Id to delete:");
                             int id = int.Parse(Console.ReadLine()!);
-                            s_dalVolunteer!.Delete(id);
+                            s_dal.Volunteer!.Delete(id);
                             Console.WriteLine("Volunteer deleted.");
                             break;
                         case Crud.DeleteAll:
-                            s_dalVolunteer!.DeleteAll();
+                            s_dal.Volunteer!.DeleteAll();
                             break;
                         default:
                             break;
@@ -255,29 +255,29 @@ namespace DalTest
                         case Crud.Exit:
                             return;
                         case Crud.Create:
-                            s_dalAssignment!.Create(CreateAssignment());
+                            s_dal.Assignment!.Create(CreateAssignment());
                             break;
                         case Crud.Read:
                             Console.WriteLine("Enter Id:");
                             int Id = int.Parse(Console.ReadLine()!);
-                            Console.WriteLine(s_dalAssignment!.Read(Id));
+                            Console.WriteLine(s_dal.Assignment!.Read(Id));
                             break;
                         case Crud.ReadAll:
-                            var assignments = s_dalAssignment!.ReadAll();
+                            var assignments = s_dal.Assignment!.ReadAll();
                             foreach (var assignment in assignments)
                                 Console.WriteLine(assignment);
                             break;
                         case Crud.Update:
-                            s_dalAssignment?.Update(CreateAssignment());
+                            s_dal.Assignment?.Update(CreateAssignment());
                             break;
                         case Crud.Delete:
                             Console.WriteLine("Enter Id to delete:");
                             int id = int.Parse(Console.ReadLine()!);
-                            s_dalAssignment!.Delete(id);
+                            s_dal.Assignment!.Delete(id);
                             Console.WriteLine("Assignment deleted.");
                             break;
                         case Crud.DeleteAll:
-                            s_dalAssignment!.DeleteAll();
+                            s_dal.Assignment!.DeleteAll();
                             break;
                         default:
                             break;
@@ -304,31 +304,31 @@ namespace DalTest
                         case Crud.Exit:
                             return;
                         case Crud.Create:
-                            s_dalCall!.Create(CreateCall());
+                            s_dal.Call!.Create(CreateCall());
                             break;
                         case Crud.Read:
                             Console.WriteLine("Enter Id:");
                             int Id = int.Parse(Console.ReadLine()!);
-                            Console.WriteLine(s_dalCall!.Read(Id));
+                            Console.WriteLine(s_dal.Call!.Read(Id));
                             break;
                         case Crud.ReadAll:
-                            var calls = s_dalCall!.ReadAll();
+                            var calls = s_dal.Call!.ReadAll();
                             foreach (var call in calls)
                             {
                                 Console.WriteLine(call);
                             }
                             break;
                         case Crud.Update:
-                            s_dalCall!.Update(CreateCall());
+                            s_dal.Call!.Update(CreateCall());
                             break;
                         case Crud.Delete:
                             Console.WriteLine("Enter Id to delete:");
                             int id = int.Parse(Console.ReadLine()!);
-                            s_dalCall!.Delete(id);
+                            s_dal.Call!.Delete(id);
                             Console.WriteLine("Call deleted.");
                             break;
                         case Crud.DeleteAll:
-                            s_dalCall!.DeleteAll();
+                            s_dal.Call!.DeleteAll();
                             break;
                         default:
                             break;
@@ -357,31 +357,31 @@ namespace DalTest
                         case Config.Exit:
                             return;
                         case Config.AddClockMinute:
-                            s_dalConfig!.Clock.AddMinutes(1);
+                            s_dal.Config!.Clock.AddMinutes(1);
                             break;
                         case Config.AddClockHour:
-                            s_dalConfig!.Clock.AddHours(1);
+                            s_dal.Config!.Clock.AddHours(1);
                             break;
                         case Config.AddClockByDay:
-                            s_dalConfig!.Clock.AddDays(1);
+                            s_dal.Config!.Clock.AddDays(1);
                             break;
                         case Config.AddClockByMonth:
-                            s_dalConfig!.Clock.AddMonths(1);
+                            s_dal.Config!.Clock.AddMonths(1);
                             break;
                         case Config.AddClockByYear:
-                            s_dalConfig!.Clock.AddYears(1);
+                            s_dal.Config!.Clock.AddYears(1);
                             break;
                         case Config.ShowCurrentClock:
-                            Console.WriteLine(s_dalConfig!.Clock);
+                            Console.WriteLine(s_dal.Config!.Clock);
                             break;
                         case Config.ChangeClock:
-                            s_dalConfig!.Clock.AddHours(1);//מעבר לשעון קיץ
+                            s_dal.Config!.Clock.AddHours(1);//מעבר לשעון קיץ
                             break;
                         case Config.ShowCurrentRiskRange:
-                            Console.WriteLine(s_dalConfig!.RiskRange);
+                            Console.WriteLine(s_dal.Config!.RiskRange);
                             break;
                         case Config.ResetConfig:
-                            s_dalConfig!.Reset();
+                            s_dal.Config!.Reset();
                             break;
                         default:
                             break;
@@ -395,20 +395,20 @@ namespace DalTest
         }
         public static void InitializeData()
         {
-            Initialization.Do(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig);
+            Initialization.Do(s_dal);
         }
         public static void ResetDatabase()
         {
-            s_dalVolunteer!.DeleteAll();
-            s_dalCall!.DeleteAll();
-            s_dalAssignment!.DeleteAll();
-            s_dalConfig!.Reset();
+            s_dal.Volunteer!.DeleteAll();
+            s_dal.Call!.DeleteAll();
+            s_dal.Assignment!.DeleteAll();
+            s_dal.Config!.Reset();
         }
         public static void DisplayAllData()
         {
-            Console.WriteLine(s_dalVolunteer!.ReadAll());
-            Console.WriteLine(s_dalCall!.ReadAll());
-            Console.WriteLine(s_dalAssignment!.ReadAll());
+            Console.WriteLine(s_dal.Volunteer!.ReadAll());
+            Console.WriteLine(s_dal.Call!.ReadAll());
+            Console.WriteLine(s_dal.Assignment!.ReadAll());
         }
 
         static void Main(string[] Args)

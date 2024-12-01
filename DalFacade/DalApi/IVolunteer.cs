@@ -1,7 +1,4 @@
 ﻿
 namespace DalApi;
 using DO;
-public interface IVolunteer
-{
-  
-}
+public interface IVolunteer : ICrud<Volunteer> { }

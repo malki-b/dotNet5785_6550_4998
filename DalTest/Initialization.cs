@@ -72,7 +72,7 @@ public static class Initialization
             int id;
             do
                 id = s_rand.Next(MIN_ID, MAX_ID);
-            while (s_dalVolunteer!.Read(id) != null);
+            while (s_dal!.Volunteer.Read(id) != null);
             Role r;
             if (i == 0)
             {
@@ -86,14 +86,14 @@ public static class Initialization
             DateTime start = new DateTime(1995, 1, 1);
            
             Volunteer v = new(id, namesVolunteer[i], phoneVolunteer[i], emailVolunteer[i], passVolunteer[i], addressVolunteer[i], Latitude[i], Longitude[i], r, true, s_rand.Next(0, 20));
-            s_dalVolunteer!.Create(v);
+            s_dal!.Volunteer.Create(v);
         }
     }
 
     private static void createCall()
     {
-        DateTime start = new DateTime(s_dalConfig!.Clock.Year, s_dalConfig.Clock.Hour - 2, 1); //stage 1
-        int range = (s_dalConfig.Clock - start).Days; //stage 1
+        DateTime start = new DateTime(s_dal!.Config.Clock.Year, s_dal.Config.Clock.Hour - 2, 1); //stage 1
+        int range = (s_dal.Config.Clock - start).Days; //stage 1
         start.AddDays(s_rand.Next(range));
 
         string[] callAddresses =
@@ -209,25 +209,25 @@ public static class Initialization
                 type = TypeOfReading.LongTermDanger;
                 ending = start.AddMinutes(60);
             }
-            s_dalCall!.Create(new Call(callAddresses[i], callLatitudes[i], callLongitudes[i], start, cases[i], ending, type));
+            s_dal!.Call.Create(new Call(callAddresses[i], callLatitudes[i], callLongitudes[i], start, cases[i], ending, type));
         }
     }
 
     private static void createAssignment()
     {
-        List<Volunteer>? volunteers = s_dalVolunteer!.ReadAll();
-        List<Call>? calls = s_dalCall!.ReadAll();
+        List<Volunteer>? volunteers = s_dal!.Volunteer.ReadAll();
+        List<Call>? calls = s_dal!.Call.ReadAll();
         for (int i = 15; i < 50; i++)
         {
             int volunteerId = volunteers[s_rand.Next(volunteers.Count)].Id;
             int callId = calls[s_rand.Next(calls.Count)].Id;
-            DateTime openingCase = s_dalConfig!.Clock;
+            DateTime openingCase = s_dal!.Config.Clock;
             DateTime endingCase = (DateTime)calls[i].MaxTimeFinishRead!;
             TimeSpan rangeOfTime = endingCase - openingCase;
             int validDifference = (int)Math.Max(rangeOfTime.TotalMinutes, 0);
             int randomHour = s_rand.Next(0, validDifference);
             DateTime time = openingCase.AddMinutes(randomHour);
-            s_dalAssignment!.Create(new Assignment(callId, volunteerId, openingCase, time, (TypeOfEnding)s_rand.Next(Enum.GetValues(typeof(TypeOfEnding)).Length - 1)));
+            s_dal!.Assignment.Create(new Assignment(callId, volunteerId, openingCase, time, (TypeOfEnding)s_rand.Next(Enum.GetValues(typeof(TypeOfEnding)).Length - 1)));
         }
     }
     public static void Do(IDal? dal) //stage 1

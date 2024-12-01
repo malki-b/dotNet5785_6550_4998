@@ -4,6 +4,7 @@ namespace Dal;
 using DalApi;
 using DO;
 using System.Collections.Generic;
+using System.Linq;
 
 internal class AssignmentImplementation : IAssignment
 {
@@ -36,6 +37,17 @@ internal class AssignmentImplementation : IAssignment
     {
         //return (DataSource.Assignments.Find(x => x.Id == id));
         return DataSource.Assignments.FirstOrDefault(item => item.Id == id); //stage 2
+    }
+
+    //public Assignment? Read(Func<Assignment, bool> filter)
+    //{
+    //    return DataSource.Assignments.FirstOrDefault(item => item); //stage 2
+    //    throw new NotImplementedException();
+    //}
+
+    public Assignment? Read(Func<Assignment, bool> filter)
+    {
+        return DataSource.Assignments.FirstOrDefault(filter);
     }
 
     //    public List<Assignment> ReadAll()

@@ -14,8 +14,8 @@ namespace DalTest;
 
 internal class Program
 {
- 
-    static readonly IDal s_dal = new DalList(); 
+
+    static readonly IDal s_dal = new DalList();
 
 
     enum MainMenu
@@ -138,9 +138,8 @@ internal class Program
         Console.WriteLine("Enter Assignment details:");
         //int id = 6;
         Random s_rand = new();
-        List<Volunteer>? volunteers = s_dal.Volunteer!.ReadAll();
-
-        List<Call>? calls = s_dal.Call!.ReadAll();
+        List<Volunteer>? volunteers = s_dal.Volunteer!.ReadAll().ToList();
+        List<Call>? calls = s_dal.Call!.ReadAll().ToList();
 
         int callId = calls[s_rand.Next(calls.Count)].Id;
         int volunteerId = volunteers[s_rand.Next(volunteers.Count)].Id;
@@ -258,6 +257,7 @@ internal class Program
                     case Crud.Read:
                         Console.WriteLine("Enter Id:");
                         int Id = int.Parse(Console.ReadLine()!);
+
                         Console.WriteLine(s_dal.Assignment!.Read(Id));
                         break;
                     case Crud.ReadAll:

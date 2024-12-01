@@ -26,7 +26,6 @@ internal class Program
     {
         Exit, Create, Read, ReadAll, Update, Delete, DeleteAll
     }
-
     enum Config
     {
         Exit, AddClockMinute, AddClockHour, AddClockByDay, AddClockByMonth, AddClockByYear, ShowCurrentClock, ChangeClock, ShowCurrentRiskRange, ResetConfig

@@ -25,7 +25,7 @@ internal class AssignmentImplementation : IAssignment
 
         }
         else
-            throw new Exception($"Assignment with id {id} no exists");
+            throw new DalDeletionImpossible($"Assignment with id {id} no exists");
     }
 
     public void DeleteAll()
@@ -63,7 +63,17 @@ internal class AssignmentImplementation : IAssignment
 
     public void Update(Assignment item)
     {
-        Delete(item.Id);
-        DataSource.Assignments.Add(item);
+        //Delete(item.Id);
+        //DataSource.Assignments.Add(item);
+
+        Assignment? itemWithId = Read(item.Id);
+        if (itemWithId != null)
+        {
+
+            DataSource.Assignments.Remove(item);
+            DataSource.Assignments.Add(item);
+        }
+        else
+            throw new DalDoesNotExistException($"call with id {item.Id} no exists");
     }
 }

@@ -3,7 +3,7 @@ namespace DO;
 
 
 [Serializable]
-public class DalDoesNotExistException : Exception
+public class DalDoesNotExistException : Exception//כאשר מנסים לעדכן אובייקט עם מספר מזהה שלא קיים ברשימת האובייקטים
 {
     public DalDoesNotExistException(string? message) : base(message) { }
 }

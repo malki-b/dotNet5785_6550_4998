@@ -9,6 +9,7 @@ using System.Numerics;
 using System.Text;
 using System.Xml.Linq;
 
+
 namespace DalTest
 {
     internal class Program
@@ -17,6 +18,9 @@ namespace DalTest
         private static ICall? s_dalCall = new CallImplementation();
         private static IAssignment? s_dalAssignment = new AssignmentImplementation();
         private static IConfig? s_dalConfig = new ConfigImplementation();
+        static readonly IDal s_dal = new DalList(); //stage 2
+
+
         enum MainMenu
         {
             Exit, DisplayVolunteer, DisplayAssignments, DisplayCalls, DisplayConfig, InitializeData, ResetDatabase, DisplayAllData

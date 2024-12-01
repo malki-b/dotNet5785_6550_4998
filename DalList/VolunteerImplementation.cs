@@ -4,9 +4,9 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-public class VolunteerImplementation : IVolunteer
+internal class VolunteerImplementation : IVolunteer
 {
-    public void Create(Volunteer item)
+    internal void Create(Volunteer item)
     {
 
         //if(DataSource.Volunteers.Find(v=> v.Id==item.Id) != null)
@@ -16,7 +16,7 @@ public class VolunteerImplementation : IVolunteer
             DataSource.Volunteers.Add(item);
     }
 
-    public void Delete(int id)
+    internal void Delete(int id)
     {
         Volunteer? currentVolunteer = Read(id);
         if (currentVolunteer != null)
@@ -27,12 +27,12 @@ public class VolunteerImplementation : IVolunteer
             throw new Exception($"volunteer with id {id} no exists");
     }
 
-    public void DeleteAll()
+    internal void DeleteAll()
     {
         DataSource.Volunteers.Clear();
     }
 
-    public Volunteer? Read(int id)
+    internal Volunteer? Read(int id)
     {
         return DataSource.Volunteers.Find(v => v.Id == id);
 

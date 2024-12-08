@@ -20,7 +20,7 @@ internal class CallImplementation : ICall
         if (currentCall != null)
             DataSource.Calls.Remove(currentCall);
         else
-            throw new DalDeletionImpossible($"Call with id {id} no exists");
+            throw new DalDoesNotExistException($"Call with id {id} no exists");
         //האם לשים DalDeletionImpossible או  DalDoesNotExistException
 
     }

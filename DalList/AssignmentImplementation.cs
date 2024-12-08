@@ -25,7 +25,7 @@ internal class AssignmentImplementation : IAssignment
 
         }
         else
-            throw new DalDeletionImpossible($"Assignment with id {id} no exists");
+            throw new DalDoesNotExistException($"Assignment with id {id} no exists");
     }
 
     public void DeleteAll()

@@ -1,7 +1,10 @@
 ﻿
 namespace Dal;
 using DalApi;
-
+/// <summary>
+/// A class that will inherit and implement the new interface IDal by 
+/// initializing the subinterfaces in the access classes that we implemented in step 1.
+/// </summary>
 sealed public class DalList : IDal
 {
     public IVolunteer Volunteer { get; } = new VolunteerImplementation();

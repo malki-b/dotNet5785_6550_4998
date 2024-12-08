@@ -4,7 +4,10 @@ using DO;
 using System.Data;
 using System.Data.Common;
 using System.Net.NetworkInformation;
-
+/// <summary>
+/// Updating the Initialization class to work with one interface in the 
+/// data layer rather than 4 separate interfaces.
+/// </summary>
 public static class Initialization
 {
     private static IDal? s_dal; //stage 1

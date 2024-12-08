@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+/// <summary>
+/// Defining a new interface called IDal, which will contain a separate feature for each type of subinterface.
+/// 
+/// </summary>
 public interface IDal
 {
     IVolunteer Volunteer { get; }

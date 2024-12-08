@@ -10,7 +10,11 @@ using System.Text;
 using System.Xml.Linq;
 
 namespace DalTest;
-
+/// <summary>
+/// The program will provide a text console interface (CLI) that will display a menu for executing 
+/// all the CRUD methods of each of the access classes (interfaces) we have defined. The program will 
+/// take information from the user, run the desired method, and print the result to the screen.
+/// </summary>
 internal class Program
 {
     static readonly IDal s_dal = new DalList();
@@ -138,7 +142,7 @@ internal class Program
         int callId = calls[s_rand.Next(calls.Count)].Id;
 
         if (!(volunteers.Any(volunteer => volunteer.IsActive == true)))
-            throw new ("Unable to create a call because there are no volunteers in action");
+            throw new ErrorCreatingAssignment("Unable to create a call because there are no volunteers in action");
         Volunteer currentVolunteer = volunteers[s_rand.Next(volunteers.Count)];
         int volunteerId = currentVolunteer.Id;
 

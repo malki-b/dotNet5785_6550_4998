@@ -16,6 +16,8 @@ namespace DO;
 /// <param name="IsActive">Is the volunteer active or inactive?(default empty)</param>
 /// <param name="Max_Distance">A volunteer will define through the display the maximum distance to receive a call(default empty)</param>
 /// <param name="Type_Distance">Aerial distance, walking distance, driving distance</param>
+/// 
+
 
 public record Volunteer
 (

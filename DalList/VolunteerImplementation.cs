@@ -24,7 +24,7 @@ internal class VolunteerImplementation : IVolunteer
             DataSource.Volunteers.Remove(currentVolunteer);
         }
         else
-            throw new DalDeletionImpossible($"Volunteer with id {id} no exists");
+            throw new DalDoesNotExistException($"Volunteer with id {id} no exists");
     }
 
     public void DeleteAll()

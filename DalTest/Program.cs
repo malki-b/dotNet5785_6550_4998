@@ -9,15 +9,11 @@ using System.Numerics;
 using System.Text;
 using System.Xml.Linq;
 
-
 namespace DalTest;
 
 internal class Program
 {
-
     static readonly IDal s_dal = new DalList();
-
-
     enum MainMenu
     {
         Exit, DisplayVolunteer, DisplayAssignments, DisplayCalls, DisplayConfig, InitializeData, ResetDatabase, DisplayAllData
@@ -413,9 +409,20 @@ internal class Program
     }
     public static void DisplayAllData()
     {
-        Console.WriteLine(s_dal.Volunteer!.ReadAll());
-        Console.WriteLine(s_dal.Call!.ReadAll());
-        Console.WriteLine(s_dal.Assignment!.ReadAll());
+        //Console.WriteLine(s_dal.Volunteer!.ReadAll());
+        //Console.WriteLine(s_dal.Call!.ReadAll());
+        //Console.WriteLine(s_dal.Assignment!.ReadAll());
+        var volunteers = s_dal.Volunteer!.ReadAll();
+        foreach (var volunteer in volunteers)
+            Console.WriteLine(volunteer);
+
+        var calls = s_dal.Call!.ReadAll();
+        foreach (var call in calls)
+            Console.WriteLine(call);
+
+        var assignments = s_dal.Assignment!.ReadAll();
+        foreach (var assignment in assignments)
+            Console.WriteLine(assignment);
     }
 
     static void Main(string[] Args)

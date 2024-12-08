@@ -12,6 +12,7 @@ internal class CallImplementation : ICall
         int newId = Config.NextCallId;
         Call newCall = item with { Id = newId };
         DataSource.Calls.Add(newCall);
+        Console.WriteLine($"your id is {newId}");
     }
     public void Delete(int id)
     {

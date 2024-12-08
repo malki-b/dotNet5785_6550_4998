@@ -92,7 +92,10 @@ public static class Initialization
 
     private static void createCall()
     {
-        DateTime start = new DateTime(s_dal!.Config.Clock.Year, s_dal.Config.Clock.Hour - 2, 1); //stage 1
+        DateTime start = new DateTime(s_dal!.Config.Clock.Year,s_dal.Config.Clock.Month, s_dal.Config.Clock.Day, s_dal!.Config.Clock.Hour - 2, s_dal!.Config.Clock.Minute, 1);
+      // DateTime start = new DateTime(s_dal.Config.Clock.Year, s_dal.Config.Clock.Hour - 2, 1); //stage 1
+      // DateTime start = new DateTime(2024, 12, 1); //stage 1
+
         int range = (s_dal.Config.Clock - start).Days; //stage 1
         start.AddDays(s_rand.Next(range));
 
@@ -110,7 +113,11 @@ public static class Initialization
             "Kiryat Tzahal St 6, Jerusalem", "Nachal Noach St 17, Jerusalem", "Maalot Dafna St 6, Jerusalem",
             "Har HaMor St 3, Jerusalem", "Ramat HaSharon St 2, Jerusalem", "Yakar St 3, Jerusalem",
             "Rav Haim Ozer St 9, Jerusalem", "Yehoshua Ben-Nun St 5, Jerusalem", "Meir Schauer St 12, Jerusalem",
-            "Menachem Begin St 11, Jerusalem", "Yisrael Yaakov St 13, Jerusalem", "Ben Yehuda St 6, Jerusalem"
+            "Menachem Begin St 11, Jerusalem", "Yisrael Yaakov St 13, Jerusalem", "Ben Yehuda St 6, Jerusalem",
+              "Kiryat Tzahal St 61, Jerusalem", "Nachal Noach St 11, Jerusalem", "Maalot Dafna St 16, Jerusalem",
+            "Har HaMor St 31, Jerusalem", "Ramat HaSharon St 21, Jerusalem", "Yakar St 31, Jerusalem",
+            "Rav Haim Ozer St 1, Jerusalem", "Yehoshua Ben-Nun St 2, Jerusalem", "Meir Schauer St 1, Jerusalem",
+            "Menachem Begin St 12, Jerusalem", "Yisrael Yaakov St 12, Jerusalem"
           ];
         double[] callLongitudes =
        [
@@ -187,7 +194,9 @@ public static class Initialization
     "Hip injury",
     "Abdominal injury",
     "Fear of groin injury",
-    "Fear of neck injury"
+    "Fear of neck injury",
+     "Fear of groins injury",
+    "Fear of necks injury"
   ];
 
         for (int i = 0; i < 50; i++)

@@ -48,7 +48,7 @@ internal class Program
         };
     }
 
-    public static void CreateVolunteer()
+    public static Volunteer CreateVolunteer()
     {
         Console.WriteLine("Enter Volunteer details:");
         Console.WriteLine("Enter Id:");
@@ -86,52 +86,52 @@ internal class Program
 
         Console.WriteLine("Enter Type of Distance (Air,Walking, Road - default is Air):");
         TypeDistance TypeDistance = (TypeDistance)Enum.Parse(typeof(TypeDistance), Console.ReadLine()!);
-        // return new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance);
-        s_dal.Volunteer!.Create(new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance));
+        return new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance);
+        //s_dal.Volunteer!.Create(new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance));
 
     }
-    public static void UpdateVolunteer()
-    {
-        Console.WriteLine("Enter Volunteer details:");
-        Console.WriteLine("Enter Id:");
-        int Id = int.Parse(Console.ReadLine()!);
+    //public static void UpdateVolunteer()
+    //{
+    //    Console.WriteLine("Enter Volunteer details:");
+    //    Console.WriteLine("Enter Id:");
+    //    int Id = int.Parse(Console.ReadLine()!);
 
-        Console.WriteLine("Enter Name:");
-        string? Name = Console.ReadLine()!;
+    //    Console.WriteLine("Enter Name:");
+    //    string? Name = Console.ReadLine()!;
 
-        Console.WriteLine("Enter Phone:");
-        string? Phone = Console.ReadLine()!;
+    //    Console.WriteLine("Enter Phone:");
+    //    string? Phone = Console.ReadLine()!;
 
-        Console.WriteLine("Enter Email:");
-        string? Email = Console.ReadLine()!;
+    //    Console.WriteLine("Enter Email:");
+    //    string? Email = Console.ReadLine()!;
 
-        Console.WriteLine("Enter Password:");
-        string? Password = Console.ReadLine()!;
+    //    Console.WriteLine("Enter Password:");
+    //    string? Password = Console.ReadLine()!;
 
-        Console.WriteLine("Enter Address :");
-        string? Address = Console.ReadLine()!;
+    //    Console.WriteLine("Enter Address :");
+    //    string? Address = Console.ReadLine()!;
 
-        Console.WriteLine("Enter Latitude:");
-        double? Latitude = Convert.ToDouble(Console.ReadLine());
+    //    Console.WriteLine("Enter Latitude:");
+    //    double? Latitude = Convert.ToDouble(Console.ReadLine());
 
-        Console.WriteLine("Enter Longitude:");
-        double? Longitude = double.Parse(Console.ReadLine()!); ;
+    //    Console.WriteLine("Enter Longitude:");
+    //    double? Longitude = double.Parse(Console.ReadLine()!); ;
 
-        Console.WriteLine("Enter Role (Volunteer, Manager:");
-        Role Role = (Role)Enum.Parse(typeof(Role), Console.ReadLine()!, true);
+    //    Console.WriteLine("Enter Role (Volunteer, Manager:");
+    //    Role Role = (Role)Enum.Parse(typeof(Role), Console.ReadLine()!, true);
 
-        Console.WriteLine("Is User Active? (true/false - press Enter to skip):");
-        bool? IsActive = bool.Parse(Console.ReadLine()!);
+    //    Console.WriteLine("Is User Active? (true/false - press Enter to skip):");
+    //    bool? IsActive = bool.Parse(Console.ReadLine()!);
 
-        Console.WriteLine("Enter Max Distance :");
-        double? MaxDistance = double.Parse(Console.ReadLine()!); ;
+    //    Console.WriteLine("Enter Max Distance :");
+    //    double? MaxDistance = double.Parse(Console.ReadLine()!); ;
 
-        Console.WriteLine("Enter Type of Distance (Air,Walking, Road - default is Air):");
-        TypeDistance TypeDistance = (TypeDistance)Enum.Parse(typeof(TypeDistance), Console.ReadLine()!);
-        //return new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance);
-        s_dal.Volunteer!.Create(new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance));
-
-    }
+    //    Console.WriteLine("Enter Type of Distance (Air,Walking, Road - default is Air):");
+    //    TypeDistance TypeDistance = (TypeDistance)Enum.Parse(typeof(TypeDistance), Console.ReadLine()!);
+    //    //return new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance);
+    //    s_dal.Volunteer!.Update(new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance));
+    //    } 
+     
     public static Assignment CreateAssignment()
     {
         Console.WriteLine("Enter Assignment details:");
@@ -139,9 +139,19 @@ internal class Program
         Random s_rand = new();
         List<Volunteer>? volunteers = s_dal.Volunteer!.ReadAll().ToList();
         List<Call>? calls = s_dal.Call!.ReadAll().ToList();
-
         int callId = calls[s_rand.Next(calls.Count)].Id;
-        int volunteerId = volunteers[s_rand.Next(volunteers.Count)].Id;
+
+        if (!(volunteers.Any(volunteer => volunteer.IsActive == true)))
+            throw new ("Unable to create a call because there are no volunteers in action");
+        Volunteer currentVolunteer = volunteers[s_rand.Next(volunteers.Count)];
+        int volunteerId = currentVolunteer.Id;
+
+        while(currentVolunteer.IsActive == false)
+        {
+             currentVolunteer = volunteers[s_rand.Next(volunteers.Count)];
+             volunteerId = currentVolunteer.Id;
+        }
+        //int volunteerId = volunteers[s_randNext(volunteers.Count)].Id;
 
         Console.Write("Enter Time (yyyy-MM-dd HH:mm:ss): ");
         DateTime openingCase = DateTime.Parse(Console.ReadLine()!);
@@ -200,7 +210,7 @@ internal class Program
                     case Crud.Exit:
                         return;
                     case Crud.Create:
-                        CreateVolunteer();
+                        s_dal.Volunteer!.Create(CreateVolunteer());
                         break;
                     case Crud.Read:
                         Console.WriteLine("Enter Id:");
@@ -216,7 +226,7 @@ internal class Program
                         };
                         break;
                     case Crud.Update:
-                        UpdateVolunteer();
+                        s_dal.Volunteer!.Update(CreateVolunteer());
                         break;
                     case Crud.Delete:
                         Console.WriteLine("Enter Id to delete:");
@@ -344,7 +354,7 @@ internal class Program
         {
             foreach (Config c in Enum.GetValues(typeof(Config)))
             {
-                Console.WriteLine($"press{(int)c} to{c}");
+                Console.WriteLine($"press {(int)c} to {c}");
             };
 
             if (Enum.TryParse(Console.ReadLine(), out Config choice))

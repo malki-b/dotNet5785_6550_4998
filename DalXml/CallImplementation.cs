@@ -14,7 +14,7 @@ internal class CallImplementation : ICall
         int newId = Config.NextCallId;
         Call newCall = item with { Id = newId };
         Calls.Add(newCall);
-        XMLTools.SaveListToXMLSerializer(Calls, Config.s_courses_xml);
+        XMLTools.SaveListToXMLSerializer(Calls, Config.s_calls_xml );
         Console.WriteLine($"your id is {newId}");
     }
 
@@ -60,11 +60,4 @@ internal class CallImplementation : ICall
         Calls.Add(item);
         XMLTools.SaveListToXMLSerializer(Calls, Config.s_calls_xml);
     }
-
-
-
-
-   
-
-
 }

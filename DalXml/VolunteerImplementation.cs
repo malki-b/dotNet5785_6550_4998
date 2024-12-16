@@ -45,6 +45,19 @@ internal class VolunteerImplementation : IVolunteer
 
 
 
+    int Id,
+    string Name,
+    string Phone,
+    string Email,
+    string Password,
+    string? Address = null,
+    double? Latitude = null,
+    double? Longitude = null,
+    Role Role= Role.Volunteer,
+    bool? IsActive = null,
+    double? Max_Distance = null,
+    TypeDistance Type_Distance = TypeDistance.Air
+
 
 
 
@@ -86,5 +99,4 @@ internal class VolunteerImplementation : IVolunteer
 
         XMLTools.SaveListToXMLElement(studentsRootElem, Config.s_students_xml);
     }
-
-}
+ }

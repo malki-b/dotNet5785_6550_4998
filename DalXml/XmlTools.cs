@@ -101,6 +101,12 @@ static class XMLTools
         DateTime dt = root.ToDateTimeNullable(elemName) ?? throw new FormatException($"can't convert:  {xmlFileName}, {elemName}");
         return dt;
     }
+    public static TimeSpan GetConfigTimeVal(string xmlFileName, string elemName)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(xmlFileName);
+        TimeSpan dt = root.ToTimeNullable(elemName) ?? throw new FormatException($"can't convert:  {xmlFileName}, {elemName}");
+        return dt;
+    }
     public static void SetConfigIntVal(string xmlFileName, string elemName, int elemVal)
     {
         XElement root = XMLTools.LoadListFromXMLElement(xmlFileName);
@@ -121,6 +127,8 @@ static class XMLTools
         Enum.TryParse<T>((string?)element.Element(name), out var result) ? (T?)result : null;
     public static DateTime? ToDateTimeNullable(this XElement element, string name) =>
         DateTime.TryParse((string?)element.Element(name), out var result) ? (DateTime?)result : null;
+    public static TimeSpan? ToTimeNullable(this XElement element, string name) =>
+        TimeSpan.TryParse((string?)element.Element(name), out var result) ? (TimeSpan?)result : null;
     public static double? ToDoubleNullable(this XElement element, string name) =>
         double.TryParse((string?)element.Element(name), out var result) ? (double?)result : null;
     public static int? ToIntNullable(this XElement element, string name) =>

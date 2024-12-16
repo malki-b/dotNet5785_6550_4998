@@ -5,13 +5,15 @@ using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Xml.Linq;
 
 internal class VolunteerImplementation : IVolunteer
 {
     public void Create(Volunteer item)
     {
-        throw new NotImplementedException();
+        XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
+
     }
 
     public void Delete(int id)
@@ -50,7 +52,7 @@ internal class VolunteerImplementation : IVolunteer
         ?? throw new DO.DalDoesNotExistException($"Volunteer with ID={item.Id} does Not exist"))
                 .Remove();
 
-        volunteerRootElem.Add(new XElement("Volunteer", createVolunteerElement(item)));
+        volunteerRootElem.Add(new XElement(createVolunteerElement(item)));
 
         XMLTools.SaveListToXMLElement(volunteerRootElem, Config.s_volunteers_xml);
     }
@@ -67,14 +69,35 @@ internal class VolunteerImplementation : IVolunteer
         {
             Id = s.ToIntNullable("Id") ?? throw new FormatException("can't convert id"),
             Name = (string?)s.Element("Name") ?? "",
-            Alias = (string?)s.Element("Alias") ?? null,
+            Phone = (string?)s.Element("Alias") ?? null,
             IsActive = (bool?)s.Element("IsActive") ?? false,
             //CurrentYear = s.ToEnumNullable<Year>("CurrentYear") ?? Year.FirstYear,
             BirthDate = s.ToDateTimeNullable("BirthDate"),
             RegistrationDate = s.ToDateTimeNullable("RegistrationDate")
         };
     }
-    
-  
 
+    
+    XElement createVolunteerElement(Volunteer volunteer)
+    {
+        return new XElement("Volunteer",
+            new XElement("Id", volunteer.Id),
+            new XElement("Name", volunteer.Name),
+            new XElement("Phone", volunteer.phone),
+            new XElement("Alias", volunteer.Alias ?? ""),
+            new XElement("IsActive", volunteer.IsActive),
+            new XElement("BirthDate", volunteer.BirthDate),
+            new XElement("RegistrationDate", volunteer.RegistrationDate));
+    }
 }
+
+    string Phone,
+    string Email,
+    string Password,
+    string? Address = null,
+    double? Latitude = null,
+    double? Longitude = null,
+    Role Role= Role.Volunteer,
+    bool? IsActive = null,
+    double? Max_Distance = null,
+    TypeDistance Type_Distance = TypeDistance.Air

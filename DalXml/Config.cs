@@ -30,13 +30,11 @@ internal static class Config
 
     internal static void Reset()
     {
-        NextCallId = startCallId;
-        nextAssignmentId = startAssignmentId;
+        NextCallId = 1000;
+        NextAssignmentId = 1000;
 
-        nextCallId = startCallId;
-        nextAssignmentId = startAssignmentId;
         //...
-        Clock = DateTime(2024, 12, 08, 19, 59, 30);
+        Clock = new DateTime(2024, 12, 08, 19, 59, 30);
         RiskRange = TimeSpan.FromHours(1);
         //...
     }

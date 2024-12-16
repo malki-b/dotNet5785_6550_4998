@@ -19,7 +19,7 @@ internal static class Config
         nextCallId = startCallId;
         nextAssignmentId = startAssignmentId;
         //...
-        Clock = DateTime(2024, 12, 08, 19, 59, 30);
+        Clock = new DateTime(2024, 12, 08, 19, 59, 30);
         RiskRange = TimeSpan.FromHours(1);
         //internal const int TimeSpan;
         //...

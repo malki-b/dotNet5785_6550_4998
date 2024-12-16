@@ -64,4 +64,5 @@ internal class AssignmentImplementation : IAssignment
         Assignments.Add(item);
         XMLTools.SaveListToXMLSerializer(Assignments, Config.s_assignments_xml);
     }
+
 }

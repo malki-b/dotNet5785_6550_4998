@@ -5,6 +5,7 @@ using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 internal class VolunteerImplementation : IVolunteer
 {
@@ -25,13 +26,16 @@ internal class VolunteerImplementation : IVolunteer
 
     public Volunteer? Read(int id)
     {
-        throw new NotImplementedException();
+        XElement? studentElem =
+    XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml).Elements().FirstOrDefault(st => (int?)st.Element("Id") == id);
+        return studentElem is null ? null : getStudent(studentElem);
     }
 
     public Volunteer? Read(Func<Volunteer, bool> filter)
     {
-        throw new NotImplementedException();
+        return XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml).Elements().Select(s => getStudent(s)).FirstOrDefault(filter);
     }
+
 
     public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
     {
@@ -40,7 +44,15 @@ internal class VolunteerImplementation : IVolunteer
 
     public void Update(Volunteer item)
     {
-        throw new NotImplementedException();
+        XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
+
+        (volunteerRootElem.Elements().FirstOrDefault(st => (int?)st.Element("Id") == item.Id)
+        ?? throw new DO.DalDoesNotExistException($"Volunteer with ID={item.Id} does Not exist"))
+                .Remove();
+
+        volunteerRootElem.Add(new XElement("Volunteer", createVolunteerElement(item)));
+
+        XMLTools.SaveListToXMLElement(volunteerRootElem, Config.s_volunteers_xml);
     }
 
 
@@ -49,9 +61,9 @@ internal class VolunteerImplementation : IVolunteer
 
 
 
-    static Student getStudent(XElement s)
+    static Volunteer getStudent(XElement s)
     {
-        return new DO.Student()
+        return new DO.Volunteer()
         {
             Id = s.ToIntNullable("Id") ?? throw new FormatException("can't convert id"),
             Name = (string?)s.Element("Name") ?? "",
@@ -62,29 +74,7 @@ internal class VolunteerImplementation : IVolunteer
             RegistrationDate = s.ToDateTimeNullable("RegistrationDate")
         };
     }
-    public Student? Read(int id)
-    {
-        XElement? studentElem =
-    XMLTools.LoadListFromXMLElement(Config.s_students_xml).Elements().FirstOrDefault(st => (int?)st.Element("Id") == id);
-        return studentElem is null ? null : getStudent(studentElem);
-    }
-
-    public Student? Read(Func<Student, bool> filter)
-    {
-        return XMLTools.LoadListFromXMLElement(Config.s_students_xml).Elements().Select(s => getStudent(s)).FirstOrDefault(filter);
-    }
-
-    public void Update(Student item)
-    {
-        XElement studentsRootElem = XMLTools.LoadListFromXMLElement(Config.s_students_xml);
-
-        (studentsRootElem.Elements().FirstOrDefault(st => (int?)st.Element("Id") == item.Id)
-        ?? throw new DO.DalDoesNotExistException($"Student with ID={item.Id} does Not exist"))
-                .Remove();
-
-        studentsRootElem.Add(new XElement("Student", createStudentElement(item)));
-
-        XMLTools.SaveListToXMLElement(studentsRootElem, Config.s_students_xml);
-    }
+    
+  
 
 }

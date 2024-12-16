@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-</config>
-
-<?xml version="1.0" encoding="utf-8"?>
-<config>
-	<NextCourseId>1008</NextCourseId>
-	<NextLinkId>41</NextLinkId>
+	<NextCallId>1000</NextCallId>
+	<NextAssignmentId>1000</NextAssignmentId>
 	<Clock>41</Clock>
-	<MaxRange>41</MaxRange>
+	<RiskRange>41</RiskRange>
 </config>

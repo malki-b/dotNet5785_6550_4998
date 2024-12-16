@@ -8,9 +8,9 @@ namespace Dal;
 internal static class Config
 {
     internal const string s_data_config_xml = "data-config.xml";
-    internal const string s_volunteers_xml = "students.xml";
-    internal const string s_calls_xml = "students.xml";
-    internal const string s_assignments_xml = "students.xml";
+    internal const string s_volunteers_xml = "volunteers.xml";
+    internal const string s_calls_xml = "calls.xml";
+    internal const string s_assignments_xml = "assignments.xml";
 
     internal static int NextCallId
     {
@@ -30,12 +30,14 @@ internal static class Config
 
     internal static void Reset()
     {
-            startCallId = 1000;
-        startAssignmentId = 1000;
+        NextCallId = startCallId;
+        nextAssignmentId = startAssignmentId;
 
-        NextCourseId = 1000
-            //...
-        Clock = DateTime.Now;
+        nextCallId = startCallId;
+        nextAssignmentId = startAssignmentId;
+        //...
+        Clock = DateTime(2024, 12, 08, 19, 59, 30);
+        RiskRange = TimeSpan.FromHours(1);
         //...
     }
 }

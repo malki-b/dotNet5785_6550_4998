@@ -59,6 +59,19 @@ internal class VolunteerImplementation : IVolunteer
 
 
 
+    int Id,
+    string Name,
+    string Phone,
+    string Email,
+    string Password,
+    string? Address = null,
+    double? Latitude = null,
+    double? Longitude = null,
+    Role Role= Role.Volunteer,
+    bool? IsActive = null,
+    double? Max_Distance = null,
+    TypeDistance Type_Distance = TypeDistance.Air
+
 
 
 
@@ -76,28 +89,28 @@ internal class VolunteerImplementation : IVolunteer
             RegistrationDate = s.ToDateTimeNullable("RegistrationDate")
         };
     }
-
-    
-    XElement createVolunteerElement(Volunteer volunteer)
+    public Student? Read(int id)
     {
-        return new XElement("Volunteer",
-            new XElement("Id", volunteer.Id),
-            new XElement("Name", volunteer.Name),
-            new XElement("Phone", volunteer.phone),
-            new XElement("Alias", volunteer.Alias ?? ""),
-            new XElement("IsActive", volunteer.IsActive),
-            new XElement("BirthDate", volunteer.BirthDate),
-            new XElement("RegistrationDate", volunteer.RegistrationDate));
+        XElement? studentElem =
+    XMLTools.LoadListFromXMLElement(Config.s_students_xml).Elements().FirstOrDefault(st => (int?)st.Element("Id") == id);
+        return studentElem is null ? null : getStudent(studentElem);
     }
-}
 
-    string Phone,
-    string Email,
-    string Password,
-    string? Address = null,
-    double? Latitude = null,
-    double? Longitude = null,
-    Role Role= Role.Volunteer,
-    bool? IsActive = null,
-    double? Max_Distance = null,
-    TypeDistance Type_Distance = TypeDistance.Air
+    public Student? Read(Func<Student, bool> filter)
+    {
+        return XMLTools.LoadListFromXMLElement(Config.s_students_xml).Elements().Select(s => getStudent(s)).FirstOrDefault(filter);
+    }
+
+    public void Update(Student item)
+    {
+        XElement studentsRootElem = XMLTools.LoadListFromXMLElement(Config.s_students_xml);
+
+        (studentsRootElem.Elements().FirstOrDefault(st => (int?)st.Element("Id") == item.Id)
+        ?? throw new DO.DalDoesNotExistException($"Student with ID={item.Id} does Not exist"))
+                .Remove();
+
+        studentsRootElem.Add(new XElement("Student", createStudentElement(item)));
+
+        XMLTools.SaveListToXMLElement(studentsRootElem, Config.s_students_xml);
+    }
+ }

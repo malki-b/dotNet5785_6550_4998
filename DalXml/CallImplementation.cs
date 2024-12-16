@@ -60,11 +60,4 @@ internal class CallImplementation : ICall
         Calls.Add(item);
         XMLTools.SaveListToXMLSerializer(Calls, Config.s_calls_xml);
     }
-
-
-
-
-   
-
-
 }

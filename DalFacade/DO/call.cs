@@ -18,10 +18,17 @@ public record Call
     double Latitude,
     double Longitude,
     DateTime OpeningTime,
-     string? VerbalDescription = null,
-    DateTime? MaxTimeFinishRead = null,
-    TypeOfReading TypeOfReading = TypeOfReading.FearOfHumanLife
+    TypeOfReading TypeOfReading = TypeOfReading.FearOfHumanLife,
+    string? VerbalDescription = null,
+    DateTime? MaxTimeFinishRead = null
+    
 )
 {
  public int Id {  get; init; }
+    
+    /// <summary>
+    /// Default constructor for new Call
+    /// </summary>
+    public Call() : this( "", 0, 0, new DateTime(2024, 12, 08, 19, 59, 30), TypeOfReading.FearOfHumanLife) { }
+
 }

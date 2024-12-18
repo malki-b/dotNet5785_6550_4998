@@ -26,11 +26,19 @@ public record Volunteer
     string Phone,
     string Email,
     string Password,
+    TypeDistance Type_Distance = TypeDistance.Air,
+     Role Role = Role.Volunteer,
     string? Address = null,
     double? Latitude = null,
     double? Longitude = null,
-    Role Role= Role.Volunteer,
     bool? IsActive = null,
-    double? Max_Distance = null,
-    TypeDistance Type_Distance = TypeDistance.Air
-);
+    double? Max_Distance = null
+    
+)
+
+{
+/// <summary>
+/// Default constructor for volunteer
+/// </summary>
+public Volunteer() : this(0, "", "", "","", TypeDistance.Air, Role.Volunteer) { }
+}

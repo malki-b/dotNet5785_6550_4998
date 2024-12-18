@@ -19,4 +19,9 @@ public record Assignment
 )
 {
  public int Id { get; init; }
+    /// <summary>
+    /// Default constructor for Assignment
+    /// </summary>
+    public Assignment() : this( 0, 0, DateTime.Now) { }
+
 }

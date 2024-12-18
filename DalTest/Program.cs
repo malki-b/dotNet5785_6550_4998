@@ -86,7 +86,7 @@ internal class Program
 
         Console.WriteLine("Enter Type of Distance (Air,Walking, Road - default is Air):");
         TypeDistance TypeDistance = (TypeDistance)Enum.Parse(typeof(TypeDistance), Console.ReadLine()!);
-        return new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance);
+        return new Volunteer(Id, Name, Phone, Email, Password, TypeDistance,Role, Address, Latitude, Longitude, IsActive, MaxDistance );
         //s_dal.Volunteer!.Create(new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance));
 
     }
@@ -191,7 +191,7 @@ internal class Program
 
         Console.WriteLine("Enter description  Type (FearOfHumanLife, ImmediateDanger, LongTermDanger):");
         TypeOfReading typeOfReading = (TypeOfReading)Enum.Parse(typeof(TypeOfReading), Console.ReadLine()!);
-        return (new Call(address, latitude, longitude, openingCase, description, ending, typeOfReading));
+        return (new Call(address, latitude, longitude, openingCase, typeOfReading, description, ending));
         //s_dalCall!.Create(new Call(address, latitude, longitude, openingCase, description, ending, typeOfReading));
 
 

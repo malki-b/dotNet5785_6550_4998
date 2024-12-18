@@ -87,8 +87,12 @@ public static class Initialization
             }
             
             DateTime start = new DateTime(1995, 1, 1);
-           
-            Volunteer v = new(id, namesVolunteer[i], phoneVolunteer[i], emailVolunteer[i], passVolunteer[i], addressVolunteer[i], Latitude[i], Longitude[i], r, true, s_rand.Next(0, 20));
+
+            var values = Enum.GetValues(typeof(TypeDistance));
+            int randomIndex = s_rand.Next(0, values.Length);
+            TypeDistance distanceType = (TypeDistance)values.GetValue(randomIndex)!;
+
+            Volunteer v = new(id, namesVolunteer[i], phoneVolunteer[i], emailVolunteer[i], passVolunteer[i], distanceType, r, addressVolunteer[i], Latitude[i], Longitude[i],  true, s_rand.Next(0, 20));
             s_dal!.Volunteer.Create(v);
         }
     }
@@ -221,7 +225,7 @@ public static class Initialization
                 type = TypeOfReading.LongTermDanger;
                 ending = start.AddMinutes(60);
             }
-            s_dal!.Call.Create(new Call(callAddresses[i], callLatitudes[i], callLongitudes[i], start, cases[i], ending, type));
+            s_dal!.Call.Create(new Call(callAddresses[i], callLatitudes[i], callLongitudes[i], start, type, cases[i], ending));
         }
     }
 

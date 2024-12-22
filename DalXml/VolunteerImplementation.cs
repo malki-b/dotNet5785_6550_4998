@@ -14,7 +14,6 @@ internal class VolunteerImplementation : IVolunteer
 {
     public void Create(Volunteer item)
     {
-       
         XElement Volunteers = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
         int? x = Volunteers.ToNullable<int>("Id");
         if (Volunteers.Elements().Any(volunteer => x == item.Id))

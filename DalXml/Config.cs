@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+//The Config plot will store its attribute values ​​in the data-conofg.xml configuration file.
+
 namespace Dal;
 internal static class Config
 {

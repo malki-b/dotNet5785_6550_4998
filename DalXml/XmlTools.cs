@@ -1,4 +1,6 @@
-﻿namespace Dal;
+﻿//For easier work with XML files, there is a helper file called XmlTools.cs, which contains a helper class with helper methods for writing and reading from XML files.
+
+namespace Dal;
 
 using DO;
 using System.Xml;
@@ -131,6 +133,12 @@ static class XMLTools
     #region ExtensionFuctions
     public static T? ToEnumNullable<T>(this XElement element, string name) where T : struct, Enum =>
         Enum.TryParse<T>((string?)element.Element(name), out var result) ? (T?)result : null;
+
+    //public static T? ToNullable<T>(this XElement element, string name) where T : struct =>
+    //(T?)Convert.ChangeType(element.Element(name)?.Value, typeof(T));
+
+    public static T? ToNullable<T>(this XElement element, string name) where T : struct =>
+    string.IsNullOrEmpty(element.Element(name)?.Value) ? null : (T)Convert.ChangeType(element.Element(name).Value, typeof(T));
     public static DateTime? ToDateTimeNullable(this XElement element, string name) =>
         DateTime.TryParse((string?)element.Element(name), out var result) ? (DateTime?)result : null;
     public static TimeSpan? ToTimeNullable(this XElement element, string name) =>
@@ -139,6 +147,9 @@ static class XMLTools
         double.TryParse((string?)element.Element(name), out var result) ? (double?)result : null;
     public static int? ToIntNullable(this XElement element, string name) =>
         int.TryParse((string?)element.Element(name), out var result) ? (int?)result : null;
+
+
     #endregion
+
 
 }

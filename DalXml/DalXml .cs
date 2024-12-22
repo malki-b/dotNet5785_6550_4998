@@ -1,7 +1,9 @@
-﻿using DalApi;
+﻿
+using DalApi;
 
 namespace Dal;
 
+//A class that will inherit and implement the IDal interface by initializing the subinterfaces in the access classes that we just implemented. Working with XML.
 public class DalXml : IDal
 {
 

@@ -6,6 +6,7 @@ using DO;
 using System;
 using System.Collections.Generic;
 
+//A class that will implement the CRUD methods that can be performed on any call entity by accessing a data collection of type XML file. According to method 1.
 internal class CallImplementation : ICall
 {
     public void Create(Call item)
@@ -15,7 +16,7 @@ internal class CallImplementation : ICall
         Call newCall = item with { Id = newId };
         Calls.Add(newCall);
         XMLTools.SaveListToXMLSerializer(Calls, Config.s_calls_xml);
-        Console.WriteLine($"your id is {newId}");
+       // Console.WriteLine($"your id is {newId}");
     }
 
     public void Delete(int id)

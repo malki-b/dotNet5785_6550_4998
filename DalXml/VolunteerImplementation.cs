@@ -6,21 +6,31 @@ using DO;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Threading.Tasks.Dataflow;
 using System.Xml.Linq;
 
+//A class that will implement the CRUD methods that can be performed on any volunteer entity by accessing a data collection of type XML file.According to method 2.
 internal class VolunteerImplementation : IVolunteer
 {
     public void Create(Volunteer item)
     {
+       
         XElement Volunteers = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
-        if (Volunteers.Elements().Any(volunteer =>  int.Parse(volunteer.Element("Id")?.Value) == item.Id))
+        int? x = Volunteers.ToNullable<int>("Id");
+        if (Volunteers.Elements().Any(volunteer => x == item.Id))
             throw new DalAlreadyExistsException($"Create failed. A volunteer's object with ID={item.Id} already exists in the system");
         Volunteers.Add(createVolunteerElement(item));
         XMLTools.SaveListToXMLElement(Volunteers, Config.s_volunteers_xml);
 
-      //  (Volunteers.Elements().FirstOrDefault(st => (int?)st.Element("Id") == item.Id)
-      //?? throw new DO.DalDoesNotExistException($"Volunteer with ID={item.Id} does Not exist"))
-      //        .Add(createVolunteerElement(item));
+        // XElement Volunteers = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
+        //int x =  (XMLTools.ToEnumNullable(Volunteers ,"Id")
+
+        //XElement Volunteers = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
+        //int? x = Volunteers.ToEnumNullable<int>("Id");
+
+        //  (Volunteers.Elements().FirstOrDefault(st => (int?)st.Element("Id") == item.Id)
+        //?? throw new DO.DalDoesNotExistException($"Volunteer with ID={item.Id} does Not exist"))
+        //        .Add(createVolunteerElement(item));
 
     }
 
@@ -52,7 +62,6 @@ internal class VolunteerImplementation : IVolunteer
     {
         return XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml).Elements().Select(s => getVolunteer(s)).FirstOrDefault(filter);
     }
-
 
     //public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
     //{

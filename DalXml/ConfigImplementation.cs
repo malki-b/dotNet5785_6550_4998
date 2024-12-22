@@ -4,6 +4,8 @@ using DalApi;
 namespace Dal;
 using DalApi;
 using DO;
+
+//A class that will implement the properties and methods we defined in the IConfig interface.
 internal class ConfigImplementation : IConfig
 {
     public int NextAssignmentId { get => Config.NextAssignmentId; }

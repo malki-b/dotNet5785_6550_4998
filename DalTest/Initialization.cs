@@ -247,6 +247,7 @@ public static class Initialization
             s_dal!.Assignment.Create(new Assignment(callId, volunteerId, openingCase, time, (TypeOfEnding)s_rand.Next(Enum.GetValues(typeof(TypeOfEnding)).Length - 1)));
         }
     }
+
     public static void Do(IDal? dal) //stage 1
     {
         //s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("DAL object can not be null!"); //stage 1

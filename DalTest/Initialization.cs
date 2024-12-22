@@ -76,6 +76,7 @@ public static class Initialization
             do
                 id = s_rand.Next(MIN_ID, MAX_ID);
             while (s_dal!.Volunteer.Read(id) != null);
+          
             Role r;
             if (i == 0)
             {

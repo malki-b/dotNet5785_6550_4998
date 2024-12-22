@@ -13,7 +13,7 @@ internal class VolunteerImplementation : IVolunteer
     public void Create(Volunteer item)
     {
         XElement Volunteers = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
-        if (Volunteers.Elements().Any(volunteer => int.Parse(volunteer.Attribute("Id")?.Value) == item.Id))
+        if (Volunteers.Elements().Any(volunteer =>  int.Parse(volunteer.Element("Id")?.Value) == item.Id))
             throw new DalAlreadyExistsException($"Create failed. A volunteer's object with ID={item.Id} already exists in the system");
         Volunteers.Add(createVolunteerElement(item));
         XMLTools.SaveListToXMLElement(Volunteers, Config.s_volunteers_xml);

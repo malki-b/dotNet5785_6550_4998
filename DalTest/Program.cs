@@ -3,6 +3,7 @@ using DalApi;
 using DO;
 using System.ComponentModel.Design;
 using System.Data;
+using System.Data.SqlTypes;
 using System.Net;
 using System.Net.Mail;
 using System.Numerics;
@@ -17,7 +18,8 @@ namespace DalTest;
 /// </summary>
 internal class Program
 {
-    static readonly IDal s_dal = new DalList();
+    //static readonly IDal s_dal = new DalList(); //stage 2
+   static readonly IDal s_dal = new DalXml(); //stage 3
     enum MainMenu
     {
         Exit, DisplayVolunteer, DisplayAssignments, DisplayCalls, DisplayConfig, InitializeData, ResetDatabase, DisplayAllData

@@ -18,8 +18,11 @@ namespace DalTest;
 /// </summary>
 internal class Program
 {
-   //static readonly IDal s_dal = new DalList(); //stage 2
-   static readonly IDal s_dal = new DalXml(); //stage 3
+
+    //static readonly IDal s_dal = new DalList(); //stage 2
+    //static readonly IDal s_dal = new DalXml(); //stage 3
+    static readonly IDal s_dal = Factory.Get; //stage 4
+
     enum MainMenu
     {
         Exit, DisplayVolunteer, DisplayAssignments, DisplayCalls, DisplayConfig, InitializeData, ResetDatabase, DisplayAllData
@@ -404,7 +407,9 @@ internal class Program
     }
     public static void InitializeData()
     {
-        Initialization.Do(s_dal);
+        //Initialization.Do(s_dal); //stage 2
+        Initialization.Do(); //stage 4
+
     }
     public static void ResetDatabase()
     {

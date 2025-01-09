@@ -5,8 +5,13 @@ using DalApi;
 /// A class that will inherit and implement the new interface IDal by 
 /// initializing the subinterfaces in the access classes that we implemented in step 1.
 /// </summary>
-sealed public class DalList : IDal
+sealed internal class DalList : IDal
 {
+
+    public static IDal Instance { get; } = new DalList();
+    private DalList() { }
+
+
     public IVolunteer Volunteer { get; } = new VolunteerImplementation();
 
     public ICall Call { get; } = new CallImplementation();

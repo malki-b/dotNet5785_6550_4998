@@ -25,4 +25,3 @@ internal static class Config
         //...
     }
 }
-

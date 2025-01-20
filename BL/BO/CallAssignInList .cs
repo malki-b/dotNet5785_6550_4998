@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    internal class CallAssignInList
+    public class CallAssignInList
     {
+        public int? VolunteerId { get; set; }
+        public string? VolunteerName { get; set; }
+        public DateTime EntryTimeForHandling { get; set; }
+        public DateTime? ActualHandlingEndTime { get; set; }
+        public TypeOfEnding? HandlingEndType { get; set; }
     }
 }

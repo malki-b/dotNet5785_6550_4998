@@ -9,9 +9,9 @@ public class Student
     public string Name { get; set; }
     public string Phone { get; set; }
     public string Email { get; set; }
-    public string Password { get; set; }
-    public TypeDistance Type_Distance { get; set; } = TypeDistance.Air;
-    public Role Role { get; set; } = Role.Volunteer;
+    public string? Password { get; set; }
+    public TypeDistance Type_Distance { get; set; }
+    public Role Role { get; set; } 
     public string? Address { get; set; } = null;
     public double? Latitude { get; set; } = null;
     public double? Longitude { get; set; } = null;

@@ -30,3 +30,15 @@ public enum TypeOfEnding//סוג סיום הטיפול
     SelfCancellation,//ביטול עצמי
     CancellationHasExpired//ביטול פג תוקף
 }
+public enum CallType//סוג קריאה
+{
+
+}
+public enum Status
+{
+    Open,
+    InProgress,
+    Closed,
+    Expired,
+    OpenAtRisk
+}

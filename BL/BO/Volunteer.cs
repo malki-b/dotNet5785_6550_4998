@@ -1,14 +1,26 @@
-﻿using Helpers;
+﻿
+using Helpers;
+
 namespace BO;
+
 public class Student
 {
     public int Id { get; init; }
-    public string? Name { get; set; }
-    public string? Alias { get; set; }
-    public bool IsActive { get; set; }
-    DateTime? BirthDate { get; set; }
+    public string Name { get; set; }
+    public string Phone { get; set; }
+    public string Email { get; set; }
+    public string Password { get; set; }
+    public TypeDistance Type_Distance { get; set; } = TypeDistance.Air;
+    public Role Role { get; set; } = Role.Volunteer;
+    public string? Address { get; set; } = null;
+    public double? Latitude { get; set; } = null;
+    public double? Longitude { get; set; } = null;
+    public bool? IsActive { get; set; } = null;
+    public double? Max_Distance { get; set; } = null;
+
+    public DateTime? BirthDate { get; set; }
     public DateTime RegistrationDate { get; init; }
-    Year CurrentYear { get; init; } //(BO.Year)(ClockManager.Now.Year - registrationDate?.Year!);
+    public Year CurrentYear { get; init; }
+
     public override string ToString() => this.ToStringProperty();
 }
-

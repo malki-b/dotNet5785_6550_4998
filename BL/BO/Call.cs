@@ -17,7 +17,7 @@ public class Call
     /// <summary>
     /// Represents a number that identifies the call.
     /// </summary>
-    public int Id { get; set; }
+    public int Id { get; init; }
 
     /// <summary>
     /// Represents the type of call.
@@ -62,6 +62,6 @@ public class Call
     /// <summary>
     /// Represents a list of assignments related to the call.
     /// </summary>
-    public List<BO.CallAssignInList> CallAssignments { get; set; }
+    public List<BO.CallAssignInList> CallAssignments { get; set; }//?
 
 }

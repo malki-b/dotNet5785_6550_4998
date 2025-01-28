@@ -1,24 +1,12 @@
 ﻿using Helpers;
 namespace BO;
-//public class StudentInCourse
-//{
-//    public int StudentId { get; init; }
-//    public required Tuple<int, string, string> Course
-//    {
-//        get; init;
 
-//    public Year? InYear { get; init; }
-//    public SemesterNames? InSemester { get; init; }
-//    public double? Grade { get; set; }
-//    public int? Credits { get; init; }
-//    public override string ToString() => this.ToStringProperty();
-//}
-public class StudentInCourse
+public class CallInProgress
 {
     /// <summary>
     /// Represents the unique identifier for the allocation entity.
     /// </summary>
-    public int Id { get; set; }
+    public int Id { get; init; }
 
     /// <summary>
     /// Represents the unique identifier for the related call entity.
@@ -63,5 +51,5 @@ public class StudentInCourse
     /// <summary>
     /// Represents the status of the allocation.
     /// </summary>
-    public AllocationStatus Status { get; set; }
+    public Status Status { get; set; }
 }

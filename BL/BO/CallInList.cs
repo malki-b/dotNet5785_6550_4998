@@ -15,7 +15,7 @@ public class CallInList
     /// <summary>
     /// Represents the identifier of the assignment entity.
     /// </summary>
-    public int? Id { get; set; }
+    public int? AssignmentId { get; set; }
 
     /// <summary>
     /// Represents the unique identifier of the related call.

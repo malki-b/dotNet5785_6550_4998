@@ -13,7 +13,7 @@ public class ClosedCallInList
     /// <summary>
     /// Represents the unique identifier for the closed call entity.
     /// </summary>
-    public int Id { get; set; }
+    public int Id { get; init; }
 
     /// <summary>
     /// Represents the type of the call.

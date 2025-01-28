@@ -3,22 +3,23 @@ using Helpers;
 
 namespace BO;
 
+
 public class Volunteer
 {
     /// <summary>
     /// Represents the ID of the volunteer.
     /// </summary>
-    public int Id { get; init; }
+    public int Id { get; set; }
 
     /// <summary>
     /// Represents the full name of the volunteer (first and last name).
     /// </summary>
-    public string Name { get; set; }
+    public string FullName { get; set; }
 
     /// <summary>
     /// Represents the mobile phone number of the volunteer.
     /// </summary>
-    public string Phone { get; set; }
+    public string MobilePhone { get; set; }
 
     /// <summary>
     /// Represents the email address of the volunteer.
@@ -28,57 +29,60 @@ public class Volunteer
     /// <summary>
     /// Represents the password of the volunteer.
     /// </summary>
-    public string? Password { get; set; }
-
-    /// <summary>
-    /// Represents the type of distance for the volunteer.
-    /// </summary>
-    public TypeDistance Type_Distance { get; set; }
-
-    /// <summary>
-    /// Represents the role of the volunteer.
-    /// </summary>
-    public Role Role { get; set; }
+    public string Password { get; set; }
 
     /// <summary>
     /// Represents the current full address of the volunteer.
     /// </summary>
-    public string? Address { get; set; } = null;
+    public string CurrentFullAddress { get; set; }
 
     /// <summary>
     /// Represents the latitude of the volunteer's location.
     /// </summary>
-    public double? Latitude { get; set; } = null;
+    public double Latitude { get; set; }
 
     /// <summary>
     /// Represents the longitude of the volunteer's location.
     /// </summary>
-    public double? Longitude { get; set; } = null;
+    public double Longitude { get; set; }
+
+    /// <summary>
+    /// Represents the role of the volunteer.
+    /// </summary>
+    public VolunteerRole Role { get; set; }
 
     /// <summary>
     /// Indicates whether the volunteer is active.
     /// </summary>
-    public bool? IsActive { get; set; } = null;
+    public bool IsActive { get; set; }
 
     /// <summary>
-    /// Represents the maximum distance for receiving calls.
+    /// Represents the maximum distance within which the volunteer is willing to receive calls.
     /// </summary>
-    public double? Max_Distance { get; set; } = null;
+    public double MaxDistanceForCalls { get; set; }
 
     /// <summary>
-    /// Represents the birth date of the volunteer.
+    /// Represents the type of distance measurement used by the volunteer.
     /// </summary>
-    public DateTime? BirthDate { get; set; }
+    public TypeDistance DistanceMeasurementType { get; set; }
 
     /// <summary>
-    /// Represents the registration date of the volunteer.
+    /// Represents the total number of calls handled by the volunteer.
     /// </summary>
-    public DateTime RegistrationDate { get; init; }
+    public int TotalHandledCalls { get; set; }
 
     /// <summary>
-    /// Represents the current year for the volunteer.
+    /// Represents the total number of calls canceled by the volunteer.
     /// </summary>
-    public Year CurrentYear { get; init; }
+    public int TotalCanceledCalls { get; set; }
 
-    public override string ToString() => this.ToStringProperty();
+    /// <summary>
+    /// Represents the total number of calls chosen to handle that expired.
+    /// </summary>
+    public int TotalExpiredHandledCalls { get; set; }
+
+    /// <summary>
+    /// Represents the call currently being handled by the volunteer.
+    /// </summary>
+    public CallInProgress? CurrentCallInProgress { get; set; }
 }

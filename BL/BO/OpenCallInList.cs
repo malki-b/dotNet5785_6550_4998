@@ -12,35 +12,35 @@ internal class OpenCallInList
     /// <summary>
     /// Represents the ID of the call.
     /// </summary>
-    public int Id { get; set; }
+    public int Id { get;  }
 
     /// <summary>
     /// Represents the type of the call.
     /// </summary>
-    public CallType CallType { get; set; }
+    public CallType CallType { get;  }
 
     /// <summary>
     /// Represents a description of the call.
     /// </summary>
-    public string? Description { get; set; }
+    public string? Description { get; }
 
     /// <summary>
     /// Represents the full address related to the call.
     /// </summary>
-    public string FullAddress { get; set; }
+    public string FullAddress { get;  }
 
     /// <summary>
     /// Indicates the time when the call was opened.
     /// </summary>
-    public DateTime OpeningTime { get; set; }
+    public DateTime OpeningTime { get; }
 
     /// <summary>
     /// Indicates the maximum end time for the call.
     /// </summary>
-    public DateTime? MaxEndTime { get; set; }
+    public DateTime? MaxEndTime { get;  }
 
     /// <summary>
     /// Represents the type of ending for the call.
     /// </summary>
-    public TypeOfEnding? TypeOfEnding { get; set; }
+    public double DistanceFromVolunteer { get; } 
 }

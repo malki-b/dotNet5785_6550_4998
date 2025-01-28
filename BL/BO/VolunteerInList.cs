@@ -12,7 +12,7 @@ public class VolunteerInList
     /// <summary>
     /// Represents the ID of the volunteer.
     /// </summary>
-    public int Id { get; set; }
+    public int Id { get; init; }
 
     /// <summary>
     /// Represents the full name of the volunteer (first and last name).

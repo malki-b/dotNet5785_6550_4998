@@ -1,6 +1,7 @@
 ﻿namespace BlImplementation;
 using BlApi;
 using BO;
+using DalApi;
 using Helpers;
 using System;
 
@@ -13,9 +14,8 @@ internal class AdminImplementation : IAdmin
 
     public DateTime GetClock()
     {
-
-        ClockManager.Now
         ClockManager.UpdateClock(ClockManager.Now.AddMinutes(1));
+        return ClockManager.Now;    
     }
 
     public int GetMaxRange()
@@ -31,7 +31,8 @@ internal class AdminImplementation : IAdmin
 
     public void ResetDB()
     {
-        throw new NotImplementedException();
+        IDal.resetDB();
+        GetClock();
     }
 
     public void SetMaxRange(int maxRange)

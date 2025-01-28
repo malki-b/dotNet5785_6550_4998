@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlApi
+namespace BlApi;
+
+public interface IAdmin
 {
-    internal class IAdmin
-    {
-    }
+    void InitializeDB();
+    void ResetDB();
+    int GetMaxRange();
+    void SetMaxRange(int maxRange);
+    DateTime GetClock();
+    void ForwardClock(BO.TimeUnit unit);
 }

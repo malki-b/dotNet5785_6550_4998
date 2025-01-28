@@ -1,5 +1,4 @@
-﻿using BO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +21,7 @@ public interface ICall
     /// <param name="filterValue">The value to filter by (nullable).</param>
     /// <param name="sortBy">The enum field to sort the list (nullable).</param>
     /// <returns>A collection of CallInList entities.</returns>
-    public IEnumerable<CallInList> RequestCallsList(CallField? filterBy, object? filterValue, CallField? sortBy);
+    public IEnumerable<BO.CallInList> RequestCallsList(BO.CallField? filterBy, object? filterValue, BO.CallField? sortBy);
 
     /// <summary>
     /// Method to request details of a specific call by its ID.
@@ -30,14 +29,14 @@ public interface ICall
     /// <param name="callId">The ID of the call.</param>
     /// <returns>The Call entity with its assignments.</returns>
     /// <exception cref="CallNotFoundException"></exception>
-    public Call RequestCallDetails(int callId);
+    public BO.Call RequestCallDetails(int callId);
 
     /// <summary>
     /// Method to update details of a specific call.
     /// </summary>
     /// <param name="call">The Call object with updated details.</param>
     /// <exception cref="CallNotFoundException"></exception>
-    public void UpdateCallDetails(Call call);
+    public void UpdateCallDetails(BO.Call call);
 
     /// <summary>
     /// Method to delete a call by its ID.
@@ -51,7 +50,7 @@ public interface ICall
     /// Method to add a new call.
     /// </summary>
     /// <param name="call">The Call object to add.</param>
-    public void AddCall(Call call);
+    public void AddCall(BO.Call call);
 
     /// <summary>
     /// Method to request closed calls handled by a specific volunteer.
@@ -59,7 +58,7 @@ public interface ICall
     /// <param name="volunteerId">The ID of the volunteer.</param>
     /// <param name="filterBy">Filter by call type (nullable).</param>
     /// <param name="sortBy">Sort the list by a specific field (nullable).</param>
-    public IEnumerable<ClosedCallInList> RequestClosedCallsByVolunteer(int volunteerId, CallType? filterBy, ClosedCallField? sortBy);
+    public IEnumerable<BO.ClosedCallInList> RequestClosedCallsByVolunteer(int volunteerId, BO.CallType? filterBy, BO.ClosedCallField? sortBy);
 
     /// <summary>
     /// Method to request open calls available for selection by a volunteer.
@@ -67,7 +66,7 @@ public interface ICall
     /// <param name="volunteerId">The ID of the volunteer.</param>
     /// <param name="filterBy">Filter by call type (nullable).</param>
     /// <param name="sortBy">Sort the list by a specific field (nullable).</param>
-    public IEnumerable<OpenCallInList> RequestOpenCallsForSelection(int volunteerId, CallType? filterBy, OpenCallField? sortBy);
+    public IEnumerable<BO.OpenCallInList> RequestOpenCallsForSelection(int volunteerId, BO.CallType? filterBy, OpenCallField? sortBy);
 
     /// <summary>
     /// Method to update the status of a call's treatment completion.

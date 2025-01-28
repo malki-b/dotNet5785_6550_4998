@@ -37,7 +37,7 @@ internal class Program
         };
     }
 
-    public static Volunteer CreateVolunteer()
+    public static BO.Volunteer CreateVolunteer()
     {
         Console.WriteLine("Enter Volunteer details:");
         Console.WriteLine("Enter Id:");
@@ -65,7 +65,7 @@ internal class Program
         double? Longitude = double.Parse(Console.ReadLine()!);
 
         Console.WriteLine("Enter Role (Volunteer, Manager:");
-        Role Role = (Role)Enum.Parse(typeof(Role), Console.ReadLine()!, true);
+        BO.Role Role = (BO.Role)Enum.Parse(typeof(BO.Role), Console.ReadLine()!, true);
 
         Console.WriteLine("Is User Active? (true/false - press Enter to skip):");
         bool IsActive = bool.Parse(Console.ReadLine()!);
@@ -74,8 +74,8 @@ internal class Program
         double MaxDistance = double.Parse(Console.ReadLine()!); ;
 
         Console.WriteLine("Enter Type of Distance (Air,Walking, Road - default is Air):");
-        TypeDistance TypeDistance = (TypeDistance)Enum.Parse(typeof(TypeDistance), Console.ReadLine()!);
-        return new Volunteer(Id, Name, Phone, Email, Password, TypeDistance, Role, Address, Latitude, Longitude, IsActive, MaxDistance);
+        BO.TypeDistance TypeDistance = (BO.TypeDistance)Enum.Parse(typeof(BO.TypeDistance), Console.ReadLine()!);
+        return new BO.Volunteer(Id, Name, Phone, Email, Password, TypeDistance, Role, Address, Latitude, Longitude, IsActive, MaxDistance);
         //s_dal.Volunteer!.Create(new Volunteer(Id, Name, Phone, Email, Password, Address, Latitude, Longitude, Role, IsActive, MaxDistance, TypeDistance));
 
     }

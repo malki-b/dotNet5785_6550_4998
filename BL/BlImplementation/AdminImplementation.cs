@@ -32,12 +32,13 @@ internal class AdminImplementation : IAdmin
 
     public void ResetDB()
     {
-        IDal.resetDB();
+        _dal.ResetDB();
         GetClock();
     }
 
     public void SetMaxRange(int maxRange)
     {
+
         throw new NotImplementedException();
     }
 }

@@ -94,19 +94,32 @@ public enum VolunteerSortBy
 /// <summary>
 /// Enum for specifying the field by which calls can be sorted.
 /// </summary>
+//public enum CallField//פנינה
+//{
+//    Id,             // Sort by the unique identifier of the call
+//    Type,           // Sort by the type of the call
+//    Description,    // Sort by the description of the call
+//    Address,        // Sort by the address of the call
+//    Latitude,       // Sort by the latitude coordinate
+//    Longitude,      // Sort by the longitude coordinate
+//    OpeningTime,    // Sort by the opening time of the call
+//    MaxEndTime,     // Sort by the maximum end time
+//    Status          // Sort by the current status of the call
+//}
+
+
 public enum CallField
 {
-    Id,             // Sort by the unique identifier of the call
-    Type,           // Sort by the type of the call
-    Description,    // Sort by the description of the call
-    Address,        // Sort by the address of the call
-    Latitude,       // Sort by the latitude coordinate
-    Longitude,      // Sort by the longitude coordinate
-    OpeningTime,    // Sort by the opening time of the call
-    MaxEndTime,     // Sort by the maximum end time
-    Status          // Sort by the current status of the call
+    Id,
+    CallType,
+    Description,
+    FullAddress,
+    Latitude,
+    Longitude,
+    OpeningTime,
+    MaxEndTime,
+    CallStatus,
 }
-
 /// <summary>
 /// Enumeration representing the time units for advancing the system clock.
 /// </summary>
@@ -117,4 +130,25 @@ public enum TimeUnit
     Day,
     Month,
     Year
+}
+
+
+public enum VolunteerField
+{
+    Id,
+    FullName,
+    MobilePhone,
+    Email,
+    Password,
+    CurrentFullAddress,
+    Latitude,
+    Longitude,
+    Role,
+    IsActive,
+    MaxDistanceForCalls,
+    DistanceMeasurementType,
+    TotalHandledCalls,
+    TotalCanceledCalls,
+    TotalExpiredHandledCalls,
+    CurrentCallInProgress
 }

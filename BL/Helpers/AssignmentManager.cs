@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DalApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,4 +9,6 @@ namespace Helpers;
 
  internal static class AssignmentManager
 {
+    private static IDal s_dal = Factory.Get; //stage 4
+
 }

@@ -48,4 +48,6 @@ public class VolunteerInList
     /// Represents the type of the request being handled by the volunteer.
     /// </summary>
     public TypeOfReading TypeOfReading { get; set; }
+
+    public override string ToString() => this.ToStringProperty();
 }

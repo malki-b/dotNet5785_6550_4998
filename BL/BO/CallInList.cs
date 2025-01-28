@@ -56,4 +56,6 @@ public class CallInList
     /// Represents the total number of assignments related to the call.
     /// </summary>
     public int TotalAssignments { get; set; }
+
+    public override string ToString() => this.ToStringProperty();
 }

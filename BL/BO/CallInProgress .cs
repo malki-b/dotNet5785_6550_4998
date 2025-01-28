@@ -52,4 +52,6 @@ public class CallInProgress
     /// Represents the status of the allocation.
     /// </summary>
     public Status Status { get; set; }
+
+    public override string ToString() => this.ToStringProperty();
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,4 +36,6 @@ public class CallAssignInList
     /// Represents the type of ending for the treatment.
     /// </summary>
     public TypeOfEnding? TypeOfEnding { get; set; }
+
+    public override string ToString() => this.ToStringProperty();
 }  

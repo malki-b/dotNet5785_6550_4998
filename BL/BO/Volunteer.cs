@@ -85,4 +85,6 @@ public class Volunteer
     /// Represents the call currently being handled by the volunteer.
     /// </summary>
     public CallInProgress? CurrentCallInProgress { get; set; }
+
+    public override string ToString() => this.ToStringProperty();
 }

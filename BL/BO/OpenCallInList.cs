@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using Helpers;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,40 +8,46 @@ using System.Threading.Tasks;
 
 namespace BO;
 
+
 internal class OpenCallInList
 {
     /// <summary>
-    /// Represents the ID of the call.
+    /// Gets the unique identifier for the call entity.
     /// </summary>
-    public int Id { get;  }
+    public int Id { get; private set; } // Not nullable
 
     /// <summary>
-    /// Represents the type of the call.
+    /// Gets the type of the call.
     /// </summary>
-    public CallType CallType { get;  }
+    public CallType Type { get; private set; } // Not nullable
 
     /// <summary>
-    /// Represents a description of the call.
+    /// Gets or sets the textual description of the call.
+    /// This property can be null.
     /// </summary>
-    public string? Description { get; }
+    public string? Description { get; set; } // Nullable
 
     /// <summary>
-    /// Represents the full address related to the call.
+    /// Gets the full address of the call.
     /// </summary>
-    public string FullAddress { get;  }
+    public string FullAddress { get; private set; } // Not nullable
 
     /// <summary>
-    /// Indicates the time when the call was opened.
+    /// Gets the opening time of the call.
     /// </summary>
-    public DateTime OpeningTime { get; }
+    public DateTime OpeningTime { get; private set; } // Not nullable
 
     /// <summary>
-    /// Indicates the maximum end time for the call.
+    /// Gets or sets the maximum time for completing the call.
+    /// This property can be null.
     /// </summary>
-    public DateTime? MaxEndTime { get;  }
+    public DateTime? MaxCompletionTime { get; set; } // Nullable
 
     /// <summary>
-    /// Represents the type of ending for the call.
+    /// Gets the distance of the call from the volunteer.
+    /// This property is calculated in the business layer.
     /// </summary>
-    public double DistanceFromVolunteer { get; } 
+    public double DistanceFromVolunteer { get; private set; } // Not nullable
+
+    public override string ToString() => this.ToStringProperty();
 }

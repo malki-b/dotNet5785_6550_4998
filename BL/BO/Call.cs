@@ -64,4 +64,5 @@ public class Call
     /// </summary>
     public List<BO.CallAssignInList> CallAssignments { get; set; }//?
 
+    public override string ToString() => this.ToStringProperty();
 }

@@ -8,6 +8,24 @@ namespace Helpers;
 
  internal static class Tools
 {
-    public static string ToStringProperty<T>(this T t);
+    /// <summary>
+    /// Converts the properties of an object to a string representation.
+    /// </summary>
+    /// <returns>A string representation of the object's properties.</returns>
+    public static string ToStringProperty<T>(this T t)
+    {
+        if (t == null) return "null";
+
+        var properties = typeof(T).GetProperties();
+        var stringBuilder = new System.Text.StringBuilder();
+
+        foreach (var property in properties)
+        {
+            var value = property.GetValue(t);
+            stringBuilder.AppendLine($"{property.Name}: {value}");
+        }
+
+        return stringBuilder.ToString();
+    }
 
 }

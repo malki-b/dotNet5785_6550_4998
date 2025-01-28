@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using Helpers;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,5 +45,7 @@ public class ClosedCallInList
     /// Represents the type of ending for the call.
     /// </summary>
     public TypeOfEnding? TypeOfEnding { get; set; }
+
+    public override string ToString() => this.ToStringProperty();
 }
 

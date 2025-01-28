@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 internal class VolunteerImplementation : IVolunteer
 {
+    private readonly DalApi.IDal _dal = DalApi.Factory.Get;
     public void AddVolunteer(Volunteer volunteer)
     {
         throw new NotImplementedException();

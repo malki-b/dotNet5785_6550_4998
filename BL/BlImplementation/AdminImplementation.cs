@@ -7,6 +7,7 @@ using System;
 
 internal class AdminImplementation : IAdmin
 {
+    private readonly DalApi.IDal _dal = DalApi.Factory.Get;
     public void ForwardClock(TimeUnit unit)
     {
         throw new NotImplementedException();

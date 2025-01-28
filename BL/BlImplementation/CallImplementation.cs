@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 internal class CallImplementation : ICall
 {
-
+    private readonly DalApi.IDal _dal = DalApi.Factory.Get;
     public void AddCall(Call call)
     {
         throw new NotImplementedException();

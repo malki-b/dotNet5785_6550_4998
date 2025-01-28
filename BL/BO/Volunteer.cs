@@ -6,6 +6,10 @@ namespace BO;
 
 public class Volunteer
 {
+
+
+    //private readonly DalApi.IDal _dal = DalApi.Factory.Get;
+
     /// <summary>
     /// Represents the ID of the volunteer.
     /// </summary>
@@ -49,7 +53,7 @@ public class Volunteer
     /// <summary>
     /// Represents the role of the volunteer.
     /// </summary>
-    public VolunteerRole Role { get; set; }
+    public Role Role { get; set; }
 
     /// <summary>
     /// Indicates whether the volunteer is active.

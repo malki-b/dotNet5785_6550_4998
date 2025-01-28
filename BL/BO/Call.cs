@@ -14,6 +14,8 @@ namespace BO;
 /// </summary>
 public class Call
 {
+
+    //private readonly DalApi.IDal _dal = DalApi.Factory.Get;
     /// <summary>
     /// Represents a number that identifies the call.
     /// </summary>

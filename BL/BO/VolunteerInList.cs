@@ -9,12 +9,43 @@ namespace BO;
 
 public class VolunteerInList
 {
+    /// <summary>
+    /// Represents the ID of the volunteer.
+    /// </summary>
     public int Id { get; set; }
+
+    /// <summary>
+    /// Represents the full name of the volunteer (first and last name).
+    /// </summary>
     public string FullName { get; set; }
+
+    /// <summary>
+    /// Indicates whether the volunteer is active.
+    /// </summary>
     public bool IsActive { get; set; }
+
+    /// <summary>
+    /// Represents the total number of requests handled by the volunteer.
+    /// </summary>
     public int TotalHandledRequests { get; set; }
+
+    /// <summary>
+    /// Represents the total number of requests canceled by the volunteer.
+    /// </summary>
     public int TotalCanceledRequests { get; set; }
+
+    /// <summary>
+    /// Represents the total number of requests that expired for the volunteer.
+    /// </summary>
     public int TotalExpiredRequests { get; set; }
-    public int HandledRequestId { get; set; }
+
+    /// <summary>
+    /// Represents the ID of the request currently being handled by the volunteer, if applicable.
+    /// </summary>
+    public int? HandledRequestId { get; set; }
+
+    /// <summary>
+    /// Represents the type of the request being handled by the volunteer.
+    /// </summary>
     public TypeOfReading TypeOfReading { get; set; }
 }

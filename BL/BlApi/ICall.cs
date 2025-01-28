@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace BlApi;
 
-internal class ICall
+public interface ICall
 {
 }

@@ -11,6 +11,9 @@ internal class VolunteerImplementation : IVolunteer
     {
         //ClockManager.Now, 
         var user = _dal.Volunteer.ReadAll().FirstOrDefault(u => u.Name == boVolunteer.FullName);
+        if (user == null || user.Password != boVolunteer.Password)
+            throw new BO.BlNullPropertyException("שם המשתמש או הסיסמה אינם נכונים.");
+
 
         DO.Volunteer doVolunteer =
          new(boVolunteer.Id, boVolunteer.FullName, boVolunteer.Phone, boVolunteer.Email,

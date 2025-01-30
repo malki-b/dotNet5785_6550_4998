@@ -47,7 +47,7 @@ internal class VolunteerImplementation : IVolunteer
             {
                 // Handle the case when the volunteer is not found in the data layer
                 throw new BO.BlDoesNotExistException($"Failed to delete volunteer with ID={id}.", ex);
-            }
+            } 
         }
         else
         {

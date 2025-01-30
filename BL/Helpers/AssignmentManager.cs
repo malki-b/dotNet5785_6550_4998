@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace Helpers;
 
- internal static class AssignmentManager
+internal static class AssignmentManager
 {
     private static IDal s_dal = Factory.Get; //stage 4
+
+    internal static LinkStudentToCourse(int VolunteerId, int callId)
+    {
+
+    }
 
 }

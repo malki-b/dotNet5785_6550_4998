@@ -111,10 +111,14 @@ internal class VolunteerImplementation : IVolunteer
             }
             else
             {
-                return _dal.Volunteer.ReadAll(isActive);
+                var xx = _dal.Volunteer.ReadAll().Where(v => v.IsActive == isActive.Value).ToString();
+                return (IEnumerable<BO.VolunteerInList>)xx;
+
             }
             if (sortBy == null)
             {
+                var xx = _dal.Volunteer.ReadAll().Where(v => v.id == isActive.Value).ToString(); //תז
+
                 return _dal.Volunteer.ReadAll(isActive);
             }
             else

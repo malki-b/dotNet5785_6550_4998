@@ -23,7 +23,7 @@ public class Volunteer
     /// <summary>
     /// Represents the mobile phone number of the volunteer.
     /// </summary>
-    public string MobilePhone { get; set; }
+    public string Phone { get; set; }
 
     /// <summary>
     /// Represents the email address of the volunteer.
@@ -38,7 +38,7 @@ public class Volunteer
     /// <summary>
     /// Represents the current full address of the volunteer.
     /// </summary>
-    public string CurrentFullAddress { get; set; }
+    public string Address { get; set; }
 
     /// <summary>
     /// Represents the latitude of the volunteer's location.
@@ -63,12 +63,12 @@ public class Volunteer
     /// <summary>
     /// Represents the maximum distance within which the volunteer is willing to receive calls.
     /// </summary>
-    public double MaxDistanceForCalls { get; set; }
+    public double MaxDistance { get; set; }
 
     /// <summary>
     /// Represents the type of distance measurement used by the volunteer.
     /// </summary>
-    public TypeDistance DistanceMeasurementType { get; set; }
+    public TypeDistance TypeDistance { get; set; }
 
     /// <summary>
     /// Represents the total number of calls handled by the volunteer.

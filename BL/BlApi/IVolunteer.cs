@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using BO;
 namespace BlApi;
 
 public interface IVolunteer
 {
   
-
-
-    void RegisterStudentToCourse(int studentId, int courseId);
+   void RegisterStudentToCourse(int studentId, int courseId);
     void UnRegisterStudentFromCourse(int studentId, int courseId);
 
     //IEnumerable<BO.CallInList> GetRegisteredCoursesForStudent(int studentId, BO.Year year = BO.Year.None);

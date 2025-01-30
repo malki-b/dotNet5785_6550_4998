@@ -9,21 +9,21 @@ namespace BlApi;
 public interface IVolunteer
 {
   
-   void RegisterStudentToCourse(int studentId, int courseId);
-    void UnRegisterStudentFromCourse(int studentId, int courseId);
+   //void RegisterStudentToCourse(int studentId, int courseId);
+   // void UnRegisterStudentFromCourse(int studentId, int courseId);
 
-    //IEnumerable<BO.CallInList> GetRegisteredCoursesForStudent(int studentId, BO.Year year = BO.Year.None);
-    //IEnumerable<BO.CallInList> GetUnRegisteredCoursesForStudent(int studentId, BO.Year year = BO.Year.None);
+   // //IEnumerable<BO.CallInList> GetRegisteredCoursesForStudent(int studentId, BO.Year year = BO.Year.None);
+   // //IEnumerable<BO.CallInList> GetUnRegisteredCoursesForStudent(int studentId, BO.Year year = BO.Year.None);
 
-    BO.StudentGradeSheet GetGradeSheetPerStudent(int studentId, BO.Year year = BO.Year.None);
-    //void UpdateGrade(int studentId, int courseId, double grade);
+   // BO.StudentGradeSheet GetGradeSheetPerStudent(int studentId, BO.Year year = BO.Year.None);
+   // //void UpdateGrade(int studentId, int courseId, double grade);
 
     /// <summary>
     /// Method to add a new volunteer.
     /// </summary>
     /// <param name="volunteer">The Volunteer object to be added.</param>
     //public void AddVolunteer(BO.Volunteer volunteer);//code
-    void Create(BO.Volunteer boStudent);
+    void Create(BO.Volunteer boVolunteer);
 
     /// <summary>
     /// Method to log in to the system.

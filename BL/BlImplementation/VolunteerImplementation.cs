@@ -1,5 +1,6 @@
 ﻿namespace BlImplementation;
 using BlApi;
+using BO;
 using Helpers;
 using System.Collections.Generic;
 
@@ -8,18 +9,23 @@ internal class VolunteerImplementation : IVolunteer
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
     public void Create(BO.Volunteer boVolunteer)
     {
+
+        //                 ClockManager.Now, 
+
+        //BO.Volunteer boVolunteer1 = boVolunteer;
         DO.Volunteer doVolunteer =
-      new(boVolunteer.Id, ClockManager.Now, boVolunteer.FullName, boVolunteer.Alias,
-      boVolunteer.IsActive, boVolunteer.Phone, boVolunteer.Email, boVolunteer.Password,
-       boVolunteer.TypeDistance, boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
-       boVolunteer.Longitude, boVolunteer.MaxDistance);
+         new(boVolunteer.Id, boVolunteer.FullName , boVolunteer.Phone, boVolunteer.Email,
+         boVolunteer.Password, boVolunteer.TypeDistance, boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
+       boVolunteer.Longitude, boVolunteer.IsActive,
+       boVolunteer.MaxDistance
+      );
         try
         {
             _dal.Volunteer.Create(doVolunteer);
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            throw new BO.Exceptions($"Student with ID={boVolunteer.Id} already exists", ex);
+            throw new BO.BlDoesNotExistException($"Student with ID={boVolunteer.Id} already exists", ex);
         }
     }
 
@@ -28,47 +34,41 @@ internal class VolunteerImplementation : IVolunteer
         throw new NotImplementedException();
     }
 
-    public BO.StudentGradeSheet GetGradeSheetPerStudent(int studentId, BO.Year year = null)
-    {
-        throw new NotImplementedException();
-    }
+    //public BO.StudentGradeSheet GetGradeSheetPerStudent(int studentId, BO.Year year = null)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
     public BO.Role Login(string username, string password)
     {
         throw new NotImplementedException();
     }
 
-    public Volunteer? Read(int id)
+
+    //public void UnRegisterStudentFromCourse(int studentId, int courseId)
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+
+    //public void RegisterStudentToCourse(int studentId, int courseId)
+    //{
+    //  return  LinkManager.LinkStudentToCourse(studentId, courseId);
+    //}
+
+  
+  
+    public IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive, BO.VolunteerSortBy? sortBy)
     {
         throw new NotImplementedException();
     }
 
-    public IEnumerable<VolunteerInList> ReadAll(VolunteerSortBy? sort = null, VolunteerField? filter = null, object? value = null)
+    public IEnumerable<VolunteerInList> ReadAll(BO.VolunteerSortBy? sort = null, VolunteerField? filter = null, object? value = null)
     {
         throw new NotImplementedException();
     }
 
-    public void RegisterStudentToCourse(int studentId, int courseId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void RequestDeleteVolunteer(int volunteerId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public BO.Volunteer RequestVolunteerDetails(int volunteerId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerable<BO.VolunteerInList> RequestVolunteersList(bool? isActive, BO.VolunteerSortBy? sortBy)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void UnRegisterStudentFromCourse(int studentId, int courseId)
+        public void Update(int requesterId, BO.Volunteer volunteer)
     {
         throw new NotImplementedException();
     }
@@ -78,45 +78,64 @@ internal class VolunteerImplementation : IVolunteer
         throw new NotImplementedException();
     }
 
-    public void UpdateVolunteerDetails(int requesterId, BO.Volunteer volunteer)
+    BO.Volunteer? IVolunteer.Read(int id)
     {
-        throw new NotImplementedException();
-    }
-}
-
-
-
-
-
-
-    public BO.Student? Read(int id)
-    {
-        var doStudent = _dal.Student.Read(id) ??
-throw new BO.BlDoesNotExistException($"Student with ID={id} does Not exist");
+        var doVolunteer = _dal.Volunteer.Read(id) ??
+       throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does Not exist");
         return new()
         {
+
+           
             Id = id,
-            Name = doStudent.Name,
-            Alias = doStudent.Alias,
-            IsActive = doStudent.IsActive,
-            BirthDate = doStudent.BirthDate,
-            RegistrationDate = doStudent.RegistrationDate,
-            CurrentYear = StudentManager.GetStudentCurrentYear(doStudent.RegistrationDate)
+            FullName = doVolunteer.Name,
+            IsActive = (bool)doVolunteer.IsActive,
+            Phone = doVolunteer.Phone,
+            Email = doVolunteer.Email,
+            Password = doVolunteer.Password,
+
+            TypeDistance = doVolunteer.TypeDistance,
+            Role = doVolunteer.Role,
+            Address = doVolunteer.Address,
+            Latitude = doVolunteer.Latitude,
+            Longitude = doVolunteer.Longitude,
+            MaxDistance = doVolunteer.MaxDistance,
+
+            CurrentYear = VolunteerManager.GetStudentCurrentYear(doVolunteer.RegistrationDate)
+
         };
     }
-
-
-    //...
-    public void RegisterStudentToCourse(int studentId, int courseId)
-                => LinkManager.LinkStudentToCourse(studentId, courseId);
-    //...
-    public void UpdateGrade(int studentId, int courseId, double grade)
-        => LinkManager.UpdateCourseGradeForStudent(studentId, courseId, grade);
-    //...
-    public BO.StudentGradeSheet GetGradeSheetPerStudent(int studentId, BO.Year year = BO.Year.None)
-    {
-        //...
-    }
-    //...
-
 }
+
+     
+
+//    public BO.Student? Read(int id)
+//    {
+//        var doStudent = _dal.Student.Read(id) ??
+//throw new BO.BlDoesNotExistException($"Student with ID={id} does Not exist");
+//        return new()
+//        {
+//            Id = id,
+//            Name = doStudent.Name,
+//            Alias = doStudent.Alias,
+//            IsActive = doStudent.IsActive,
+//            BirthDate = doStudent.BirthDate,
+//            RegistrationDate = doStudent.RegistrationDate,
+//            CurrentYear = StudentManager.GetStudentCurrentYear(doStudent.RegistrationDate)
+//        };
+//    }
+
+
+//    //...
+//    public void RegisterStudentToCourse(int studentId, int courseId)
+//                => LinkManager.LinkStudentToCourse(studentId, courseId);
+//    //...
+//    public void UpdateGrade(int studentId, int courseId, double grade)
+//        => LinkManager.UpdateCourseGradeForStudent(studentId, courseId, grade);
+//    //...
+//    public BO.StudentGradeSheet GetGradeSheetPerStudent(int studentId, BO.Year year = BO.Year.None)
+//    {
+//        //...
+//    }
+//    //...
+
+//}

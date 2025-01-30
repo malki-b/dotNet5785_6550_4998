@@ -9,52 +9,27 @@ internal class VolunteerImplementation : IVolunteer
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
     public void Create(BO.Volunteer boVolunteer)
     {
-        //ClockManager.Now, 
-        var user = _dal.Volunteer.ReadAll().FirstOrDefault(u => u.Name == boVolunteer.FullName);
-        if (user == null || user.Password != boVolunteer.Password)
-            throw new BO.BlNullPropertyException("שם המשתמש או הסיסמה אינם נכונים.");
-
-
-        DO.Volunteer doVolunteer =
-         new(boVolunteer.Id, boVolunteer.FullName, boVolunteer.Phone, boVolunteer.Email,
-         boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
-       boVolunteer.Longitude, boVolunteer.IsActive,
-       boVolunteer.MaxDistance);
         try
         {
+            //ClockManager.Now, 
+             DO.Volunteer doVolunteer =
+             new(boVolunteer.Id, boVolunteer.FullName, boVolunteer.Phone, boVolunteer.Email,
+             boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
+           boVolunteer.Longitude, boVolunteer.IsActive,
+           boVolunteer.MaxDistance);
             _dal.Volunteer.Create(doVolunteer);
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            throw new BO.BlDoesNotExistException($"Student with ID={boVolunteer.Id} already exists", ex);
+            throw new BO.BlDoesNotExistException($"Volunteer with ID={boVolunteer.Id} already exists", ex);
         }
     }
-
-
-    //public void Create(BO.Volunteer boVolunteer)
-    //{
-    //    try
-    //    {
-    //        var user = Volunteer_dal.Volunteer.ReadAll()
-    //            .FirstOrDefault(u => u.Name == username);
-
-    //        if (user == null || user.Password != password)
-    //            throw new BO.InvalidCredentialsException("שם המשתמש או הסיסמה אינם נכונים.");
-
-    //        return (BO.Role)user.Role;
-    //    }
-    //    catch (DO.DataAccessException ex)
-    //    {
-    //        throw new BO.DataAccessException("שגיאה בגישה לנתוני משתמשים.", ex);
-    //    }
-    //}
-
 
     public void Delete(int id)
     {
         throw new NotImplementedException();
     }
-
+    
     //public BO.StudentGradeSheet GetGradeSheetPerStudent(int studentId, BO.Year year = null)
     //{
     //    throw new NotImplementedException();
@@ -62,7 +37,18 @@ internal class VolunteerImplementation : IVolunteer
 
     public BO.Role Login(string username, string password)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var user = _dal.Volunteer.ReadAll().FirstOrDefault(u => u.Name == username);
+            if (user == null || user.Password != password)
+                throw new ("The username or password is incorrect.");
+            // return AssignmentManager.LinkStudentToCourse(VolunteerId, callId);
+            return (BO.Role)user.Role;
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException("Login failed.", ex);
+        }
     }
 
 
@@ -71,33 +57,32 @@ internal class VolunteerImplementation : IVolunteer
     //    throw new NotImplementedException();
     //}
 
-
     //public void RegisterStudentToCourse(int studentId, int courseId)
     //{
     //  return  LinkManager.LinkStudentToCourse(studentId, courseId);
     //}
 
-  
-  
+
+
     public IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive, BO.VolunteerSortBy? sortBy)
     {
         throw new NotImplementedException();
     }
 
-    public IEnumerable<VolunteerInList> ReadAll(BO.VolunteerSortBy? sort = null, VolunteerField? filter = null, object? value = null)
+    //public IEnumerable<VolunteerInList> ReadAll(BO.VolunteerSortBy? sort = null, VolunteerField? filter = null, object? value = null)
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+    public void Update(int requesterId, BO.Volunteer volunteer)
     {
-        throw new NotImplementedException();
+
     }
 
-        public void Update(int requesterId, BO.Volunteer volunteer)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Update(Volunteer boStudent)
-    {
-        throw new NotImplementedException();
-    }
+    //public void Update(Volunteer boStudent)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
     BO.Volunteer? IVolunteer.Read(int id)
     {
@@ -106,7 +91,7 @@ internal class VolunteerImplementation : IVolunteer
         return new()
         {
 
-           
+
             Id = id,
             FullName = doVolunteer.Name,
             IsActive = (bool)doVolunteer.IsActive,
@@ -127,7 +112,7 @@ internal class VolunteerImplementation : IVolunteer
     }
 }
 
-     
+
 
 //    public BO.Student? Read(int id)
 //    {

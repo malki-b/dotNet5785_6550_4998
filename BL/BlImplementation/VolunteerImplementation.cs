@@ -1,6 +1,7 @@
 ﻿namespace BlImplementation;
 using BlApi;
 using BO;
+using DO;
 using Helpers;
 using System.Collections.Generic;
 
@@ -52,7 +53,29 @@ internal class VolunteerImplementation : IVolunteer
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        var volunteer = _dal.Volunteer.Read(id);
+
+        if (volunteer == null)
+        {
+            throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does not exist.");
+        }
+
+        // Check if the volunteer is handling any cases
+        if (_dal.Calls.IsHandlingCurrentCases(id))
+        {
+            throw new BO.BlCannotDeleteException("Volunteer cannot be deleted because they are currently handling cases.");
+        }
+
+        try
+        {
+            // Attempt to delete the volunteer from the data access layer
+            _dal.Volunteer.Delete(id);
+        }
+        catch (DO.DalNotFoundException ex)
+        {
+            // Handle the case when the volunteer is not found in the data layer
+            throw new BO.BlDoesNotExistException($"Failed to delete volunteer with ID={id}.", ex);
+        }
     }
 
     //public BO.StudentGradeSheet GetGradeSheetPerStudent(int studentId, BO.Year year = null)

@@ -2,14 +2,26 @@
 
 namespace BO;
 
+//namespace DO;
+
+
 internal class Exceptions
 {
-    private string v;
-    private DalAlreadyExistsException ex;
 
-    public Exceptions(string v, DalAlreadyExistsException ex)
+    [Serializable]
+    public class BlDoesNotExistException : Exception
     {
-        this.v = v;
-        this.ex = ex;
+        public BlDoesNotExistException(string? message) : base(message) { }
+        public BlDoesNotExistException(string message, Exception innerException)
+                    : base(message, innerException) { }
     }
+   
+
+    [Serializable]
+    public class BlNullPropertyException : Exception
+    {
+        public BlNullPropertyException(string? message) : base(message) { }
+    }
+
 }
+

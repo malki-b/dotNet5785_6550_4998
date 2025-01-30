@@ -15,16 +15,16 @@ internal static class VolunteerManager
         BO.Year currYear = (BO.Year)(ClockManager.Now.Year - registrationDate?.Year!);
         return currYear > BO.Year.None ? BO.Year.None : currYear;
     }
-    internal static BO.StudentInCourse GetDetailedCourseForStudent(int studentId, int courseId)
+    internal static BO.StudentInCourse GetDetailedCourseForStudent(int volunteerId, int callId)
     {
-        DO.Link? doLink = s_dal.Link.Read(l => l.StudentId == studentId && l.CourseId == courseId)
-            ?? throw new BO.BlDoesNotExistException($"Student with ID={studentId} does Not take Course with ID={courseId}");
-        DO.Call? doCall = s_dal.Call.Read(courseId)
-     ?? throw new BO.BlDoesNotExistException($"Course with ID={courseId} does Not exist");
+        DO.Assignment? doLink = s_dal.Assignment.Read(l => l.VolunteerId == volunteerId && l.CallId == callId)
+            ?? throw new BO.BlDoesNotExistException($"Student with ID={volunteerId} does Not take Course with ID={callId}");
+        DO.Call? doCall = s_dal.Call.Read(callId)
+     ?? throw new BO.BlDoesNotExistException($"Course with ID={callId} does Not exist");
 
         return new()
         {
-            StudentId = studentId,
+            StudentId = volunteerId,
             Course = new Tuple<int, string, string>(doCall.Id, doCall.CourseNumber, doCall.CourseName),
             InYear = (BO.Year?)doCall.InYear,
             InSemester = (BO.SemesterNames?)doCall.InSemester,

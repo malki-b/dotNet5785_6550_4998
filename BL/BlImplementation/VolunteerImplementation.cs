@@ -1,6 +1,7 @@
 ﻿namespace BlImplementation;
 using BlApi;
 using BO;
+using DalApi;
 using DO;
 using Helpers;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ internal class VolunteerImplementation : IVolunteer
     {
         try
         {
+            //ClockManager.Now, 
             //ClockManager.Now, 
             DO.Volunteer doVolunteer =
             new(boVolunteer.Id, boVolunteer.FullName, boVolunteer.Phone, boVolunteer.Email,
@@ -30,27 +32,39 @@ internal class VolunteerImplementation : IVolunteer
     {
         try
         {
-            var volunteer = _dal.Volunteer.Read(id)
-                ?? throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does not exist.");
+            if (_dal.Volunteer.Read(id) == null)
+                throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does not exist.");
 
-        // Check if the volunteer is handling any cases
-        if (!AssignmentManager.VolunteerIsOnCall(id))
-        {
-            try
+            //var volunteer = _dal.Volunteer.Read(id)
+            //    ?? throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does not exist.");
+
+            // Check if the volunteer is handling any cases
+            if (!AssignmentManager.VolunteerIsOnCall(id))
             {
-                // Attempt to delete the volunteer from the data access layer
-                _dal.Volunteer.Delete(id);
+                //_dal.Volunteer.Delete(id);
+                //throw new BO.BlDoesNotExistException($"Failed to delete volunteer with ID={id}.", ex);
+
+                try
+                {
+                    //Attempt to delete the volunteer from the data access layer
+                    _dal.Volunteer.Delete(id);
+                }
+                catch (DO.DalNotFoundException ex)
+                {
+                    // Handle the case when the volunteer is not found in the data layer
+                    throw new BO.BlDoesNotExistException($"Failed to delete volunteer with ID={id}.", ex);
+                }
             }
-            catch (DO.DalNotFoundException ex)
+            else
             {
-                // Handle the case when the volunteer is not found in the data layer
-                throw new BO.BlDoesNotExistException($"Failed to delete volunteer with ID={id}.", ex);
+                throw new BO.BlCannotDeleteException("Volunteer cannot be deleted because they are currently handling cases.");
             }
         }
-        else
+        catch (DO.DalDoNotSuccseedDelete ex)
         {
-            throw new BO.BlCannotDeleteException("Volunteer cannot be deleted because they are currently handling cases.");
+            throw new BO.BlCannotDeleteException("Volunteer with ID already exists", ex);
         }
+
     }
 
     //public BO.StudentGradeSheet GetGradeSheetPerStudent(int studentId, BO.Year year = null)
@@ -84,39 +98,6 @@ internal class VolunteerImplementation : IVolunteer
     //{
     //  return  LinkManager.LinkStudentToCourse(studentId, courseId);
     //}
-
-    public IEnumerable<BO.VolunteerInList> ReadAll(BO.Active? sort = null, BO.VolunteerFields? filter = null, object? value = null)
-    {
-        //try
-        //{
-        //    var volunteers = Volunteer_dal.Volunteer.ReadAll();
-        //    // סינון לפי סטטוס
-        //    if (sort.HasValue)
-        //        volunteers = volunteers.Where(v => v.Active == (sort == BO.Active.TRUE)).ToList();
-        //    var volunteerList = volunteers.Select(v => new BO.VolunteerInList
-        //    {
-        //        Id = v.Id,
-        //        Name = v.Name,
-        //        Active = v.Active
-        //    });
-        //    // מיון לפי שדה ספציפי
-        //    if (filter.HasValue)
-        //    {
-        //        volunteerList = filter switch
-        //        {
-        //            BO.VolunteerFields.Name => volunteerList.OrderBy(v => v.Name),
-        //            BO.VolunteerFields.Id => volunteerList.OrderBy(v => v.Id),
-        //            _ => volunteerList.OrderBy(v => v.Id)
-        //        };
-        //    }
-        //    return volunteerList.ToList();
-        //}
-        //catch (DO.DataAccessException ex)
-        //{
-        //    throw new BO.DataAccessException("שגיאה בגישה לנתוני מתנדבים.", ex);
-        //}
-    }
-
     public IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive, BO.VolunteerSortBy? sortBy)
     {
         try
@@ -138,7 +119,7 @@ internal class VolunteerImplementation : IVolunteer
             }
             else
             {
-                 //
+                //
             }
 
             var doVolunteer = _dal.Volunteer.ReadAll(id) ??

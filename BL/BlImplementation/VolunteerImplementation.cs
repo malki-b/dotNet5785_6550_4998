@@ -9,16 +9,14 @@ internal class VolunteerImplementation : IVolunteer
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
     public void Create(BO.Volunteer boVolunteer)
     {
+        //ClockManager.Now, 
+        var user = _dal.Volunteer.ReadAll().FirstOrDefault(u => u.Name == boVolunteer.FullName);
 
-        //                 ClockManager.Now, 
-
-        //BO.Volunteer boVolunteer1 = boVolunteer;
         DO.Volunteer doVolunteer =
-         new(boVolunteer.Id, boVolunteer.FullName , boVolunteer.Phone, boVolunteer.Email,
-         boVolunteer.Password, boVolunteer.TypeDistance, boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
+         new(boVolunteer.Id, boVolunteer.FullName, boVolunteer.Phone, boVolunteer.Email,
+         boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
        boVolunteer.Longitude, boVolunteer.IsActive,
-       boVolunteer.MaxDistance
-      );
+       boVolunteer.MaxDistance);
         try
         {
             _dal.Volunteer.Create(doVolunteer);
@@ -28,6 +26,26 @@ internal class VolunteerImplementation : IVolunteer
             throw new BO.BlDoesNotExistException($"Student with ID={boVolunteer.Id} already exists", ex);
         }
     }
+
+
+    //public void Create(BO.Volunteer boVolunteer)
+    //{
+    //    try
+    //    {
+    //        var user = Volunteer_dal.Volunteer.ReadAll()
+    //            .FirstOrDefault(u => u.Name == username);
+
+    //        if (user == null || user.Password != password)
+    //            throw new BO.InvalidCredentialsException("שם המשתמש או הסיסמה אינם נכונים.");
+
+    //        return (BO.Role)user.Role;
+    //    }
+    //    catch (DO.DataAccessException ex)
+    //    {
+    //        throw new BO.DataAccessException("שגיאה בגישה לנתוני משתמשים.", ex);
+    //    }
+    //}
+
 
     public void Delete(int id)
     {

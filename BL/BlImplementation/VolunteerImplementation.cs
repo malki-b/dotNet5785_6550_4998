@@ -13,11 +13,11 @@ internal class VolunteerImplementation : IVolunteer
         try
         {
             //ClockManager.Now, 
-             DO.Volunteer doVolunteer =
-             new(boVolunteer.Id, boVolunteer.FullName, boVolunteer.Phone, boVolunteer.Email,
-             boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
-           boVolunteer.Longitude, boVolunteer.IsActive,
-           boVolunteer.MaxDistance);
+            DO.Volunteer doVolunteer =
+            new(boVolunteer.Id, boVolunteer.FullName, boVolunteer.Phone, boVolunteer.Email,
+            boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
+          boVolunteer.Longitude, boVolunteer.IsActive,
+          boVolunteer.MaxDistance);
             _dal.Volunteer.Create(doVolunteer);
         }
         catch (DO.DalAlreadyExistsException ex)
@@ -28,37 +28,31 @@ internal class VolunteerImplementation : IVolunteer
 
     public void Delete(int id)
     {
-        var volunteer = _dal.Volunteer.Read(id);
+        try
+        {
+            var volunteer = _dal.Volunteer.Read(id);
 
-        if (volunteer == null)
-        {
-            throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does not exist.");
-        }
+            if (volunteer == null)
+            {
+                throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does not exist.");
+            }
 
-        // Check if the volunteer is handling any cases
-        if (!VolunteerIsOnCall(id))
-        {
-            try
+            // Check if the volunteer is handling any cases
+            if (!AssignmentManager.VolunteerIsOnCall(id))
             {
-                // Attempt to delete the volunteer from the data access layer
-                _dal.Volunteer.Delete(id);
+                throw new BO.BlCannotDeleteException("Volunteer cannot be deleted because they are currently handling cases.");
             }
-            catch (DO.DalNotFoundException ex)
-            {
-                // Handle the case when the volunteer is not found in the data layer
-                throw new BO.BlDoesNotExistException($"Failed to delete volunteer with ID={id}.", ex);
-            }
+
+
+            // Attempt to delete the volunteer from the data access layer
+            _dal.Volunteer.Delete(id);
         }
-        else
+        catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlCannotDeleteException("Volunteer cannot be deleted because they are currently handling cases.");
+            // Handle the case when the volunteer is not found in the data layer
+            throw new BO.BlDoesNotExistException($"Failed to delete volunteer with ID={id}.", ex);
         }
     }
-
-    //public BO.StudentGradeSheet GetGradeSheetPerStudent(int studentId, BO.Year year = null)
-    //{
-    //    throw new NotImplementedException();
-    //}
 
     public BO.Role Login(string username, string password)
     {
@@ -66,7 +60,7 @@ internal class VolunteerImplementation : IVolunteer
         {
             var user = _dal.Volunteer.ReadAll().FirstOrDefault(u => u.Name == username);
             if (user == null || user.Password != password)
-                throw new ("The username or password is incorrect.");
+                throw new("The username or password is incorrect.");
             // return AssignmentManager.LinkStudentToCourse(VolunteerId, callId);
             return (BO.Role)user.Role;
         }

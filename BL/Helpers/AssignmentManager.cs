@@ -13,13 +13,9 @@ internal static class AssignmentManager
 
     internal static bool VolunteerIsOnCall(int volunteerId)
     {
-        DO.Assignment? doLink = s_dal.Assignment.Read(l => l.VolunteerId == volunteerId) ? return true : return false
-            //?? 
-          //?? throw new BO.BlDoesNotExistException($"Volunteer with ID={volunteerId} does Not take Call");
-        if(!doLink)
-            return false;
-        if(doLink)
-            return true;
+        DO.Assignment? doLink = s_dal.Assignment.Read(l => l.VolunteerId == volunteerId);
+
+        return doLink != null; // Return true if the volunteer is on call, false otherwise
     }
 
 

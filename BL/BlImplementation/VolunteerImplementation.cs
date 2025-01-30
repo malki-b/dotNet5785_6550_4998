@@ -28,12 +28,10 @@ internal class VolunteerImplementation : IVolunteer
 
     public void Delete(int id)
     {
-        var volunteer = _dal.Volunteer.Read(id);
-
-        if (volunteer == null)
+        try
         {
-            throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does not exist.");
-        }
+            var volunteer = _dal.Volunteer.Read(id)
+                ?? throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does not exist.");
 
         // Check if the volunteer is handling any cases
         if (!AssignmentManager.VolunteerIsOnCall(id))

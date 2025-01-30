@@ -19,4 +19,18 @@ public class BlNullPropertyException : Exception
 }
 
 
+[Serializable]
+internal class BlCannotDeleteException : Exception
+{
+    public BlCannotDeleteException()
+    {
+    }
 
+    public BlCannotDeleteException(string? message) : base(message)
+    {
+    }
+
+    public BlCannotDeleteException(string? message, Exception? innerException) : base(message, innerException)
+    {
+    }
+}

@@ -36,23 +36,25 @@ internal class VolunteerImplementation : IVolunteer
         }
 
         // Check if the volunteer is handling any cases
-        if (_dal.Calls.IsHandlingCurrentCases(id))
+        if (!VolunteerIsOnCall(id))
+        {
+            try
+            {
+                // Attempt to delete the volunteer from the data access layer
+                _dal.Volunteer.Delete(id);
+            }
+            catch (DO.DalNotFoundException ex)
+            {
+                // Handle the case when the volunteer is not found in the data layer
+                throw new BO.BlDoesNotExistException($"Failed to delete volunteer with ID={id}.", ex);
+            }
+        }
+        else
         {
             throw new BO.BlCannotDeleteException("Volunteer cannot be deleted because they are currently handling cases.");
         }
-
-        try
-        {
-            // Attempt to delete the volunteer from the data access layer
-            _dal.Volunteer.Delete(id);
-        }
-        catch (DO.DalNotFoundException ex)
-        {
-            // Handle the case when the volunteer is not found in the data layer
-            throw new BO.BlDoesNotExistException($"Failed to delete volunteer with ID={id}.", ex);
-        }
     }
-    
+
     //public BO.StudentGradeSheet GetGradeSheetPerStudent(int studentId, BO.Year year = null)
     //{
     //    throw new NotImplementedException();

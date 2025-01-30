@@ -13,11 +13,11 @@ internal class VolunteerImplementation : IVolunteer
         try
         {
             //ClockManager.Now, 
-             DO.Volunteer doVolunteer =
-             new(boVolunteer.Id, boVolunteer.FullName, boVolunteer.Phone, boVolunteer.Email,
-             boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
-           boVolunteer.Longitude, boVolunteer.IsActive,
-           boVolunteer.MaxDistance);
+            DO.Volunteer doVolunteer =
+            new(boVolunteer.Id, boVolunteer.FullName, boVolunteer.Phone, boVolunteer.Email,
+            boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
+          boVolunteer.Longitude, boVolunteer.IsActive,
+          boVolunteer.MaxDistance);
             _dal.Volunteer.Create(doVolunteer);
         }
         catch (DO.DalAlreadyExistsException ex)
@@ -36,7 +36,7 @@ internal class VolunteerImplementation : IVolunteer
         }
 
         // Check if the volunteer is handling any cases
-        if (!VolunteerIsOnCall(id))
+        if (!AssignmentManager.VolunteerIsOnCall(id))
         {
             try
             {
@@ -47,7 +47,7 @@ internal class VolunteerImplementation : IVolunteer
             {
                 // Handle the case when the volunteer is not found in the data layer
                 throw new BO.BlDoesNotExistException($"Failed to delete volunteer with ID={id}.", ex);
-            } 
+            }
         }
         else
         {
@@ -66,7 +66,7 @@ internal class VolunteerImplementation : IVolunteer
         {
             var user = _dal.Volunteer.ReadAll().FirstOrDefault(u => u.Name == username);
             if (user == null || user.Password != password)
-                throw new ("The username or password is incorrect.");
+                throw new("The username or password is incorrect.");
             // return AssignmentManager.LinkStudentToCourse(VolunteerId, callId);
             return (BO.Role)user.Role;
         }
@@ -87,11 +87,70 @@ internal class VolunteerImplementation : IVolunteer
     //  return  LinkManager.LinkStudentToCourse(studentId, courseId);
     //}
 
-
+    public IEnumerable<BO.VolunteerInList> ReadAll(BO.Active? sort = null, BO.VolunteerFields? filter = null, object? value = null)
+    {
+        //try
+        //{
+        //    var volunteers = Volunteer_dal.Volunteer.ReadAll();
+        //    // סינון לפי סטטוס
+        //    if (sort.HasValue)
+        //        volunteers = volunteers.Where(v => v.Active == (sort == BO.Active.TRUE)).ToList();
+        //    var volunteerList = volunteers.Select(v => new BO.VolunteerInList
+        //    {
+        //        Id = v.Id,
+        //        Name = v.Name,
+        //        Active = v.Active
+        //    });
+        //    // מיון לפי שדה ספציפי
+        //    if (filter.HasValue)
+        //    {
+        //        volunteerList = filter switch
+        //        {
+        //            BO.VolunteerFields.Name => volunteerList.OrderBy(v => v.Name),
+        //            BO.VolunteerFields.Id => volunteerList.OrderBy(v => v.Id),
+        //            _ => volunteerList.OrderBy(v => v.Id)
+        //        };
+        //    }
+        //    return volunteerList.ToList();
+        //}
+        //catch (DO.DataAccessException ex)
+        //{
+        //    throw new BO.DataAccessException("שגיאה בגישה לנתוני מתנדבים.", ex);
+        //}
+    }
 
     public IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive, BO.VolunteerSortBy? sortBy)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var Volunteer = _dal.Volunteer.ReadAll();
+
+            if (isActive == null)
+            {
+                //?? throw new BO.BlDoesNotExistException("Volunteer with ID does Not exist");
+                return (IEnumerable<VolunteerInList>)Volunteer;
+            }
+            else
+            {
+                return _dal.Volunteer.ReadAll(isActive);
+            }
+            if (sortBy == null)
+            {
+                return _dal.Volunteer.ReadAll(isActive);
+            }
+            else
+            {
+                 //
+            }
+
+            var doVolunteer = _dal.Volunteer.ReadAll(id) ??
+                  throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does Not exist");
+
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException("Login failed.", ex);
+        }
     }
 
     //public IEnumerable<VolunteerInList> ReadAll(BO.VolunteerSortBy? sort = null, VolunteerField? filter = null, object? value = null)

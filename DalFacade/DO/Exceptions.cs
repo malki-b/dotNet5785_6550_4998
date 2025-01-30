@@ -32,3 +32,19 @@ public class DalXMLFileLoadCreateException : Exception
     {
     }
 }
+
+[Serializable]
+public class DalNotFoundException : Exception
+{
+    public DalNotFoundException()
+    {
+    }
+
+    public DalNotFoundException(string? message) : base(message)
+    {
+    }
+
+    public DalNotFoundException(string? message, Exception? innerException) : base(message, innerException)
+    {
+    }
+}

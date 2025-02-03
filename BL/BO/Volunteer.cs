@@ -43,12 +43,12 @@ public class Volunteer
     /// <summary>
     /// Represents the latitude of the volunteer's location.
     /// </summary>
-    public double Latitude { get; set; }
+    public double? Latitude { get; set; }
 
     /// <summary>
     /// Represents the longitude of the volunteer's location.
     /// </summary>
-    public double Longitude { get; set; }
+    public double? Longitude { get; set; }
 
     /// <summary>
     /// Represents the role of the volunteer.
@@ -63,7 +63,7 @@ public class Volunteer
     /// <summary>
     /// Represents the maximum distance within which the volunteer is willing to receive calls.
     /// </summary>
-    public double MaxDistance { get; set; }
+    public double? MaxDistance { get; set; }
 
     /// <summary>
     /// Represents the type of distance measurement used by the volunteer.

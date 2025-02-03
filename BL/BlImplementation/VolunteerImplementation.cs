@@ -136,48 +136,159 @@ internal class VolunteerImplementation : IVolunteer
         }
     }
 
+
+    public IEnumerable<BO.VolunteerInList> ReadAll1(bool? isActive = null, BO.Volunteer_In_List_Fields? sort = null)
+    {
+        IEnumerable<DO.Volunteer> volunteers = _dal.Volunteer.ReadAll(isActive is null ? null : v => v.IsActive == isActive);
+        var volunteerInList = volunteers.Select(v =>
+        {
+            int? callId = _dal.Assignment.Read(a => a.VolunteerId == v.Id && a.FinishTime == null)?.CallId;
+            BO.CallType? callType = callId is null ? null : (BO.CallType?)_dal.Call.Read(callId.Value)!.CallType;
+            return new BO.VolunteerInList(
+            v.Id, v.Name, v.IsActive,
+            _dal.Assignment.ReadAll(a => a.VolunteerId == v.Id && a.FinishType == DO.Finish_Type.Addressed).Count(),
+            _dal.Assignment.ReadAll(a => a.VolunteerId == v.Id && (a.FinishType == DO.Finish_Type.ManageCancel || a.FinishType == DO.Finish_Type.SelfCancel)).Count(),
+            _dal.Assignment.ReadAll(a => a.VolunteerId == v.Id && a.FinishType == DO.Finish_Type.Expired).Count(),
+            callId, callType);
+        }).ToList();
+
+        sort ??= BO.Volunteer_In_List_Fields.Id;
+
+        var propertyInfo = typeof(BO.VolunteerInList).GetProperty(sort.Value.ToString());
+
+        if (propertyInfo != null)
+        {
+            volunteerInList = volunteerInList.OrderBy(v => propertyInfo.GetValue(v)).ToList();
+        }
+
+        return volunteerInList;
+    }
+
     //public IEnumerable<VolunteerInList> ReadAll(BO.VolunteerSortBy? sort = null, VolunteerField? filter = null, object? value = null)
     //{
     //    throw new NotImplementedException();
     //}
 
-    public void Update(int requesterId, BO.Volunteer volunteer)
-    {
 
+
+
+
+    public async void Update(int id, BO.Volunteer boVolunteer)
+    {
+        DO.Volunteer? requester = _dal.Volunteer.Read(id);
+        if (requester is null || (boVolunteer.Id != id && requester.Role != DO.Role.Manager))
+            return;
+        if (!VolunteerManager.CheckValidation(boVolunteer))
+            return;
+        if (boVolunteer.Address != null)
+        {
+            var (latitude, longitude) = await VolunteerManager.GetCoordinatesAsync(boVolunteer.Address);
+            if (latitude != null && longitude != null)
+            {
+                boVolunteer.Latitude = latitude;
+                boVolunteer.Longitude = longitude;
+            }
+            else
+                return;
+
+        }
+
+
+        try
+        {
+            DO.Volunteer? prevDoVolunteer = _dal.Volunteer.Read(boVolunteer.Id);
+            if (prevDoVolunteer is null)
+                throw new BO.BlDoesNotExistException($"volunteer with id {boVolunteer.Id} does not exist");
+            if (requester.Role != DO.Role.Manager && (DO.Role)boVolunteer.Role != prevDoVolunteer.Role)
+            {
+                boVolunteer.Role = (BO.Role)prevDoVolunteer.Role;
+            }
+            DO.Volunteer doVolunteer =
+          new(boVolunteer.Id, boVolunteer.FullName, boVolunteer.Phone, boVolunteer.Email,
+          boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
+        boVolunteer.Longitude, boVolunteer.IsActive,
+        boVolunteer.MaxDistance);
+
+            _dal.Volunteer.Update(doVolunteer);
+        }
+        catch
+        {
+            throw new BO.BlDoesNotExistException($"volunteer with id {boVolunteer.Id} does not exist");
+
+        }
     }
 
-    //public void Update(Volunteer boStudent)
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    BO.Volunteer? IVolunteer.Read(int id)
+    public BO.Volunteer? Read(int id)
     {
-        var doVolunteer = _dal.Volunteer.Read(id) ??
-       throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does Not exist");
-        return new()
+        try
         {
+            var doVolunteer = _dal.Volunteer.Read(id) ??
+                throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does not exist.");
+
+            var myAssignments = _dal.Assignment.ReadAll(a => a.VolunteerId == doVolunteer.Id);
+            List<Assignment>? closedAssignments = myAssignments.Where(a => a.EndOfTreatmentTime != null).ToList();
+            int TotalHandledCalls = closedAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.Teated);
+            int TotalCanceledCalls = closedAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation || a.TypeOfEnding == DO.TypeOfEnding.CancellationHasExpired);
+            int TotalExpiredHandledCalls = closedAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.CancellationHasExpired);
+
+            Assignment? activeAssignment = myAssignments.FirstOrDefault(a => a.TypeOfEnding == null);
+
+            BO.CallInProgress? callInHandling = null;
 
 
-            Id = id,
-            FullName = doVolunteer.Name,
-            IsActive = (bool)doVolunteer.IsActive,
-            Phone = doVolunteer.Phone,
-            Email = doVolunteer.Email,
-            Password = doVolunteer.Password,
 
-            TypeDistance = doVolunteer.TypeDistance,
-            Role = doVolunteer.Role,
-            Address = doVolunteer.Address,
-            Latitude = doVolunteer.Latitude,
-            Longitude = doVolunteer.Longitude,
-            MaxDistance = doVolunteer.MaxDistance,
+            if (activeAssignment != null)
+            {
+                var call = _dal.Call.Read(activeAssignment.CallId) ??
+                    throw new BO.BlDoesNotExistException($"Call with ID={activeAssignment.CallId} does Not exist");
 
-            CurrentYear = VolunteerManager.GetStudentCurrentYear(doVolunteer.RegistrationDate)
+                callInHandling = new BO.CallInProgress
+                {
+                    Id = activeAssignment.Id,
+                    CallId = call.Id,
+                    TypeOfReading = (BO.TypeOfReading)call.TypeOfReading,
+                    Description = call.VerbalDescription,
+                    FullAddress = call.Address,
+                    OpeningTime = call.OpeningTime,
+                    MaxCompletionTime = call.MaxTimeFinishRead, // Use the correct property for max completion
+                    EntryTimeForHandling = activeAssignment.EntryTimeForTreatment,
+                    DistanceFromVolunteer = Tools.DistanceCalculation(call.Address, doVolunteer.Address!),
+                    Status = CallManager.GetCallStatus(call.Id)
+                };
 
-        };
+            }
+
+            return new BO.Volunteer
+            {
+                Id = doVolunteer.Id, // Ensure the correct ID is used
+                FullName = doVolunteer.Name,
+                IsActive = doVolunteer.IsActive ?? false, // Safely handle potential null
+                Phone = doVolunteer.Phone,
+                Email = doVolunteer.Email,
+                Password = doVolunteer.Password, // Be cautious with sensitive information
+                TypeDistance = (BO.TypeDistance)doVolunteer.Type_Distance,
+                Role = (BO.Role)doVolunteer.Role,
+                Address = doVolunteer.Address,
+                Latitude = doVolunteer.Latitude,
+                Longitude = doVolunteer.Longitude,
+                MaxDistance = doVolunteer.Max_Distance,
+                TotalHandledCalls = TotalHandledCalls,
+                TotalCanceledCalls = TotalCanceledCalls,
+                TotalExpiredHandledCalls = TotalExpiredHandledCalls,
+                CurrentCallInProgress = callInHandling
+            };
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            // Log the exception or handle it if necessary
+            throw new BO.BlDoesNotExistException($"Unable to find volunteer with ID={id}.", ex);
+        }
     }
 }
+
+
+
+
 
 
 

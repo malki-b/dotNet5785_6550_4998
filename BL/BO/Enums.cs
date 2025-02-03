@@ -51,10 +51,13 @@
 
     public enum CallType
     {
-        None,
-        Regular,
-        Emergency,
-        HighPriority
+    FearOfHumanLife,
+    ImmediateDanger,
+    LongTermDanger,
+    //None,
+    //    Regular,
+    //    Emergency,
+    //    HighPriority
     }
 
 

@@ -29,3 +29,14 @@ public enum TypeOfEnding//סוג סיום הטיפול
     SelfCancellation,//ביטול עצמי
     CancellationHasExpired//ביטול פג תוקף
 }
+
+public enum CallType
+{
+    FearOfHumanLife,
+    ImmediateDanger,
+    LongTermDanger,
+    //None,
+    //    Regular,
+    //    Emergency,
+    //    HighPriority
+}

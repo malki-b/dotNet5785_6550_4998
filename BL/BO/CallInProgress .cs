@@ -16,12 +16,12 @@ public class CallInProgress
     /// <summary>
     /// Represents the type of the call associated with the allocation.
     /// </summary>
-    public CallType CallType { get; set; }
+    public TypeOfReading TypeOfReading { get; set; }
 
     /// <summary>
     /// Represents a descriptive text regarding the allocation.
     /// </summary>
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     /// <summary>
     /// Represents the full address of the call.
@@ -36,7 +36,7 @@ public class CallInProgress
     /// <summary>
     /// Indicates the maximum time allowed for completing the call.
     /// </summary>
-    public DateTime MaxCompletionTime { get; set; }
+    public DateTime? MaxCompletionTime { get; set; }
 
     /// <summary>
     /// Indicates the entry time for handling the call.

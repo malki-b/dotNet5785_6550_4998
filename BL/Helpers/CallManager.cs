@@ -1,4 +1,6 @@
-﻿using DalApi;
+﻿using BO;
+using DalApi;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,4 +12,37 @@ namespace Helpers;
 internal static class CallManager
 {
     private static IDal s_dal = Factory.Get; //stage 4
+    internal static Status GetCallStatus(int callId)
+    {
+        var call = s_dal.Call.Read(callId) ??
+            throw new BO.BlDoesNotExistException($"Call with ID {callId} not found.");
+
+        DateTime currentTime = ClockManager.Now;
+        var assignments = s_dal.Assignment.ReadAll(a => a.CallId == callId).ToList();
+        Assignment? activeAssignment = assignments.Find(a => a.EndOfTreatmentTime == null);
+        Assignment? handledAssignments = assignments.Find(a => a.EndOfTreatmentTime != null && a.TypeOfEnding == DO.TypeOfEnding.Teated);
+
+        if (activeAssignment != null)
+        {
+            if (call.MaxTimeFinishRead.HasValue && currentTime > call.MaxTimeFinishRead.Value - s_dal.Config.RiskRange)
+                return Status.Open;
+
+            return Status.InProgress;
+        }
+
+        if (handledAssignments != null)
+            return Status.Closed;
+
+        if (call.MaxTimeFinishRead.HasValue && currentTime > call.MaxTimeFinishRead.Value)
+            return Status.Expired;
+
+        if (call.MaxTimeFinishRead.HasValue && currentTime > call.MaxTimeFinishRead.Value - s_dal.Config.RiskRange)
+            return Status.OpenAtRisk;
+
+        return Status.Open;
+    }
 }
+
+
+
+

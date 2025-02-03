@@ -16,6 +16,7 @@ public enum TypeDistance
 /// </summary>
 public enum TypeOfReading
 {
+    None,
     FearOfHumanLife,
     ImmediateDanger,
     LongTermDanger,
@@ -25,18 +26,20 @@ public enum TypeOfReading
 /// </summary>
 public enum TypeOfEnding//סוג סיום הטיפול
 {
+    //None,
     Teated,
+    ManagerCancellation,
     SelfCancellation,//ביטול עצמי
     CancellationHasExpired//ביטול פג תוקף
 }
 
-public enum CallType
-{
-    FearOfHumanLife,
-    ImmediateDanger,
-    LongTermDanger,
-    //None,
-    //    Regular,
-    //    Emergency,
-    //    HighPriority
-}
+//public enum CallType
+//{
+//    FearOfHumanLife,
+//    ImmediateDanger,
+//    LongTermDanger,
+//    //None,
+//    //    Regular,
+//    //    Emergency,
+//    //    HighPriority
+//}

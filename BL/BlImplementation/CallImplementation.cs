@@ -7,12 +7,12 @@ using System.Collections.Generic;
 internal class CallImplementation : ICall
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
-    public void AddCall(Call call)
+    public void Create(Call call)
     {
         throw new NotImplementedException();
     }
 
-    public void DeleteCall(int callId)
+    public void Delete(int callId)
     {
         throw new NotImplementedException();
     }

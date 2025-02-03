@@ -50,7 +50,7 @@ public class DalNotFoundException : Exception
 }
 
 [Serializable]
-internal class DalDoNotSuccseedDelete : Exception
+public class DalDoNotSuccseedDelete : Exception
 {
     public DalDoNotSuccseedDelete()
     {

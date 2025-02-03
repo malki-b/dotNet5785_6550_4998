@@ -19,7 +19,7 @@ internal class OpenCallInList
     /// <summary>
     /// Gets the type of the call.
     /// </summary>
-    public CallType Type { get; private set; } // Not nullable
+    public TypeOfReading Type { get; private set; } // Not nullable
 
     /// <summary>
     /// Gets or sets the textual description of the call.

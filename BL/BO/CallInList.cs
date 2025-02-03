@@ -25,7 +25,7 @@ public class CallInList
     /// <summary>
     /// Represents the type of the call.
     /// </summary>
-    public CallType CallType { get; set; }
+    public TypeOfReading TypeOfReading { get; set; }
 
     /// <summary>
     /// Indicates the opening time of the call.

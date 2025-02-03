@@ -19,7 +19,7 @@ public class ClosedCallInList
     /// <summary>
     /// Represents the type of the call.
     /// </summary>
-    public CallType CallType { get; set; }
+    public TypeOfReading TypeOfReading { get; set; }
 
     /// <summary>
     /// Represents the full address of the call.

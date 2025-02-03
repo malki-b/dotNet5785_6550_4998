@@ -39,7 +39,8 @@ public interface IVolunteer
     /// <param name="isActive">Filter for active/inactive volunteers (nullable).</param>
     /// <param name="sortBy">The enumeration field to sort by (nullable).</param>
     //public IEnumerable<BO.VolunteerInList> RequestVolunteersList(bool? isActive, BO.VolunteerSortBy? sortBy);//code
-    IEnumerable<BO.VolunteerInList> ReadAll(BO.VolunteerSortBy? sort = null, BO.VolunteerField? filter = null, object? value = null);
+    //IEnumerable<BO.VolunteerInList> ReadAll(BO.VolunteerSortBy? sort = null, BO.VolunteerField? filter = null, object? value = null);
+    IEnumerable<BO.VolunteerInList> ReadAll(bool? sort = null, BO.VolunteerSortBy? filter = null);
 
     /// <summary>
     /// Method to request volunteer details.
@@ -55,7 +56,7 @@ public interface IVolunteer
     /// <param name="requesterId">The ID of the requester.</param>
     /// <param name="volunteer">The Volunteer object containing updated details.</param>
     //public void UpdateVolunteerDetails(int requesterId, BO.Volunteer volunteer);//code
-    public void Update(BO.Volunteer boStudent);
+    public void Update(int id, BO.Volunteer boVolunteer);
 
     /// <summary>
     /// Method to request deletion of a volunteer.

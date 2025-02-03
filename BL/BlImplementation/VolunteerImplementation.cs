@@ -1,7 +1,7 @@
 ﻿namespace BlImplementation;
 using BlApi;
 using BO;
-using DalApi;
+
 using DO;
 using Helpers;
 using System.Collections.Generic;
@@ -98,82 +98,96 @@ internal class VolunteerImplementation : IVolunteer
     //{
     //  return  LinkManager.LinkStudentToCourse(studentId, courseId);
     //}
-    public IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive, BO.VolunteerSortBy? sortBy)
+    public IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive = null, BO.VolunteerSortBy? sortBy=null)
     {
-        try
-        {
-            var Volunteer = _dal.Volunteer.ReadAll();
+        
+       
+            //var Volunteer = _dal.Volunteer.ReadAll();
 
-            if (isActive == null)
-            {
-                //?? throw new BO.BlDoesNotExistException("Volunteer with ID does Not exist");
-                return (IEnumerable<VolunteerInList>)Volunteer;
-            }
-            else
-            {
-                var xx = _dal.Volunteer.ReadAll().Where(v => v.IsActive == isActive.Value).ToString();
-                return (IEnumerable<BO.VolunteerInList>)xx;
+            //if (isActive == null)
+            //{
+            //    //?? throw new BO.BlDoesNotExistException("Volunteer with ID does Not exist");
+            //    return( (IEnumerable<VolunteerInList>)Volunteer).ToList();
+            //}
+            //else
+            //{
+            //    var xx = _dal.Volunteer.ReadAll().Where(v => v.IsActive == isActive.Value).ToString();
+            //    return (IEnumerable<BO.VolunteerInList>)xx;
 
-            }
+            //}
+            //if (sortBy == null)
+            //{
+            //    var xx = _dal.Volunteer.ReadAll().Where(v => v.id == isActive.Value).ToString(); //תז
+
+            //    return _dal.Volunteer.ReadAll(isActive);
+            //}
+            //else
+            //{
+            //    //
+            //}
+
+            //var doVolunteer = _dal.Volunteer.ReadAll(id) ??
+            //      throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does Not exist");
+
+            IEnumerable<DO.Volunteer> volunteers = _dal.Volunteer.ReadAll(isActive is null ? null : v => v.IsActive == isActive).ToList();
+
+            //IEnumerable<DO.Volunteer> allVolunteers = _dal.Volunteer.ReadAll().ToList();
+
+            IEnumerable<BO.VolunteerInList> volunteersList =volunteers.Select(volunteer =>
+            {
+                var volunteerAssignments = _dal.Assignment.ReadAll(a => a.VolunteerId == volunteer.Id);
+
+                int TotalHandledRequests = volunteerAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.Teated);
+                int TotalCanceledRequests = volunteerAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation || a.TypeOfEnding == DO.TypeOfEnding.ManagerCancellation);
+                int TotalExpiredRequests = volunteerAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.CancellationHasExpired);
+
+                var currentCallId = volunteerAssignments.FirstOrDefault(a => a.TypeOfEnding == null)?.CallId;
+           
+                BO.TypeOfReading callType = currentCallId.HasValue ? (BO.TypeOfReading)_dal.Call.Read(currentCallId.Value)!.TypeOfReading: (BO.TypeOfReading)DO.TypeOfReading.None;
+
+                return new BO.VolunteerInList
+                {
+                    VolunteerId = volunteer.Id,
+                    FullName = volunteer.Name,
+                    IsActive = volunteer.IsActive ?? false,
+                    TotalHandledRequests = TotalHandledRequests,
+                    TotalCanceledRequests = TotalCanceledRequests,
+                    TotalExpiredRequests = TotalExpiredRequests,
+                    HandledRequestId = currentCallId,
+                    TypeOfReading = callType
+                   
+                };
+            });
+
+
             if (sortBy == null)
             {
-                var xx = _dal.Volunteer.ReadAll().Where(v => v.id == isActive.Value).ToString(); //תז
-
-                return _dal.Volunteer.ReadAll(isActive);
+                return volunteersList.OrderBy(v => v.VolunteerId).ToList(); // Sort by Id if sortBy is null
             }
-            else
+
+            // Sorting based on the specified enum value
+            var propertyInfo = typeof(BO.VolunteerInList).GetProperty(sortBy.ToString());
+
+            if (propertyInfo != null)
             {
-                //
+                return volunteersList.OrderBy(v => propertyInfo.GetValue(v, null)).ToList();
             }
 
-            var doVolunteer = _dal.Volunteer.ReadAll(id) ??
-                  throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does Not exist");
+           
+         
+            return volunteersList;
 
-        }
-        catch (DO.DalDoesNotExistException ex)
-        {
-            throw new BO.BlDoesNotExistException("Login failed.", ex);
-        }
+       
     }
 
 
-    public IEnumerable<BO.VolunteerInList> ReadAll1(bool? isActive = null, BO.Volunteer_In_List_Fields? sort = null)
-    {
-        IEnumerable<DO.Volunteer> volunteers = _dal.Volunteer.ReadAll(isActive is null ? null : v => v.IsActive == isActive);
-        var volunteerInList = volunteers.Select(v =>
-        {
-            int? callId = _dal.Assignment.Read(a => a.VolunteerId == v.Id && a.FinishTime == null)?.CallId;
-            BO.CallType? callType = callId is null ? null : (BO.CallType?)_dal.Call.Read(callId.Value)!.CallType;
-            return new BO.VolunteerInList(
-            v.Id, v.Name, v.IsActive,
-            _dal.Assignment.ReadAll(a => a.VolunteerId == v.Id && a.FinishType == DO.Finish_Type.Addressed).Count(),
-            _dal.Assignment.ReadAll(a => a.VolunteerId == v.Id && (a.FinishType == DO.Finish_Type.ManageCancel || a.FinishType == DO.Finish_Type.SelfCancel)).Count(),
-            _dal.Assignment.ReadAll(a => a.VolunteerId == v.Id && a.FinishType == DO.Finish_Type.Expired).Count(),
-            callId, callType);
-        }).ToList();
-
-        sort ??= BO.Volunteer_In_List_Fields.Id;
-
-        var propertyInfo = typeof(BO.VolunteerInList).GetProperty(sort.Value.ToString());
-
-        if (propertyInfo != null)
-        {
-            volunteerInList = volunteerInList.OrderBy(v => propertyInfo.GetValue(v)).ToList();
-        }
-
-        return volunteerInList;
-    }
-
-    //public IEnumerable<VolunteerInList> ReadAll(BO.VolunteerSortBy? sort = null, VolunteerField? filter = null, object? value = null)
-    //{
-    //    throw new NotImplementedException();
-    //}
+    
 
 
 
 
 
-    public async void Update(int id, BO.Volunteer boVolunteer)
+    public  void Update(int id, BO.Volunteer boVolunteer)
     {
         DO.Volunteer? requester = _dal.Volunteer.Read(id);
         if (requester is null || (boVolunteer.Id != id && requester.Role != DO.Role.Manager))
@@ -182,7 +196,7 @@ internal class VolunteerImplementation : IVolunteer
             return;
         if (boVolunteer.Address != null)
         {
-            var (latitude, longitude) = await VolunteerManager.GetCoordinatesAsync(boVolunteer.Address);
+            var (latitude, longitude) =  Tools.GetCoordinates(boVolunteer.Address);
             if (latitude != null && longitude != null)
             {
                 boVolunteer.Latitude = latitude;
@@ -228,7 +242,7 @@ internal class VolunteerImplementation : IVolunteer
             var myAssignments = _dal.Assignment.ReadAll(a => a.VolunteerId == doVolunteer.Id);
             List<Assignment>? closedAssignments = myAssignments.Where(a => a.EndOfTreatmentTime != null).ToList();
             int TotalHandledCalls = closedAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.Teated);
-            int TotalCanceledCalls = closedAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation || a.TypeOfEnding == DO.TypeOfEnding.CancellationHasExpired);
+            int TotalCanceledCalls = closedAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation || a.TypeOfEnding == DO.TypeOfEnding.ManagerCancellation);
             int TotalExpiredHandledCalls = closedAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.CancellationHasExpired);
 
             Assignment? activeAssignment = myAssignments.FirstOrDefault(a => a.TypeOfEnding == null);

@@ -28,7 +28,7 @@ namespace Helpers;
 
         return stringBuilder.ToString();
     }
-    public static (double, double) GetCoordinatesFromAddress(string address)
+    public static (double, double) GetCoordinates(string address)
     {
         string apiKey = "PK.83B935C225DF7E2F9B1ee90A6B46AD86";
         using var client = new HttpClient();

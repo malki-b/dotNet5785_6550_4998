@@ -35,18 +35,18 @@ internal class CallImplementation : ICall
     {
         try
         {
-            if (_dal.Call.Read(callId) == null)
-                throw new BO.BlDoesNotExistException($"Volunteer with ID={callId} does not exist.");
+            var doCall = _dal.Call.Read(callId);
+            if (doCall == null)
+                throw new BO.BlDoesNotExistException($"Call with ID={callId} does not exist.");
 
             //var volunteer = _dal.Volunteer.Read(id)
             //    ?? throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does not exist.");
 
             // Check if the volunteer is handling any cases
-            if (!AssignmentManager.VolunteerIsOnCall(callId))
+            if ((CallManager.GetCallStatus(callId) == BO.Status.Open)&&(doCall.))
             {
                 //_dal.Volunteer.Delete(id);
                 //throw new BO.BlDoesNotExistException($"Failed to delete volunteer with ID={id}.", ex);
-
                 try
                 {
                     //Attempt to delete the volunteer from the data access layer

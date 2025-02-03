@@ -21,7 +21,7 @@ public interface ICall
     /// <param name="filterValue">The value to filter by (nullable).</param>
     /// <param name="sortBy">The enum field to sort the list (nullable).</param>
     /// <returns>A collection of CallInList entities.</returns>
-    public IEnumerable<BO.CallInList> RequestCallsList(BO.CallField? filterBy, object? filterValue, BO.CallField? sortBy);
+    public IEnumerable<BO.CallInList> ReadAll(BO.CallField? filterBy, object? filterValue, BO.CallField? sortBy);
 
     /// <summary>
     /// Method to request details of a specific call by its ID.
@@ -44,13 +44,13 @@ public interface ICall
     /// <param name="callId">The ID of the call to delete.</param>
     /// <exception cref="CallNotFoundException"></exception>
     /// <exception cref="CallCannotBeDeletedException"></exception>
-    public void DeleteCall(int callId);
+    public void Delete(int callId);
 
     /// <summary>
     /// Method to add a new call.
     /// </summary>
     /// <param name="call">The Call object to add.</param>
-    public void AddCall(BO.Call call);
+    public void Create(BO.Call call);
 
     /// <summary>
     /// Method to request closed calls handled by a specific volunteer.

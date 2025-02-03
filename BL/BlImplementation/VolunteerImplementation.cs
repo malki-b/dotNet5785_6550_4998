@@ -165,17 +165,24 @@ internal class VolunteerImplementation : IVolunteer
                 return volunteersList.OrderBy(v => v.VolunteerId).ToList(); // Sort by Id if sortBy is null
             }
 
-            // Sorting based on the specified enum value
-            var propertyInfo = typeof(BO.VolunteerInList).GetProperty(sortBy.ToString());
+        // Sorting based on the specified enum value
+        var propertyInfo = typeof(BO.VolunteerInList).GetProperty(sortBy.ToString());
 
-            if (propertyInfo != null)
-            {
-                return volunteersList.OrderBy(v => propertyInfo.GetValue(v, null)).ToList();
-            }
+        if (propertyInfo != null)
+        {
+            return volunteersList.OrderBy(v => propertyInfo.GetValue(v, null)).ToList();
+            //return volunteersList.OrderBy(v => propertyInfo.GetValue(v)).ToList();
 
-           
-         
-            return volunteersList;
+        }
+
+
+        ////var propertyInfo = typeof(BO.VolunteerInList).GetProperty(sortBy.ToString());
+        //var x = sortBy.ToString();
+        //if (propertyInfo != null)
+        //{
+        //    return volunteersList.OrderBy(v => v.x).ToList();
+        //}
+        return volunteersList;
 
        
     }

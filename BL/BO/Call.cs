@@ -19,12 +19,12 @@ public class Call
     /// <summary>
     /// Represents a number that identifies the call.
     /// </summary>
-    public int Id { get; init; }
+    public int CallId { get; init; }
 
     /// <summary>
     /// Represents the type of call.
     /// </summary>
-    public CallType CallType { get; set; }
+    public TypeOfReading TypeOfReading { get; set; }
 
     /// <summary>
     /// Provides a description of the call.
@@ -34,7 +34,7 @@ public class Call
     /// <summary>
     /// Contains the full address of the call location.
     /// </summary>
-    public string FullAddress { get; set; }
+    public string Address { get; set; }
 
     /// <summary>
     /// Represents the latitude of the call location.

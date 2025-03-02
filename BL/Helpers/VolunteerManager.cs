@@ -52,7 +52,7 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+//using Newtonsoft.Json.Linq;
 using DalApi;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -167,28 +167,28 @@ internal static class VolunteerManager
 
 
 
-    internal static double CalculateDistance(double? lat1, double? lon1, double? lat2, double? lon2)
-    {
-        const double EarthRadius = 6371.0;
+    //internal static double CalculateDistance(double? lat1, double? lon1, double? lat2, double? lon2)
+    //{
+    //    const double EarthRadius = 6371.0;
 
-        if (lat1 is null || lon1 is null || lat2 is null || lon2 is null)
-            return 0;
+    //    if (lat1 is null || lon1 is null || lat2 is null || lon2 is null)
+    //        return 0;
 
-        double lat1Rad = lat1.Value * Math.PI / 180.0;
-        double lon1Rad = lon1.Value * Math.PI / 180.0;
-        double lat2Rad = lat2.Value * Math.PI / 180.0;
-        double lon2Rad = lon2.Value * Math.PI / 180.0;
+    //    double lat1Rad = lat1.Value * Math.PI / 180.0;
+    //    double lon1Rad = lon1.Value * Math.PI / 180.0;
+    //    double lat2Rad = lat2.Value * Math.PI / 180.0;
+    //    double lon2Rad = lon2.Value * Math.PI / 180.0;
 
-        double dlat = lat2Rad - lat1Rad;
-        double dlon = lon2Rad - lon1Rad;
+    //    double dlat = lat2Rad - lat1Rad;
+    //    double dlon = lon2Rad - lon1Rad;
 
-        double a = Math.Sin(dlat / 2) * Math.Sin(dlat / 2) +
-                   Math.Cos(lat1Rad) * Math.Cos(lat2Rad) *
-                   Math.Sin(dlon / 2) * Math.Sin(dlon / 2);
-        double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+    //    double a = Math.Sin(dlat / 2) * Math.Sin(dlat / 2) +
+    //               Math.Cos(lat1Rad) * Math.Cos(lat2Rad) *
+    //               Math.Sin(dlon / 2) * Math.Sin(dlon / 2);
+    //    double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
-        return EarthRadius * c;
-    }
+    //    return EarthRadius * c;
+    //}
 
 
 }

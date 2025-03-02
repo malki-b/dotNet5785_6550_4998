@@ -15,7 +15,7 @@ public record Assignment
     int VolunteerId,
     DateTime EntryTimeForTreatment,
     DateTime? EndOfTreatmentTime = null,
-    TypeOfEnding? TypeOfEnding = TypeOfEnding.Teated
+    TypeOfEnding? TypeOfEnding = TypeOfEnding.None
 )
 {
  public int Id { get; init; }

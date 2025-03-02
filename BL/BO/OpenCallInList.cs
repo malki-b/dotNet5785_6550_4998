@@ -14,12 +14,12 @@ internal class OpenCallInList
     /// <summary>
     /// Gets the unique identifier for the call entity.
     /// </summary>
-    public int Id { get; private set; } // Not nullable
+    public int Id { get;  set; } // Not nullable
 
     /// <summary>
     /// Gets the type of the call.
     /// </summary>
-    public TypeOfReading Type { get; private set; } // Not nullable
+    public TypeOfReading Type { get;  set; } // Not nullable
 
     /// <summary>
     /// Gets or sets the textual description of the call.
@@ -30,12 +30,12 @@ internal class OpenCallInList
     /// <summary>
     /// Gets the full address of the call.
     /// </summary>
-    public string FullAddress { get; private set; } // Not nullable
+    public string FullAddress { get;  set; } // Not nullable
 
     /// <summary>
     /// Gets the opening time of the call.
     /// </summary>
-    public DateTime OpeningTime { get; private set; } // Not nullable
+    public DateTime OpeningTime { get;  set; } // Not nullable
 
     /// <summary>
     /// Gets or sets the maximum time for completing the call.
@@ -47,7 +47,7 @@ internal class OpenCallInList
     /// Gets the distance of the call from the volunteer.
     /// This property is calculated in the business layer.
     /// </summary>
-    public double DistanceFromVolunteer { get; private set; } // Not nullable
+    public double DistanceFromVolunteer { get;  set; } // Not nullable
 
     public override string ToString() => this.ToStringProperty();
 }

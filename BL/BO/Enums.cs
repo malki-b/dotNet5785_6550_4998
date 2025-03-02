@@ -28,7 +28,7 @@ public enum TypeOfReading
 /// </summary>
 public enum TypeOfEnding//סוג סיום הטיפול
 {
-
+    None,
     Teated,
     ManagerCancellation,
     SelfCancellation,//ביטול עצמי

@@ -33,4 +33,14 @@ internal class BlCannotDeleteException : Exception
     public BlCannotDeleteException(string? message, Exception? innerException) : base(message, innerException)
     {
     }
+
+
+}
+
+[Serializable]
+public class BlInvalidException : Exception
+{
+    public BlInvalidException(string? message) : base(message) { }
+    public BlInvalidException(string message, Exception innerException)
+                : base(message, innerException) { }
 }

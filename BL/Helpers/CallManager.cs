@@ -41,6 +41,30 @@ internal static class CallManager
 
         return Status.Open;
     }
+
+    
+    public static TimeSpan getRemainingTimeToEndCall(DO.Call c)
+    {
+        if (c.MaxTimeFinishRead.HasValue)
+        {
+            return c.MaxTimeFinishRead.Value - DateTime.Now;
+        }
+        else
+        {
+            return TimeSpan.Zero; // או להחזיר ערך אחר במידה ואין MaxTimeFinishRead
+        }
+    }
+    public static TimeSpan getMaxTimeFinishRead(DO.Call c)
+    {
+        if (c.MaxTimeFinishRead.HasValue)
+        {
+            return c.MaxTimeFinishRead.Value - c.OpeningTime;
+        }
+        else
+        {
+            return TimeSpan.Zero; // או להחזיר ערך אחר במידה ואין MaxTimeFinishRead
+        }
+    }
 }
 
 

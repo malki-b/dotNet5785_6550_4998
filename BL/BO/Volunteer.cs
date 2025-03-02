@@ -6,6 +6,23 @@ namespace BO;
 
 public class Volunteer
 {
+    private string name;
+
+    public Volunteer(int id, string name, string phone, string email, string password, TypeDistance typeDistance, Role role, string address, double? latitude, double? longitude, bool isActive, double maxDistance)
+    {
+        Id = id;
+        this.name = name;
+        Phone = phone;
+        Email = email;
+        Password = password;
+        TypeDistance = typeDistance;
+        Role = role;
+        Address = address;
+        Latitude = latitude;
+        Longitude = longitude;
+        IsActive = isActive;
+        MaxDistance = maxDistance;
+    }
 
 
     //private readonly DalApi.IDal _dal = DalApi.Factory.Get;

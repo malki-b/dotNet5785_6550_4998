@@ -1,12 +1,17 @@
-﻿using DalApi;
+﻿using BlApi;
+using BlImplementation;
+using DalApi;
 
 internal class Program
 {
-
+    public void Main()
+    {
+        s_bll.Call.RequestCallCounts();
+    }
     //static readonly IDal s_dal = new DalList(); //stage 2
     //static readonly IDal s_dal = new DalXml(); //stage 3
-    static readonly IDal s_dal = Factory.Get; //stage 4
-
+    static readonly IDal s_dal = DalApi.Factory.Get; //stage 4
+    static readonly IBl s_bll = BlApi.Factory.Get(); //stage 4
     enum MainMenu
     {
         Exit, DisplayVolunteer, DisplayAssignments, DisplayCalls, DisplayConfig, InitializeData, ResetDatabase, DisplayAllData

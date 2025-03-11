@@ -29,7 +29,7 @@ public class Call
     /// <summary>
     /// Provides a description of the call.
     /// </summary>
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     /// <summary>
     /// Contains the full address of the call location.
@@ -54,7 +54,7 @@ public class Call
     /// <summary>
     /// Indicates the maximum allowed end time for the call.
     /// </summary>
-    public DateTime MaxEndTime { get; set; }
+    public DateTime? MaxEndTime { get; set; }
 
     /// <summary>
     /// Represents the current status of the call.

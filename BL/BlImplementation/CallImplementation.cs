@@ -402,7 +402,7 @@ internal class CallImplementation : ICall
             throw new Exception("Error closing call", ex);
         }
     }
-    public void UpdateCallDetails(Call call)
+    public void UpdateCallDetails(BO.Call call)
     {
         if (call == null)
             throw new BO.BlInvalidException("Call object cannot be null.");

@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
+using BO;
 using DalApi;
 
 internal class Program
@@ -107,39 +108,122 @@ internal class Program
                 continue;
             }
 
-            //try
-            //{
-            //    switch (choice)
-            //    {
-            //        case 1:
-            //            CallManagementScreen();
-            //            break;
-            //        case 2:
-            //            SingleCallManagementScreen();
-            //            break;
-            //        case 3:
-            //            AddCallScreen();
-            //            break;
-            //        case 4:
-            //            VolunteerManagementScreen();
-            //            break;
-            //        case 5:
-            //            SingleVolunteerManagementScreen();
-            //            break;
-            //        case 6:
-            //            AddVolunteerScreen();
-            //            break;
-            //        case 7:
-            //            return; // Return to login menu
-            //        default:
-            //            Console.WriteLine("Invalid choice. Please try again.");
-            //            break;
-            //    }
+            try
+            {
+                switch (choice)
+                {
+                    case 1:
+                        CallManagementScreen();
+                        break;
+                    case 2:
+                        SingleCallManagementScreen();
+                        break;
+                    case 3:
+                        AddCallScreen();
+                        break;
+                    case 4:
+                        VolunteerManagementScreen();
+                        break;
+                    case 5:
+                        SingleVolunteerManagementScreen();
+                        break;
+                    case 6:
+                        AddVolunteerScreen();
+                        break;
+                    case 7:
+                        return; // Return to login menu
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
+        }
+    }
+    private static void AddCallScreen()
+    {
+        try
+        {
+            Console.WriteLine("Add Call Screen");
+
+            // Collecting call details from the user
+            Console.Write("Enter the call description: ");
+            string description = Console.ReadLine();
+
+            Console.Write("Enter the address for the call: ");
+            string address = Console.ReadLine();
+
+            Console.Write("Enter the call type: ");
+            TypeOfReading callType = (TypeOfReading)Enum.Parse(typeof(TypeOfReading), Console.ReadLine());
+
+
+            // Collecting Latitude and Longitude from the user
+            Console.Write("Enter the Latitude: ");
+            double latitude = double.Parse(Console.ReadLine());
+
+            Console.Write("Enter the Longitude: ");
+            double longitude = double.Parse(Console.ReadLine());
+
+            // Collecting call type
+            /* Console.Write("Enter the call type (e.g., Emergency, Routine): ");
+             string callTypeInput = Console.ReadLine();
+             CallTypeEnum callType;
+             if (!Enum.TryParse(callTypeInput, true, out callType))
+             {
+                 Console.WriteLine("Invalid call type. Setting to 'Routine' by default.");
+                 callType = CallTypeEnum.Routine;  // Set a default value if the input is invalid
+             }*/
+
+            // Collecting the call status
+            Console.Write("Enter the call status (e.g., Open, Closed): ");
+            string statusInput = Console.ReadLine();
+            Status status;
+            if (!Enum.TryParse(statusInput, true, out status))
+            {
+                Console.WriteLine("Invalid status. Setting to 'Open' by default.");
+                status = Status.Open;  // Set a default value if the input is invalid
+            }
+
+            // Set MaxEndTime (Optional)
+            DateTime? maxEnd = null;
+            Console.Write("Enter the MaxEndTime (leave blank if none): ");
+            string maxEndTimeInput = Console.ReadLine();
+            if (!string.IsNullOrEmpty(maxEndTimeInput))
+            {
+                if (DateTime.TryParse(maxEndTimeInput, out DateTime parsedMaxEndTime))
+                {
+                    maxEnd = parsedMaxEndTime;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid MaxEndTime format.");
+                }
+            }
+
+
+            BO.Call newCall = new BO.Call
+            {
+                Description = description,
+                TypeOfReading = callType,
+                Address = address,
+                Latitude = latitude,
+                Longitude = longitude,
+                OpeningTime = DateTime.Now, // Current time as OpeningTime
+                MaxEndTime = maxEnd,
+                CallStatus = status,
+                CallAssignments = new List<BO.CallAssignInList>()
+            };
+            s_bl.Call.Create(newCall);
+           
+
+            Console.WriteLine("New call added successfully!");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while adding the call: {ex.Message}");
         }
     }
 }

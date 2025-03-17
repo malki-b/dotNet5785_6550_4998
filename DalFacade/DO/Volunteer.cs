@@ -1,9 +1,9 @@
 ﻿using System.Data;
 
 namespace DO;
-/// <summary>
+/// <summ
+/// </summary>ary>
 /// 
-/// </summary>
 /// <param name="Id">Personal unique ID of the volunteer</param>
 /// <param name="Name">Private Name of the volunteer</param>
 /// <param name="Phone">phone of the volunteer</param>

@@ -4,6 +4,7 @@ using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,7 +43,7 @@ internal static class CallManager
         return Status.Open;
     }
 
-    
+
     public static TimeSpan getRemainingTimeToEndCall(DO.Call c)
     {
         if (c.MaxTimeFinishRead.HasValue)
@@ -119,11 +120,18 @@ internal static class CallManager
                 throw new BO.BlNullPropertyException($"Volunteer with ID {volunteerId} not found.");
             // "קריאה סגורה ברשימה"
             //קריאה סגורה
+            //var assignments = s_dal.Assignment.ReadAll()
+            //    .Where(a => a.VolunteerId == volunteerId &&
+            //                (isOpen ? a. == BO.Status.Open || a.TypeOfEnding == DO.TypeOfEnding.OpenRisk
+            //                        : a.TypeOfEnding == DO.TypeOfEnding.Closed));
+
             var assignments = s_dal.Assignment.ReadAll()
                 .Where(a => a.VolunteerId == volunteerId &&
-                            (isOpen ? a.TypeOfEnding == DO.TypeOfEnding.Open || a.TypeOfEnding == DO.TypeOfEnding.OpenRisk
-                                    : a.TypeOfEnding == DO.TypeOfEnding.Closed));
+                            (isOpen ? CallManager.GetCallStatus(a.CallId) == Status.Open || CallManager.GetCallStatus(a.CallId) == Status.OpenAtRisk
+                                    : CallManager.GetCallStatus(a.CallId) == Status.Closed));
 
+            //(isOpen ? a.TypeOfEnding == DO.TypeOfEnding.Open || a.TypeOfEnding == DO.TypeOfEnding.OpenRisk
+            //                        : a.TypeOfEnding == DO.TypeOfEnding.Closed));
 
             var calls = from assign in assignments
                         join call in s_dal.Call.ReadAll()
@@ -134,34 +142,30 @@ internal static class CallManager
                 calls = calls.Where(x => x.call.TypeOfReading.Equals(filterBy));
 
             ////
-
-
-
-
-    var result = calls.Select(c => isOpen
-                ? new BO.OpenCallInList
-                {
-                    
-                    Id = c.call.Id,
-                    Type = (BO.TypeOfReading)c.call.Type,
-                    Description = c.call.Description,
-                    FullAddress = c.call.FullAddress,
-                    OpeningTime = c.call.OpeningTime,
-                    MaxCompletionTime = c.call.ExpiredTime,
-                    DistanceFromVolunteer = CalculateDistance(volunteer.Latitude, volunteer.Longitude, c.call.call.Latitude, c.call.Longitude)
-                } as T
-                : new BO.ClosedCallInList
-                {
-                    Id = c.call.Id,
-                    TypeOfReading = (BO.TypeOfReading)c.call.Type,
-                    FullAddress = c.call.FullAddress,
-                    OpeningTime = c.call.OpeningTime,
-                    EntryTimeForHandling = c.call.assign.EntryTimeForTreatment,
-                    ActualHandlingEndTime = c.call.assign.EndOfTreatmentTime,
-                    TypeOfEnding = Enum.TryParse<BO.TypeOfReading>(c.call.assign.TypeOfEnding.ToString(), out BO.TypeOfReading completionStatus)
-                                       ? (BO.TypeOfReading?)completionStatus
-                                       : null
-                } as T);
+                        var result = calls.Select(c => isOpen
+                        ? new BO.OpenCallInList
+                        {
+                            Id = c.call.Id,
+                            Type = (BO.TypeOfReading)c.call.TypeOfReading,
+                            Description = c.call.VerbalDescription,
+                            FullAddress = c.call.Address,
+                            OpeningTime = c.call.OpeningTime,
+                            MaxCompletionTime = c.call.MaxTimeFinishRead,
+                            DistanceFromVolunteer = CalculateDistance(volunteer.Latitude, volunteer.Longitude, c.call.Latitude, c.call.Longitude)
+                        } as T
+                        : new BO.ClosedCallInList
+                        {
+                            Id = c.call.Id,
+                            TypeOfReading = (BO.TypeOfReading)c.call.TypeOfReading,
+                            FullAddress = c.call.Address,
+                            OpeningTime = c.call.OpeningTime,
+                            EntryTimeForHandling = c.assign.EntryTimeForTreatment,
+                            ActualHandlingEndTime = c.assign.EndOfTreatmentTime,
+                            TypeOfEnding = (BO.TypeOfEnding)c.assign.TypeOfEnding
+                            //TypeOfEnding = Enum.TryParse<BO.TypeOfReading>(c.assign.TypeOfEnding.ToString(), out BO.TypeOfEnding completionStatus)
+                            //                   ? (BO.TypeOfReading?)completionStatus
+                            //                   : null
+                        } as T);
 
             if (sortByField != null)
             {
@@ -173,7 +177,7 @@ internal static class CallManager
             {
                 result = isOpen
                     ? result.Cast<BO.OpenCallInList>().OrderBy(call => call.Id).Cast<T>()
-                    : result.Cast<BO.ClosedCallInList>().OrderBy(call => call.OpenTime).Cast<T>();
+                    : result.Cast<BO.ClosedCallInList>().OrderBy(call => call.OpeningTime).Cast<T>();
             }
 
             return result;
@@ -182,7 +186,7 @@ internal static class CallManager
         {
             throw new BO.BlDoesNotExistException("Error retrieving calls.");
         }
-      
+
     }
     public static double CalculateDistance(double? lat1, double? lon1, double lat2, double lon2)
     {

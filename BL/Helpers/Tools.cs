@@ -50,8 +50,8 @@ namespace Helpers;
     //}
     internal static double DistanceCalculation(string address1, string address2)
     {
-        var (latitude1, longitude1) = GetCoordinatesFromAddress(address1);
-        var (latitude2, longitude2) = GetCoordinatesFromAddress(address2);
+        var (latitude1, longitude1) = GetCoordinates(address1);
+        var (latitude2, longitude2) = GetCoordinates(address2);
 
         double dLat = latitude2 - latitude1;
         double dLon = longitude2 - longitude1;

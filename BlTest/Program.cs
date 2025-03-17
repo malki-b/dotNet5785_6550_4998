@@ -322,7 +322,31 @@ namespace BLTest
                     return;
                 }
 
-                BO.Volunteer volunteer = new BO.Volunteer(id, fullName, phone, email, password, typeDistance, role, address, latitude, longitude, true, maxDistance);
+                //BO.Volunteer volunteer = new BO.Volunteer(id, fullName, phone, email, password, typeDistance, role, address, latitude, longitude, true, maxDistance);
+
+                int totalHandledCalls = 0;
+                int totalCanceledCalls = 0;
+                int totalExpiredHandledCalls = 0;
+                BO.CallInProgress? currentCallInProgress = null;
+
+                BO.Volunteer volunteer = new BO.Volunteer(
+                    id,
+                    fullName,
+                    phone,
+                    email,
+                    password,
+                    typeDistance,
+                    role,
+                    address,
+                    latitude,
+                    longitude,
+                    true,
+                    maxDistance,
+                    totalHandledCalls,
+                    totalCanceledCalls,
+                    totalExpiredHandledCalls,
+                    currentCallInProgress // Updated line to include new parameters
+                );
 
                 s_bl.Volunteer.Create(volunteer);
                 Console.WriteLine("Volunteer added successfully.");
@@ -369,6 +393,85 @@ namespace BLTest
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+
+        //private static void UpdateVolunteer()
+        //{
+        //    try
+        //    {
+        //        Console.Write("Enter Volunteer ID: ");
+        //        if (!int.TryParse(Console.ReadLine(), out int id))
+        //        {
+        //            Console.WriteLine("Invalid input. Please enter a number.");
+        //            return;
+        //        }
+
+        //        Console.Write("Enter Full Name: ");
+        //        string fullName = Console.ReadLine();
+
+        //        Console.Write("Enter Phone: ");
+        //        string phone = Console.ReadLine();
+
+        //        Console.Write("Enter Email: ");
+        //        string email = Console.ReadLine();
+
+        //        Console.Write("Enter Password: ");
+        //        string password = Console.ReadLine();
+
+        //        Console.Write("Enter Type Distance: ");
+        //        if (!Enum.TryParse(Console.ReadLine(), out BO.TypeDistance typeDistance))
+        //        {
+        //            Console.WriteLine("Invalid input. Please enter a valid Type Distance.");
+        //            return;
+        //        }
+
+        //        Console.Write("Enter Role: ");
+        //        if (!Enum.TryParse(Console.ReadLine(), out BO.Role role))
+        //        {
+        //            Console.WriteLine("Invalid input. Please enter a valid Role.");
+        //            return;
+        //        }
+
+        //        Console.Write("Enter Address: ");
+        //        string address = Console.ReadLine();
+
+        //        Console.Write("Enter Latitude: ");
+        //        if (!double.TryParse(Console.ReadLine(), out double latitude))
+        //        {
+        //            Console.WriteLine("Invalid input. Please enter a number.");
+        //            return;
+        //        }
+
+        //        Console.Write("Enter Longitude: ");
+        //        if (!double.TryParse(Console.ReadLine(), out double longitude))
+        //        {
+        //            Console.WriteLine("Invalid input. Please enter a number.");
+        //            return;
+        //        }
+
+        //        Console.Write("Enter Max Distance: ");
+        //        if (!double.TryParse(Console.ReadLine(), out double maxDistance))
+        //        {
+        //            Console.WriteLine("Invalid input. Please enter a number.");
+        //            return;
+        //        }
+
+        //        BO.Volunteer volunteer = new BO.Volunteer(id, fullName, phone, email, password, typeDistance, role, address, latitude, longitude, true, maxDistance);
+
+
+        //        s_bl.Volunteer.Update(id, volunteer);
+        //        Console.WriteLine("Volunteer updated successfully.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error: {ex.Message}");
+        //    }
+        //}
+
+
+
+
+
+
 
         private static void UpdateVolunteer()
         {
@@ -431,8 +534,30 @@ namespace BLTest
                     return;
                 }
 
-                BO.Volunteer volunteer = new BO.Volunteer(id, fullName, phone, email, password, typeDistance, role, address, latitude, longitude, true, maxDistance);
+                // Assuming default values for the new fields as they are required in the constructor
+                int totalHandledCalls = 0;
+                int totalCanceledCalls = 0;
+                int totalExpiredHandledCalls = 0;
+                BO.CallInProgress? currentCallInProgress = null;
 
+                BO.Volunteer volunteer = new BO.Volunteer(
+                    id,
+                    fullName,
+                    phone,
+                    email,
+                    password,
+                    typeDistance,
+                    role,
+                    address,
+                    latitude,
+                    longitude,
+                    true,
+                    maxDistance,
+                    totalHandledCalls,
+                    totalCanceledCalls,
+                    totalExpiredHandledCalls,
+                    currentCallInProgress // Updated line to include new parameters
+                );
 
                 s_bl.Volunteer.Update(id, volunteer);
                 Console.WriteLine("Volunteer updated successfully.");
@@ -442,6 +567,13 @@ namespace BLTest
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+
+
+
+
+
+
+
 
         private static void DeleteVolunteer()
         {

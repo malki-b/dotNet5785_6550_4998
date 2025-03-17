@@ -68,8 +68,8 @@ public interface ICall
     /// <param name="filterBy">Filter by call type (nullable).</param>
     /// <param name="sortBy">Sort the list by a specific field (nullable).</param>
     public IEnumerable<BO.OpenCallInList> RequestOpenCallsForSelection(int volunteerId, BO.TypeOfReading? filterBy, CallField? sortByField);
-   
-  
+
+
 
     /// <summary>
     /// Method to update the status of a call's treatment completion.

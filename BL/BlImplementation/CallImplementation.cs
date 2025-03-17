@@ -2,10 +2,12 @@
 namespace BlImplementation;
 using BlApi;
 using BO;
+using DalApi;
 using DO;
 using Helpers;
 using Microsoft.VisualBasic;
 using System.Collections.Generic;
+using ICall = BlApi.ICall;
 
 internal class CallImplementation : ICall
 {
@@ -316,10 +318,16 @@ internal class CallImplementation : ICall
         return CallManager.GetCallsByFilter<BO.ClosedCallInList>(volunteerId, filterBy, sortByField, isOpen: false);
     }
 
-    public IEnumerable<BO.OpenCallInList> RequestOpenCallsForSelection(int volunteerId, BO.TypeOfReading? filterBy,CallField? sortByField)
+    //public IEnumerable<BO.OpenCallInList> RequestOpenCallsForSelection(int volunteerId, BO.TypeOfReading? filterBy,CallField? sortByField)
+    //{
+    //    return CallManager.GetCallsByFilter<BO.OpenCallInList>(volunteerId, filterBy, sortByField, isOpen: true);
+
+    //}
+    public IEnumerable<BO.OpenCallInList> RequestOpenCallsForSelection(int volunteerId, BO.TypeOfReading? filterBy, CallField? sortByField)
     {
-        return CallManager.GetCallsByFilter<BO.OpenCallInList>(volunteerId, filterBy, sortByField, isOpen: true);
+        return CallManager.GetCallsByFilter<BO.OpenCallInList>(volunteerId, filterBy, sortByField, isOpen: true); // הפונקציה משתמשת ב-GetCallsByFilter
     }
+
 
     public void SelectCallForTreatment(int volunteerId, int callId)
     {
@@ -328,7 +336,7 @@ internal class CallImplementation : ICall
         {
 
             var assignment = _dal.Assignment.Read(a => a.CallId == callId);
-             if (assignment != null|| assignment.TypeOfEnding== assignment.T)
+             if (assignment != null|| assignment.TypeOfEnding== assignment.TypeOfEnding)
                throw new Exception($"Assignment with ID {callId}  already exists");
 
         }
@@ -337,7 +345,9 @@ internal class CallImplementation : ICall
             throw new Exception("Error closing call", ex);
         }
     }
-    //עדכון "ביטול טיפול" 
+
+
+
     public void UpdateCallCancellation(int requesterId, int assignmentId)
     {
         try
@@ -352,29 +362,73 @@ internal class CallImplementation : ICall
 
             // Check if the requestor is an admin or the volunteer themselves
             bool isAdmin = volunteer.Role == DO.Role.Manager;
-
             bool isVolunteer = assignment.VolunteerId == requesterId;
 
             if (!isAdmin && !isVolunteer)
                 throw new Exception("You do not have permission to cancel this call");
-           
-            //check
 
             // Ensure the assignment is still open
-            if (assignment.EndOfTreatmentTime != null || assignment.EntryTimeForTreatment < DateTime.Now)
+            if (assignment.EndOfTreatmentTime != null) // שורה זו נבדקת אם זמן הסיום כבר קיים
                 throw new Exception("Cannot cancel a call that has already been closed");
 
-            // Update the assignment data
-            assignment.EntryTimeForTreatment = DateTime.Now;
-            // assignment.FinishCompletionTime = isVolunteer ? ClosureType.SelfCancellation : ClosureType.AdminCancellation;
+            // Create a new assignment with updated EntryTimeForTreatment
+            var updatedAssignment = assignment with // יצירת אובייקט חדש עם הערכים המעודכנים
+            {
+                EndOfTreatmentTime = DateTime.Now, // עדכון זמן הסיום
+                TypeOfEnding = isVolunteer ? DO.TypeOfEnding.SelfCancellation : DO.TypeOfEnding.ManagerCancellation // עדכון סוג הסיום
+            };
 
-            _dal.Assignment.Update(assignment);
+            _dal.Assignment.Update(updatedAssignment); // עדכון האובייקט ב- DAL
         }
         catch (Exception ex)
         {
             throw new Exception("An error occurred while canceling the call", ex);
         }
     }
+
+
+
+
+
+    //עדכון "ביטול טיפול" 
+    //public void UpdateCallCancellation(int requesterId, int assignmentId)
+    //{
+    //    try
+    //    {
+    //        // Retrieve the assignment from the data layer using Read with filter
+    //        DO.Assignment assignment = _dal.Assignment.Read(a => a.Id == assignmentId) ??
+    //            throw new Exception("The requested assignment does not exist");
+
+    //        // Check authorization - the requester must be either the volunteer or an admin
+    //        DO.Volunteer volunteer = _dal.Volunteer.Read(v => v.Id == assignment.VolunteerId) ??
+    //            throw new Exception("The volunteer was not found in the system");
+
+    //        // Check if the requestor is an admin or the volunteer themselves
+    //        bool isAdmin = volunteer.Role == DO.Role.Manager;
+
+    //        bool isVolunteer = assignment.VolunteerId == requesterId;
+
+    //        if (!isAdmin && !isVolunteer)
+    //            throw new Exception("You do not have permission to cancel this call");
+
+    //        //check
+
+    //        // Ensure the assignment is still open
+    //        if (assignment.EndOfTreatmentTime != null || assignment.EntryTimeForTreatment < DateTime.Now)
+    //            throw new Exception("Cannot cancel a call that has already been closed");
+
+    //        // Update the assignment data
+    //        //if()
+    //        assignment.EntryTimeForTreatment = DateTime.Now;
+    //      //  assignment.FinishCompletionTime = isVolunteer ? ClosureType.SelfCancellation : ClosureType.AdminCancellation;
+
+    //        _dal.Assignment.Update(assignment);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        throw new Exception("An error occurred while canceling the call", ex);
+    //    }
+    //}
     //עדכון "סיום טיפול"
     public void UpdateCallCompletion(int volunteerId, int assignmentId)
     {
@@ -393,8 +447,16 @@ internal class CallImplementation : ICall
                 throw new Exception("Call has already been closed or expired");
 
             // Update the assignment
-            assignment.EndOfTreatmentTime = ClockManager.Now;
-            assignment.TypeOfEnding = DO.TypeOfEnding.Closed; // השתמש ב-CallStatus במקום ClosureType
+
+
+            // Create a new assignment with updated EntryTimeForTreatment
+            var updatedAssignment = assignment with // יצירת אובייקט חדש עם הערכים המעודכנים
+            {
+                EndOfTreatmentTime = DateTime.Now, // עדכון זמן הסיום
+                TypeOfEnding =DO.TypeOfEnding.Teated // עדכון סוג הסיום
+            };
+            //assignment.EndOfTreatmentTime = ClockManager.Now;
+            //assignment.TypeOfEnding = DO.TypeOfEnding.Closed; // השתמש ב-CallStatus במקום ClosureType
             _dal.Assignment.Update(assignment);
         }
         catch (Exception ex)
@@ -425,9 +487,4 @@ internal class CallImplementation : ICall
             throw new BO.BlInvalidException("Volunteer with ID already exists", ex);
         }
     }
-
-
-
-   
-
 }

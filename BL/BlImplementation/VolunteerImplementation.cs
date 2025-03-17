@@ -5,6 +5,10 @@ using BO;
 using DO;
 using Helpers;
 using System.Collections.Generic;
+using System.Data;
+using System.Net;
+using System.Numerics;
+using System.Xml.Linq;
 
 internal class VolunteerImplementation : IVolunteer
 {
@@ -98,72 +102,72 @@ internal class VolunteerImplementation : IVolunteer
     //{
     //  return  LinkManager.LinkStudentToCourse(studentId, courseId);
     //}
-    public IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive = null, BO.VolunteerSortBy? sortBy=null)
+    public IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive = null, BO.VolunteerSortBy? sortBy = null)
     {
-        
-       
-            //var Volunteer = _dal.Volunteer.ReadAll();
 
-            //if (isActive == null)
-            //{
-            //    //?? throw new BO.BlDoesNotExistException("Volunteer with ID does Not exist");
-            //    return( (IEnumerable<VolunteerInList>)Volunteer).ToList();
-            //}
-            //else
-            //{
-            //    var xx = _dal.Volunteer.ReadAll().Where(v => v.IsActive == isActive.Value).ToString();
-            //    return (IEnumerable<BO.VolunteerInList>)xx;
 
-            //}
-            //if (sortBy == null)
-            //{
-            //    var xx = _dal.Volunteer.ReadAll().Where(v => v.id == isActive.Value).ToString(); //תז
+        //var Volunteer = _dal.Volunteer.ReadAll();
 
-            //    return _dal.Volunteer.ReadAll(isActive);
-            //}
-            //else
-            //{
-            //    //
-            //}
+        //if (isActive == null)
+        //{
+        //    //?? throw new BO.BlDoesNotExistException("Volunteer with ID does Not exist");
+        //    return( (IEnumerable<VolunteerInList>)Volunteer).ToList();
+        //}
+        //else
+        //{
+        //    var xx = _dal.Volunteer.ReadAll().Where(v => v.IsActive == isActive.Value).ToString();
+        //    return (IEnumerable<BO.VolunteerInList>)xx;
 
-            //var doVolunteer = _dal.Volunteer.ReadAll(id) ??
-            //      throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does Not exist");
+        //}
+        //if (sortBy == null)
+        //{
+        //    var xx = _dal.Volunteer.ReadAll().Where(v => v.id == isActive.Value).ToString(); //תז
 
-            IEnumerable<DO.Volunteer> volunteers = _dal.Volunteer.ReadAll(isActive is null ? null : v => v.IsActive == isActive).ToList();
+        //    return _dal.Volunteer.ReadAll(isActive);
+        //}
+        //else
+        //{
+        //    //
+        //}
 
-            //IEnumerable<DO.Volunteer> allVolunteers = _dal.Volunteer.ReadAll().ToList();
+        //var doVolunteer = _dal.Volunteer.ReadAll(id) ??
+        //      throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does Not exist");
 
-            IEnumerable<BO.VolunteerInList> volunteersList =volunteers.Select(volunteer =>
+        IEnumerable<DO.Volunteer> volunteers = _dal.Volunteer.ReadAll(isActive is null ? null : v => v.IsActive == isActive).ToList();
+
+        //IEnumerable<DO.Volunteer> allVolunteers = _dal.Volunteer.ReadAll().ToList();
+
+        IEnumerable<BO.VolunteerInList> volunteersList = volunteers.Select(volunteer =>
+        {
+            var volunteerAssignments = _dal.Assignment.ReadAll(a => a.VolunteerId == volunteer.Id);
+
+            int TotalHandledRequests = volunteerAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.Teated);
+            int TotalCanceledRequests = volunteerAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation || a.TypeOfEnding == DO.TypeOfEnding.ManagerCancellation);
+            int TotalExpiredRequests = volunteerAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.CancellationHasExpired);
+
+            var currentCallId = volunteerAssignments.FirstOrDefault(a => a.TypeOfEnding == null)?.CallId;
+
+            BO.TypeOfReading callType = currentCallId.HasValue ? (BO.TypeOfReading)_dal.Call.Read(currentCallId.Value)!.TypeOfReading : (BO.TypeOfReading)DO.TypeOfReading.None;
+
+            return new BO.VolunteerInList
             {
-                var volunteerAssignments = _dal.Assignment.ReadAll(a => a.VolunteerId == volunteer.Id);
+                VolunteerId = volunteer.Id,
+                FullName = volunteer.Name,
+                IsActive = volunteer.IsActive ?? false,
+                TotalHandledRequests = TotalHandledRequests,
+                TotalCanceledRequests = TotalCanceledRequests,
+                TotalExpiredRequests = TotalExpiredRequests,
+                HandledRequestId = currentCallId,
+                TypeOfReading = callType
 
-                int TotalHandledRequests = volunteerAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.Teated);
-                int TotalCanceledRequests = volunteerAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation || a.TypeOfEnding == DO.TypeOfEnding.ManagerCancellation);
-                int TotalExpiredRequests = volunteerAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.CancellationHasExpired);
-
-                var currentCallId = volunteerAssignments.FirstOrDefault(a => a.TypeOfEnding == null)?.CallId;
-           
-                BO.TypeOfReading callType = currentCallId.HasValue ? (BO.TypeOfReading)_dal.Call.Read(currentCallId.Value)!.TypeOfReading: (BO.TypeOfReading)DO.TypeOfReading.None;
-
-                return new BO.VolunteerInList
-                {
-                    VolunteerId = volunteer.Id,
-                    FullName = volunteer.Name,
-                    IsActive = volunteer.IsActive ?? false,
-                    TotalHandledRequests = TotalHandledRequests,
-                    TotalCanceledRequests = TotalCanceledRequests,
-                    TotalExpiredRequests = TotalExpiredRequests,
-                    HandledRequestId = currentCallId,
-                    TypeOfReading = callType
-                   
-                };
-            });
+            };
+        });
 
 
-            if (sortBy == null)
-            {
-                return volunteersList.OrderBy(v => v.VolunteerId).ToList(); // Sort by Id if sortBy is null
-            }
+        if (sortBy == null)
+        {
+            return volunteersList.OrderBy(v => v.VolunteerId).ToList(); // Sort by Id if sortBy is null
+        }
 
         // Sorting based on the specified enum value
         var propertyInfo = typeof(BO.VolunteerInList).GetProperty(sortBy.ToString());
@@ -184,17 +188,17 @@ internal class VolunteerImplementation : IVolunteer
         //}
         return volunteersList;
 
-       
+
     }
 
 
-    
 
 
 
 
 
-    public  void Update(int id, BO.Volunteer boVolunteer)
+
+    public void Update(int id, BO.Volunteer boVolunteer)
     {
         DO.Volunteer? requester = _dal.Volunteer.Read(id);
         if (requester is null || (boVolunteer.Id != id && requester.Role != DO.Role.Manager))
@@ -203,7 +207,7 @@ internal class VolunteerImplementation : IVolunteer
             return;
         if (boVolunteer.Address != null)
         {
-            var (latitude, longitude) =  Tools.GetCoordinates(boVolunteer.Address);
+            var (latitude, longitude) = Tools.GetCoordinates(boVolunteer.Address);
             if (latitude != null && longitude != null)
             {
                 boVolunteer.Latitude = latitude;
@@ -279,25 +283,48 @@ internal class VolunteerImplementation : IVolunteer
 
             }
 
-            return new BO.Volunteer
-            {
-                Id = doVolunteer.Id, // Ensure the correct ID is used
-                FullName = doVolunteer.Name,
-                IsActive = doVolunteer.IsActive ?? false, // Safely handle potential null
-                Phone = doVolunteer.Phone,
-                Email = doVolunteer.Email,
-                Password = doVolunteer.Password, // Be cautious with sensitive information
-                TypeDistance = (BO.TypeDistance)doVolunteer.Type_Distance,
-                Role = (BO.Role)doVolunteer.Role,
-                Address = doVolunteer.Address,
-                Latitude = doVolunteer.Latitude,
-                Longitude = doVolunteer.Longitude,
-                MaxDistance = doVolunteer.Max_Distance,
-                TotalHandledCalls = TotalHandledCalls,
-                TotalCanceledCalls = TotalCanceledCalls,
-                TotalExpiredHandledCalls = TotalExpiredHandledCalls,
-                CurrentCallInProgress = callInHandling
-            };
+            //return new BO.Volunteer
+            //{
+            //    Id = doVolunteer.Id, // Ensure the correct ID is used
+            //    FullName = doVolunteer.Name,
+            //    IsActive = doVolunteer.IsActive ?? false, // Safely handle potential null
+            //    Phone = doVolunteer.Phone,
+            //    Email = doVolunteer.Email,
+            //    Password = doVolunteer.Password, // Be cautious with sensitive information
+            //    TypeDistance = (BO.TypeDistance)doVolunteer.Type_Distance,
+            //    Role = (BO.Role)doVolunteer.Role,
+            //    Address = doVolunteer.Address,
+            //    Latitude = doVolunteer.Latitude,
+            //    Longitude = doVolunteer.Longitude,
+            //    MaxDistance = doVolunteer.Max_Distance,
+            //    TotalHandledCalls = TotalHandledCalls,
+            //    TotalCanceledCalls = TotalCanceledCalls,
+            //    TotalExpiredHandledCalls = TotalExpiredHandledCalls,
+            //    CurrentCallInProgress = callInHandling
+            //};
+
+
+
+            return new BO.Volunteer(
+    doVolunteer.Id, // Ensure the correct ID is used
+    doVolunteer.Name,
+    doVolunteer.Phone,
+    doVolunteer.Email,
+    doVolunteer.Password, // Be cautious with sensitive information
+    (BO.TypeDistance)doVolunteer.Type_Distance, // Ensure correct casting
+    (BO.Role)doVolunteer.Role,
+    doVolunteer.Address,
+    doVolunteer.Latitude,
+    doVolunteer.Longitude,
+    doVolunteer.IsActive ?? false, // Safely handle potential null
+   (double)doVolunteer.Max_Distance,
+    TotalHandledCalls,
+    TotalCanceledCalls,
+    TotalExpiredHandledCalls,
+    callInHandling
+    );
+
+
         }
         catch (DO.DalDoesNotExistException ex)
         {

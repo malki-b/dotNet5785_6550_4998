@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BO;
 
 
-internal class OpenCallInList
+public class OpenCallInList
 {
     /// <summary>
     /// Gets the unique identifier for the call entity.

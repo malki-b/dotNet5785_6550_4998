@@ -8,7 +8,39 @@ public class Volunteer
 {
     private string name;
 
-    public Volunteer(int id, string name, string phone, string email, string password, TypeDistance typeDistance, Role role, string address, double? latitude, double? longitude, bool isActive, double maxDistance)
+    //public Volunteer(int id, string name, string phone, string email, string password, TypeDistance typeDistance, Role role, string address, double? latitude, double? longitude, bool isActive, double maxDistance)
+    //{
+    //    Id = id;
+    //    this.name = name;
+    //    Phone = phone;
+    //    Email = email;
+    //    Password = password;
+    //    TypeDistance = typeDistance;
+    //    Role = role;
+    //    Address = address;
+    //    Latitude = latitude;
+    //    Longitude = longitude;
+    //    IsActive = isActive;
+    //    MaxDistance = maxDistance;
+    //}
+
+    public Volunteer(
+    int id,
+    string name,
+    string phone,
+    string email,
+    string password,
+    TypeDistance typeDistance,
+    Role role,
+    string address,
+    double? latitude,
+    double? longitude,
+    bool isActive,
+    double maxDistance,
+    int totalHandledCalls,
+    int totalCanceledCalls,
+    int totalExpiredHandledCalls,
+    CallInProgress? currentCallInProgress)
     {
         Id = id;
         this.name = name;
@@ -22,9 +54,11 @@ public class Volunteer
         Longitude = longitude;
         IsActive = isActive;
         MaxDistance = maxDistance;
+        TotalHandledCalls = totalHandledCalls;
+        TotalCanceledCalls = totalCanceledCalls;
+        TotalExpiredHandledCalls = totalExpiredHandledCalls;
+        CurrentCallInProgress = currentCallInProgress;
     }
-
-
     //private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
     /// <summary>

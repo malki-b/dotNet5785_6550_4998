@@ -43,7 +43,7 @@ public class Volunteer
     CallInProgress? currentCallInProgress)
     {
         Id = id;
-        this.name = name;
+        FullName = name;
         Phone = phone;
         Email = email;
         Password = password;

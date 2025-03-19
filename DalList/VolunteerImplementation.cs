@@ -34,7 +34,7 @@ internal class VolunteerImplementation : IVolunteer
 
     public Volunteer? Read(int id)
     {
-       // return DataSource.Volunteers.Find(v => v.Id == id);
+        // return DataSource.Volunteers.Find(v => v.Id == id);
         return DataSource.Volunteers.FirstOrDefault(item => item.Id == id); //stage 2
     }
 
@@ -55,7 +55,6 @@ internal class VolunteerImplementation : IVolunteer
 ? DataSource.Volunteers.Select(item => item)
 : DataSource.Volunteers.Where(filter);
 
-
     public void Update(Volunteer item)
     {
         Volunteer? itemWithId = Read(item.Id);
@@ -68,3 +67,21 @@ internal class VolunteerImplementation : IVolunteer
             throw new DalDoesNotExistException($"Volunteer with id {item.Id} no exists");
     }
 }
+
+
+//public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null) // stage 2
+//{
+//    // חיפוש נתונים עם או בלי סינון
+//    var result = filter == null
+//        ? DataSource.Volunteers
+//        : DataSource.Volunteers.Where(filter);
+
+//    // זריקת חריגה אם אין נתונים
+//    if (!result.Any())
+//    {
+//        throw new DalReedAllImpossible("No Volunteers found.");
+//    }
+
+//    return result;
+//}
+

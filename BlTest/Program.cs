@@ -153,21 +153,21 @@ namespace BLTest
                 string password = Console.ReadLine() ?? "";
 
                 // Assuming Login method returns role as string
-                BO.Role? role = null;
-                try
-                {
-                    role = s_bl.Volunteer.Login(username, password);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error: {ex.Message}");
-                }
+                //BO.Role? role = null;
+                //try
+                //{
+                //    role = s_bl.Volunteer.Login(username, password);
+                //}
+                //catch (Exception ex)
+                //{
+                //    Console.WriteLine($"Error: {ex.Message}");
+                //}
 
-                if (role == null)
-                {
-                    Console.WriteLine("Invalid login credentials. Please try again.");
-                    continue;
-                }
+                //if (role == null)
+                //{
+                //    Console.WriteLine("Invalid login credentials. Please try again.");
+                //    continue;
+                //}
 
                 Console.WriteLine("Main Menu:");
                 Console.WriteLine("Press 1 for Volunteer Menu");
@@ -394,82 +394,6 @@ namespace BLTest
             }
         }
 
-        //private static void UpdateVolunteer()
-        //{
-        //    try
-        //    {
-        //        Console.Write("Enter Volunteer ID: ");
-        //        if (!int.TryParse(Console.ReadLine(), out int id))
-        //        {
-        //            Console.WriteLine("Invalid input. Please enter a number.");
-        //            return;
-        //        }
-
-        //        Console.Write("Enter Full Name: ");
-        //        string fullName = Console.ReadLine();
-
-        //        Console.Write("Enter Phone: ");
-        //        string phone = Console.ReadLine();
-
-        //        Console.Write("Enter Email: ");
-        //        string email = Console.ReadLine();
-
-        //        Console.Write("Enter Password: ");
-        //        string password = Console.ReadLine();
-
-        //        Console.Write("Enter Type Distance: ");
-        //        if (!Enum.TryParse(Console.ReadLine(), out BO.TypeDistance typeDistance))
-        //        {
-        //            Console.WriteLine("Invalid input. Please enter a valid Type Distance.");
-        //            return;
-        //        }
-
-        //        Console.Write("Enter Role: ");
-        //        if (!Enum.TryParse(Console.ReadLine(), out BO.Role role))
-        //        {
-        //            Console.WriteLine("Invalid input. Please enter a valid Role.");
-        //            return;
-        //        }
-
-        //        Console.Write("Enter Address: ");
-        //        string address = Console.ReadLine();
-
-        //        Console.Write("Enter Latitude: ");
-        //        if (!double.TryParse(Console.ReadLine(), out double latitude))
-        //        {
-        //            Console.WriteLine("Invalid input. Please enter a number.");
-        //            return;
-        //        }
-
-        //        Console.Write("Enter Longitude: ");
-        //        if (!double.TryParse(Console.ReadLine(), out double longitude))
-        //        {
-        //            Console.WriteLine("Invalid input. Please enter a number.");
-        //            return;
-        //        }
-
-        //        Console.Write("Enter Max Distance: ");
-        //        if (!double.TryParse(Console.ReadLine(), out double maxDistance))
-        //        {
-        //            Console.WriteLine("Invalid input. Please enter a number.");
-        //            return;
-        //        }
-
-        //        BO.Volunteer volunteer = new BO.Volunteer(id, fullName, phone, email, password, typeDistance, role, address, latitude, longitude, true, maxDistance);
-
-
-        //        s_bl.Volunteer.Update(id, volunteer);
-        //        Console.WriteLine("Volunteer updated successfully.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine($"Error: {ex.Message}");
-        //    }
-        //}
-
-
-
-
 
 
 
@@ -602,7 +526,8 @@ namespace BLTest
                 var volunteers = s_bl.Volunteer.ReadAll();
                 foreach (var volunteer in volunteers)
                 {
-                    Console.WriteLine($"ID: {volunteer.VolunteerId}, Name: {volunteer.FullName}, IsActive: {volunteer.IsActive}");
+                    //Console.WriteLine($"ID: {volunteer.VolunteerId}, Name: {volunteer.FullName}, IsActive: {volunteer.IsActive}");
+                    Console.WriteLine(volunteer.ToString());
                 }
             }
             catch (Exception ex)
@@ -985,3 +910,82 @@ namespace BLTest
         }
     }
 }
+
+
+
+
+//private static void UpdateVolunteer()
+//{
+//    try
+//    {
+//        Console.Write("Enter Volunteer ID: ");
+//        if (!int.TryParse(Console.ReadLine(), out int id))
+//        {
+//            Console.WriteLine("Invalid input. Please enter a number.");
+//            return;
+//        }
+
+//        Console.Write("Enter Full Name: ");
+//        string fullName = Console.ReadLine();
+
+//        Console.Write("Enter Phone: ");
+//        string phone = Console.ReadLine();
+
+//        Console.Write("Enter Email: ");
+//        string email = Console.ReadLine();
+
+//        Console.Write("Enter Password: ");
+//        string password = Console.ReadLine();
+
+//        Console.Write("Enter Type Distance: ");
+//        if (!Enum.TryParse(Console.ReadLine(), out BO.TypeDistance typeDistance))
+//        {
+//            Console.WriteLine("Invalid input. Please enter a valid Type Distance.");
+//            return;
+//        }
+
+//        Console.Write("Enter Role: ");
+//        if (!Enum.TryParse(Console.ReadLine(), out BO.Role role))
+//        {
+//            Console.WriteLine("Invalid input. Please enter a valid Role.");
+//            return;
+//        }
+
+//        Console.Write("Enter Address: ");
+//        string address = Console.ReadLine();
+
+//        Console.Write("Enter Latitude: ");
+//        if (!double.TryParse(Console.ReadLine(), out double latitude))
+//        {
+//            Console.WriteLine("Invalid input. Please enter a number.");
+//            return;
+//        }
+
+//        Console.Write("Enter Longitude: ");
+//        if (!double.TryParse(Console.ReadLine(), out double longitude))
+//        {
+//            Console.WriteLine("Invalid input. Please enter a number.");
+//            return;
+//        }
+
+//        Console.Write("Enter Max Distance: ");
+//        if (!double.TryParse(Console.ReadLine(), out double maxDistance))
+//        {
+//            Console.WriteLine("Invalid input. Please enter a number.");
+//            return;
+//        }
+
+//        BO.Volunteer volunteer = new BO.Volunteer(id, fullName, phone, email, password, typeDistance, role, address, latitude, longitude, true, maxDistance);
+
+
+//        s_bl.Volunteer.Update(id, volunteer);
+//        Console.WriteLine("Volunteer updated successfully.");
+//    }
+//    catch (Exception ex)
+//    {
+//        Console.WriteLine($"Error: {ex.Message}");
+//    }
+//}
+
+
+

@@ -58,11 +58,9 @@ namespace Helpers;
         return Math.Sqrt(dLat * dLat + dLon * dLon) * 111;
     }
 
-
     private const string LOCATIONIQ_API_KEY = "your_api_key_here"; // Replace with your LocationIQ API key
     private const string GEOCODING_API_URL = "https://us1.locationiq.com/v1/search.php";
-
-
+    
     internal static (double latitude, double longitude) GetCoordinates(string address)
     {
         if (string.IsNullOrWhiteSpace(address))
@@ -112,4 +110,37 @@ namespace Helpers;
             throw new InvalidOperationException($"Unexpected error during geocoding: {ex.Message}", ex);
         }
     }
+
+
+
+
+    /// /מאפרת וחני
+    //public static (double, double) GetCoordinatesFromAddress(string address)
+    //{
+    //    string apiKey = "PK.83B935C225DF7E2F9B1ee90A6B46AD86";
+    //    using var client = new HttpClient();
+    //    string url = $"https://us1.locationiq.com/v1/search.php?key={apiKey}&q={Uri.EscapeDataString(address)}&format=json";
+
+    //    var response = client.GetAsync(url).GetAwaiter().GetResult();
+    //    if (!response.IsSuccessStatusCode)
+    //        throw new BO.BlInvalidInputException("Invalid address or API error.");
+
+    //    var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+    //    using var doc = JsonDocument.Parse(json);
+
+    //    if (doc.RootElement.ValueKind != JsonValueKind.Array || doc.RootElement.GetArrayLength() == 0)
+    //        throw new BO.BlInvalidInputException("Address not found.");
+
+    //    var root = doc.RootElement[0];
+
+    //    if (!root.TryGetProperty("lat", out var latElement) || !root.TryGetProperty("lon", out var lonElement))
+    //        throw new BO.BlInvalidInputException("Latitude or longitude not found in response.");
+
+    //    if (!double.TryParse(latElement.GetString(), out double latitude) ||
+    //        !double.TryParse(lonElement.GetString(), out double longitude))
+    //        throw new BO.BlInvalidInputException("Invalid latitude or longitude format.");
+    //    var latitude = 0;
+    //    var longitude = 0;
+    //    return (latitude, longitude);
+    //}
 }

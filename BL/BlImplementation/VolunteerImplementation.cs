@@ -191,33 +191,24 @@ internal class VolunteerImplementation : IVolunteer
 
     }
 
-
-
-
-
-
-
-
     public void Update(int id, BO.Volunteer boVolunteer)
     {
         DO.Volunteer? requester = _dal.Volunteer.Read(id);
         //if (requester is null || (boVolunteer.Id != id && requester.Role != DO.Role.Manager))
             //return;
-        if (!VolunteerManager.CheckValidation(boVolunteer))
-            return;
-        if (boVolunteer.Address != null)
-        {
-            var (latitude, longitude) = Tools.GetCoordinates(boVolunteer.Address);
-            if (latitude != null && longitude != null)
-            {
-                boVolunteer.Latitude = latitude;
-                boVolunteer.Longitude = longitude;
-            }
-            else
-                return;
-
-        }
-
+        //if (!VolunteerManager.CheckValidation(boVolunteer))
+        //    return;///צריך לזרוק שגיאה ולא לצאת מהפונקציה
+        //if (boVolunteer.Address != null)
+        //{
+        //    var (latitude, longitude) = Tools.GetCoordinates(boVolunteer.Address);
+        //    if (latitude != null && longitude != null)
+        //    {
+        //        boVolunteer.Latitude = latitude;
+        //        boVolunteer.Longitude = longitude;
+        //    }
+        //    else
+        //        return;
+                //}
 
         try
         {

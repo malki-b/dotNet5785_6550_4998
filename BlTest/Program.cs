@@ -359,10 +359,28 @@ namespace BLTest
 
         private static void ReadVolunteer()
         {
+
+            try
+            {
+                var volunteers = s_bl.Volunteer.ReadAll();
+                foreach (var volunteer in volunteers)
+                {
+                    //Console.WriteLine($"ID: {volunteer.VolunteerId}, Name: {volunteer.FullName}, IsActive: {volunteer.IsActive}");
+                    Console.WriteLine(volunteer.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+
+
+
+
             try
             {
                 Console.Write("Enter Volunteer ID: ");
-               
+
                 if (!int.TryParse(Console.ReadLine(), out int id))
                 {
                     Console.WriteLine("Invalid input. Please enter a number.");
@@ -393,8 +411,6 @@ namespace BLTest
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
-
-
 
 
         private static void UpdateVolunteer()
@@ -493,12 +509,6 @@ namespace BLTest
         }
 
 
-
-
-
-
-
-
         private static void DeleteVolunteer()
         {
             try
@@ -591,7 +601,7 @@ namespace BLTest
             }
         }
 
-        
+
         private static void AddCall()
         {
             try
@@ -645,7 +655,7 @@ namespace BLTest
                     Console.WriteLine("Invalid input. Please enter a valid date and time.");
                     return;
                 }
-              
+
 
 
                 BO.Call call = new BO.Call
@@ -757,7 +767,7 @@ namespace BLTest
                     Console.WriteLine("Invalid input. Please enter a valid date and time.");
                     return;
                 }
-              
+
                 BO.Call call = new BO.Call
                 {
                     CallId = id,
@@ -805,7 +815,7 @@ namespace BLTest
         {
             try
             {
-                var calls = s_bl.Call.ReadAll(null, null,null);
+                var calls = s_bl.Call.ReadAll(null, null, null);
                 foreach (var call in calls)
                 {
                     Console.WriteLine($"ID: {call.CallId}, Status: {call.Status}");

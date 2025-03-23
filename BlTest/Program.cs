@@ -134,6 +134,7 @@ using System;
 using BlApi;
 using BO;
 using System.Xml.Linq;
+using DalTest;
 
 namespace BLTest
 {
@@ -152,22 +153,22 @@ namespace BLTest
                 Console.Write("Enter password: ");
                 string password = Console.ReadLine() ?? "";
 
-                // Assuming Login method returns role as string
-                //BO.Role? role = null;
-                //try
-                //{
-                //    role = s_bl.Volunteer.Login(username, password);
-                //}
-                //catch (Exception ex)
-                //{
-                //    Console.WriteLine($"Error: {ex.Message}");
-                //}
+               // Assuming Login method returns role as string
+                BO.Role? role = null;
+                try
+                {
+                    role = s_bl.Volunteer.Login(username, password);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
 
-                //if (role == null)
-                //{
-                //    Console.WriteLine("Invalid login credentials. Please try again.");
-                //    continue;
-                //}
+                if (role == null)
+                {
+                    Console.WriteLine("Invalid login credentials. Please try again.");
+                    continue;
+                }
 
                 Console.WriteLine("Main Menu:");
                 Console.WriteLine("Press 1 for Volunteer Menu");
@@ -815,10 +816,14 @@ namespace BLTest
         {
             try
             {
-                var calls = s_bl.Call.ReadAll(null, null, null);
-                foreach (var call in calls)
+                Console.WriteLine("please enter the option  this  Id,\r\n    CallType,\r\n    Description,\r\n    FullAddress,\r\n    Latitude,\r\n    Longitude,\r\n    OpeningTime,\r\n    MaxEndTime,\r\n    CallStatus,");
+                var filterBy = Console.ReadLine();
+                  //  BO.CallField? filterBy, object? filterValue, BO.CallField? sortBy
+                IEnumerable<CallInList> list = s_bl.Call.ReadAll(null , null , null);/////////////////
+
+                foreach (CallInList call in list)
                 {
-                    Console.WriteLine($"ID: {call.CallId}, Status: {call.Status}");
+                    Console.WriteLine(call.ToString());
                 }
             }
             catch (Exception ex)
@@ -868,11 +873,11 @@ namespace BLTest
                     switch (choice)
                     {
                         case 1:
-                            s_bl.Admin.ResetDB();
+                            s_dal.ResetDB();
                             Console.WriteLine("Database reset.");
                             break;
                         case 2:
-                            s_bl.Admin.InitializeDB();
+                            Initialization.Do();
                             Console.WriteLine("Database initialized.");
                             break;
                         case 3:

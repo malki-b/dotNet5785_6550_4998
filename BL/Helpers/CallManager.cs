@@ -112,12 +112,13 @@ internal static class CallManager
 
     public static IEnumerable<T> GetCallsByFilter<T>(int volunteerId, BO.TypeOfReading? filterBy, CallField? sortByField, bool isOpen) where T : class
     {
-
+      
         try
         {
             var volunteer = s_dal.Volunteer.Read(v => v.Id == volunteerId);
             if (volunteer == null)
                 throw new BO.BlNullPropertyException($"Volunteer with ID {volunteerId} not found.");
+
             // "קריאה סגורה ברשימה"
             //קריאה סגורה
             //var assignments = s_dal.Assignment.ReadAll()
@@ -151,7 +152,7 @@ internal static class CallManager
                             FullAddress = c.call.Address,
                             OpeningTime = c.call.OpeningTime,
                             MaxCompletionTime = c.call.MaxTimeFinishRead,
-                            DistanceFromVolunteer = CalculateDistance(volunteer.Latitude, volunteer.Longitude, c.call.Latitude, c.call.Longitude)
+                            DistanceFromVolunteer =CalculateDistance(volunteer.Latitude, volunteer.Longitude, c.call.Latitude, c.call.Longitude)
                         } as T
                         : new BO.ClosedCallInList
                         {

@@ -135,6 +135,7 @@ using BlApi;
 using BO;
 using System.Xml.Linq;
 using DalTest;
+using System.Collections.Generic;
 
 namespace BLTest
 {
@@ -142,33 +143,33 @@ namespace BLTest
     {
         static readonly IDal s_dal = DalApi.Factory.Get; //stage 4
         static readonly IBl s_bl = BlApi.Factory.Get(); //stage 4
-       
+
         static void Main(string[] args)
         {
             while (true)
             {
-               // Console.WriteLine("\nLogin Menu:");
-               // Console.Write("Enter username: ");
-               // string username = Console.ReadLine() ?? "";
-               // Console.Write("Enter password: ");
-               // string password = Console.ReadLine() ?? "";
+                //Console.WriteLine("\nLogin Menu:");
+                //Console.Write("Enter username: ");
+                //string username = Console.ReadLine() ?? "";
+                //Console.Write("Enter password: ");
+                //string password = Console.ReadLine() ?? "";
 
-               //// Assuming Login method returns role as string
-               // BO.Role? role = null;
-               // try
-               // {
-               //     role = s_bl.Volunteer.Login(username, password);
-               // }
-               // catch (Exception ex)
-               // {
-               //     Console.WriteLine($"Error: {ex.Message}");
-               // }
+                //// Assuming Login method returns role as string
+                //BO.Role? role = null;
+                //try
+                //{
+                //    role = s_bl.Volunteer.Login(username, password);
+                //}
+                //catch (Exception ex)
+                //{
+                //    Console.WriteLine($"Error: {ex.Message}");
+                //}
 
-               // if (role == null)
-               // {
-               //     Console.WriteLine("Invalid login credentials. Please try again.");
-               //     continue;
-               // }
+                //if (role == null)
+                //{
+                //    Console.WriteLine("Invalid login credentials. Please try again.");
+                //    continue;
+                //}
 
                 Console.WriteLine("Main Menu:");
                 Console.WriteLine("Press 1 for Volunteer Menu");
@@ -557,7 +558,12 @@ namespace BLTest
                 Console.WriteLine("4. Delete Call");
                 Console.WriteLine("5. List Calls");
                 Console.WriteLine("6. Request Call Counts");
-                Console.WriteLine("7. Back to Main Menu");
+                Console.WriteLine("7. Request Closed Calls By Volunteer");
+                Console.WriteLine("8. Request Open Calls For Selection");
+                Console.WriteLine("9. Update Call Completion");
+                Console.WriteLine("10. Update Call Cancellation");
+                Console.WriteLine("11. Select Call For Treatment");
+                Console.WriteLine("12. Back to Main Menu");
                 Console.Write("Select an option: ");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice))
@@ -588,23 +594,23 @@ namespace BLTest
                         case 6:
                             RequestCallCounts();
                             break;
-                        //case 7:
-                        //    RequestClosedCallsByVolunteer();
-                        //    break;
-                        case 8:
+                        case 7:
                             RequestOpenCallsForSelection();
                             break;
-                        //case 9:
-                        //    UpdateCallCompletion();
-                        //    break;
-                        //case 10:
-                        //    UpdateCallCancellation();
-                        //    break;
-                        //case 11:
-                        //    SelectCallForTreatment();
-                        //    break;
-                        //case 12:
-                        //    return;
+                        case 8:
+                            RequestCloseCallsForSelection();
+                            break;
+                        case 9:
+                            UpdateCallCompletion();
+                            break;
+                        case 10:
+                            UpdateCallCancellation();
+                            break;
+                        case 11:
+                            SelectCallForTreatment();
+                            break;
+                        case 12:
+                            return;
                         default:
                             Console.WriteLine("Invalid choice. Please try again.");
                             break;
@@ -833,8 +839,8 @@ namespace BLTest
             {
                 Console.WriteLine("please enter the option  this  Id,\r\n    CallType,\r\n    Description,\r\n    FullAddress,\r\n    Latitude,\r\n    Longitude,\r\n    OpeningTime,\r\n    MaxEndTime,\r\n    CallStatus,");
                 var filterBy = Console.ReadLine();
-                  //  BO.CallField? filterBy, object? filterValue, BO.CallField? sortBy
-                IEnumerable<CallInList> list = s_bl.Call.ReadAll(null , null , null);/////////////////
+                //  BO.CallField? filterBy, object? filterValue, BO.CallField? sortBy
+                IEnumerable<CallInList> list = s_bl.Call.ReadAll(null, null, null);/////////////////
 
                 foreach (CallInList call in list)
                 {
@@ -906,57 +912,95 @@ namespace BLTest
                 _ => (BO.TypeOfReading?)null
             };
 
-            Console.Write("Enter sort field (optional): ");
+            Console.Write("Enter sort field by Id,CallType,Description,FullAddress,Latitude,Longitude,OpeningTime,MaxEndTime,CallStatus,: ");
             string sortFieldInput = Console.ReadLine();
             CallField? sortField = string.IsNullOrEmpty(sortFieldInput) ? (CallField?)null : Enum.Parse<CallField>(sortFieldInput);
 
-            //var openCalls = new CallImplementation().RequestOpenCallsForSelection(volunteerId, filterType, sortField);
 
-            //foreach (var call in openCalls)
-            //{
-            //    Console.WriteLine($"Call ID: {call.CallId}, Status: {call.Status}, Volunteer: {call.VolunteerName}");
-            //}
+            
+               var openCalls = s_bl.Call.RequestOpenCallsForSelection(volunteerId, filterType, sortField);
+       
+            foreach (var call in openCalls)
+            {
+                Console.WriteLine(call.ToString());
+            }
+        }
+        private static void RequestCloseCallsForSelection()
+        {
+            Console.Write("Enter Volunteer ID: ");
+            int volunteerId = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter filter type (optional): ");
+            Console.WriteLine("1. None");
+            Console.WriteLine("2. FearOfHumanLife");
+            Console.WriteLine("3. ImmediateDanger");
+            Console.WriteLine("4. LongTermDanger");
+            string filterTypeInput = Console.ReadLine();
+
+            BO.TypeOfReading? filterType = filterTypeInput switch
+            {
+                "1" => BO.TypeOfReading.None,
+                "2" => BO.TypeOfReading.FearOfHumanLife,
+                "3" => BO.TypeOfReading.ImmediateDanger,
+                "4" => BO.TypeOfReading.LongTermDanger,
+                _ => (BO.TypeOfReading?)null
+            };
+
+            Console.Write("Enter sort field by Id,CallType,Description,FullAddress,Latitude,Longitude,OpeningTime,MaxEndTime,CallStatus,: ");
+            string sortFieldInput = Console.ReadLine();
+            CallField? sortField = string.IsNullOrEmpty(sortFieldInput) ? (CallField?)null : Enum.Parse<CallField>(sortFieldInput);
+
+
+
+            var CloseCalls = s_bl.Call.RequestClosedCallsByVolunteer(volunteerId, filterType, sortField);
+           
+            foreach (var call in CloseCalls)
+            {
+                Console.WriteLine(call.ToString());
+               // Console.WriteLine($" hello{call.Id}");
+            }
         }
 
 
-        //private static void UpdateCallCompletion()
-        //{
-        //    Console.Write("Enter Volunteer ID: ");
-        //    int volunteerId = int.Parse(Console.ReadLine());
 
-        //    Console.Write("Enter Assignment ID: ");
-        //    int assignmentId = int.Parse(Console.ReadLine());
+        private static void UpdateCallCompletion()
+        {
+            Console.Write("Enter Volunteer ID: ");
+            int volunteerId = int.Parse(Console.ReadLine());
 
-        //    new CallImplementation().UpdateCallCompletion(volunteerId, assignmentId);
+            Console.Write("Enter Assignment ID: ");
+            int assignmentId = int.Parse(Console.ReadLine());
 
-        //    Console.WriteLine("Call completion updated successfully.");
-        //}
+            s_bl.Call.UpdateCallCompletion(volunteerId, assignmentId);
 
-        //private static void UpdateCallCancellation()
-        //{
-        //    Console.Write("Enter Requester ID: ");
-        //    int requesterId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Call completion updated successfully.");
+        }
 
-        //    Console.Write("Enter Assignment ID: ");
-        //    int assignmentId = int.Parse(Console.ReadLine());
+        private static void UpdateCallCancellation()
+        {
+            Console.Write("Enter Requester ID: ");
+            int requesterId = int.Parse(Console.ReadLine());
 
-        //    new CallImplementation().UpdateCallCancellation(requesterId, assignmentId);
+            Console.Write("Enter Assignment ID: ");
+            int assignmentId = int.Parse(Console.ReadLine());
 
-        //    Console.WriteLine("Call cancellation updated successfully.");
-        //}
+            s_bl.Call.UpdateCallCancellation(requesterId, assignmentId);
 
-        //private static void SelectCallForTreatment()
-        //{
-        //    Console.Write("Enter Volunteer ID: ");
-        //    int volunteerId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Call cancellation updated successfully.");
+        }
 
-        //    Console.Write("Enter Call ID: ");
-        //    int callId = int.Parse(Console.ReadLine());
+        private static void SelectCallForTreatment()
+        {
+            Console.Write("Enter Volunteer ID: ");
+            int volunteerId = int.Parse(Console.ReadLine());
 
-        //    new CallImplementation().SelectCallForTreatment(volunteerId, callId);
+            Console.Write("Enter Call ID: ");
+            int callId = int.Parse(Console.ReadLine());
 
-        //    Console.WriteLine("Call selected for treatment successfully.");
-        //}
+            s_bl.Call.SelectCallForTreatment(volunteerId, callId);
+
+            Console.WriteLine("Call selected for treatment successfully.");
+        }
 
         private static void AdminMenu()
         {

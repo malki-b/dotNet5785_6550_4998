@@ -20,6 +20,7 @@ internal class CallImplementation : ICall
             CallManager.ValidateCall(boCall);
 
             DO.Call newCallDO = CallManager.ConvertToDO(boCall);
+
             _dal.Call.Create(newCallDO);
             // Assuming the constructor for DO.Call takes parameters in a specific order.
             //DO.Call doCall = new DO.Call(

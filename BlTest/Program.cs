@@ -136,6 +136,7 @@ using BO;
 using System.Xml.Linq;
 using DalTest;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace BLTest
 {
@@ -659,12 +660,23 @@ namespace BLTest
                     return;
                 }
 
-                Console.Write("Enter Type of Reading: ");
-                if (!Enum.TryParse(Console.ReadLine(), out BO.TypeOfReading typeOfReading))
+              
+                Console.WriteLine("Enter Type of Reading: ");
+                Console.WriteLine("1. None");
+                Console.WriteLine("2. FearOfHumanLife");
+                Console.WriteLine("3. ImmediateDanger");
+                Console.WriteLine("4. LongTermDanger");
+
+                string typeOfRead = Console.ReadLine();
+
+                BO.TypeOfReading? typeOfReading = typeOfRead switch
                 {
-                    Console.WriteLine("Invalid input. Please enter a valid Type of Reading.");
-                    return;
-                }
+                    "1" => BO.TypeOfReading.None,
+                    "2" => BO.TypeOfReading.FearOfHumanLife,
+                    "3" => BO.TypeOfReading.ImmediateDanger,
+                    "4" => BO.TypeOfReading.LongTermDanger,
+                    _ => (BO.TypeOfReading?)null
+                };
 
                 Console.Write("Enter Description: ");
                 string description = Console.ReadLine();
@@ -687,7 +699,7 @@ namespace BLTest
                     Latitude = latitude,
                     Longitude = longitude,
                     OpeningTime = openingTime,
-                    TypeOfReading = typeOfReading,
+                    TypeOfReading =(BO.TypeOfReading)typeOfReading,
                     Description = description,
                     MaxEndTime = tempMaxEndTime,
                     CallStatus = BO.Status.Open,
@@ -837,10 +849,23 @@ namespace BLTest
         {
             try
             {
-                Console.WriteLine("please enter the option  this  Id,\r\n    CallType,\r\n    Description,\r\n    FullAddress,\r\n    Latitude,\r\n    Longitude,\r\n    OpeningTime,\r\n    MaxEndTime,\r\n    CallStatus,");
-                var filterBy = Console.ReadLine();
-                //  BO.CallField? filterBy, object? filterValue, BO.CallField? sortBy
-                IEnumerable<CallInList> list = s_bl.Call.ReadAll(null, null, null);/////////////////
+                Console.WriteLine("please enter the option  this  Id,CallType, Description,FullAddress,Latitude, Longitude, OpeningTime, MaxEndTime, CallStatus");
+
+                if (!Enum.TryParse(Console.ReadLine(), out CallField filterBy))
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid Call Field.");
+                    return;
+                }
+                Console.WriteLine("please enter the Value to filter");
+                var filterValue = Console.ReadLine();
+                Console.WriteLine("please enter the option  this  Id,CallType, Description,FullAddress,Latitude, Longitude, OpeningTime, MaxEndTime, CallStatus");
+                if (!Enum.TryParse(Console.ReadLine(), out CallField sortBy))
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid Call Field.");
+                    return;
+                }
+
+                IEnumerable<CallInList> list = s_bl.Call.ReadAll(filterBy, filterValue, sortBy);/////////////////
 
                 foreach (CallInList call in list)
                 {
@@ -917,9 +942,9 @@ namespace BLTest
             CallField? sortField = string.IsNullOrEmpty(sortFieldInput) ? (CallField?)null : Enum.Parse<CallField>(sortFieldInput);
 
 
-            
-               var openCalls = s_bl.Call.RequestOpenCallsForSelection(volunteerId, filterType, sortField);
-       
+
+            var openCalls = s_bl.Call.RequestOpenCallsForSelection(volunteerId, filterType, sortField);
+
             foreach (var call in openCalls)
             {
                 Console.WriteLine(call.ToString());
@@ -953,11 +978,11 @@ namespace BLTest
 
 
             var CloseCalls = s_bl.Call.RequestClosedCallsByVolunteer(volunteerId, filterType, sortField);
-           
+
             foreach (var call in CloseCalls)
             {
                 Console.WriteLine(call.ToString());
-               // Console.WriteLine($" hello{call.Id}");
+                // Console.WriteLine($" hello{call.Id}");
             }
         }
 

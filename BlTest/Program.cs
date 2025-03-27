@@ -16,7 +16,7 @@ using DO;
 //    //static readonly IBl s_bl = BlApi.Factory.Get(); //stage 4
 //    //enum MainMenu
 //    //{
-//    //    Exit, DisplayVolunteer, DisplayAssignments, DisplayCalls, DisplayConfig, InitializeData, ResetDatabase, DisplayAllData
+//    //    Exit, DisplayVolunteer, DisplayAssignments, DisplayCalls, DispdlayConfig, InitializeData, ResetDatabase, DisplayAllData
 //    //}
 //    //enum Crud
 //    //{

@@ -137,6 +137,7 @@ using System.Xml.Linq;
 using DalTest;
 using System.Collections.Generic;
 using System.Globalization;
+using Helpers;
 
 namespace BLTest
 {
@@ -147,30 +148,32 @@ namespace BLTest
 
         static void Main(string[] args)
         {
+            //Console.WriteLine("\nLogin Menu:");
+            //Console.Write("Enter username: ");
+            //string username = Console.ReadLine() ?? "";
+            //Console.Write("Enter password: ");
+            //string password = Console.ReadLine() ?? "";
+
+            //// Assuming Login method returns role as string
+            //BO.Role? role = null;
+            //try
+            //{
+            //    role = s_bl.Volunteer.Login(username, password);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine($"Error: {ex.Message}");
+            //}
+
+            //if (role == null)
+            //{
+            //    Console.WriteLine("Invalid login credentials. Please try again.");
+            //  //  continue;
+            //}
             while (true)
             {
-                //Console.WriteLine("\nLogin Menu:");
-                //Console.Write("Enter username: ");
-                //string username = Console.ReadLine() ?? "";
-                //Console.Write("Enter password: ");
-                //string password = Console.ReadLine() ?? "";
 
-                //// Assuming Login method returns role as string
-                //BO.Role? role = null;
-                //try
-                //{
-                //    role = s_bl.Volunteer.Login(username, password);
-                //}
-                //catch (Exception ex)
-                //{
-                //    Console.WriteLine($"Error: {ex.Message}");
-                //}
-
-                //if (role == null)
-                //{
-                //    Console.WriteLine("Invalid login credentials. Please try again.");
-                //    continue;
-                //}
+               
 
                 Console.WriteLine("Main Menu:");
                 Console.WriteLine("Press 1 for Volunteer Menu");
@@ -304,19 +307,20 @@ namespace BLTest
                 Console.Write("Enter Address: ");
                 string address = Console.ReadLine();
 
-                Console.Write("Enter Latitude: ");
-                if (!double.TryParse(Console.ReadLine(), out double latitude))
-                {
-                    Console.WriteLine("Invalid input. Please enter a number.");
-                    return;
-                }
+                //Console.Write("Enter Latitude: ");
+                //if (!double.TryParse(Console.ReadLine(), out double latitude))
+                //{
+                //    Console.WriteLine("Invalid input. Please enter a number.");
+                //    return;
+                //}
 
-                Console.Write("Enter Longitude: ");
-                if (!double.TryParse(Console.ReadLine(), out double longitude))
-                {
-                    Console.WriteLine("Invalid input. Please enter a number.");
-                    return;
-                }
+                //Console.Write("Enter Longitude: ");
+                //if (!double.TryParse(Console.ReadLine(), out double longitude))
+                //{
+                //    Console.WriteLine("Invalid input. Please enter a number.");
+                //    return;
+                //}
+               // var (latitude, longitude) = Tools.GetCoordinates(address);
 
                 Console.Write("Enter Max Distance: ");
                 if (!double.TryParse(Console.ReadLine(), out double maxDistance))
@@ -326,7 +330,8 @@ namespace BLTest
                 }
 
                 //BO.Volunteer volunteer = new BO.Volunteer(id, fullName, phone, email, password, typeDistance, role, address, latitude, longitude, true, maxDistance);
-
+                double? latitude = null;
+                double? longitude = null;
                 int totalHandledCalls = 0;
                 int totalCanceledCalls = 0;
                 int totalExpiredHandledCalls = 0;
@@ -420,6 +425,13 @@ namespace BLTest
         {
             try
             {
+                Console.Write("Enter your ID: ");
+                if (!int.TryParse(Console.ReadLine(), out int requesterId))
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                    return;
+                }
+
                 Console.Write("Enter Volunteer ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int id))
                 {
@@ -502,7 +514,7 @@ namespace BLTest
                     currentCallInProgress // Updated line to include new parameters
                 );
 
-                s_bl.Volunteer.Update(id, volunteer);
+                s_bl.Volunteer.Update(requesterId, volunteer);
                 Console.WriteLine("Volunteer updated successfully.");
             }
             catch (Exception ex)
@@ -1075,7 +1087,7 @@ namespace BLTest
                             Console.WriteLine($"Max range: {s_bl.Admin.GetMaxRange()}");
                             break;
                         case 5:
-                            Console.Write("Enter time unit (e.g., HOUR): ");
+                            Console.Write("Enter time unit (e.g., HOUR): (  Minute, Hour, Day, Month, Year) ");
                             if (Enum.TryParse(Console.ReadLine(), out TimeUnit timeUnit))
                             {
                                 s_bl.Admin.ForwardClock(timeUnit);

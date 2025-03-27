@@ -34,7 +34,7 @@ internal class AdminImplementation : IAdmin
 
     public DateTime GetClock()
     {
-        ClockManager.UpdateClock(ClockManager.Now.AddMinutes(1));
+       // ClockManager.UpdateClock(ClockManager.Now.AddMinutes(1));
         return ClockManager.Now;    
     }
     public void SetMaxRange(TimeSpan riskTimeRange)

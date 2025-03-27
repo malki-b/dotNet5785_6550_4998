@@ -133,9 +133,9 @@ internal class VolunteerImplementation : IVolunteer
             Address = (string?)s.Element("Address") ?? "",
             Latitude = (double?)s.Element("Latitude") ?? 0,
             Longitude = (double?)s.Element("Longitude") ?? 0,
-            Role = Role.Volunteer,
+            Role = (Role)Enum.Parse(typeof(Role), (string)s.Element("Role")!),
             Max_Distance = (double?)s.Element("Max_Distance") ?? 0,
-            Type_Distance = TypeDistance.Air
+            Type_Distance = (TypeDistance)Enum.Parse(typeof(TypeDistance), (string)s.Element("Type_Distance")!)
         };
     }
 

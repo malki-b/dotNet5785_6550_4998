@@ -473,12 +473,12 @@ internal class CallImplementation : ICall
         try
         {
             CallManager.ValidateCall(call);
-            //var (latitude, longitude) = Tools.GetCoordinates(call.Address);///
-            //if (latitude == 0 || longitude == 0)
-            //    throw new BO.BlInvalidException("Invalid address: Unable to retrieve coordinates.");
+            var (latitude, longitude) = Tools.GetCoordinates(call.Address);///
+            if (latitude == 0 || longitude == 0)
+                throw new BO.BlInvalidException("Invalid address: Unable to retrieve coordinates.");
 
-            //call.Latitude = latitude;
-            //call.Longitude = longitude;
+            call.Latitude = latitude;
+            call.Longitude = longitude;
 
             DO.Call doCall = CallManager.ConvertToDO(call);
             _dal.Call.Update(doCall);

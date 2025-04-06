@@ -68,14 +68,17 @@ internal static class CallManager
     }
     public static DO.Call ConvertToDO(BO.Call boCall)
     {
+        (double latitude, double longitude) = Tools.GetCoordinates(boCall.Address);
         return new DO.Call
         {
             Id = boCall.CallId,
             VerbalDescription = boCall.Description,
             TypeOfReading = (DO.TypeOfReading)boCall.TypeOfReading,  // המרה בין הטיפוסים
             Address = boCall.Address,
-            Latitude = boCall.Latitude,
-            Longitude = boCall.Longitude,
+            //Latitude = boCall.Latitude,
+            //Longitude = boCall.Longitude,
+            Latitude = latitude,
+            Longitude = longitude,
             OpeningTime = boCall.OpeningTime,
             MaxTimeFinishRead = boCall.MaxEndTime
         };

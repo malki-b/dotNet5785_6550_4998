@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Helpers;
 
-internal static class Tools
+public static class Tools
 {
 
     private static string apiKey = "PK.83B935C225DF7E2F9B1ee90A6B46AD86";

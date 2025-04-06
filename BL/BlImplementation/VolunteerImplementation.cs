@@ -19,11 +19,12 @@ internal class VolunteerImplementation : IVolunteer
         {
             //ClockManager.Now, 
             //ClockManager.Now, 
+            //DO.Volunteer doVolunteer = VolunteerManager.ConvertToDO(boVolunteer)
             DO.Volunteer doVolunteer =
-            new(boVolunteer.Id, boVolunteer.FullName, boVolunteer.Phone, boVolunteer.Email,
-            boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
-          boVolunteer.Longitude, boVolunteer.IsActive,
-          boVolunteer.MaxDistance);
+new(boVolunteer.Id, boVolunteer.FullName, boVolunteer.Phone, boVolunteer.Email,
+boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
+boVolunteer.Longitude, boVolunteer.IsActive,
+boVolunteer.MaxDistance);
             _dal.Volunteer.Create(doVolunteer);
         }
         catch (DO.DalAlreadyExistsException ex)

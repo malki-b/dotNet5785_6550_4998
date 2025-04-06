@@ -635,35 +635,231 @@ namespace BLTest
                 }
             }
         }
+        //שלנו
+
+        //private static void AddCall()
+        //{
+        //    try
+        //    {
+        //        //Console.Write("Enter Call ID: ");
+        //        //if (!int.TryParse(Console.ReadLine(), out int callId))
+        //        //{
+        //        //    Console.WriteLine("Invalid input. Please enter a number.");
+        //        //    return;
+        //        //}
+
+        //        Console.Write("Enter Address: ");
+        //        string address = Console.ReadLine();
+
+        //        //Console.Write("Enter Latitude: ");
+        //        //if (!double.TryParse(Console.ReadLine(), out double latitude))
+        //        //{
+        //        //    Console.WriteLine("Invalid input. Please enter a number.");
+        //        //    return;
+        //        //}
+
+        //        //Console.Write("Enter Longitude: ");
+        //        //if (!double.TryParse(Console.ReadLine(), out double longitude))
+        //        //{
+        //        //    Console.WriteLine("Invalid input. Please enter a number.");
+        //        //    return;
+        //        //}
+
+        //        Console.Write("Enter Opening Time: ");
+        //        if (!DateTime.TryParse(Console.ReadLine(), out DateTime openingTime))
+        //        {
+        //            Console.WriteLine("Invalid input. Please enter a valid date and time.");
+        //            return;
+        //        }
+
+        //        Console.WriteLine("Enter Type of Reading: ");
+        //        Console.WriteLine("1. None");
+        //        Console.WriteLine("2. FearOfHumanLife");
+        //        Console.WriteLine("3. ImmediateDanger");
+        //        Console.WriteLine("4. LongTermDanger");
+
+        //        string typeOfRead = Console.ReadLine();
+
+        //        BO.TypeOfReading? typeOfReading = typeOfRead switch
+        //        {
+        //            "1" => BO.TypeOfReading.None,
+        //            "2" => BO.TypeOfReading.FearOfHumanLife,
+        //            "3" => BO.TypeOfReading.ImmediateDanger,
+        //            "4" => BO.TypeOfReading.LongTermDanger,
+        //            _ => (BO.TypeOfReading?)null
+        //        };
+
+        //        Console.Write("Enter Description: ");
+        //        string description = Console.ReadLine();
+
+        //        Console.Write("Enter Max End Time (optional): ");
+        //        DateTime? maxEndTime = null;
+        //        string maxEndTimeInput = Console.ReadLine();
+        //        if (!DateTime.TryParse(maxEndTimeInput, out DateTime tempMaxEndTime))
+        //        {
+        //            Console.WriteLine("Invalid input. Please enter a valid date and time.");
+        //            return;
+        //        }
+        //        double? latitude = null;
+        //        double? longitude = null;
+        //        int callId = 0;
+        //        BO.Call call = new BO.Call
+        //        {
+        //           CallId = callId ,
+        //            Address = address,
+        //            Latitude = (double)latitude,//////////
+        //            Longitude = (double)longitude,////////
+        //            OpeningTime = openingTime,
+        //            TypeOfReading =(BO.TypeOfReading)typeOfReading,
+        //            Description = description,
+        //            MaxEndTime = tempMaxEndTime,
+        //            CallStatus = BO.Status.Open,
+        //            CallAssignments = new List<BO.CallAssignInList>()
+        //        };
+
+        //        s_bl.Call.Create(call);
+        //        Console.WriteLine("Call created successfully.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error: {ex.Message}");
+        //    }
+        //}
+
+
+
+        //קופילוט הראשון
+        //private static void AddCall()
+        //{
+        //    try
+        //    {
+        //        // Console.Write("Enter Call ID: ");
+        //        // if (!int.TryParse(Console.ReadLine(), out int callId))
+        //        // {
+        //        //     Console.WriteLine("Invalid input. Please enter a number.");
+        //        //     return;
+        //        // }
+
+        //        Console.Write("Enter Address: ");
+        //        string address = Console.ReadLine();
+
+        //        // Console.Write("Enter Latitude: ");
+        //        // if (!double.TryParse(Console.ReadLine(), out double latitude))
+        //        // {
+        //        //     Console.WriteLine("Invalid input. Please enter a number.");
+        //        //     return;
+        //        // }
+
+        //        // Console.Write("Enter Longitude: ");
+        //        // if (!double.TryParse(Console.ReadLine(), out double longitude))
+        //        // {
+        //        //     Console.WriteLine("Invalid input. Please enter a number.");
+        //        //     return;
+        //        // }
+
+        //        Console.Write("Enter Opening Time: ");
+        //        if (!DateTime.TryParse(Console.ReadLine(), out DateTime openingTime))
+        //        {
+        //            Console.WriteLine("Invalid input. Please enter a valid date and time.");
+        //            return;
+        //        }
+
+        //        Console.WriteLine("Enter Type of Reading: ");
+        //        Console.WriteLine("1. None");
+        //        Console.WriteLine("2. FearOfHumanLife");
+        //        Console.WriteLine("3. ImmediateDanger");
+        //        Console.WriteLine("4. LongTermDanger");
+
+        //        string typeOfRead = Console.ReadLine();
+
+        //        BO.TypeOfReading? typeOfReading = typeOfRead switch
+        //        {
+        //            "1" => BO.TypeOfReading.None,
+        //            "2" => BO.TypeOfReading.FearOfHumanLife,
+        //            "3" => BO.TypeOfReading.ImmediateDanger,
+        //            "4" => BO.TypeOfReading.LongTermDanger,
+        //            _ => (BO.TypeOfReading?)null
+        //        };
+
+        //        Console.Write("Enter Description: ");
+        //        string description = Console.ReadLine();
+
+        //        Console.Write("Enter Max End Time (optional): ");
+        //        DateTime? maxEndTime = null;
+        //        string maxEndTimeInput = Console.ReadLine();
+        //        if (!string.IsNullOrEmpty(maxEndTimeInput) && DateTime.TryParse(maxEndTimeInput, out DateTime tempMaxEndTime))
+        //        {
+        //            maxEndTime = tempMaxEndTime; // הוספתי בדיקה אם הערך אינו ריק והמרה לערך DateTime
+        //        }
+
+        //        Console.Write("Enter Latitude (optional): ");
+        //        double? latitude = null;
+        //        string latitudeInput = Console.ReadLine();
+        //        if (!string.IsNullOrEmpty(latitudeInput) && double.TryParse(latitudeInput, out double tempLatitude))
+        //        {
+        //            latitude = tempLatitude; // הוספתי בדיקה אם הערך אינו ריק והמרה לערך double
+        //        }
+
+        //        Console.Write("Enter Longitude (optional): ");
+        //        double? longitude = null;
+        //        string longitudeInput = Console.ReadLine();
+        //        if (!string.IsNullOrEmpty(longitudeInput) && double.TryParse(longitudeInput, out double tempLongitude))
+        //        {
+        //            longitude = tempLongitude; // הוספתי בדיקה אם הערך אינו ריק והמרה לערך double
+        //        }
+
+        //        int callId = 0; // Assuming CallId is auto-generated or needs to be set later
+        //        BO.Call call = new BO.Call
+        //        {
+        //            CallId = callId,
+        //            Address = address,
+        //            Latitude = latitude ?? 0.0, // שימוש במשתנה latitude לאחר בדיקה והמרה, ערך ברירת מחדל אם null
+        //            Longitude = longitude ?? 0.0, // שימוש במשתנה longitude לאחר בדיקה והמרה, ערך ברירת מחדל אם null
+        //            OpeningTime = openingTime,
+        //            TypeOfReading = typeOfReading ?? BO.TypeOfReading.None, // המרה עם ברירת מחדל None אם הערך null
+        //            Description = description,
+        //            MaxEndTime = maxEndTime, // שימוש במשתנה maxEndTime לאחר בדיקה והמרה
+        //            CallStatus = BO.Status.Open,
+        //            CallAssignments = new List<BO.CallAssignInList>()
+        //        };
+
+        //        s_bl.Call.Create(call);
+        //        Console.WriteLine("Call created successfully.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error: {ex.Message}");
+        //    }
+        //}
 
 
         private static void AddCall()
         {
             try
             {
-                Console.Write("Enter Call ID: ");
-                if (!int.TryParse(Console.ReadLine(), out int callId))
-                {
-                    Console.WriteLine("Invalid input. Please enter a number.");
-                    return;
-                }
+                // Console.Write("Enter Call ID: ");
+                // if (!int.TryParse(Console.ReadLine(), out int callId))
+                // {
+                //     Console.WriteLine("Invalid input. Please enter a number.");
+                //     return;
+                // }
 
                 Console.Write("Enter Address: ");
                 string address = Console.ReadLine();
 
-                Console.Write("Enter Latitude: ");
-                if (!double.TryParse(Console.ReadLine(), out double latitude))
-                {
-                    Console.WriteLine("Invalid input. Please enter a number.");
-                    return;
-                }
+                // Console.Write("Enter Latitude: ");
+                // if (!double.TryParse(Console.ReadLine(), out double latitude))
+                // {
+                //     Console.WriteLine("Invalid input. Please enter a number.");
+                //     return;
+                // }
 
-                Console.Write("Enter Longitude: ");
-                if (!double.TryParse(Console.ReadLine(), out double longitude))
-                {
-                    Console.WriteLine("Invalid input. Please enter a number.");
-                    return;
-                }
+                // Console.Write("Enter Longitude: ");
+                // if (!double.TryParse(Console.ReadLine(), out double longitude))
+                // {
+                //     Console.WriteLine("Invalid input. Please enter a number.");
+                //     return;
+                // }
 
                 Console.Write("Enter Opening Time: ");
                 if (!DateTime.TryParse(Console.ReadLine(), out DateTime openingTime))
@@ -672,7 +868,6 @@ namespace BLTest
                     return;
                 }
 
-              
                 Console.WriteLine("Enter Type of Reading: ");
                 Console.WriteLine("1. None");
                 Console.WriteLine("2. FearOfHumanLife");
@@ -696,24 +891,27 @@ namespace BLTest
                 Console.Write("Enter Max End Time (optional): ");
                 DateTime? maxEndTime = null;
                 string maxEndTimeInput = Console.ReadLine();
-                if (!DateTime.TryParse(maxEndTimeInput, out DateTime tempMaxEndTime))
+                if (!string.IsNullOrEmpty(maxEndTimeInput) && DateTime.TryParse(maxEndTimeInput, out DateTime tempMaxEndTime))
                 {
-                    Console.WriteLine("Invalid input. Please enter a valid date and time.");
-                    return;
+                    maxEndTime = tempMaxEndTime; // הוספתי בדיקה אם הערך אינו ריק והמרה לערך DateTime
                 }
 
+                // הנחת CallId כ-0 במקרה זה, ניתן לשנות בהתאם לצורך
+                int callId = 0;
 
+                // הנחת חישוב ערכי latitude ו-longitude באמצעות פונקציה Tools.GetCoordinates
+                (double latitude, double longitude) = Tools.GetCoordinates(address);
 
                 BO.Call call = new BO.Call
                 {
                     CallId = callId,
                     Address = address,
-                    Latitude = latitude,
-                    Longitude = longitude,
+                    Latitude = latitude, // שימוש במשתנה latitude לאחר חישוב באמצעות Tools.GetCoordinates
+                    Longitude = longitude, // שימוש במשתנה longitude לאחר חישוב באמצעות Tools.GetCoordinates
                     OpeningTime = openingTime,
-                    TypeOfReading =(BO.TypeOfReading)typeOfReading,
+                    TypeOfReading = typeOfReading ?? BO.TypeOfReading.None, // המרה עם ברירת מחדל None אם הערך null
                     Description = description,
-                    MaxEndTime = tempMaxEndTime,
+                    MaxEndTime = maxEndTime, // שימוש במשתנה maxEndTime לאחר בדיקה והמרה
                     CallStatus = BO.Status.Open,
                     CallAssignments = new List<BO.CallAssignInList>()
                 };
@@ -726,6 +924,8 @@ namespace BLTest
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+
+
         private static void RequestCallDetails()
         {
             try
@@ -760,6 +960,86 @@ namespace BLTest
             }
         }
 
+        //שלנו
+        //private static void UpdateCall()
+        //{
+        //    try
+        //    {
+        //        Console.Write("Enter Call ID: ");
+        //        if (!int.TryParse(Console.ReadLine(), out int id))
+        //        {
+        //            Console.WriteLine("Invalid input. Please enter a number.");
+        //            return;
+        //        }
+
+        //        Console.Write("Enter Address: ");
+        //        string address = Console.ReadLine();
+
+        //        Console.Write("Enter Latitude: ");
+        //        if (!double.TryParse(Console.ReadLine(), out double latitude))
+        //        {
+        //            Console.WriteLine("Invalid input. Please enter a number.");
+        //            return;
+        //        }
+
+        //        Console.Write("Enter Longitude: ");
+        //        if (!double.TryParse(Console.ReadLine(), out double longitude))
+        //        {
+        //            Console.WriteLine("Invalid input. Please enter a number.");
+        //            return;
+        //        }
+
+        //        Console.Write("Enter Opening Time: ");
+        //        if (!DateTime.TryParse(Console.ReadLine(), out DateTime openingTime))
+        //        {
+        //            Console.WriteLine("Invalid input. Please enter a valid date and time.");
+        //            return;
+        //        }
+
+        //        Console.Write("Enter Type of Reading: ");
+        //        if (!Enum.TryParse(Console.ReadLine(), out BO.TypeOfReading typeOfReading))
+        //        {
+        //            Console.WriteLine("Invalid input. Please enter a valid Type of Reading.");
+        //            return;
+        //        }
+
+        //        Console.Write("Enter Description: ");
+        //        string description = Console.ReadLine();
+
+        //        Console.Write("Enter Max End Time (optional): ");
+        //        DateTime? maxEndTime = null;
+        //        string maxEndTimeInput = Console.ReadLine();
+        //        if (!DateTime.TryParse(maxEndTimeInput, out DateTime tempMaxEndTime))
+        //        {
+        //            Console.WriteLine("Invalid input. Please enter a valid date and time.");
+        //            return;
+        //        }
+
+        //        BO.Call call = new BO.Call
+        //        {
+        //            CallId = id,
+        //            Address = address,
+        //            Latitude = latitude,
+        //            Longitude = longitude,
+        //            OpeningTime = openingTime,
+        //            TypeOfReading = typeOfReading,
+        //            Description = description,
+        //            MaxEndTime = tempMaxEndTime,
+        //            CallStatus = BO.Status.Open,
+        //            CallAssignments = new List<BO.CallAssignInList>() // Assuming this is correct
+        //        };
+
+        //        s_bl.Call.UpdateCallDetails(call);
+        //        Console.WriteLine("Call updated successfully.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error: {ex.Message}");
+        //    }
+        //}
+
+
+        //קופילוט
         private static void UpdateCall()
         {
             try
@@ -774,19 +1054,19 @@ namespace BLTest
                 Console.Write("Enter Address: ");
                 string address = Console.ReadLine();
 
-                Console.Write("Enter Latitude: ");
-                if (!double.TryParse(Console.ReadLine(), out double latitude))
-                {
-                    Console.WriteLine("Invalid input. Please enter a number.");
-                    return;
-                }
+                // Console.Write("Enter Latitude: "); // הוסר
+                // if (!double.TryParse(Console.ReadLine(), out double latitude)) // הוסר
+                // {
+                //     Console.WriteLine("Invalid input. Please enter a number.");
+                //     return;
+                // }
 
-                Console.Write("Enter Longitude: ");
-                if (!double.TryParse(Console.ReadLine(), out double longitude))
-                {
-                    Console.WriteLine("Invalid input. Please enter a number.");
-                    return;
-                }
+                // Console.Write("Enter Longitude: "); // הוסר
+                // if (!double.TryParse(Console.ReadLine(), out double longitude)) // הוסר
+                // {
+                //     Console.WriteLine("Invalid input. Please enter a number.");
+                //     return;
+                // }
 
                 Console.Write("Enter Opening Time: ");
                 if (!DateTime.TryParse(Console.ReadLine(), out DateTime openingTime))
@@ -808,22 +1088,24 @@ namespace BLTest
                 Console.Write("Enter Max End Time (optional): ");
                 DateTime? maxEndTime = null;
                 string maxEndTimeInput = Console.ReadLine();
-                if (!DateTime.TryParse(maxEndTimeInput, out DateTime tempMaxEndTime))
+                if (!string.IsNullOrEmpty(maxEndTimeInput) && DateTime.TryParse(maxEndTimeInput, out DateTime tempMaxEndTime)) // שינוי
                 {
-                    Console.WriteLine("Invalid input. Please enter a valid date and time.");
-                    return;
+                    maxEndTime = tempMaxEndTime;
                 }
+
+                // חישוב ערכי latitude ו-longitude באמצעות פונקציה חיצונית
+                (double latitude, double longitude) = Tools.GetCoordinates(address); // הוסף
 
                 BO.Call call = new BO.Call
                 {
                     CallId = id,
                     Address = address,
-                    Latitude = latitude,
-                    Longitude = longitude,
+                    Latitude = latitude, // שינוי
+                    Longitude = longitude, // שינוי
                     OpeningTime = openingTime,
                     TypeOfReading = typeOfReading,
                     Description = description,
-                    MaxEndTime = tempMaxEndTime,
+                    MaxEndTime = maxEndTime,
                     CallStatus = BO.Status.Open,
                     CallAssignments = new List<BO.CallAssignInList>() // Assuming this is correct
                 };
@@ -836,6 +1118,9 @@ namespace BLTest
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+
+
+
 
         private static void DeleteCall()
         {
@@ -861,7 +1146,8 @@ namespace BLTest
         {
             try
             {
-                Console.WriteLine("please enter the option  this  Id,CallType, Description,FullAddress,Latitude, Longitude, OpeningTime, MaxEndTime, CallStatus");
+               // Console.WriteLine("please enter param to filter  (AssignmentId\r\nCallId\r\nTypeOfReading\r\nOpeningTime\r\nRemainingTimeToEndCall\r\nLastVolunteerName\r\nTotalHandlingTime\r\nStatus\r\nTotalAssignments\r\n)");
+                Console.WriteLine("please enter param to filter \n (\"Id\"\r\n\"CallType\"\r\n\"Description\"\r\n\"FullAddress\"\r\n\"Latitude\"\r\n\"Longitude\"\r\n\"OpeningTime\"\r\n\"MaxEndTime\"\r\n\"CallStatus\"\r\n)");
 
                 if (!Enum.TryParse(Console.ReadLine(), out CallField filterBy))
                 {
@@ -870,14 +1156,14 @@ namespace BLTest
                 }
                 Console.WriteLine("please enter the Value to filter");
                 var filterValue = Console.ReadLine();
-                Console.WriteLine("please enter the option  this  Id,CallType, Description,FullAddress,Latitude, Longitude, OpeningTime, MaxEndTime, CallStatus");
+                Console.WriteLine("please enter param to sort  (\"Id\"\r\n\"CallType\"\r\n\"Description\"\r\n\"FullAddress\"\r\n\"Latitude\"\r\n\"Longitude\"\r\n\"OpeningTime\"\r\n\"MaxEndTime\"\r\n\"CallStatus\"\r\n)");
                 if (!Enum.TryParse(Console.ReadLine(), out CallField sortBy))
                 {
                     Console.WriteLine("Invalid input. Please enter a valid Call Field.");
                     return;
                 }
 
-                IEnumerable<CallInList> list = s_bl.Call.ReadAll(filterBy, filterValue, sortBy);/////////////////
+                IEnumerable<CallInList> list = s_bl.Call.ReadAll(filterBy, filterValue, sortBy);//////////////
 
                 foreach (CallInList call in list)
                 {
@@ -997,9 +1283,6 @@ namespace BLTest
                 // Console.WriteLine($" hello{call.Id}");
             }
         }
-
-
-
         private static void UpdateCallCompletion()
         {
             Console.Write("Enter Volunteer ID: ");

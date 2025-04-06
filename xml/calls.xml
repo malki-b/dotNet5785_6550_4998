@@ -500,4 +500,14 @@
     <MaxTimeFinishRead>2024-12-08T18:59:01</MaxTimeFinishRead>
     <Id>1049</Id>
   </Call>
+  <Call>
+    <Address>1 Rothschild Blvd, Tel Aviv-Yafo, Israel</Address>
+    <Latitude>32.06312335</Latitude>
+    <Longitude>34.76890265</Longitude>
+    <OpeningTime>2025-03-28T13:00:00</OpeningTime>
+    <TypeOfReading>None</TypeOfReading>
+    <VerbalDescription>freee</VerbalDescription>
+    <MaxTimeFinishRead>2025-03-28T14:00:00</MaxTimeFinishRead>
+    <Id>1050</Id>
+  </Call>
 </ArrayOfCall>

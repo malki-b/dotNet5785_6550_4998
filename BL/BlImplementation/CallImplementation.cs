@@ -184,13 +184,28 @@ internal class CallImplementation : ICall
         var callInLists = calls.Select(CreateCallInList).DistinctBy(c => c.CallId);
 
         // אם filterBy הוא null, מחזירים את כל הקריאות
+        //if (filterBy != null)
+        //{
+        //    var propertyFilter = typeof(BO.CallInList).GetProperty(filterBy.ToString());
+        //    callInLists = callInLists.Where(call => propertyFilter.GetValue(call, null)?.Equals(filterValue) ?? false);
+
+        //}
+
+
         if (filterBy != null)
         {
             var propertyFilter = typeof(BO.CallInList).GetProperty(filterBy.ToString());
+
+            if (propertyFilter == null)
+            {
+                throw new Exception($"Property '{filterBy}' not found in BO.CallInList.");
+
+               // Console.WriteLine($"Property '{filterBy}' not found in BO.CallInList.");
+                //return; // ניתן לשנות את זה בהתאם לצורך שלך בטיפול בשגיאה
+            }
+
             callInLists = callInLists.Where(call => propertyFilter.GetValue(call, null)?.Equals(filterValue) ?? false);
-
         }
-
         // סינון הקריאות לפי filterBy ו-filterValue
         //var propertyFilter = typeof(BO.CallInList).GetProperty(filterBy.ToString());
         //var filteredCalls = callInLists.Where(call => propertyFilter.GetValue(call, null)?.Equals(filterValue) ?? false);

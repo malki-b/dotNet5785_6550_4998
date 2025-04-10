@@ -1,28 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfAssignment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Assignment>
-    <CallId>1003</CallId>
-    <VolunteerId>399187507</VolunteerId>
-    <EntryTimeForTreatment>2024-12-08T19:59:30</EntryTimeForTreatment>
-    <EndOfTreatmentTime>2024-12-08T19:59:30</EndOfTreatmentTime>
-    <TypeOfEnding>SelfCancellation</TypeOfEnding>
-    <Id>1000</Id>
-  </Assignment>
-  <Assignment>
     <CallId>1025</CallId>
     <VolunteerId>283883475</VolunteerId>
     <EntryTimeForTreatment>2024-12-08T19:59:30</EntryTimeForTreatment>
     <EndOfTreatmentTime>2024-12-08T19:59:30</EndOfTreatmentTime>
     <TypeOfEnding>None</TypeOfEnding>
     <Id>1001</Id>
-  </Assignment>
-  <Assignment>
-    <CallId>1006</CallId>
-    <VolunteerId>328699917</VolunteerId>
-    <EntryTimeForTreatment>2024-12-08T19:59:30</EntryTimeForTreatment>
-    <EndOfTreatmentTime>2024-12-08T19:59:30</EndOfTreatmentTime>
-    <TypeOfEnding>None</TypeOfEnding>
-    <Id>1002</Id>
   </Assignment>
   <Assignment>
     <CallId>1036</CallId>

@@ -15,8 +15,8 @@ public record Call
 (
     
     string Address,
-    double Latitude ,
-    double Longitude ,
+    double Latitude,
+    double Longitude,
     DateTime OpeningTime,
     TypeOfReading TypeOfReading = TypeOfReading.FearOfHumanLife,
     string? VerbalDescription = null,

@@ -46,7 +46,7 @@ internal class CallImplementation : ICall
         try
         {
             var doCall = _dal.Call.Read(callId) ?? throw new BO.BlDoesNotExistException($"Call with ID={callId} does not exist.");
-          
+
             //var volunteer = _dal.Volunteer.Read(id)
             //    ?? throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does not exist.");
 
@@ -155,77 +155,140 @@ internal class CallImplementation : ICall
         catch (Exception ex)
         {
             throw new BO.BlDoesNotExistException($"in RequestCallDetails", ex);
-        
+
         }
     }
 
 
-    public IEnumerable<CallInList> ReadAll(CallField? filterBy, object? filterValue, CallField? sortBy)
+
+
+
+
+
+
+    public IEnumerable<CallInList> ReadAll(BO.CallField? filterField = null, object? filterValue = null, BO.CallField? sortField = null)
     {
-        IEnumerable<DO.Call> calls = _dal.Call.ReadAll().ToList();
-
-        // פונקציה ליצירת CallInList מתוך DO.Call
-        CallInList CreateCallInList(DO.Call call)
+        try
         {
-            return new CallInList
+            var calls = _dal.Call.ReadAll()
+                .Select(c =>
+                {
+                    var assignments = _dal.Assignment.ReadAll(a => a.CallId == c.Id);
+                    var lastAssignment = assignments.OrderByDescending(a => a.EntryTimeForTreatment).FirstOrDefault();
+                    return new CallInList
+                    {
+                        AssignmentId = c.Id,
+                        CallId = c.Id,
+                        TypeOfReading = (BO.TypeOfReading)c.TypeOfReading,
+                        OpeningTime = c.OpeningTime,
+                        RemainingTimeToEndCall = CallManager.getRemainingTimeToEndCall(c),
+                        LastVolunteerName = lastAssignment != null ? _dal.Volunteer.Read(lastAssignment.VolunteerId)?.Name : null,
+                        TotalHandlingTime = CallManager.getMaxTimeFinishRead(c),
+                        Status = CallManager.GetCallStatus(c.Id),
+                        TotalAssignments = assignments.Count()
+                    };
+
+                });
+            if (filterField.HasValue && filterValue != null)
             {
-                AssignmentId = call.Id, // אם אתה מתכוון להשתמש ב-Id של ה-Call
-                CallId = call.Id, // אם CallId הוא אותו Id
-                TypeOfReading = (BO.TypeOfReading)call.TypeOfReading,
-                OpeningTime = call.OpeningTime,
-                RemainingTimeToEndCall = CallManager.getRemainingTimeToEndCall(call), // יש להוסיף לוגיקה אם נדרשת
-                LastVolunteerName = null, // יש להוסיף לוגיקה אם נדרשת
-                TotalHandlingTime = CallManager.getMaxTimeFinishRead(call), // יש להוסיף לוגיקה אם נדרשת
-                Status = CallManager.GetCallStatus(call.Id), // יש להוסיף לוגיקה אם נדרשת
-                TotalAssignments = 0 // יש להוסיף לוגיקה אם נדרשת
-            };
-        }
-
-        var callInLists = calls.Select(CreateCallInList).DistinctBy(c => c.CallId);
-
-        // אם filterBy הוא null, מחזירים את כל הקריאות
-        //if (filterBy != null)
-        //{
-        //    var propertyFilter = typeof(BO.CallInList).GetProperty(filterBy.ToString());
-        //    callInLists = callInLists.Where(call => propertyFilter.GetValue(call, null)?.Equals(filterValue) ?? false);
-
-        //}
-
-
-        if (filterBy != null)
-        {
-            var propertyFilter = typeof(BO.CallInList).GetProperty(filterBy.ToString());
-
-            if (propertyFilter == null)
-            {
-                throw new Exception($"Property '{filterBy}' not found in BO.CallInList.");
-
-               // Console.WriteLine($"Property '{filterBy}' not found in BO.CallInList.");
-                //return; // ניתן לשנות את זה בהתאם לצורך שלך בטיפול בשגיאה
+                var prop = typeof(BO.CallInList).GetProperty(filterField.ToString());
+                if (prop != null)
+                {
+                    if (prop.PropertyType.IsEnum)
+                    {
+                        var enumValue = Enum.Parse(prop.PropertyType, filterValue.ToString());
+                        calls = calls.Where(c => prop.GetValue(c)?.Equals(enumValue) == true);
+                    }
+                    else
+                    {
+                        var convertedValue = Convert.ChangeType(filterValue, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+                        calls = calls.Where(c => prop.GetValue(c)?.Equals(convertedValue) == true);
+                    }
+                }
             }
 
-            callInLists = callInLists.Where(call => propertyFilter.GetValue(call, null)?.Equals(filterValue) ?? false);
+            return sortField.HasValue
+                ? calls.OrderBy(c => typeof(BO.CallInList).GetProperty(sortField.ToString())?.GetValue(c))
+                : calls.OrderBy(c => c.CallId);
         }
-        // סינון הקריאות לפי filterBy ו-filterValue
-        //var propertyFilter = typeof(BO.CallInList).GetProperty(filterBy.ToString());
-        //var filteredCalls = callInLists.Where(call => propertyFilter.GetValue(call, null)?.Equals(filterValue) ?? false);
-
-        // אם sortBy הוא null, מחזירים את הקריאות המסוננות
-        if (sortBy == null)
+        catch (Exception ex)
         {
-            return callInLists.OrderBy(v => v.CallId).ToList();
-
+            throw new BO.BlCannotDeleteException("Failed to retrieve calls list", ex);
         }
-
-        // מיון הקריאות לפי sortBy
-        var propertyInfo = typeof(BO.CallInList).GetProperty(sortBy.ToString());
-        if (propertyInfo != null)
-        {
-            return callInLists.OrderBy(v => propertyInfo.GetValue(v, null)).ToList();
-        }
-
-        return callInLists.ToList();
     }
+
+
+
+
+
+
+    //גירסא ישנה
+    //public IEnumerable<CallInList> ReadAll(CallField? filterBy, object? filterValue, CallField? sortBy)
+    //{
+    //    IEnumerable<DO.Call> calls = _dal.Call.ReadAll().ToList();
+
+    //    // פונקציה ליצירת CallInList מתוך DO.Call
+    //    CallInList CreateCallInList(DO.Call call)
+    //    {
+    //        return new CallInList
+    //        {
+    //            AssignmentId = call.Id, // אם אתה מתכוון להשתמש ב-Id של ה-Call
+    //            CallId = call.Id, // אם CallId הוא אותו Id
+    //            TypeOfReading = (BO.TypeOfReading)call.TypeOfReading,
+    //            OpeningTime = call.OpeningTime,
+    //            RemainingTimeToEndCall = CallManager.getRemainingTimeToEndCall(call), // יש להוסיף לוגיקה אם נדרשת
+    //            LastVolunteerName = null, // יש להוסיף לוגיקה אם נדרשת
+    //            TotalHandlingTime = CallManager.getMaxTimeFinishRead(call), // יש להוסיף לוגיקה אם נדרשת
+    //            Status = CallManager.GetCallStatus(call.Id), // יש להוסיף לוגיקה אם נדרשת
+    //            TotalAssignments = 0 // יש להוסיף לוגיקה אם נדרשת
+    //        };
+    //    }
+
+    //    var callInLists = calls.Select(CreateCallInList).DistinctBy(c => c.CallId);
+
+    //    // אם filterBy הוא null, מחזירים את כל הקריאות
+    //    //if (filterBy != null)
+    //    //{
+    //    //    var propertyFilter = typeof(BO.CallInList).GetProperty(filterBy.ToString());
+    //    //    callInLists = callInLists.Where(call => propertyFilter.GetValue(call, null)?.Equals(filterValue) ?? false);
+
+    //    //}
+
+
+    //    if (filterBy != null)
+    //    {
+    //        var propertyFilter = typeof(BO.CallInList).GetProperty(filterBy.ToString());
+
+    //        if (propertyFilter == null)
+    //        {
+    //            throw new Exception($"Property '{filterBy}' not found in BO.CallInList.");
+
+    //           // Console.WriteLine($"Property '{filterBy}' not found in BO.CallInList.");
+    //            //return; // ניתן לשנות את זה בהתאם לצורך שלך בטיפול בשגיאה
+    //        }
+
+    //        callInLists = callInLists.Where(call => propertyFilter.GetValue(call, null)?.Equals(filterValue) ?? false);
+    //    }
+    //    // סינון הקריאות לפי filterBy ו-filterValue
+    //    //var propertyFilter = typeof(BO.CallInList).GetProperty(filterBy.ToString());
+    //    //var filteredCalls = callInLists.Where(call => propertyFilter.GetValue(call, null)?.Equals(filterValue) ?? false);
+
+    //    // אם sortBy הוא null, מחזירים את הקריאות המסוננות
+    //    if (sortBy == null)
+    //    {
+    //        return callInLists.OrderBy(v => v.CallId).ToList();
+
+    //    }
+
+    //    // מיון הקריאות לפי sortBy
+    //    var propertyInfo = typeof(BO.CallInList).GetProperty(sortBy.ToString());
+    //    if (propertyInfo != null)
+    //    {
+    //        return callInLists.OrderBy(v => propertyInfo.GetValue(v, null)).ToList();
+    //    }
+
+    //    return callInLists.ToList();
+    //}
 
     #region a
     //public IEnumerable<CallInList> ReadAll(CallField? filterBy, object? filterValue, CallField? sortBy)
@@ -345,23 +408,56 @@ internal class CallImplementation : ICall
     }
 
 
+    //public void SelectCallForTreatment(int volunteerId, int callId)
+    //{
+
+    //    try
+    //    {
+
+    //        var assignment = _dal.Assignment.Read(a => a.CallId == callId);
+    //        if (assignment != null || assignment.TypeOfEnding == assignment.TypeOfEnding)
+    //            throw new Exception($"Assignment with ID {callId}  already exists");
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        throw new Exception("Error closing call", ex);
+    //    }
+    //}
+
+
+
+
     public void SelectCallForTreatment(int volunteerId, int callId)
     {
-
         try
         {
+            var call = _dal.Call.Read(callId) ?? throw new BO.BlInvalidException($"Call with ID {callId} not found.");
+            var status = CallManager.GetCallStatus(callId);
 
-            var assignment = _dal.Assignment.Read(a => a.CallId == callId);
-             if (assignment != null|| assignment.TypeOfEnding== assignment.TypeOfEnding)
-               throw new Exception($"Assignment with ID {callId}  already exists");
+            if (status == Status.Expired || status == Status.Closed || (status == Status.InProgress && _dal.Assignment.Read(callId) != null))
+            {
+                throw new BO.BlInvalidException($"Cannot select this call for treatment, since the call's status is: {status}");
+            }
 
+            var newAssignment = new DO.Assignment(
+                CallId: callId,
+                VolunteerId: volunteerId,
+                EntryTimeForTreatment: ClockManager.Now,
+                EndOfTreatmentTime: null,
+                TypeOfEnding: null
+            );
+            _dal.Assignment.Create(newAssignment);
         }
-        catch (Exception ex)
+        catch (BO.BlInvalidException ex)
         {
-            throw new Exception("Error closing call", ex);
+            throw new BO.BlInvalidException($"Invalid operation: {ex.Message}", ex);
         }
-    }
 
+
+
+
+    }
 
 
     public void UpdateCallCancellation(int requesterId, int assignmentId)
@@ -401,9 +497,6 @@ internal class CallImplementation : ICall
             throw new Exception("An error occurred while canceling the call", ex);
         }
     }
-
-
-
 
 
     //עדכון "ביטול טיפול" 
@@ -469,7 +562,7 @@ internal class CallImplementation : ICall
             var updatedAssignment = assignment with // יצירת אובייקט חדש עם הערכים המעודכנים
             {
                 EndOfTreatmentTime = DateTime.Now, // עדכון זמן הסיום
-                TypeOfEnding =DO.TypeOfEnding.Teated // עדכון סוג הסיום
+                TypeOfEnding = DO.TypeOfEnding.Teated // עדכון סוג הסיום
             };
             //assignment.EndOfTreatmentTime = ClockManager.Now;
             //assignment.TypeOfEnding = DO.TypeOfEnding.Closed; // השתמש ב-CallStatus במקום ClosureType
@@ -497,7 +590,7 @@ internal class CallImplementation : ICall
 
             DO.Call doCall = CallManager.ConvertToDO(call);
             _dal.Call.Update(doCall);
-    }
+        }
         catch (Exception ex)
         {
             throw new BO.BlInvalidException("Volunteer with ID already exists", ex);

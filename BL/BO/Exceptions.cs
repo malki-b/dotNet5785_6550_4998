@@ -44,3 +44,4 @@ public class BlInvalidException : Exception
     public BlInvalidException(string message, Exception innerException)
                 : base(message, innerException) { }
 }
+

@@ -53,7 +53,7 @@ internal static class ClockManager //stage 4
     internal static event Action? ClockUpdatedObservers; //prepared for stage 5 - for clock update observers
 
     #endregion Stage 5
-    internal static ObserverManager Observers = new(); //stage 5 
+    //internal static ObserverManager Observers = new(); //stage 5 
 
 
     #region Stage 7 base

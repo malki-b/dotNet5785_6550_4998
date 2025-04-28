@@ -1,6 +1,7 @@
 using BlImplementation;
 using BO;
 using DalApi;
+using System.Threading;
 namespace Helpers;
 
 /// <summary>
@@ -65,9 +66,27 @@ internal static class AdminManager //stage 4
         //Calling all the observers of clock update
         ClockUpdatedObservers?.Invoke(); //prepared for stage 5
     }
+    internal static void InitializeDB()
+    {
+        lock (BlMutex) //stage 7
+        {
+            DalTest.Initialization.Do();
+            AdminManager.UpdateClock(AdminManager.Now);  // stage 5 - needed for update the PL
+            AdminManager.MaxRange = AdminManager.MaxRange; // stage 5 - needed for update the PL
+        }
+    }
+    internal static void ResetDB()
+    {
+        lock (BlMutex) //stage 7
+        {
+            s_dal.ResetDB();
+            AdminManager.UpdateClock(AdminManager.Now); //stage 5 - needed for update PL
+            AdminManager.MaxRange = AdminManager.MaxRange; //stage 5 - needed for update PL
+        }
+
     #endregion Stage 4
 
-    #region Stage 7 base
+        #region Stage 7 base
     internal static readonly object blMutex = new();
     private static Thread? s_thread;
     private static int s_interval { get; set; } = 1; //in minutes by second    

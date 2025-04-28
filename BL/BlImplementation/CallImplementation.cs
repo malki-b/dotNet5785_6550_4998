@@ -446,7 +446,7 @@ internal class CallImplementation : ICall
             var newAssignment = new DO.Assignment(
                 CallId: callId,
                 VolunteerId: volunteerId,
-                EntryTimeForTreatment: ClockManager.Now,
+                EntryTimeForTreatment: AdminManager.Now,
                 EndOfTreatmentTime: null,
                 TypeOfEnding: null
             );

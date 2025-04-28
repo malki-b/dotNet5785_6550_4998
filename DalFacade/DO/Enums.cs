@@ -43,3 +43,16 @@ public enum TypeOfEnding//סוג סיום הטיפול
 //    //    Emergency,
 //    //    HighPriority
 //}
+
+public enum MainMenu
+{
+    Exit, DisplayVolunteer, DisplayAssignments, DisplayCalls, DisplayConfig, InitializeData, ResetDatabase, DisplayAllData
+}
+public enum Crud
+{
+    Exit, Create, Read, ReadAll, Update, Delete, DeleteAll
+}
+public enum Config
+{
+    Exit, AddClockMinute, AddClockHour, AddClockByDay, AddClockByMonth, AddClockByYear, ShowCurrentClock, ChangeClock, ShowCurrentRiskRange, ResetConfig
+}

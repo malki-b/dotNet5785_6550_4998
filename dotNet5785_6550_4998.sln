@@ -5,11 +5,6 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stage0", "stage0\stage0.csproj", "{67339FA4-A248-4110-9236-84722A62996C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2302FE9C-5D15-453B-9876-8AD001A19A18}"
-	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalFacade", "DalFacade\DalFacade.csproj", "{F1105687-FBB6-407C-9592-E660DF86F1F4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalList", "DalList\DalList.csproj", "{A3C934CA-836F-47CD-AC56-2B28071B2E2D}"
@@ -29,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{E48CA91F-0E9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{9FE92169-3314-4CEA-9241-23D2C3E5C29A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlTest", "BlTest\BlTest.csproj", "{FB2E1A89-AF5F-45DB-825F-92CA879C2A03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csproj", "{FB2E1A89-AF5F-45DB-825F-92CA879C2A03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,10 +63,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{F1105687-FBB6-407C-9592-E660DF86F1F4} = {2302FE9C-5D15-453B-9876-8AD001A19A18}
-		{A3C934CA-836F-47CD-AC56-2B28071B2E2D} = {2302FE9C-5D15-453B-9876-8AD001A19A18}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {26E00F46-91F8-493B-AB72-9C6F1C117CA1}

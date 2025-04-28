@@ -23,18 +23,6 @@ internal class Program
     //static readonly IDal s_dal = new DalXml(); //stage 3
     static readonly IDal s_dal = Factory.Get; //stage 4
 
-    enum MainMenu
-    {
-        Exit, DisplayVolunteer, DisplayAssignments, DisplayCalls, DisplayConfig, InitializeData, ResetDatabase, DisplayAllData
-    }
-    enum Crud
-    {
-        Exit, Create, Read, ReadAll, Update, Delete, DeleteAll
-    }
-    enum Config
-    {
-        Exit, AddClockMinute, AddClockHour, AddClockByDay, AddClockByMonth, AddClockByYear, ShowCurrentClock, ChangeClock, ShowCurrentRiskRange, ResetConfig
-    }
 
     public static void DisplayMainMenu()
     {

@@ -21,21 +21,21 @@ public static class Initialization
         string[] emailVolunteer = ["yaakovlevi@gmail.com", "moshecohen@gmail.com", "avrahamgoldstein@gmail.com", "davidfriedman@gmail.com", "shlomorabinowitz@gmail.com", "menachemgreen@gmail.com", "aryehschwartz@gmail.com", "shimonbaruch@gmail.com", "yisraelweiner@gmail.com", "aharonfried@gmail.com", "shlomofisher@gmail.com", "danielgrossman@gmail.com", "avrahamsuper@gmail.com", "shmuelgross@gmail.com", "eliyahubraun@gmail.com"];
         string[] passVolunteer = ["Passw0rd!", "SecurePass123", "Gmail1234", "Password123", "SecretPass", "Green2021", "AryehS!23", "Baruch2021", "WeinerPass", "Aharon12345", "Fish1234", "GrossPass!", "SuperPass2021", "ShmuelPass", "Braun2021"];
         string[] addressVolunteer = [
-    "הרצל 10 כיכר המדינה ישראל",
-    "אלנבי 25 שינקין ישראל",
-    "דיזנגוף 48 תל אביב ישראל",
-    "הירקון 7 נמל תל אביב ישראל",
-    "רוטשילד 22 תל אביב ישראל",
-    "בן יהודה 15 נמל חיפה ישראל",
-    "המרכז 5 מרכז העיר חיפה ישראל",
-    "הגבעה 3 מושב חורפיש ישראל",
-    "הצופים 12 הר הצופים ישראל",
-    "הנחל 30 מושב כפר סבא ישראל",
-    "האלון 4 גבעתיים ישראל",
-    "הצבי 9 נחלת בנימין ישראל",
-    "היער 17 שכונת יערות ישראל",
-    "הכרמל 6 כפר חסידים ישראל",
-    "האדמור 11 שכונת אדמורים ישראל"
+   "5 Hamerkaz Street, Haifa City Center, Haifa, Israel",
+"12 Rothschild Boulevard, Tel Aviv, Israel",
+"10 King David Street, Jerusalem City Center, Jerusalem, Israel",
+"25 Herzl Street, Rehovot, Israel",
+"18 Bialik Street, Ramat Gan, Israel",
+"9 Ben Yehuda Street, Tel Aviv, Israel",
+"30 Hanevi'im Street, Jerusalem, Israel",
+"15 Hahistadrut Avenue, Haifa, Israel",
+"7 Dizengoff Street, Tel Aviv, Israel",
+"20 Menachem Begin Road, Tel Aviv, Israel",
+"22 Jabotinsky Street, Ramat Gan, Israel",
+"14 Weizmann Street, Herzliya, Israel",
+"3 Shderot Ben Gurion, Haifa, Israel",
+"8 Agron Street, Jerusalem, Israel",
+"6 Zamenhoff Street, Tel Aviv, Israel"
 ];
         double[] Longitude = [ 32.093035,32.072976, 32.075237,
     32.074741,
@@ -76,7 +76,7 @@ public static class Initialization
             do
                 id = s_rand.Next(MIN_ID, MAX_ID);
             while (s_dal!.Volunteer.Read(id) != null);
-          
+
             Role r;
             if (i == 0)
             {
@@ -86,23 +86,23 @@ public static class Initialization
             {
                 r = Role.Volunteer;
             }
-            
+
             DateTime start = new DateTime(1995, 1, 1);
 
             var values = Enum.GetValues(typeof(TypeDistance));
             int randomIndex = s_rand.Next(0, values.Length);
             TypeDistance distanceType = (TypeDistance)values.GetValue(randomIndex)!;
 
-            Volunteer v = new(id, namesVolunteer[i], phoneVolunteer[i], emailVolunteer[i], passVolunteer[i], distanceType, r, addressVolunteer[i], Latitude[i], Longitude[i],  true, s_rand.Next(0, 20));
+            Volunteer v = new(id, namesVolunteer[i], phoneVolunteer[i], emailVolunteer[i], passVolunteer[i], distanceType, r, addressVolunteer[i], Latitude[i], Longitude[i], true, s_rand.Next(0, 20));
             s_dal!.Volunteer.Create(v);
         }
     }
 
     private static void createCall()
     {
-        DateTime start = new DateTime(s_dal!.Config.Clock.Year,s_dal.Config.Clock.Month, s_dal.Config.Clock.Day, s_dal!.Config.Clock.Hour - 2, s_dal!.Config.Clock.Minute, 1);
-      // DateTime start = new DateTime(s_dal.Config.Clock.Year, s_dal.Config.Clock.Hour - 2, 1); //stage 1
-      // DateTime start = new DateTime(2024, 12, 1); //stage 1
+        DateTime start = new DateTime(s_dal!.Config.Clock.Year, s_dal.Config.Clock.Month, s_dal.Config.Clock.Day, s_dal!.Config.Clock.Hour - 2, s_dal!.Config.Clock.Minute, 1);
+        // DateTime start = new DateTime(s_dal.Config.Clock.Year, s_dal.Config.Clock.Hour - 2, 1); //stage 1
+        // DateTime start = new DateTime(2024, 12, 1); //stage 1
 
         int range = (s_dal.Config.Clock - start).Days; //stage 1
         start.AddDays(s_rand.Next(range));

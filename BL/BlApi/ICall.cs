@@ -7,7 +7,7 @@ using BO;
 using Helpers;
 namespace BlApi;
 
-public interface ICall
+public interface ICall: IObservable
 {
     /// <summary>
     /// Method to request call counts based on their statuses.

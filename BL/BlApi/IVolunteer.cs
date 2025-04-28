@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BO;
 namespace BlApi;
 
-public interface IVolunteer
+public interface IVolunteer: IObservable
 {
   
    //void RegisterStudentToCourse(int studentId, int courseId);

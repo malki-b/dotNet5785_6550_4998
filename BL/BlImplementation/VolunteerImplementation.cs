@@ -26,6 +26,7 @@ boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolu
 boVolunteer.Longitude, boVolunteer.IsActive,
 boVolunteer.MaxDistance);
             _dal.Volunteer.Create(doVolunteer);
+
             VolunteerManager.Observers.NotifyListUpdated(); //stage 5 
         }
         catch (DO.DalAlreadyExistsException ex)

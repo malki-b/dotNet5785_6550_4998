@@ -13,19 +13,19 @@ internal class AdminImplementation : IAdmin
         switch (unit)
         {
             case TimeUnit.Minute:
-                ClockManager.UpdateClock(ClockManager.Now.AddMinutes(1));
+                AdminManager.UpdateClock(AdminManager.Now.AddMinutes(1));
                 break;
             case TimeUnit.Hour:
-                ClockManager.UpdateClock(ClockManager.Now.AddHours(1));
+                AdminManager.UpdateClock(AdminManager.Now.AddHours(1));
                 break;
             case TimeUnit.Day:
-                ClockManager.UpdateClock(ClockManager.Now.AddDays(1));
+                AdminManager.UpdateClock(AdminManager.Now.AddDays(1));
                 break;
             case TimeUnit.Month:
-                ClockManager.UpdateClock(ClockManager.Now.AddMonths(1));
+                AdminManager.UpdateClock(AdminManager.Now.AddMonths(1));
                 break;
             case TimeUnit.Year:
-                ClockManager.UpdateClock(ClockManager.Now.AddYears(1));
+                AdminManager.UpdateClock(AdminManager.Now.AddYears(1));
                 break;
             default:
                 throw new ArgumentException("Invalid TimeUnit", nameof(unit));
@@ -35,27 +35,27 @@ internal class AdminImplementation : IAdmin
     public DateTime GetClock()
     {
        // ClockManager.UpdateClock(ClockManager.Now.AddMinutes(1));
-        return ClockManager.Now;    
+        return AdminManager.Now;    
     }
     public void SetMaxRange(TimeSpan riskTimeRange)
     {
-        _dal.Config.RiskRange = riskTimeRange;
+       AdminManager.MaxRange = riskTimeRange;
     }
     public TimeSpan GetMaxRange()
     {
-        return _dal.Config.RiskRange;
+        return AdminManager.MaxRange;
     }
 
     public void InitializeDB()
     {
-        _dal.Config.Reset();
+        AdminManager.reset();
         DalTest.Initialization.Do();
-        ClockManager.UpdateClock(ClockManager.Now);
+        AdminManager.UpdateClock(AdminManager.Now);
     }
 
     public void ResetDB()
     {
-        _dal.Config.Reset();
+        AdminManager.Reset();
         //
         GetClock();
     }

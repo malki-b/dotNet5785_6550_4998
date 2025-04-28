@@ -11,6 +11,8 @@ internal static class AssignmentManager
 {
     private static IDal s_dal = Factory.Get; //stage 4
 
+    internal static ObserverManager Observers = new(); //stage 5 
+
     internal static bool VolunteerIsOnCall(int volunteerId)
     {
         DO.Assignment? doLink = s_dal.Assignment.Read(l => l.VolunteerId == volunteerId);

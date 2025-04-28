@@ -63,6 +63,9 @@ namespace Helpers;
 internal static class VolunteerManager
 {
     private static IDal s_dal = Factory.Get;
+
+    internal static ObserverManager Observers = new(); //stage 5 
+
     static internal bool CheckValidation(BO.Volunteer v)
     {
         var trimmedEmail = v.Email.Trim();

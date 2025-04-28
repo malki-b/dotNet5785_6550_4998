@@ -48,14 +48,14 @@ internal class AdminImplementation : IAdmin
 
     public void InitializeDB()
     {
-        AdminManager.reset();
+        AdminManager.InitializeDB();
         DalTest.Initialization.Do();
         AdminManager.UpdateClock(AdminManager.Now);
     }
 
     public void ResetDB()
     {
-        AdminManager.Reset();
+        AdminManager.ResetDB();
         //
         GetClock();
     }

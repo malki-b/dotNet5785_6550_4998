@@ -22,6 +22,7 @@ internal class CallImplementation : ICall
             DO.Call newCallDO = CallManager.ConvertToDO(boCall);
 
             _dal.Call.Create(newCallDO);
+            CallManager.Observers.NotifyListUpdated();
             // Assuming the constructor for DO.Call takes parameters in a specific order.
             //DO.Call doCall = new DO.Call(
             //    boCall.Address,
@@ -59,6 +60,8 @@ internal class CallImplementation : ICall
                 {
                     //Attempt to delete the volunteer from the data access layer
                     _dal.Call.Delete(callId);
+                    CallManager.Observers.NotifyListUpdated();
+
                 }
                 catch (DO.DalNotFoundException ex)
                 {
@@ -448,6 +451,8 @@ internal class CallImplementation : ICall
                 TypeOfEnding: null
             );
             _dal.Assignment.Create(newAssignment);
+            CallManager.Observers.NotifyListUpdated();
+
         }
         catch (BO.BlInvalidException ex)
         {
@@ -489,8 +494,11 @@ internal class CallImplementation : ICall
                 EndOfTreatmentTime = DateTime.Now, // עדכון זמן הסיום
                 TypeOfEnding = isVolunteer ? DO.TypeOfEnding.SelfCancellation : DO.TypeOfEnding.ManagerCancellation // עדכון סוג הסיום
             };
-
+            //_dal.Assignment.Update(assignment);  maybe
             _dal.Assignment.Update(updatedAssignment); // עדכון האובייקט ב- DAL
+            CallManager.Observers.NotifyItemUpdated(updatedAssignment.Id);
+            CallManager.Observers.NotifyListUpdated();
+
         }
         catch (Exception ex)
         {
@@ -566,7 +574,9 @@ internal class CallImplementation : ICall
             };
             //assignment.EndOfTreatmentTime = ClockManager.Now;
             //assignment.TypeOfEnding = DO.TypeOfEnding.Closed; // השתמש ב-CallStatus במקום ClosureType
-            _dal.Assignment.Update(assignment);
+            _dal.Assignment.Update(updatedAssignment);
+            CallManager.Observers.NotifyItemUpdated(updatedAssignment.Id);
+            CallManager.Observers.NotifyListUpdated();
         }
         catch (Exception ex)
         {
@@ -590,6 +600,9 @@ internal class CallImplementation : ICall
 
             DO.Call doCall = CallManager.ConvertToDO(call);
             _dal.Call.Update(doCall);
+            CallManager.Observers.NotifyItemUpdated(doCall.Id);
+            CallManager.Observers.NotifyListUpdated();
+
         }
         catch (Exception ex)
         {

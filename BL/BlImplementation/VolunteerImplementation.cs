@@ -55,6 +55,7 @@ boVolunteer.MaxDistance);
                 {
                     //Attempt to delete the volunteer from the data access layer
                     _dal.Volunteer.Delete(id);
+                    VolunteerManager.Observers.NotifyListUpdated();  //stage 5
                 }
                 catch (DO.DalNotFoundException ex)
                 {
@@ -234,6 +235,9 @@ boVolunteer.MaxDistance);
         boVolunteer.MaxDistance);
 
             _dal.Volunteer.Update(doVolunteer);
+            VolunteerManager.Observers.NotifyItemUpdated(doVolunteer.Id);  //stage 5
+            VolunteerManager.Observers.NotifyListUpdated();  //stage 5
+
         }
         catch
         {

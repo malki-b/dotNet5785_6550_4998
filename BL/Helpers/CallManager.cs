@@ -13,6 +13,8 @@ namespace Helpers;
 internal static class CallManager
 {
     private static IDal s_dal = Factory.Get; //stage 4
+
+    internal static ObserverManager Observers = new(); //stage 5 
     internal static Status GetCallStatus(int callId)
     {
         var call = s_dal.Call.Read(callId) ??

@@ -48,26 +48,31 @@ namespace PL
 
         private void Add_One_Minute_Click(object sender, RoutedEventArgs e)
         {
+            s_bl.Admin.ForwardClock(BO.TimeUnit.Minute);
 
         }
 
         private void Add_One_Hour_Click(object sender, RoutedEventArgs e)
         {
+            s_bl.Admin.ForwardClock(BO.TimeUnit.Hour);
 
         }
 
         private void Add_One_Day_Click(object sender, RoutedEventArgs e)
         {
+            s_bl.Admin.ForwardClock(BO.TimeUnit.Day);
 
         }
 
         private void Add_One_Month_Click(object sender, TextChangedEventArgs e)
         {
+            s_bl.Admin.ForwardClock(BO.TimeUnit.Month);
 
         }
 
         private void Add_One_Year_Click(object sender, RoutedEventArgs e)
         {
+            s_bl.Admin.ForwardClock(BO.TimeUnit.Year);
 
         }
     }

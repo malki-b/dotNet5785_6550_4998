@@ -60,7 +60,7 @@ internal static class AdminManager //stage 4
         //Go through all students to update properties that are affected by the clock update
         //(students becomes not active after 5 years etc.)
 
-        StudentManager.PeriodicStudentsUpdates(oldClock, newClock); //stage 4
+       // StudentManager.PeriodicStudentsUpdates(oldClock, newClock); //stage 4
         //etc ...
 
         //Calling all the observers of clock update
@@ -68,21 +68,21 @@ internal static class AdminManager //stage 4
     }
     internal static void InitializeDB()
     {
-        lock (BlMutex) //stage 7
-        {
-            DalTest.Initialization.Do();
-            AdminManager.UpdateClock(AdminManager.Now);  // stage 5 - needed for update the PL
-            AdminManager.MaxRange = AdminManager.MaxRange; // stage 5 - needed for update the PL
-        }
+        //lock (BlMutex) //stage 7
+        //{
+        //    DalTest.Initialization.Do();
+        //    AdminManager.UpdateClock(AdminManager.Now);  // stage 5 - needed for update the PL
+        //    AdminManager.MaxRange = AdminManager.MaxRange; // stage 5 - needed for update the PL
+        //}
     }
     internal static void ResetDB()
     {
-        lock (BlMutex) //stage 7
-        {
-            s_dal.ResetDB();
-            AdminManager.UpdateClock(AdminManager.Now); //stage 5 - needed for update PL
-            AdminManager.MaxRange = AdminManager.MaxRange; //stage 5 - needed for update PL
-        }
+        //lock (BlMutex) //stage 7
+        //{
+        //    s_dal.ResetDB();
+        //    AdminManager.UpdateClock(AdminManager.Now); //stage 5 - needed for update PL
+        //    AdminManager.MaxRange = AdminManager.MaxRange; //stage 5 - needed for update PL
+        //}
     }
     #endregion Stage 4
 

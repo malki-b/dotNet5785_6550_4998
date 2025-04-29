@@ -8,5 +8,38 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
 
+
+        <Grid HorizontalAlignment="Left" Height="45" Margin="106,294,0,0" VerticalAlignment="Top" Width="568">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="227*"/>
+                <ColumnDefinition Width="341*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="ניהול מתנדבים" HorizontalAlignment="Left" Height="45" Margin="50,0,0,0" VerticalAlignment="Top" Width="160" Background="#FF4CD8C2" Grid.ColumnSpan="2" />
+            <Button Content="ניהול קריאות" HorizontalAlignment="Left" Height="45" Margin="125,0,0,0" VerticalAlignment="Center" Width="160" Background="#FF4CD8C2" Click="Button_Click" Grid.Column="1"/>
+        </Grid>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Height="198" Width="618" Margin="0,81,0,0">
+            <Button Content="אתחול בסיס נתונים" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="110" Margin="10,73,0,0"/>
+            <Button Content="איפוס&#xD;&#xA; משתני תצורה ובסיס נתונים" HorizontalAlignment="Left" VerticalAlignment="Top" Height="66" Width="110" Margin="10,3,0,0" Click="Button_Click_1"/>
+            <Button Content="סיכום קריאות&#xD;&#xA;לפי סטטוסים" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="86" Margin="532,10,0,0" Click="Button_Click_2"/>
+            <Button Content="סימולטור&#xD;&#xA;קביעת מצב ההתקדמות&#xD;&#xA;כפתור הפעלה / עצירה" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="86" Margin="532,86,0,0" Click="Button_Click_2"/>
+            <Label Content="שעה ותאריך נוכחי" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="138" Margin="367,4,0,0"/>
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="102" Width="142" Margin="358,30,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="87*"/>
+                    <RowDefinition Height="14*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button Content="Add One Minute" HorizontalAlignment="Center" VerticalAlignment="Top" Width="141" Click="Button_Click_4"/>
+                <Button Content="Button" HorizontalAlignment="Center" VerticalAlignment="Top" Width="141" Margin="0,20,0,0" Click="Button_Click_3"/>
+                <Button Content="Add One Day" HorizontalAlignment="Center" VerticalAlignment="Top" Width="141" Click="Button_Click_3" Margin="0,41,0,0"/>
+                <Button Content="Add One Hour" HorizontalAlignment="Center" VerticalAlignment="Top" Width="141" Margin="0,60,0,0" Click="Button_Click_3"/>
+                <Button Content="Add One Year" HorizontalAlignment="Center" VerticalAlignment="Top" Width="141" Margin="0,80,0,0" Click="Button_Click_3" Grid.RowSpan="2"/>
+                <Button Content="Add One Month" HorizontalAlignment="Center" VerticalAlignment="Center" Width="141" Click="Button_Click_3" Grid.Row="2"/>
+            </Grid>
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="40" Margin="223,18,0,0"/>
+            <Button Content="Update" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26" Width="68" Margin="0,18,0,0" Click="Button_Click_5"/>
+            <Label Content="Max year range" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="93" Margin="125,15,0,0" RenderTransformOrigin="0.253,-2.238"/>
+        </Grid>
     </Grid>
 </Window>

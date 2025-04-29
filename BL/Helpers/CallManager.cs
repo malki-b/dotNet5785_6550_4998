@@ -20,7 +20,7 @@ internal static class CallManager
         var call = s_dal.Call.Read(callId) ??
             throw new BO.BlDoesNotExistException($"Call with ID {callId} not found.");
 
-        DateTime currentTime = ClockManager.Now;
+        DateTime currentTime = AdminManager.Now;
         var assignments = s_dal.Assignment.ReadAll(a => a.CallId == callId).ToList();
         Assignment? activeAssignment = assignments.Find(a => a.EndOfTreatmentTime == null);
         Assignment? handledAssignments = assignments.Find(a => a.EndOfTreatmentTime != null && a.TypeOfEnding == DO.TypeOfEnding.Teated);

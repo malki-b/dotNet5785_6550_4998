@@ -5,8 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Call"
         mc:Ignorable="d"
-        Title="CallMenu" Height="450" Width="800">
-    <Grid>
+        Title="CallMenu" Height="640" Width="800">
         
-    </Grid>
-</Window>
+
+        <!--External Grid-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="500*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <!--Internal, Upper Grid-->
+            <Grid Height="auto" Grid.Row="0" Width="auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="select call" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="32" />
+                <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            </Grid>
+
+            <ListView HorizontalAlignment="Left" Height="336" Margin="38,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="552">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+
+        </Grid>
+
+    </Window>

@@ -36,11 +36,10 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Button Content="Add One Minute" HorizontalAlignment="Center" VerticalAlignment="Top" Width="141" Click="Add_One_Minute_Click"/>
-                <Button Content="Button" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="142" Margin="0,0,0,47" Click="Button_Click_3"/>
-                <Button Content="Add One Day" HorizontalAlignment="Center" VerticalAlignment="Top" Width="141" Click="Button_Click_3" Margin="0,41,0,0"/>
-                <Button Content="Add One Hour" HorizontalAlignment="Center" VerticalAlignment="Top" Width="141" Margin="0,60,0,0" Click="Button_Click_3"/>
-                <Button Content="Add One Year" HorizontalAlignment="Center" VerticalAlignment="Top" Width="141" Margin="0,80,0,0" Click="Button_Click_3" Grid.RowSpan="2"/>
-                <Button Content="Add One Month" HorizontalAlignment="Center" VerticalAlignment="Center" Width="141" Click="Button_Click_3" Grid.Row="2"/>
+                <Button Content="Add One Hour" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="142" Margin="0,0,0,47" Click="Add_One_Hour_Click"/>
+                <Button Content="Add One Day" HorizontalAlignment="Center" VerticalAlignment="Top" Width="141" Click="Add_One_Day_Click" Margin="0,41,0,0"/>
+                <Button Content="Add One Month" HorizontalAlignment="Center" VerticalAlignment="Top" Width="141" Margin="0,60,0,0" Click="Add_One_Month_Click"/>
+                <Button Content="Add One Year" HorizontalAlignment="Center" VerticalAlignment="Top" Width="141" Margin="0,80,0,0" Click="Add_One_Year_Click" Grid.RowSpan="2"/>
             </Grid>
             <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="40" Margin="223,18,0,0"/>
             <Button Content="Update" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26" Width="68" Margin="0,18,0,0" Click="Button_Click_5"/>

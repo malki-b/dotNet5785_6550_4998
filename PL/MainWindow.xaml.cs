@@ -46,22 +46,27 @@ namespace PL
 
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Add_One_Minute_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void Button_Click_5(object sender, RoutedEventArgs e)
+        private void Add_One_Hour_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void Add_One_Day_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Add_One_Month_Click(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Add_One_Year_Click(object sender, RoutedEventArgs e)
         {
 
         }

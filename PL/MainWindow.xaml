@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800"
-         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-
+         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+            Closed="MainWindow_Closed"
+>
 
 
 
@@ -20,8 +21,8 @@
                 <ColumnDefinition Width="341*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Content="ניהול מתנדבים" HorizontalAlignment="Left" Height="45" Margin="50,0,0,0" VerticalAlignment="Top" Width="160" Background="#FF4CD8C2" Grid.ColumnSpan="2" Click="Button_Click_1" />
-            <Button Content="ניהול קריאות" HorizontalAlignment="Left" Height="45" Margin="125,0,0,0" VerticalAlignment="Center" Width="160" Background="#FF4CD8C2" Click="Button_Click" Grid.Column="1"/>
+            <Button Content="ניהול מתנדבים" HorizontalAlignment="Left" Height="45" Margin="50,0,0,0" VerticalAlignment="Top" Width="160" Background="#FF4CD8C2" Grid.ColumnSpan="2" Click="HandleVolunteer_Click" />
+            <Button Content="ניהול קריאות" HorizontalAlignment="Left" Height="45" Margin="125,0,0,0" VerticalAlignment="Center" Width="160" Background="#FF4CD8C2" Click="HandleCall_Click" Grid.Column="1"/>
         </Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Height="198" Width="618" Margin="0,81,0,0">
             <Button Content="אתחול בסיס נתונים" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="110" Margin="10,73,0,0" Click="Init_Click"/>
@@ -46,7 +47,22 @@
                 <Button Content="Add One Month" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="0,60,0,0" Click="Add_One_Month_Click" Grid.ColumnSpan="3"/>
                 <Button Content="Add One Year" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="0,80,0,0" Click="Add_One_Year_Click" Grid.RowSpan="2" Grid.ColumnSpan="3"/>
             </Grid>
-            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="60" Margin="217,18,0,0" Text="{Binding CurrentMaxRange }"/>
+            <!--<TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="60" Margin="217,18,0,0" Text="{Binding CurrentMaxRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+            <!--<TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="60" Margin="217,18,0,0"
+         Text="{Binding CurrentMaxRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+            
+            <!--<TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="60" Margin="217,18,0,0"
+         Text="{Binding CurrentMaxRangeString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="60" Margin="217,18,0,0"
+         Text="{Binding CurrentMaxRangeString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="{Binding ErrorMessage}" Foreground="Red" FontWeight="Bold"
+       HorizontalAlignment="Left" VerticalAlignment="Top" Margin="217,45,0,0"
+       Height="25" Width="200"/>
+
+
+            <Label Content="{Binding ErrorMessage}" Foreground="Red" FontWeight="Bold"
+       HorizontalAlignment="Left" VerticalAlignment="Top" Margin="217,45,0,0"
+       Height="25" Width="200"/>
             <Button Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="68" Margin="279,18,0,0" Click="Update_Click" RenderTransformOrigin="0.106,0.789"/>
             <Label Content="Max year range" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="93" Margin="125,15,0,0" RenderTransformOrigin="0.253,-2.238"/>
         </Grid>

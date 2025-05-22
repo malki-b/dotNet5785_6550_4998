@@ -28,7 +28,7 @@
             <Button Content="איפוס&#xD;&#xA; משתני תצורה ובסיס נתונים" HorizontalAlignment="Left" VerticalAlignment="Top" Height="66" Width="110" Margin="10,3,0,0" Click="Button_Click_1"/>
             <Button Content="סיכום קריאות&#xD;&#xA;לפי סטטוסים" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="86" Margin="532,10,0,0" Click="Button_Click_2"/>
             <Button Content="סימולטור&#xD;&#xA;קביעת מצב ההתקדמות&#xD;&#xA;כפתור הפעלה / עצירה" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="86" Margin="532,86,0,0" Click="Button_Click_2"/>
-            <Label   Content="{Binding CurrentTime}"  FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="138" Margin="358,4,0,0" Background="#FFF6FBFA"/>
+            <Label   Content="{Binding CurrentTime}"  FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="138" Margin="358,-7,0,0" Background="#FFF6FBFA"/>
             <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="102" Width="142" Margin="358,30,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="87*"/>

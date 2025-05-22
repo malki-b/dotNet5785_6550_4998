@@ -41,8 +41,8 @@
                 <Button Content="Add One Month" HorizontalAlignment="Center" VerticalAlignment="Top" Width="141" Margin="0,60,0,0" Click="Add_One_Month_Click"/>
                 <Button Content="Add One Year" HorizontalAlignment="Center" VerticalAlignment="Top" Width="141" Margin="0,80,0,0" Click="Add_One_Year_Click" Grid.RowSpan="2"/>
             </Grid>
-            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="40" Margin="223,18,0,0"/>
-            <Button Content="Update" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26" Width="68" Margin="0,18,0,0" Click="Button_Click_5"/>
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="40" Margin="223,18,0,0" Text="56"/>
+            <Button Content="Update" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26" Width="68" Margin="0,18,0,0" Click="Update_Click"/>
             <Label Content="Max year range" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="93" Margin="125,15,0,0" RenderTransformOrigin="0.253,-2.238"/>
         </Grid>
     </Grid>

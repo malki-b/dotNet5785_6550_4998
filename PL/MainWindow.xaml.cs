@@ -26,6 +26,17 @@ namespace PL
         public static readonly DependencyProperty CurrentTimeProperty =
             DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow));
 
+
+        public DateTime CurrentMaxRange
+        {
+            get { return (DateTime)GetValue(CurrentMaxRangeProperty); }
+            set { SetValue(CurrentTimeProperty, value); }
+        }
+
+        public static readonly DependencyProperty CurrentMaxRangeProperty =
+            DependencyProperty.Register("CurrentMaxRange", typeof(DateTime), typeof(MainWindow));
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -78,6 +89,7 @@ namespace PL
 
         private void Update_Click(object sender, RoutedEventArgs e)
         {
+            s_bl.Admin.SetMaxRange(CurrentMaxRange);
 
         }
 

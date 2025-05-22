@@ -1,167 +1,167 @@
-﻿using System.ComponentModel;
-using System.Data;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
+﻿//using System.ComponentModel;
+//using System.Data;
+//using System.Text;
+//using System.Windows;
+//using System.Windows.Controls;
+//using System.Windows.Data;
+//using System.Windows.Documents;
+//using System.Windows.Input;
+//using System.Windows.Media;
+//using System.Windows.Media.Imaging;
+//using System.Windows.Navigation;
+//using System.Windows.Shapes;
+//using System.Windows.Threading;
 
-namespace PL
-{
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    /// 
+//namespace PL
+//{
+//    /// <summary>
+//    /// Interaction logic for MainWindow.xaml
+//    /// </summary>
+//    /// 
 
 
 
 
   
-    public partial class MainWindow : Window , INotifyPropertyChanged
-    {
+//    public partial class MainWindow : Window , INotifyPropertyChanged
+//    {
 
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
+//        public event PropertyChangedEventHandler PropertyChanged;
 
-       // private DataTime currentTime;
-        //public DataTime CurrentTime
-        //{
-        //    get { return currentTime; }
-        //    set
-        //    {
-        //        if (currentTime != value)
-        //        {
-        //            currentTime = value;
-        //            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentTime)));
-        //        }
-        //    }
-        //}
-
-
-        private DispatcherTimer timer;
-
-        CurrentTime = s_bl.Admin.GetClock();
+//       // private DataTime currentTime;
+//        //public DataTime CurrentTime
+//        //{
+//        //    get { return currentTime; }
+//        //    set
+//        //    {
+//        //        if (currentTime != value)
+//        //        {
+//        //            currentTime = value;
+//        //            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentTime)));
+//        //        }
+//        //    }
+//        //}
 
 
-        public DateTime CurrentTime
-        {
-            get { return (DateTime)GetValue(CurrentTimeProperty); }
-            set { SetValue(CurrentTimeProperty, value); }
-        }
+//        private DispatcherTimer timer;
 
-        public static readonly DependencyProperty CurrentTimeProperty =
-            DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(DateTime.Now));
-
-        private void clockObserver(object sender, EventArgs e)
-        {
-            //CurrentTime = DateTime.Now.ToString("HH:mm:ss");
-            CurrentTime = s_bl.Admin.GetClock();
-
-        }
+//        CurrentTime = s_bl.Admin.GetClock();
 
 
+//        public DateTime CurrentTime
+//        {
+//            get { return (DateTime)GetValue(CurrentTimeProperty); }
+//            set { SetValue(CurrentTimeProperty, value); }
+//        }
 
-        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        //public DateTime CurrentTime
-        //{
-        //    get { return (DateTime)GetValue(CurrentTimeProperty); }
-        //    set { SetValue(CurrentTimeProperty, value); }
-        //}
+//        public static readonly DependencyProperty CurrentTimeProperty =
+//            DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(DateTime.Now));
 
-        //public static readonly DependencyProperty CurrentTimeProperty =
-        //    DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow));
+//        private void clockObserver(object sender, EventArgs e)
+//        {
+//            //CurrentTime = DateTime.Now.ToString("HH:mm:ss");
+//            CurrentTime = s_bl.Admin.GetClock();
 
-
-        public TimeSpan CurrentMaxRange
-        {
-            get { return (TimeSpan)GetValue(CurrentMaxRangeProperty); }
-            set { SetValue(CurrentMaxRangeProperty, value); }
-        }
-
-        public static readonly DependencyProperty CurrentMaxRangeProperty =
-            DependencyProperty.Register("CurrentMaxRange", typeof(TimeSpan), typeof(MainWindow));
+//        }
 
 
-        public MainWindow()
-        {
-            InitializeComponent();
-            DataContext=this;
 
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += Timer_Tick;
-            timer.Start();
-                        // עדכון ראשוני
-            CurrentTime = DateTime.Now.ToString("HH:mm:ss");
+//        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+//        //public DateTime CurrentTime
+//        //{
+//        //    get { return (DateTime)GetValue(CurrentTimeProperty); }
+//        //    set { SetValue(CurrentTimeProperty, value); }
+//        //}
 
-        }
+//        //public static readonly DependencyProperty CurrentTimeProperty =
+//        //    DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow));
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
+//        public TimeSpan CurrentMaxRange
+//        {
+//            get { return (TimeSpan)GetValue(CurrentMaxRangeProperty); }
+//            set { SetValue(CurrentMaxRangeProperty, value); }
+//        }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
+//        public static readonly DependencyProperty CurrentMaxRangeProperty =
+//            DependencyProperty.Register("CurrentMaxRange", typeof(TimeSpan), typeof(MainWindow));
 
-        }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
+//        public MainWindow()
+//        {
+//            InitializeComponent();
+//            DataContext=this;
 
-        }
+//            timer = new DispatcherTimer();
+//            timer.Interval = TimeSpan.FromSeconds(1);
+//            timer.Tick += Timer_Tick;
+//            timer.Start();
+//                        // עדכון ראשוני
+//            CurrentTime = DateTime.Now.ToString("HH:mm:ss");
 
-        private void Add_One_Minute_Click(object sender, RoutedEventArgs e)
-        {
-            s_bl.Admin.ForwardClock(BO.TimeUnit.Minute);
+//        }
 
-        }
+//        private void Button_Click(object sender, RoutedEventArgs e)
+//        {
 
-        private void Add_One_Hour_Click(object sender, RoutedEventArgs e)
-        {
-            s_bl.Admin.ForwardClock(BO.TimeUnit.Hour);
+//        }
 
-        }
+//        private void Button_Click_1(object sender, RoutedEventArgs e)
+//        {
 
-        private void Add_One_Day_Click(object sender, RoutedEventArgs e)
-        {
-            s_bl.Admin.ForwardClock(BO.TimeUnit.Day);
+//        }
 
-        }
+//        private void Button_Click_2(object sender, RoutedEventArgs e)
+//        {
 
-        private void Add_One_Month_Click(object sender, TextChangedEventArgs e)
-        {
-            s_bl.Admin.ForwardClock(BO.TimeUnit.Month);
+//        }
 
-        }
+//        private void Add_One_Minute_Click(object sender, RoutedEventArgs e)
+//        {
+//            s_bl.Admin.ForwardClock(BO.TimeUnit.Minute);
 
-        private void Add_One_Year_Click(object sender, RoutedEventArgs e)
-        {
-            s_bl.Admin.ForwardClock(BO.TimeUnit.Year);
+//        }
 
-        }
+//        private void Add_One_Hour_Click(object sender, RoutedEventArgs e)
+//        {
+//            s_bl.Admin.ForwardClock(BO.TimeUnit.Hour);
 
-        private void Update_Click(object sender, RoutedEventArgs e)
-        {
+//        }
 
-            s_bl.Admin.SetMaxRange(CurrentMaxRange);
+//        private void Add_One_Day_Click(object sender, RoutedEventArgs e)
+//        {
+//            s_bl.Admin.ForwardClock(BO.TimeUnit.Day);
 
-        }
+//        }
 
-        private void Add_One_Month_Click(object sender, RoutedEventArgs e)
-        {
-            s_bl.Admin.ForwardClock(BO.TimeUnit.Month);
+//        private void Add_One_Month_Click(object sender, TextChangedEventArgs e)
+//        {
+//            s_bl.Admin.ForwardClock(BO.TimeUnit.Month);
 
-        }
-    }
-}
+//        }
+
+//        private void Add_One_Year_Click(object sender, RoutedEventArgs e)
+//        {
+//            s_bl.Admin.ForwardClock(BO.TimeUnit.Year);
+
+//        }
+
+//        private void Update_Click(object sender, RoutedEventArgs e)
+//        {
+
+//            s_bl.Admin.SetMaxRange(CurrentMaxRange);
+
+//        }
+
+//        private void Add_One_Month_Click(object sender, RoutedEventArgs e)
+//        {
+//            s_bl.Admin.ForwardClock(BO.TimeUnit.Month);
+
+//        }
+//    }
+//}
 
 
 
@@ -210,17 +210,17 @@ namespace PL
         public static readonly DependencyProperty CurrentMaxRangeProperty =
             DependencyProperty.Register("CurrentMaxRange", typeof(TimeSpan), typeof(MainWindow));
 
-        private DispatcherTimer timer;
+        //private DispatcherTimer timer;
 
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
 
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += clockObserver; // מתקנים ל-clockObserver
-            timer.Start();
+            //timer = new DispatcherTimer();
+            //timer.Interval = TimeSpan.FromSeconds(1);
+            //timer.Tick += clockObserver; // מתקנים ל-clockObserver
+            //timer.Start();
 
             // עדכון ראשוני
             CurrentTime = s_bl.Admin.GetClock(); // אם GetClock מחזירה DateTime. אם לא, המר ל-DateTime בהתאם!
@@ -260,6 +260,21 @@ namespace PL
         private void Update_Click(object sender, RoutedEventArgs e)
         {
             s_bl.Admin.SetMaxRange(CurrentMaxRange);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+
         }
 
         // מחקתי את כל Button_Click הריקים

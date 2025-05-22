@@ -27,19 +27,20 @@ namespace PL
             DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow));
 
 
-        public DateTime CurrentMaxRange
+        public TimeSpan CurrentMaxRange
         {
-            get { return (DateTime)GetValue(CurrentMaxRangeProperty); }
+            get { return (TimeSpan)GetValue(CurrentMaxRangeProperty); }
             set { SetValue(CurrentTimeProperty, value); }
         }
 
         public static readonly DependencyProperty CurrentMaxRangeProperty =
-            DependencyProperty.Register("CurrentMaxRange", typeof(DateTime), typeof(MainWindow));
+            DependencyProperty.Register("CurrentMaxRange", typeof(TimeSpan), typeof(MainWindow));
 
 
         public MainWindow()
         {
             InitializeComponent();
+            DataContext=this;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -89,6 +90,7 @@ namespace PL
 
         private void Update_Click(object sender, RoutedEventArgs e)
         {
+
             s_bl.Admin.SetMaxRange(CurrentMaxRange);
 
         }

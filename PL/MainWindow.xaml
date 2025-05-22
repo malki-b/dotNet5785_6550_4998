@@ -20,12 +20,12 @@
                 <ColumnDefinition Width="341*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Content="ניהול מתנדבים" HorizontalAlignment="Left" Height="45" Margin="50,0,0,0" VerticalAlignment="Top" Width="160" Background="#FF4CD8C2" Grid.ColumnSpan="2" />
+            <Button Content="ניהול מתנדבים" HorizontalAlignment="Left" Height="45" Margin="50,0,0,0" VerticalAlignment="Top" Width="160" Background="#FF4CD8C2" Grid.ColumnSpan="2" Click="Button_Click_1" />
             <Button Content="ניהול קריאות" HorizontalAlignment="Left" Height="45" Margin="125,0,0,0" VerticalAlignment="Center" Width="160" Background="#FF4CD8C2" Click="Button_Click" Grid.Column="1"/>
         </Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Height="198" Width="618" Margin="0,81,0,0">
-            <Button Content="אתחול בסיס נתונים" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="110" Margin="10,73,0,0" Click="Button_Click"/>
-            <Button Content="איפוס&#xD;&#xA; משתני תצורה ובסיס נתונים" HorizontalAlignment="Left" VerticalAlignment="Top" Height="66" Width="110" Margin="10,3,0,0" Click="Button_Click_1"/>
+            <Button Content="אתחול בסיס נתונים" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="110" Margin="10,73,0,0" Click="Init_Click"/>
+            <Button Content="איפוס משתני&#xD;&#xA; תצורה ובסיס נתונים" HorizontalAlignment="Left" VerticalAlignment="Top" Height="66" Width="110" Margin="10,3,0,0" Click="Resert_Click"/>
             <Button Content="סיכום קריאות&#xD;&#xA;לפי סטטוסים" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="86" Margin="532,10,0,0" Click="Button_Click_2"/>
             <Button Content="סימולטור&#xD;&#xA;קביעת מצב ההתקדמות&#xD;&#xA;כפתור הפעלה / עצירה" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="86" Margin="532,86,0,0" Click="Button_Click_2"/>
             <Label   Content="{Binding CurrentTime}"  FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="190" Margin="358,-7,0,0" Background="#FFF6FBFA"/>

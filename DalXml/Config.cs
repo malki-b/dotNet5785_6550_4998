@@ -40,7 +40,11 @@ internal static class Config
         NextCallId = 1000;
         NextAssignmentId = 1000;
         //...
-        Clock = new DateTime(2024, 12, 08, 19, 59, 30);
+        //Clock = new DateTime(2024, 12, 08, 19, 59, 30);/        //זה השורה המקורית
+
+        Clock = DateTime.Now;
+
+
         RiskRange = TimeSpan.FromHours(1);
         //...
     }

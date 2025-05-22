@@ -22,7 +22,7 @@
 
 
 
-  
+
 //    public partial class MainWindow : Window , INotifyPropertyChanged
 //    {
 
@@ -224,7 +224,35 @@ namespace PL
 
             // עדכון ראשוני
             CurrentTime = s_bl.Admin.GetClock(); // אם GetClock מחזירה DateTime. אם לא, המר ל-DateTime בהתאם!
+
+
+            //קופילוט
+            //this.Loaded += MainWindow_Loaded; // רישום מתודה לאירוע Loaded
+
         }
+
+
+
+        //זה מה שקופילוט הביא כדי שיעבוד מיד
+        //כרגע זה עדיין לא עובד
+
+        //// הוסף למימוש המחלקה:
+        //private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    CurrentTime = s_bl.Admin.GetClock(); // השמת ערך השעון
+        //    CurrentMaxRange = s_bl.Admin.GetMaxRange(); // השמת ערך משתנה תצורה (דוגמה לאחד)
+        //    s_bl.Admin.AddClockObserver(clockObserver); // רישום משקיף שעון
+        //    s_bl.Admin.AddConfigObserver(configObserver); // רישום משקיף משתני תצורה
+        //}
+
+        //// הוסף מתודת observer למשתני תצורה:
+        //private void configObserver(object sender, EventArgs e)
+        //{
+        //    CurrentMaxRange = s_bl.Admin.GetMaxRange();
+        //}
+
+
+
 
         // מתודת ההשקפה על השעון
         private void clockObserver(object sender, EventArgs e)
@@ -262,7 +290,18 @@ namespace PL
             s_bl.Admin.SetMaxRange(CurrentMaxRange);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Resert_Click(object sender, RoutedEventArgs e)
+        {
+            s_bl.Admin.ResetDB();
+        }
+
+        private void Init_Click(object sender, RoutedEventArgs e)
+        {
+            s_bl.Admin.InitializeDB();
+
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
         {
 
         }
@@ -272,7 +311,7 @@ namespace PL
 
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
 
         }

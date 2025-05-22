@@ -75,5 +75,16 @@ namespace PL
             s_bl.Admin.ForwardClock(BO.TimeUnit.Year);
 
         }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Add_One_Month_Click(object sender, RoutedEventArgs e)
+        {
+            s_bl.Admin.ForwardClock(BO.TimeUnit.Month);
+
+        }
     }
 }

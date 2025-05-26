@@ -41,8 +41,8 @@ public partial class VolunteerListWindow : Window
 
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
-      s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerField, VolunteerFilter)!;
+     //   VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
+   //   s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerField, VolunteerFilter)!;
 
     }
 
@@ -55,4 +55,19 @@ public partial class VolunteerListWindow : Window
     {
 
     }
+
+
+    private void queryVolunteerList()
+    => VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
+        s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerField.IsActive, VolunteerFilter)!;
+
+    private void volunteerListObserver()
+        => queryVolunteerList();
+ 
+private void Window_Loaded(object sender, RoutedEventArgs e)
+    => s_bl.Volunteer.AddObserver(volunteerListObserver);
+
+    private void Window_Closed(object sender, EventArgs e)
+        => s_bl.Volunteer.RemoveObserver(volunteerListObserver);
+
 }

@@ -1,63 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfVolunteer>
   <Volunteer>
-    <Id>324978743</Id>
+    <Id>392551068</Id>
     <Name>Yaakov Levi</Name>
     <Phone>0521234567</Phone>
     <Email>yaakovlevi@gmail.com</Email>
     <Password>Passw0rd!</Password>
     <Role>Manager</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Walking</Type_Distance>
+    <Type_Distance>Drive</Type_Distance>
     <Address>5 Hamerkaz Street, Haifa City Center, Haifa, Israel</Address>
     <Latitude>34.77041</Latitude>
     <Longitude>32.093035</Longitude>
-    <Max_Distance>15</Max_Distance>
+    <Max_Distance>19</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>244891699</Id>
+    <Id>267835872</Id>
     <Name>Moshe Cohen</Name>
     <Phone>0549876543</Phone>
     <Email>moshecohen@gmail.com</Email>
     <Password>SecurePass123</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Drive</Type_Distance>
+    <Type_Distance>Air</Type_Distance>
     <Address>12 Rothschild Boulevard, Tel Aviv, Israel</Address>
     <Latitude>34.773367</Latitude>
     <Longitude>32.072976</Longitude>
-    <Max_Distance>5</Max_Distance>
+    <Max_Distance>12</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>396226987</Id>
+    <Id>358873941</Id>
     <Name>Avraham Goldstein</Name>
     <Phone>0506543298</Phone>
     <Email>avrahamgoldstein@gmail.com</Email>
     <Password>Gmail1234</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Drive</Type_Distance>
+    <Type_Distance>Air</Type_Distance>
     <Address>10 King David Street, Jerusalem City Center, Jerusalem, Israel</Address>
     <Latitude>34.775382</Latitude>
     <Longitude>32.075237</Longitude>
-    <Max_Distance>11</Max_Distance>
+    <Max_Distance>0</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>394645912</Id>
+    <Id>372980013</Id>
     <Name>David Friedman</Name>
     <Phone>0525432187</Phone>
     <Email>davidfriedman@gmail.com</Email>
     <Password>Password123</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Walking</Type_Distance>
+    <Type_Distance>Air</Type_Distance>
     <Address>25 Herzl Street, Rehovot, Israel</Address>
     <Latitude>34.778712</Latitude>
     <Longitude>32.074741</Longitude>
-    <Max_Distance>15</Max_Distance>
+    <Max_Distance>0</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>256012088</Id>
+    <Id>263047330</Id>
     <Name>Shlomo Rabinowitz</Name>
     <Phone>0589876543</Phone>
     <Email>shlomorabinowitz@gmail.com</Email>
@@ -68,66 +68,66 @@
     <Address>18 Bialik Street, Ramat Gan, Israel</Address>
     <Latitude>34.774574</Latitude>
     <Longitude>32.069773</Longitude>
-    <Max_Distance>9</Max_Distance>
+    <Max_Distance>18</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>381322671</Id>
+    <Id>272046190</Id>
     <Name>Menachem Green</Name>
     <Phone>0524321987</Phone>
     <Email>menachemgreen@gmail.com</Email>
     <Password>Green2021</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Walking</Type_Distance>
+    <Type_Distance>Air</Type_Distance>
     <Address>9 Ben Yehuda Street, Tel Aviv, Israel</Address>
     <Latitude>34.983579</Latitude>
     <Longitude>32.820103</Longitude>
-    <Max_Distance>19</Max_Distance>
+    <Max_Distance>5</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>203332161</Id>
+    <Id>306333617</Id>
     <Name>Aryeh Schwartz</Name>
     <Phone>0583219876</Phone>
     <Email>aryehschwartz@gmail.com</Email>
     <Password>AryehS!23</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Drive</Type_Distance>
+    <Type_Distance>Walking</Type_Distance>
     <Address>30 Hanevi'im Street, Jerusalem, Israel</Address>
     <Latitude>34.98719</Latitude>
     <Longitude>32.820918</Longitude>
-    <Max_Distance>6</Max_Distance>
+    <Max_Distance>15</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>272182896</Id>
+    <Id>248185781</Id>
     <Name>Shimon Baruch</Name>
     <Phone>0551987654</Phone>
     <Email>shimonbaruch@gmail.com</Email>
     <Password>Baruch2021</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Air</Type_Distance>
+    <Type_Distance>Drive</Type_Distance>
     <Address>15 Hahistadrut Avenue, Haifa, Israel</Address>
     <Latitude>34.988004</Latitude>
     <Longitude>32.820536</Longitude>
-    <Max_Distance>12</Max_Distance>
+    <Max_Distance>7</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>323424447</Id>
+    <Id>399638183</Id>
     <Name>Yisrael Weiner</Name>
     <Phone>0534567892</Phone>
     <Email>yisraelweiner@gmail.com</Email>
     <Password>WeinerPass</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Air</Type_Distance>
+    <Type_Distance>Drive</Type_Distance>
     <Address>7 Dizengoff Street, Tel Aviv, Israel</Address>
     <Latitude>34.742663</Latitude>
     <Longitude>32.977347</Longitude>
     <Max_Distance>0</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>390480328</Id>
+    <Id>348738548</Id>
     <Name>Aharon Fried</Name>
     <Phone>0587654321</Phone>
     <Email>aharonfried@gmail.com</Email>
@@ -138,24 +138,24 @@
     <Address>20 Menachem Begin Road, Tel Aviv, Israel</Address>
     <Latitude>34.912945</Latitude>
     <Longitude>32.175679</Longitude>
-    <Max_Distance>12</Max_Distance>
+    <Max_Distance>11</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>331533713</Id>
+    <Id>293320341</Id>
     <Name>Shlomo Fisher</Name>
     <Phone>0509876543</Phone>
     <Email>shlomofisher@gmail.com</Email>
     <Password>Fish1234</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Air</Type_Distance>
+    <Type_Distance>Walking</Type_Distance>
     <Address>22 Jabotinsky Street, Ramat Gan, Israel</Address>
     <Latitude>34.79496</Latitude>
     <Longitude>32.07283</Longitude>
-    <Max_Distance>0</Max_Distance>
+    <Max_Distance>18</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>221301222</Id>
+    <Id>274153634</Id>
     <Name>Daniel Grossman</Name>
     <Phone>0541234567</Phone>
     <Email>danielgrossman@gmail.com</Email>
@@ -166,48 +166,48 @@
     <Address>14 Weizmann Street, Herzliya, Israel</Address>
     <Latitude>34.912181</Latitude>
     <Longitude>32.175537</Longitude>
-    <Max_Distance>17</Max_Distance>
+    <Max_Distance>4</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>220971185</Id>
+    <Id>398957602</Id>
     <Name>Avraham Super</Name>
     <Phone>0576543219</Phone>
     <Email>avrahamsuper@gmail.com</Email>
     <Password>SuperPass2021</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Air</Type_Distance>
+    <Type_Distance>Drive</Type_Distance>
     <Address>3 Shderot Ben Gurion, Haifa, Israel</Address>
     <Latitude>34.799589</Latitude>
     <Longitude>32.07082</Longitude>
-    <Max_Distance>16</Max_Distance>
+    <Max_Distance>13</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>399652864</Id>
+    <Id>274393832</Id>
     <Name>Shmuel Gross</Name>
     <Phone>0509876543</Phone>
     <Email>shmuelgross@gmail.com</Email>
     <Password>ShmuelPass</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Drive</Type_Distance>
+    <Type_Distance>Air</Type_Distance>
     <Address>8 Agron Street, Jerusalem, Israel</Address>
     <Latitude>34.801429</Latitude>
     <Longitude>32.070131</Longitude>
-    <Max_Distance>4</Max_Distance>
+    <Max_Distance>15</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>390811973</Id>
+    <Id>267254071</Id>
     <Name>Eliyahu Braun</Name>
     <Phone>0565432198</Phone>
     <Email>eliyahubraun@gmail.com</Email>
     <Password>Braun2021</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Drive</Type_Distance>
+    <Type_Distance>Air</Type_Distance>
     <Address>6 Zamenhoff Street, Tel Aviv, Israel</Address>
     <Latitude>34.790317</Latitude>
     <Longitude>32.074038</Longitude>
-    <Max_Distance>3</Max_Distance>
+    <Max_Distance>2</Max_Distance>
   </Volunteer>
 </ArrayOfVolunteer>

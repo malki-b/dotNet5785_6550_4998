@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +29,7 @@ public partial class VolunteerListWindow : Window
     public VolunteerListWindow()
     {
         InitializeComponent();
-        DataContext = this;
+        //DataContext = this;
         Loaded += VolunteerWindow_Loaded;
         queryVolunteerList();
     }
@@ -40,7 +42,14 @@ public partial class VolunteerListWindow : Window
     public static readonly DependencyProperty VolunteerListProperty =
         DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
 
+    //public ObservableCollection<VolunteerInList> VolunteerList
+    //{
+    //    get { return (ObservableCollection<VolunteerInList>)GetValue(VolunteerListProperty); }
+    //    set { SetValue(VolunteerListProperty, value); }
+    //}
 
+    //public static readonly DependencyProperty VolunteerListProperty =
+    //    DependencyProperty.Register("VolunteerList", typeof(ObservableCollection<VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
 
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -60,13 +69,17 @@ public partial class VolunteerListWindow : Window
     }
 
 
-    //private void queryVolunteerList()
-    //=> VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
-    //    s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerField.IsActive, VolunteerFilter)!;
-
     private void queryVolunteerList()
     => VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
-        s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, null)!;
+        s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerField.IsActive, VolunteerFilter)!;
+
+    //private void queryVolunteerList()
+    //{
+    //    var list = (VolunteerFilter == BO.VolunteerField.None) ?
+    //        s_bl?.Volunteer.ReadAll() : s_bl?.Volunteer.ReadAll(null, null);
+
+    //    VolunteerList = new ObservableCollection<BO.VolunteerInList>(list ?? Enumerable.Empty<BO.VolunteerInList>());
+    //}
     private void volunteerListObserver()
         => queryVolunteerList();
  

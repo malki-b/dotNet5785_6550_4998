@@ -27,6 +27,9 @@ public partial class VolunteerListWindow : Window
     public VolunteerListWindow()
     {
         InitializeComponent();
+        DataContext = this;
+        Loaded += VolunteerWindow_Loaded;
+        queryVolunteerList();
     }
     public IEnumerable<BO.VolunteerInList> VolunteerList
     {
@@ -57,17 +60,24 @@ public partial class VolunteerListWindow : Window
     }
 
 
+    //private void queryVolunteerList()
+    //=> VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
+    //    s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerField.IsActive, VolunteerFilter)!;
+
     private void queryVolunteerList()
     => VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
-        s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerField.IsActive, VolunteerFilter)!;
-
+        s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, null)!;
     private void volunteerListObserver()
         => queryVolunteerList();
  
-private void Window_Loaded(object sender, RoutedEventArgs e)
-    => s_bl.Volunteer.AddObserver(volunteerListObserver);
+private void VolunteerWindow_Loaded(object sender, RoutedEventArgs e)
+    {
+        s_bl.Volunteer.AddObserver(volunteerListObserver);
+        queryVolunteerList();
 
-    private void Window_Closed(object sender, EventArgs e)
+    }
+
+    private void VolunteerWindow_Closed(object sender, EventArgs e)
         => s_bl.Volunteer.RemoveObserver(volunteerListObserver);
 
 }

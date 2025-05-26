@@ -27,14 +27,47 @@
         </Grid>
  
 
-        <ListView   ItemsSource="{Binding VolunteerList}" HorizontalAlignment="Left" Height="336" Margin="38,10,0,0" Grid.Row="1"  VerticalAlignment="Top" Width="552"  >
+        <!--<ListView   ItemsSource="{Binding VolunteerList}" HorizontalAlignment="Left" Height="336" Margin="38,10,0,0" Grid.Row="1"  VerticalAlignment="Top" Width="552"  >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
+        </ListView>-->
+
+        <ListView ItemsSource="{Binding StudentList}"
+          IsSynchronizedWithCurrentItem="True"
+          SelectedItem="{Binding SelectedStudent}">
+            <ListView.View>
+                <GridView>
+                     עמודה רגילה 
+                    <GridViewColumn Header="Id" Width="Auto" DisplayMemberBinding="{Binding Id}" />
+
+                     עמודה עם תבנית צבע שונה 
+                    <GridViewColumn Header="Name" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" Foreground="DarkBlue" FontWeight="Bold"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                     עמודה עם CheckBox 
+                    <GridViewColumn Header="Is Active" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsActive}" IsEnabled="False"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                     עמודות נוספות... 
+                </GridView>
+            </ListView.View>
         </ListView>
-       
+
+
+
 
         <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
 

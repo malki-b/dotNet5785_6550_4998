@@ -82,6 +82,7 @@ public enum CallCompletionType
 
 public enum VolunteerSortBy
 {
+    
     Id,
     FullName,
     Phone,
@@ -136,6 +137,7 @@ public enum TimeUnit
 
 public enum VolunteerField
 {
+    None,
     Id,
     FullName,
     MobilePhone,

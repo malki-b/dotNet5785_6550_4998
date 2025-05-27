@@ -17,7 +17,7 @@ public class VolunteerInList
     /// <summary>
     /// Represents the full name of the volunteer (first and last name).
     /// </summary>
-    public string FullName { get; set; }
+    public string FullName { get; set; } = "";
 
     /// <summary>
     /// Indicates whether the volunteer is active.

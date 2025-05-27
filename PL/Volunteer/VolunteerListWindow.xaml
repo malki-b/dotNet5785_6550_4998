@@ -25,37 +25,22 @@
             <Label Grid.Column="0" Content="select volunteer" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="32" />
             <ComboBox   ItemsSource="{Binding Source={StaticResource VolunteerCollectionKey}}" SelectedValue="{Binding VolunteerSort, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Grid>
- 
 
-        <!--<ListView   ItemsSource="{Binding VolunteerList}" HorizontalAlignment="Left" Height="336" Margin="38,10,0,0" Grid.Row="1"  VerticalAlignment="Top" Width="552"  >
+
+
+        <ListView ItemsSource="{Binding VolunteerList}" HorizontalAlignment="Left" Height="336" Margin="38,10,0,0" Grid.Row="1"  VerticalAlignment="Top" Width="552">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>-->
+                    <GridViewColumn Header="VolunteerId" DisplayMemberBinding="{Binding VolunteerId}" Width="Auto"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding FullName}" Width="Auto"/>
+                    <GridViewColumn Header="Handled Requests" DisplayMemberBinding="{Binding TotalHandledRequests}" Width="Auto"/>
+                    <GridViewColumn Header=" Canceled Requests" DisplayMemberBinding="{Binding TotalCanceledRequests}" Width="Auto"/>
 
-        <ListView ItemsSource="{Binding StudentList}"
-          IsSynchronizedWithCurrentItem="True"
-          SelectedItem="{Binding SelectedStudent}">
-            <ListView.View>
-                <GridView>
-                    
-                    <GridViewColumn Header="Id" Width="Auto" DisplayMemberBinding="{Binding Id}" />
 
-                     
-                    <GridViewColumn Header="Name" Width="Auto">
+                    <GridViewColumn Header="Is Active">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}" Foreground="DarkBlue" FontWeight="Bold"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-
-                    <GridViewColumn Header="Is Active" Width="Auto">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsActive}" IsEnabled="False"/>
+                                <CheckBox IsChecked="{Binding IsActive}" IsEnabled="False" Width="Auto"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -64,54 +49,10 @@
             </ListView.View>
         </ListView>
 
-        <!--<ListView ItemsSource="{Binding VolunteerList}"
-          IsSynchronizedWithCurrentItem="True"
-          SelectedItem="{Binding SelectedVolunteer}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="Auto"/>
-                    <GridViewColumn Header="Name">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}" Foreground="DarkBlue" FontWeight="Bold"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Phone}" Width="Auto"/>
-                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" Width="Auto"/>
-                    <GridViewColumn Header="Is Active" Width="Auto">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsActive}" IsEnabled="False"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    --><!-- הוסף כאן עמודות נוספות לפי הצורך --><!--
-                </GridView>
-            </ListView.View>
-        </ListView>-->
-
-        <!--<ListView ItemsSource="{Binding VolunteerList}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Phone}" />
-                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" />
-                    <GridViewColumn Header="Is Active">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsActive}" IsEnabled="False"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>-->
 
 
 
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+        <Button Content="Add" Grid.Row="1" HorizontalAlignment="Center" Height="50" Width="100" Margin="0,356,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Click="Add_Click"/>
 
     </Grid>
 

@@ -59,7 +59,7 @@
 //        public static readonly DependencyProperty CurrentTimeProperty =
 //            DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(DateTime.Now));
 
-//        private void clockObserver(object sender, EventArgs e)
+//        private void ClockObserver(object sender, EventArgs e)
 //        {
 //            //CurrentTime = DateTime.Now.ToString("HH:mm:ss");
 //            CurrentTime = s_bl.Admin.GetClock();
@@ -219,7 +219,7 @@
 
 //            //timer = new DispatcherTimer();
 //            //timer.Interval = TimeSpan.FromSeconds(1);
-//            //timer.Tick += clockObserver; // מתקנים ל-clockObserver
+//            //timer.Tick += ClockObserver; // מתקנים ל-ClockObserver
 //            //timer.Start();
 
 //            // עדכון ראשוני
@@ -241,14 +241,14 @@
 //        {
 //            CurrentTime = s_bl.Admin.GetClock(); // השמת ערך השעון
 //            CurrentMaxRange = s_bl.Admin.GetMaxRange(); // השמת ערך משתנה תצורה (דוגמה לאחד)
-//            s_bl.Admin.AddClockObserver(clockObserver); // רישום משקיף שעון
-//            s_bl.Admin.AddConfigObserver(configObserver); // רישום משקיף משתני תצורה
+//            s_bl.Admin.AddClockObserver(ClockObserver); // רישום משקיף שעון
+//            s_bl.Admin.AddConfigObserver(ConfigObserver); // רישום משקיף משתני תצורה
 //        }
 
 //        //// הוסף מתודת observer למשתני תצורה:
-//        ///        private void configObserver(object sender, EventArgs e)
+//        ///        private void ConfigObserver(object sender, EventArgs e)
 
-//        private void configObserver()
+//        private void ConfigObserver()
 //        {
 //            CurrentMaxRange = s_bl.Admin.GetMaxRange();
 //        }
@@ -257,9 +257,9 @@
 
 
 //        // מתודת ההשקפה על השעון
-//        //private void clockObserver(object sender, EventArgs e)
+//        //private void ClockObserver(object sender, EventArgs e)
 
-//        private void clockObserver()
+//        private void ClockObserver()
 //        {
 //            CurrentTime = s_bl.Admin.GetClock(); // אם GetClock מחזירה DateTime. אם לא, המר ל-DateTime בהתאם!
 //        }
@@ -390,12 +390,12 @@
 //            CurrentTime = s_bl.Admin.GetClock();
 //            CurrentMaxRange = s_bl.Admin.GetMaxRange();
 
-//            s_bl.Admin.AddClockObserver(clockObserver);
-//            s_bl.Admin.AddConfigObserver(configObserver);
+//            s_bl.Admin.AddClockObserver(ClockObserver);
+//            s_bl.Admin.AddConfigObserver(ConfigObserver);
 //        }
 
 //        // observer לעדכון השעון
-//        private void clockObserver()
+//        private void ClockObserver()
 //        {
 //            // לוודא שהעדכון מתבצע ב־UI Thread
 //            Dispatcher.Invoke(() =>
@@ -405,7 +405,7 @@
 //        }
 
 //        // observer לעדכון משתני תצורה
-//        private void configObserver()
+//        private void ConfigObserver()
 //        {
 //            Dispatcher.Invoke(() =>
 //            {
@@ -474,6 +474,7 @@
 
 
 using PL.Volunteer;
+using PL.Call;
 using System;
 using System.Windows;
 
@@ -484,7 +485,7 @@ namespace PL
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
         // === שינוי: שדה לעבודה פנימית עם ה-TimeSpan ===
-        private TimeSpan _currentMaxRange;
+       // private TimeSpan _currentMaxRange;
 
         public DateTime CurrentTime
         {
@@ -499,9 +500,21 @@ namespace PL
                 typeof(MainWindow),
                 new PropertyMetadata(DateTime.Now)
             );
+        public TimeSpan CurrentMaxRange
+        {
+            get { return (TimeSpan)GetValue(currentMaxRangeProperty); }
+            set { SetValue(currentMaxRangeProperty, value); }
+        }
 
+        public static readonly DependencyProperty currentMaxRangeProperty =
+           DependencyProperty.Register(
+               "CurrentMaxRange",
+               typeof(TimeSpan),
+               typeof(MainWindow),
+               new PropertyMetadata(null)
+           );
         // === שינוי: מחרוזת שמוצגת ב-TextBox ומומרת ל-TimeSpan ===
-        private string _currentMaxRangeString;
+        //private string _currentMaxRangeString;
         //public string CurrentMaxRangeString
         //{
         //    get => _currentMaxRangeString;
@@ -519,28 +532,28 @@ namespace PL
         //        }
         //    }
         //}
-        public string CurrentMaxRangeString
-        {
-            get => _currentMaxRangeString;
-            set
-            {
-                _currentMaxRangeString = value;
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    ErrorMessage = "";
-                    return;
-                }
-                try
-                {
-                    _currentMaxRange = TimeSpan.Parse(value);
-                    ErrorMessage = "";
-                }
-                catch
-                {
-                    ErrorMessage = "יש להכניס ערך מספרי חוקי";
-                }
-            }
-        }
+        //public string CurrentMaxRangeString
+        //{
+        //    get => _currentMaxRangeString;
+        //    set
+        //    {
+        //        _currentMaxRangeString = value;
+        //        if (string.IsNullOrWhiteSpace(value))
+        //        {
+        //            ErrorMessage = "";
+        //            return;
+        //        }
+        //        try
+        //        {
+        //            _currentMaxRange = TimeSpan.Parse(value);
+        //            ErrorMessage = "";
+        //        }
+        //        catch
+        //        {
+        //            ErrorMessage = "יש להכניס ערך מספרי חוקי";
+        //        }
+        //    }
+        //}
 
         // === שינוי: הודעת שגיאה לתצוגה מתחת ל-TextBox ===
         private string _errorMessage;
@@ -575,21 +588,21 @@ namespace PL
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             CurrentTime = s_bl.Admin.GetClock();
-            _currentMaxRange = s_bl.Admin.GetMaxRange();
+            CurrentMaxRange = s_bl.Admin.GetMaxRange();
 
             // === שינוי: עדכון מחרוזת תצוגה מה-TimeSpan האמיתי ===
-            CurrentMaxRangeString = _currentMaxRange.ToString();
+            //CurrentMaxRangeString = _currentMaxRange.ToString();
 
-            s_bl.Admin.AddClockObserver(clockObserver);
-            s_bl.Admin.AddConfigObserver(configObserver);
+            s_bl.Admin.AddClockObserver(ClockObserver);
+            s_bl.Admin.AddConfigObserver(ConfigObserver);
         }
 
         private void MainWindow_Closed(object sender, EventArgs e) // *** שינוי: מימוש אירוע הסגירה ***
         {
-            s_bl.Admin.RemoveClockObserver(clockObserver);  // *** שינוי: הסרת משקיף השעון ***
-            s_bl.Admin.RemoveConfigObserver(configObserver); // *** שינוי: הסרת משקיף התצורה ***
+            s_bl.Admin.RemoveClockObserver(ClockObserver);  // *** שינוי: הסרת משקיף השעון ***
+            s_bl.Admin.RemoveConfigObserver(ConfigObserver); // *** שינוי: הסרת משקיף התצורה ***
         }
-        private void clockObserver()
+        private void ClockObserver()
         {
             Dispatcher.Invoke(() =>
             {
@@ -597,12 +610,12 @@ namespace PL
             });
         }
 
-        private void configObserver()
+        private void ConfigObserver()
         {
             Dispatcher.Invoke(() =>
             {
-                _currentMaxRange = s_bl.Admin.GetMaxRange();
-                CurrentMaxRangeString = _currentMaxRange.ToString();
+                CurrentMaxRange = s_bl.Admin.GetMaxRange();
+               // CurrentMaxRangeString = _currentMaxRange.ToString();
             });
         }
 
@@ -647,19 +660,20 @@ namespace PL
         //}
         private void Update_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(CurrentMaxRangeString) || !string.IsNullOrEmpty(ErrorMessage))
-            {
-                MessageBox.Show("יש להכניס ערך מספרי חוקי", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
-                CurrentMaxRangeString = "";
+            s_bl.Admin.SetMaxRange(CurrentMaxRange);
+            //if (string.IsNullOrWhiteSpace(CurrentMaxRangeString) || !string.IsNullOrEmpty(ErrorMessage))
+            //{
+            //    MessageBox.Show("יש להכניס ערך מספרי חוקי", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    CurrentMaxRangeString = "";
 
-            }
-            else
-            {
-                s_bl.Admin.SetMaxRange(_currentMaxRange);
-                CurrentMaxRangeString = "";
+            //}
+            //else
+            //{
+            //    s_bl.Admin.SetMaxRange(_currentMaxRange);
+            //    CurrentMaxRangeString = "";
 
-            }
-            CurrentMaxRangeString = "";
+            //}
+            //CurrentMaxRangeString = "";
         }
 
         private void Resert_Click(object sender, RoutedEventArgs e)
@@ -678,7 +692,7 @@ namespace PL
 
         private void HandleCall_Click(object sender, RoutedEventArgs e)
         {
-          //  new callListWindow().Show();
+            //new CallListWindow().Show();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)

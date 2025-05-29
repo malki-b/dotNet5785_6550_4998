@@ -54,7 +54,7 @@
             <!--<TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="60" Margin="217,18,0,0"
          Text="{Binding CurrentMaxRangeString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
             <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="60" Margin="217,18,0,0"
-         Text="{Binding CurrentMaxRangeString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+         Text="{Binding CurrentMaxRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Label Content="{Binding ErrorMessage}" Foreground="Red" FontWeight="Bold"
        HorizontalAlignment="Left" VerticalAlignment="Top" Margin="217,45,0,0"
        Height="25" Width="200"/>

@@ -26,6 +26,8 @@ public partial class VolunteerListWindow : Window
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     public BO.VolunteerField VolunteerFilter { get; set; } = BO.VolunteerField.None;
 
+    public BO.VolunteerInList? SelectedVolunteer { get; set; }
+
     public VolunteerListWindow()
     {
         InitializeComponent();
@@ -43,10 +45,12 @@ public partial class VolunteerListWindow : Window
         DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
 
    
+
+
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-     //   VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
-   //   s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerField, VolunteerFilter)!;
+      //  VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
+      //s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerField, VolunteerFilter)!;
 
     }
     //private void Volunteer_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -91,7 +95,7 @@ private void VolunteerWindow_Loaded(object sender, RoutedEventArgs e)
 
     }
 
-
+  
 }
 
 

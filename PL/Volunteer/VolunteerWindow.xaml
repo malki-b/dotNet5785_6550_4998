@@ -54,7 +54,13 @@
         <Label Content="ID:" Grid.Row="0" Grid.Column="0"/>
         <TextBox Grid.Row="0" Grid.Column="1"
                  Style="{StaticResource InputStyle}"
+                
                  Text="{Binding CurrentVolunteer.Id}"/>
+        <!--<Label Content="Id:" HorizontalAlignment="Right" Grid.Row="0"/>
+        <TextBox Text="{Binding CurrentVolunteer.Id, Mode=TwoWay}"
+                 IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}" Width="200" Grid.Row="0" Grid.Column="1"/>-->
+
+
 
         <!-- Name -->
         <Label Content="Name:" Grid.Row="1" Grid.Column="0"/>
@@ -81,12 +87,11 @@
                      Password="{Binding CurrentVolunteer.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
 
         <!-- Role (ComboBox) -->
-        <Label Content="Role:" Grid.Row="5" Grid.Column="0"/>
         <ComboBox Grid.Row="5" Grid.Column="1"
-                  Style="{StaticResource InputStyle}"
-                  ItemsSource="{Binding Source={StaticResource RolesCollectionKey}}"
-                  SelectedItem="{Binding CurrentVolunteer.Role}"/>
-
+          Style="{StaticResource InputStyle}"
+          SelectedItem="{Binding CurrentVolunteer.Role, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <!--ItemsSource="{Binding Source={StaticResource RolesCollectionKey}}"-->
+        
         <!-- IsActive (CheckBox) -->
         <Label Content="Active?" Grid.Row="6" Grid.Column="0"/>
         <CheckBox Grid.Row="6" Grid.Column="1"
@@ -97,7 +102,7 @@
         <Label Content="Distance Type:" Grid.Row="7" Grid.Column="0"/>
         <ComboBox Grid.Row="7" Grid.Column="1"
                   Style="{StaticResource InputStyle}"
-                  ItemsSource="{Binding DistanceTypeOptions}"
+                  ItemsSource="{Binding DistanceCollectionKey}"
                   SelectedItem="{Binding CurrentVolunteer.Type_Distance}"/>
 
         <!-- Address -->
@@ -113,11 +118,11 @@
                  Text="{Binding CurrentVolunteer.Max_Distance}"/>
 
         <!-- Button -->
-        <!--<Button Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2"
+        <Button Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2"
                 Content="{Binding ButtonText}"
-                Click="btnAddUpdate_Click"
+                Click="AddAndUpdate_Click"
                 Width="200" Height="40" Margin="0,16,0,0"
-                HorizontalAlignment="Center"/>-->
+                HorizontalAlignment="Center"/>
     </Grid>
     
 </Window>

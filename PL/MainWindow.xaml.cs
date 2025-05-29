@@ -685,14 +685,14 @@ namespace PL
         {
             s_bl.Admin.InitializeDB();
         }
-        private void HandleVolunteer_Click(object sender, RoutedEventArgs e)
+        private void VolunteerList_Click(object sender, RoutedEventArgs e)
         {
             new VolunteerListWindow().Show();
         }
 
-        private void HandleCall_Click(object sender, RoutedEventArgs e)
+        private void CallList_Click(object sender, RoutedEventArgs e)
         {
-            //new CallListWindow().Show();
+           // new CallListWindow().Show();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)

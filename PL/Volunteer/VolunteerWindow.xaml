@@ -6,7 +6,118 @@
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
         Title="VolunteerWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Margin="20">
+        <Grid.Resources>
+            <!-- Unified style for labels -->
+            <Style TargetType="Label">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="6"/>
+                <Setter Property="MinWidth" Value="130"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+            <!-- Unified style for input controls -->
+            <Style TargetType="Control" x:Key="InputStyle">
+                <Setter Property="Margin" Value="6"/>
+                <Setter Property="MinWidth" Value="200"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Id -->
+            <RowDefinition Height="Auto"/>
+            <!-- Name -->
+            <RowDefinition Height="Auto"/>
+            <!-- Phone -->
+            <RowDefinition Height="Auto"/>
+            <!-- Email -->
+            <RowDefinition Height="Auto"/>
+            <!-- Password -->
+            <RowDefinition Height="Auto"/>
+            <!-- Role -->
+            <RowDefinition Height="Auto"/>
+            <!-- IsActive -->
+            <RowDefinition Height="Auto"/>
+            <!-- Type_Distance -->
+            <RowDefinition Height="Auto"/>
+            <!-- Address -->
+            <RowDefinition Height="Auto"/>
+            <!-- Max_Distance -->
+            <RowDefinition Height="Auto"/>
+            <!-- Button -->
+        </Grid.RowDefinitions>
+
+        <!-- Id -->
+        <Label Content="ID:" Grid.Row="0" Grid.Column="0"/>
+        <TextBox Grid.Row="0" Grid.Column="1"
+                 Style="{StaticResource InputStyle}"
+                 Text="{Binding CurrentVolunteer.Id}"/>
+
+        <!-- Name -->
+        <Label Content="Name:" Grid.Row="1" Grid.Column="0"/>
+        <TextBox Grid.Row="1" Grid.Column="1"
+                 Style="{StaticResource InputStyle}"
+                 Text="{Binding CurrentVolunteer.Name}"/>
+
+        <!-- Phone -->
+        <Label Content="Phone:" Grid.Row="2" Grid.Column="0"/>
+        <TextBox Grid.Row="2" Grid.Column="1"
+                 Style="{StaticResource InputStyle}"
+                 Text="{Binding CurrentVolunteer.Phone}"/>
+
+        <!-- Email -->
+        <Label Content="Email:" Grid.Row="3" Grid.Column="0"/>
+        <TextBox Grid.Row="3" Grid.Column="1"
+                 Style="{StaticResource InputStyle}"
+                 Text="{Binding CurrentVolunteer.Email}"/>
+
+        <!-- Password -->
+        <!--<Label Content="Password:" Grid.Row="4" Grid.Column="0"/>
+        <PasswordBox Grid.Row="4" Grid.Column="1"
+                     Style="{StaticResource InputStyle}"
+                     Password="{Binding CurrentVolunteer.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+
+        <!-- Role (ComboBox) -->
+        <Label Content="Role:" Grid.Row="5" Grid.Column="0"/>
+        <ComboBox Grid.Row="5" Grid.Column="1"
+                  Style="{StaticResource InputStyle}"
+                  ItemsSource="{Binding RoleOptions}"
+                  SelectedItem="{Binding CurrentVolunteer.Role}"/>
+
+        <!-- IsActive (CheckBox) -->
+        <Label Content="Active?" Grid.Row="6" Grid.Column="0"/>
+        <CheckBox Grid.Row="6" Grid.Column="1"
+                  Style="{StaticResource InputStyle}"
+                  IsChecked="{Binding CurrentVolunteer.IsActive}"/>
+
+        <!-- Type_Distance (ComboBox) -->
+        <Label Content="Distance Type:" Grid.Row="7" Grid.Column="0"/>
+        <ComboBox Grid.Row="7" Grid.Column="1"
+                  Style="{StaticResource InputStyle}"
+                  ItemsSource="{Binding DistanceTypeOptions}"
+                  SelectedItem="{Binding CurrentVolunteer.Type_Distance}"/>
+
+        <!-- Address -->
+        <Label Content="Address:" Grid.Row="8" Grid.Column="0"/>
+        <TextBox Grid.Row="8" Grid.Column="1"
+                 Style="{StaticResource InputStyle}"
+                 Text="{Binding CurrentVolunteer.Address}"/>
+
+        <!-- Max_Distance -->
+        <Label Content="Max Distance:" Grid.Row="9" Grid.Column="0"/>
+        <TextBox Grid.Row="9" Grid.Column="1"
+                 Style="{StaticResource InputStyle}"
+                 Text="{Binding CurrentVolunteer.Max_Distance}"/>
+
+        <!-- Button -->
+        <!--<Button Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2"
+                Content="{Binding ButtonText}"
+                Click="btnAddUpdate_Click"
+                Width="200" Height="40" Margin="0,16,0,0"
+                HorizontalAlignment="Center"/>-->
     </Grid>
+    
 </Window>

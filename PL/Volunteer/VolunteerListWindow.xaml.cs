@@ -42,12 +42,7 @@ public partial class VolunteerListWindow : Window
     public static readonly DependencyProperty VolunteerListProperty =
         DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
 
-    public BO.CallInList? SelectedVolunteer
-    {
-        get;
-        set;
-    }
-
+   
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
      //   VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?

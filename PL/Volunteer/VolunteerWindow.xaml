@@ -86,35 +86,36 @@
                      Style="{StaticResource InputStyle}"
                      Password="{Binding CurrentVolunteer.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
 
-        <!-- Role (ComboBox) -->
+
         <ComboBox Grid.Row="5" Grid.Column="1"
           Style="{StaticResource InputStyle}"
-          SelectedItem="{Binding CurrentVolunteer.Role, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+          ItemsSource="{Binding Source={StaticResource RolesCollectionKey}}"
+            SelectedItem="{Binding CurrentVolunteer.Role, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <!--ItemsSource="{Binding Source={StaticResource RolesCollectionKey}}"-->
         
-        <!-- IsActive (CheckBox) -->
+ 
         <Label Content="Active?" Grid.Row="6" Grid.Column="0"/>
         <CheckBox Grid.Row="6" Grid.Column="1"
                   Style="{StaticResource InputStyle}"
                   IsChecked="{Binding CurrentVolunteer.IsActive}"/>
 
-        <!-- Type_Distance (ComboBox) -->
+
         <Label Content="Distance Type:" Grid.Row="7" Grid.Column="0"/>
         <ComboBox Grid.Row="7" Grid.Column="1"
                   Style="{StaticResource InputStyle}"
                   ItemsSource="{Binding DistanceCollectionKey}"
                   SelectedItem="{Binding CurrentVolunteer.Type_Distance}"/>
 
-        <!-- Address -->
+
         <Label Content="Address:" Grid.Row="8" Grid.Column="0"/>
         <TextBox Grid.Row="8" Grid.Column="1"
                  Style="{StaticResource InputStyle}"
                  Text="{Binding CurrentVolunteer.Address}"/>
 
-        <!-- Max_Distance -->
         <Label Content="Max Distance:" Grid.Row="9" Grid.Column="0"/>
         <TextBox Grid.Row="9" Grid.Column="1"
                  Style="{StaticResource InputStyle}"
+                 ItemsSource="{Binding Source={StaticResource DistanceCollectionKey}}"
                  Text="{Binding CurrentVolunteer.Max_Distance}"/>
 
         <!-- Button -->

@@ -23,7 +23,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Content="select volunteer" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="32" />
-            <ComboBox   ItemsSource="{Binding Source={StaticResource VolunteerCollectionKey}}" SelectedValue="{Binding VolunteerSort, Mode=TwoWay}" Grid.Column="1" SelectionChanged="ComboBox_SelectionChanged_1" Height="32" VerticalAlignment="Top"/>
+            <ComboBox   ItemsSource="{Binding Source={StaticResource VolunteerCollectionKey}}" SelectedValue="{Binding VolunteerSort, Mode=TwoWay}" Grid.Column="1" SelectionChanged="Select" Height="32" VerticalAlignment="Top"/>
         </Grid>
 
 

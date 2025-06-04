@@ -5,9 +5,9 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <local:VolunteerCollection x:Key="VolunteerCollectionKey" />
-        <!--<local:RolesCollection x:Key="RolesCollectionKey" />
+        <local:RolesCollection x:Key="RolesCollectionKey" />
         <local:DistanceCollection x:Key="DistanceCollectionKey" />
-        <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey" />-->
+        <!--<local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey" />-->
 
 
 

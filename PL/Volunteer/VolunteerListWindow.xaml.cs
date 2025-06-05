@@ -53,18 +53,23 @@ public partial class VolunteerListWindow : Window
       //s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerField, VolunteerFilter)!;
 
     }
-    //private void Volunteer_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-    //{
-    //    if (sender is ListView listView)
-    //    {
-    //        if (SelectedVolunteer != null)
-    //        {
-    //           // int? id = (listView.SelectedItem as BO.VolunteerInList)?.Id;
-    //            //new VolunteerWindow(id ?? 0).Show();
-    //        }
 
-    //    }
-    //}
+
+    private void Volunteer_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        //if (sender is ListView listView)
+        //{
+        //    if (SelectedVolunteer != null)
+        //    {
+        //        int? id = (listView.SelectedItem as BO.VolunteerInList)?.VolunteerId;
+        //        new VolunteerWindow(id ?? 0).Show();
+        //    }
+
+        //}
+        if (SelectedVolunteer != null) ;
+           // new VolunteerWindow(SelectedVolunteer.VolunteerId).Show();
+
+    }
 
     private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -92,6 +97,7 @@ private void VolunteerWindow_Loaded(object sender, RoutedEventArgs e)
 
     private void Add_Click(object sender, RoutedEventArgs e)
     {
+        new VolunteerWindow().Show();
 
     }
 

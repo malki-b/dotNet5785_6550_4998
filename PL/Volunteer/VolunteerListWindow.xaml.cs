@@ -62,13 +62,25 @@ public partial class VolunteerListWindow : Window
       //s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerField, VolunteerFilter)!;
 
     }
- 
 
-    private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+    private void Volunteer_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
+        //if (sender is ListView listView)
+        //{
+        //    if (SelectedVolunteer != null)
+        //    {
+        //        int? id = (listView.SelectedItem as BO.VolunteerInList)?.VolunteerId;
+        //        new VolunteerWindow(id ?? 0).Show();
+        //    }
+
+        //}
+        if (SelectedVolunteer != null) ;
+           // new VolunteerWindow(SelectedVolunteer.VolunteerId).Show();
 
     }
 
+    
 
 
     private void queryVolunteerList()
@@ -90,13 +102,29 @@ private void VolunteerWindow_Loaded(object sender, RoutedEventArgs e)
 
     private void Add_Click(object sender, RoutedEventArgs e)
     {
-     //   new VolunteerWindow().Show();
 
     }
 
     private void Select(object sender, SelectionChangedEventArgs e)
     {
 
+    }
+
+    private void DeleteVolunteer(BO.VolunteerInList item)
+    {
+        var result = MessageBox.Show("האם אתה בטוח שברצונך למחוק את המתנדב?", "אישור מחיקה", MessageBoxButton.YesNo);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                s_bl.Volunteer.Delete((int)item.VolunteerId);
+            }
+            catch
+            {
+                var failedErase = MessageBox.Show("המחיקה נכשלה");
+            }
+        }
     }
     //public ICommand DeleteCommand => new RelayCommand<BO.CallInList>(DeleteVolunteer);
 

@@ -28,7 +28,8 @@
 
 
 
-        <ListView ItemsSource="{Binding VolunteerList}" HorizontalAlignment="Left" Height="336" Margin="38,10,0,0" Grid.Row="1"  VerticalAlignment="Top" Width="552">
+        <ListView ItemsSource="{Binding VolunteerList}" HorizontalAlignment="Left" Height="336" Margin="40,0,0,0" Grid.Row="1"  VerticalAlignment="Center" Width="552" SelectedItem="{Binding SelectedVolunteer}" MouseDoubleClick="Volunteer_MouseDoubleClick">
+
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="VolunteerId" DisplayMemberBinding="{Binding VolunteerId}" Width="Auto"/>

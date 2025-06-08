@@ -71,11 +71,7 @@ public partial class VolunteerListWindow : Window
 
     }
 
-    private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-
-    }
-
+    
 
 
     private void queryVolunteerList()
@@ -104,6 +100,23 @@ private void VolunteerWindow_Loaded(object sender, RoutedEventArgs e)
     private void Select(object sender, SelectionChangedEventArgs e)
     {
 
+    }
+
+    private void DeleteVolunteer(BO.VolunteerInList item)
+    {
+        var result = MessageBox.Show("האם אתה בטוח שברצונך למחוק את המתנדב?", "אישור מחיקה", MessageBoxButton.YesNo);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                s_bl.Volunteer.Delete((int)item.VolunteerId);
+            }
+            catch
+            {
+                var failedErase = MessageBox.Show("המחיקה נכשלה");
+            }
+        }
     }
 }
 

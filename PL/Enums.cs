@@ -27,14 +27,14 @@ internal class DistanceCollection : IEnumerable
     public IEnumerator GetEnumerator() => s_DistanceCollection.GetEnumerator();
 }
 
-public enum TypeDistance
-{
-    Air,
-    Walking,
-    Drive
-}
-public enum Role
-{
-    Volunteer,
-    Manager,
-}
+//public enum TypeDistance
+//{
+//    Air,
+//    Walking,
+//    Drive
+//}
+//public enum Role
+//{
+//    Volunteer,
+//    Manager,
+//}

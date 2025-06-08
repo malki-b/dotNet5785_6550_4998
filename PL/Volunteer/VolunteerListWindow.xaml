@@ -45,13 +45,13 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <!--<GridViewColumn  Width="Auto">
+                    <GridViewColumn  Width="Auto">
      <GridViewColumn.CellTemplate>
          <DataTemplate>
              <Button Content="Delete" Command="{Binding ButtonText, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding ButtonText}"  />
          </DataTemplate>
      </GridViewColumn.CellTemplate>
- </GridViewColumn>-->
+ </GridViewColumn>
 
                 </GridView>
             </ListView.View>

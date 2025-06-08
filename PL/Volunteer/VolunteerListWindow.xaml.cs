@@ -35,6 +35,15 @@ public partial class VolunteerListWindow : Window
         Loaded += VolunteerWindow_Loaded;
         queryVolunteerList();
     }
+    //public ICommand DeleteVolunteerCommand { get; }
+
+
+    //public VolunteerListWindow()
+    //{
+    //    InitializeComponent();
+    //    //DeleteVolunteerCommand = new RelayCommand<BO.VolunteerInList>(DeleteVolunteer);
+
+    //}
     public IEnumerable<BO.VolunteerInList> VolunteerList
     {
         get { return (IEnumerable<BO.VolunteerInList>)GetValue(VolunteerListProperty); }
@@ -93,7 +102,6 @@ private void VolunteerWindow_Loaded(object sender, RoutedEventArgs e)
 
     private void Add_Click(object sender, RoutedEventArgs e)
     {
-        new VolunteerWindow().Show();
 
     }
 
@@ -118,6 +126,24 @@ private void VolunteerWindow_Loaded(object sender, RoutedEventArgs e)
             }
         }
     }
+    //public ICommand DeleteCommand => new RelayCommand<BO.CallInList>(DeleteVolunteer);
+
+    //private void DeleteVolunteer(BO.VolunteerInList item)
+    //{
+    //    var result = MessageBox.Show("האם אתה בטוח שברצונך למחוק את המתנדב?", "אישור מחיקה", MessageBoxButton.YesNo);
+
+    //    if (result == MessageBoxResult.Yes)
+    //    {
+    //        try
+    //        {
+    //            s_bl.Volunteer.Delete((int)item.Id);
+    //        }
+    //        catch
+    //        {
+    //            var failedErase = MessageBox.Show("המחיקה נכשלה");
+    //        }
+    //    }
+    //}
 }
 
 

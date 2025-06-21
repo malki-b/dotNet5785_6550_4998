@@ -28,7 +28,7 @@
 
 
 
-        <ListView ItemsSource="{Binding VolunteerList}" HorizontalAlignment="Left" Height="336" Margin="40,0,0,0" Grid.Row="1"  VerticalAlignment="Center" Width="552" SelectedItem="{Binding SelectedVolunteer}" MouseDoubleClick="Volunteer_MouseDoubleClick">
+        <ListView ItemsSource="{Binding VolunteerList}" HorizontalAlignment="Left" Height="336" Margin="40,0,0,0" Grid.Row="1"  VerticalAlignment="Center" Width="552" SelectedItem="{Binding SelectedVolunteer, Mode=TwoWay}" MouseDoubleClick="Volunteer_MouseDoubleClick">
 
             <ListView.View>
                 <GridView>
@@ -46,12 +46,12 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn  Width="Auto">
-     <GridViewColumn.CellTemplate>
-         <DataTemplate>
-             <Button Content="Delete" Command="{Binding ButtonText, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding ButtonText}"  />
-         </DataTemplate>
-     </GridViewColumn.CellTemplate>
- </GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" Click="DeleteVolunteer_click"   CommandParameter="{Binding}"  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
                 </GridView>
             </ListView.View>
@@ -65,3 +65,4 @@
     </Grid>
 
 </Window>
+<!--Command="{Binding ButtonText, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding ButtonText}"--> 

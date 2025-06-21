@@ -24,39 +24,37 @@ public partial class VolunteerWindow : Window
 
     public VolunteerWindow(int id = 0)
     {
-        //new BO.Volunteer() { Id = 0, CurrentYear = BO.Year.None, RegistrationDate = s_bl.Admin.GetClock() };
         try
         {
             ButtonText = id == 0 ? "Add" : "Update";
-
             InitializeComponent();
-            CurrentVolunteer = (id != 0) ?
-                s_bl.Volunteer.Read(id)! : null;
-
-            //    :new BO.Volunteer(
-            //    0, // id
-            //    "", // name
-            //    "", // phone
-            //    "", // email
-            //    "", // password
-            //    (BO)TypeDistance.Air, // typeDistance
-            //    Role.Volunteer, // role
-            //    "", // address
-            //    null, // latitude
-            //    null, // longitude
-            //    false, // active
-            //    0.0, // maxDistance
-            //    0, // totalHandledCalls
-            //    0, // totalCancelledCalls
-            //    0, // totalExpiredHandledCalls
-            //    null // currentCallInProcess
-            //);
-            // CurrentVolunteer.Password = "";
+            CurrentVolunteer = (id != 0)
+    ? s_bl.Volunteer.Read(id)!
+    : new BO.Volunteer(
+        0,
+        "",
+        "",
+        "",
+        "",
+        BO.TypeDistance.Air,
+        BO.Role.Volunteer,
+        "",
+        null,
+        null,
+        false,
+        0.0,
+        0,
+        0,
+        0,
+        null
+    );
         }
-        catch (Exception ex) { MessageBox.Show($"Failed to load the Volunteer Details: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
-
-
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Failed to load the Volunteer Details: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
+
     public string ButtonText
     {
         get { return (string)GetValue(ButtonTextProperty); }
@@ -74,7 +72,7 @@ public partial class VolunteerWindow : Window
     }
 
     public static readonly DependencyProperty CurrentVolunteerProperty =
-        DependencyProperty.Register("Volunteer", typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
 
     private void AddAndUpdate_Click(object sender, RoutedEventArgs e)
     {
@@ -109,7 +107,7 @@ public partial class VolunteerWindow : Window
 
     }
 
-    private void MainWindow_Closed(object sender, EventArgs e) 
+    private void MainWindow_Closed(object sender, EventArgs e)
     {
         s_bl.Volunteer.RemoveObserver(CurrentVolunteer!.Id, VolunteerObserver);
     }

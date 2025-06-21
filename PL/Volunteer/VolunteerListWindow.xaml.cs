@@ -19,7 +19,7 @@ namespace PL.Volunteer;
 /// <summary>
 /// Interaction logic for VolunteerListWindow.xaml
 /// </summary>
-/// 
+///
 
 public partial class VolunteerListWindow : Window
 {
@@ -44,13 +44,13 @@ public partial class VolunteerListWindow : Window
     public static readonly DependencyProperty VolunteerListProperty =
         DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
 
-   
+
 
 
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-      //  VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
-      //s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerField, VolunteerFilter)!;
+        //  VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
+        //s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerField, VolunteerFilter)!;
 
     }
 
@@ -67,21 +67,21 @@ public partial class VolunteerListWindow : Window
 
         //}
         if (SelectedVolunteer != null) ;
-           // new VolunteerWindow(SelectedVolunteer.VolunteerId).Show();
+        new VolunteerWindow(SelectedVolunteer.VolunteerId).Show();
 
     }
 
-    
+
 
 
     private void queryVolunteerList()
     => VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
         s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, null)!;
-   
+
     private void volunteerListObserver()
         => queryVolunteerList();
- 
-private void VolunteerWindow_Loaded(object sender, RoutedEventArgs e)
+
+    private void VolunteerWindow_Loaded(object sender, RoutedEventArgs e)
     {
         s_bl.Volunteer.AddObserver(volunteerListObserver);
         queryVolunteerList();
@@ -102,21 +102,39 @@ private void VolunteerWindow_Loaded(object sender, RoutedEventArgs e)
 
     }
 
-    private void DeleteVolunteer(BO.VolunteerInList item)
-    {
-        var result = MessageBox.Show("האם אתה בטוח שברצונך למחוק את המתנדב?", "אישור מחיקה", MessageBoxButton.YesNo);
 
-        if (result == MessageBoxResult.Yes)
+    private void DeleteVolunteer_click(object sender, RoutedEventArgs e)
+    {
+
+
+        if (sender is Button btn && btn.CommandParameter is BO.VolunteerInList volunteer)
         {
+            MessageBox.Show("האם אתה בטוח שברצונך למחוק את המתנדב?", "אישור מחיקה", MessageBoxButton.YesNo);
+
             try
             {
-                s_bl.Volunteer.Delete((int)item.VolunteerId);
+                s_bl.Volunteer.Delete(volunteer.VolunteerId);
+                // אין צורך לקרוא ל-queryVolunteerList אם ה-observer עובד
             }
-            catch
+            catch (Exception ex)
             {
-                var failedErase = MessageBox.Show("המחיקה נכשלה");
+                MessageBox.Show("המחיקה נכשלה: " + ex.Message);
             }
         }
+        //if (SelectedVolunteer != null)
+        //{
+        //    try
+        //    {
+        //        s_bl.Volunteer.Delete(SelectedVolunteer.VolunteerId);
+        //        // אין צורך לקרוא ל-queryVolunteerList אם ה-observer עובד
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("המחיקה נכשלה: " + ex.Message);
+        //    }
+        //}
+
+
     }
 }
 

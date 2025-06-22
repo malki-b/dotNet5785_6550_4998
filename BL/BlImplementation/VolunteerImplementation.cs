@@ -347,6 +347,84 @@ VolunteerManager.Observers.RemoveListObserver(listObserver); //stage 5
 VolunteerManager.Observers.RemoveObserver(id, observer); //stage 5
     #endregion Stage 5
 
+
+
+
+
+    /// <summary>
+    /// Retrieves a filtered and sorted list of volunteers based on optional filtering and sorting criteria.
+    /// </summary>
+    /// <param name="filterBy">Optional property to filter by.</param>
+    /// <param name="filterValue">Value to filter the specified property by.</param>
+    /// <param name="sortBy">Optional property to sort results by.</param>
+    /// <returns>An <see cref="IEnumerable{BO.VolunteerInList}"/> containing the filtered and sorted volunteers.</returns>
+    public IEnumerable<BO.VolunteerInList> GetFilteredAndSortedVolunteers(
+        BO.VolunteerFiel? filterBy = null,
+        object? filterValue = null,
+        BO.VolunteerInListProperty? sortBy = null)
+    {
+        IEnumerable<DO.Volunteer> allVolunteers = _dal.Volunteer.ReadAll().ToList();
+
+        IEnumerable<BO.VolunteerInList> volunteersList = allVolunteers.Select(volunteer =>
+        {
+            var volunteerAssignments = _dal.Assignment.ReadAll(a => a.VolunteerId == volunteer.Id);
+
+            int numOfHandledCalls = volunteerAssignments.Count(a => a.StatusEndType == DO.EndType.Handled);
+            int numOfCancelledCalls = volunteerAssignments.Count(a => a.StatusEndType == DO.EndType.SelfCancellation || a.StatusEndType == DO.EndType.ManagerCancellation);
+            int numOfExpiredCalls = volunteerAssignments.Count(a => a.StatusEndType == DO.EndType.ExpiredCancellation);
+
+            var currentCallHandled = volunteerAssignments.FirstOrDefault(a => a.EndTime == null);
+            var currentCallId = currentCallHandled?.CallId;
+
+            return new BO.VolunteerInList
+            {
+                VolunteerId = volunteer.Id,
+                Name = volunteer.Name,
+                IsActive = volunteer.IsActive,
+                TotalCallsHandled = numOfHandledCalls,
+                TotalCallsCanceled = numOfCancelledCalls,
+                TotalExpiredCalls = numOfExpiredCalls,
+                IdOfTheCallHandled = currentCallId,
+                TypeOfHandledCall = currentCallId.HasValue
+                    ? (BO.TypeOfCall)(_dal.Call.Read(currentCallId.Value)?.TypeOfCall ?? DO.TypeOfCall.None)
+                    : BO.TypeOfCall.None
+            };
+        });
+
+        // Filtering
+        if (filterBy != null && filterValue != null)
+        {
+            volunteersList = filterBy switch
+            {
+                BO.VolunteerInListProperty.VolunteerId => volunteersList.Where(v => v.VolunteerId.Equals(Convert.ToInt32(filterValue))),
+                BO.VolunteerInListProperty.Name => volunteersList.Where(v => v.Name.Equals(filterValue.ToString())),
+                BO.VolunteerInListProperty.IsActive => volunteersList.Where(v => v.IsActive.Equals(Convert.ToBoolean(filterValue))),
+                BO.VolunteerInListProperty.TotalCallsHandled => volunteersList.Where(v => v.TotalCallsHandled.Equals(Convert.ToInt32(filterValue))),
+                BO.VolunteerInListProperty.TotalCallsCanceled => volunteersList.Where(v => v.TotalCallsCanceled.Equals(Convert.ToInt32(filterValue))),
+                BO.VolunteerInListProperty.TotalExpiredCalls => volunteersList.Where(v => v.TotalExpiredCalls.Equals(Convert.ToInt32(filterValue))),
+                BO.VolunteerInListProperty.IdOfTheCallHandled => volunteersList.Where(v => v.IdOfTheCallHandled.Equals(Convert.ToInt32(filterValue))),
+                BO.VolunteerInListProperty.TypeOfHandledCall => volunteersList.Where(v => v.TypeOfHandledCall.Equals((BO.TypeOfCall)filterValue)),
+                _ => volunteersList
+            };
+        }
+
+        // Sorting
+        volunteersList = sortBy switch
+        {
+            BO.VolunteerInListProperty.VolunteerId => volunteersList.OrderBy(v => v.VolunteerId),
+            BO.VolunteerInListProperty.Name => volunteersList.OrderBy(v => v.Name),
+            BO.VolunteerInListProperty.IsActive => volunteersList.OrderBy(v => v.IsActive),
+            BO.VolunteerInListProperty.TotalCallsHandled => volunteersList.OrderBy(v => v.TotalCallsHandled),
+            BO.VolunteerInListProperty.TotalCallsCanceled => volunteersList.OrderBy(v => v.TotalCallsCanceled),
+            BO.VolunteerInListProperty.TotalExpiredCalls => volunteersList.OrderBy(v => v.TotalExpiredCalls),
+            BO.VolunteerInListProperty.IdOfTheCallHandled => volunteersList.OrderBy(v => v.IdOfTheCallHandled),
+            BO.VolunteerInListProperty.TypeOfHandledCall => volunteersList.OrderBy(v => v.TypeOfHandledCall),
+            _ => volunteersList.OrderBy(v => v.VolunteerId)
+        };
+
+        return volunteersList;
+    }
+
 }
 
 

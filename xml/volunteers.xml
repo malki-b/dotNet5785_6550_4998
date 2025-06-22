@@ -169,20 +169,6 @@
     <Max_Distance>4</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>203849119</Id>
-    <Name>Avraham Super</Name>
-    <Phone>0576543219</Phone>
-    <Email>avrahamsuper@gmail.com</Email>
-    <Password>SuperPass2021</Password>
-    <Role>Volunteer</Role>
-    <IsActive>true</IsActive>
-    <Type_Distance>Air</Type_Distance>
-    <Address>3 Shderot Ben Gurion, Haifa, Israel</Address>
-    <Latitude>34.799589</Latitude>
-    <Longitude>32.07082</Longitude>
-    <Max_Distance>19</Max_Distance>
-  </Volunteer>
-  <Volunteer>
     <Id>268022308</Id>
     <Name>Shmuel Gross</Name>
     <Phone>0509876543</Phone>

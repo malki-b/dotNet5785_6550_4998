@@ -95,6 +95,21 @@ public enum VolunteerSortBy
     TotalExpiredCalls
 }
 
+
+
+public enum VolunteerInListSortBy
+{
+    VolunteerId,
+    FullName,
+    IsActive,
+    TotalHandledRequests,
+    TotalCanceledRequests,
+    TotalExpiredRequests,
+    HandledRequestId,
+    TypeOfReading
+}
+
+
 /// <summary>
 /// Enum for specifying the field by which calls can be sorted.
 /// </summary>

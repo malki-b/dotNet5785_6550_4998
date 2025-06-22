@@ -97,7 +97,7 @@ public enum VolunteerSortBy
 
 
 
-public enum VolunteerInListSortBy
+public enum VolunteerInListFields
 {
     VolunteerId,
     FullName,

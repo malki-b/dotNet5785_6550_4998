@@ -10,8 +10,8 @@ internal class VolunteerCollection : IEnumerable
 {
     //    static readonly IEnumerable<BO.VolunteerSortBy> s_VolunteerCollection =
     //(Enum.GetValues(typeof(BO.VolunteerSortBy)) as IEnumerable<BO.VolunteerSortBy>)!;
-    static readonly IEnumerable<BO.VolunteerField> s_VolunteerCollection =
-        (Enum.GetValues(typeof(BO.VolunteerField)) as IEnumerable<BO.VolunteerField>)!;
+    static readonly IEnumerable<BO.VolunteerInListFields> s_VolunteerCollection =
+        (Enum.GetValues(typeof(BO.VolunteerInListFields)) as IEnumerable<BO.VolunteerInListFields>)!;
     public IEnumerator GetEnumerator() => s_VolunteerCollection.GetEnumerator();
 
 }

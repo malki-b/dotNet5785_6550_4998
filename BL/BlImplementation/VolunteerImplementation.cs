@@ -20,12 +20,15 @@ internal class VolunteerImplementation : IVolunteer
         {
             //ClockManager.Now,
             //ClockManager.Now,
+
+
             //DO.Volunteer doVolunteer = VolunteerManager.ConvertToDO(boVolunteer)
-            DO.Volunteer doVolunteer =
-new(boVolunteer.Id, boVolunteer.FullName, boVolunteer.Phone, boVolunteer.Email,
-boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
-boVolunteer.Longitude, boVolunteer.IsActive,
-boVolunteer.MaxDistance);
+            //            DO.Volunteer doVolunteer =
+            //new(boVolunteer.Id, boVolunteer.FullName, boVolunteer.Phone, boVolunteer.Email,
+            //boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
+            //boVolunteer.Longitude, boVolunteer.IsActive,
+            //boVolunteer.MaxDistance);
+            DO.Volunteer doVolunteer =new();
             _dal.Volunteer.Create(doVolunteer);
 
             VolunteerManager.Observers.NotifyListUpdated(); //stage 5

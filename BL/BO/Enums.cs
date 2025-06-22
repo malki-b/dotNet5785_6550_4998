@@ -9,6 +9,7 @@ public enum Role
 }
 public enum TypeDistance
 {
+    None,
     Air,
     Walking,
     Drive

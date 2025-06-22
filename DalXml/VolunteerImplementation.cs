@@ -100,24 +100,45 @@ internal class VolunteerImplementation : IVolunteer
 
 
 
+    //private XElement createVolunteerElement(Volunteer item)
+    //{
+    //    XElement volunteerElem = new XElement("Volunteer",
+    //                        new XElement("Id", item.Id),
+    //                        new XElement("Name", item.Name),
+    //                        new XElement("Phone", item.Phone),
+    //                        new XElement("Email", item.Email),
+    //                        new XElement("Password", item.Password),
+    //                         new XElement("Role", item.Role),
+    //                        //new XElement("IsActive", item.IsActive ?? null),
+    //                        new XElement("IsActive", item.IsActive == true ? "true" : "false"),
+    //                         new XElement("Type_Distance", item.Type_Distance),
+    //                        new XElement("Address", item.Address ?? string.Empty),
+    //                         new XElement("Latitude", item.Latitude ?? null),
+    //                         new XElement("Longitude", item.Longitude ?? null),
+    //                        new XElement("Max_Distance", item.Max_Distance ?? 0));
+
+    //    return volunteerElem;
+    //}
     private XElement createVolunteerElement(Volunteer item)
     {
         XElement volunteerElem = new XElement("Volunteer",
-                            new XElement("Id", item.Id),
-                            new XElement("Name", item.Name),
-                            new XElement("Phone", item.Phone),
-                            new XElement("Email", item.Email),
-                            new XElement("Password", item.Password),
-                             new XElement("Role", item.Role),
-                            new XElement("IsActive", item.IsActive ?? null),
-                             new XElement("Type_Distance", item.Type_Distance),
-                            new XElement("Address", item.Address ?? string.Empty),
-                             new XElement("Latitude", item.Latitude ?? null),
-                             new XElement("Longitude", item.Longitude ?? null),
-                            new XElement("Max_Distance", item.Max_Distance ?? 0));
+            new XElement("Id", item.Id),
+            new XElement("Name", item.Name), // ← תיקון כאן
+            new XElement("Phone", item.Phone),
+            new XElement("Email", item.Email),
+            new XElement("Password", item.Password),
+            new XElement("Role", item.Role),
+            new XElement("IsActive", item.IsActive == true ? "true" : "false"),
+            new XElement("Type_Distance", item.Type_Distance),
+            new XElement("Address", item.Address ?? string.Empty),
+            new XElement("Latitude", item.Latitude?.ToString() ?? ""),    // ← כדאי להבטיח מחרוזת
+            new XElement("Longitude", item.Longitude?.ToString() ?? ""),  // ← אותו דבר כאן
+            new XElement("Max_Distance", item.Max_Distance ?? 0)
+        );
 
         return volunteerElem;
     }
+
 
 
     static Volunteer getVolunteer(XElement s)
@@ -129,13 +150,25 @@ internal class VolunteerImplementation : IVolunteer
             Phone = (string?)s.Element("Phone") ?? "",
             Email= (string?)s.Element("Email") ?? "",
             Password= (string?)s.Element("Password") ?? "",
-            IsActive = (bool?)s.Element("IsActive") ?? false,
+            //IsActive = (bool?)s.Element("IsActive") ?? false,
+            IsActive = bool.TryParse((string?)s.Element("IsActive"), out var isActive) ? isActive : false,
+
             Address = (string?)s.Element("Address") ?? "",
-            Latitude = (double?)s.Element("Latitude") ?? 0,
-            Longitude = (double?)s.Element("Longitude") ?? 0,
-            Role = (Role)Enum.Parse(typeof(Role), (string)s.Element("Role")!),
-            Max_Distance = (double?)s.Element("Max_Distance") ?? 0,
-            Type_Distance = (TypeDistance)Enum.Parse(typeof(TypeDistance), (string)s.Element("Type_Distance")!)
+            //Latitude = (double?)s.Element("Latitude") ?? 0,
+            //Longitude = (double?)s.Element("Longitude") ?? 0,
+            Latitude = double.TryParse((string?)s.Element("Latitude"), out var lat) ? lat : 0,
+            Longitude = double.TryParse((string?)s.Element("Longitude"), out var lng) ? lng : 0,
+
+            //Role = (Role)Enum.Parse(typeof(Role), (string)s.Element("Role")!),
+            //Role = Enum.TryParse((string?)s.Element("Role"), out Role role) ? role : throw new FormatException("Invalid or missing Role");
+            Role = Enum.TryParse<Role>((string?)s.Element("Role"), out var r) ? r : Role.Volunteer,
+            //Max_Distance = (double?)s.Element("Max_Distance") ?? 0,
+            Max_Distance = double.TryParse((string?)s.Element("Max_Distance"), out var dist) ? dist : 0,
+
+            //Type_Distance = (TypeDistance)Enum.Parse(typeof(TypeDistance), (string)s.Element("Type_Distance")!)
+            //Type_Distance = Enum.TryParse((string?)s.Element("Type_Distance"), out TypeDistance typeDist) ? typeDist : throw new FormatException("Invalid or missing Type_Distance");
+            Type_Distance = Enum.TryParse<TypeDistance>((string?)s.Element("Type_Distance"), out var td) ? td : TypeDistance.None,
+
         };
     }
 

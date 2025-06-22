@@ -314,206 +314,6 @@
 
 
 
-//using BO;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Windows;
-//using System.Windows.Controls;
-//using System.Windows.Input;
-//using System.ComponentModel;
-
-//namespace PL.Volunteer
-//{
-//    public partial class VolunteerListWindow : Window, INotifyPropertyChanged
-//    {
-//        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
-//        public VolunteerInListFields VolunteerFilter { get; set; } = VolunteerInListFields.None;
-
-//        public VolunteerInList? SelectedVolunteer { get; set; }
-
-//        public VolunteerListWindow()
-//        {
-//            InitializeComponent();
-//            Loaded += VolunteerWindow_Loaded;
-//            Closed += VolunteerWindow_Closed;
-//            queryVolunteerList();
-//        }
-
-//        // --------------------------
-//        // 📌 INotifyPropertyChanged
-//        // --------------------------
-//        public event PropertyChangedEventHandler? PropertyChanged;
-//        protected void OnPropertyChanged(string propertyName)
-//            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-//        // --------------------------
-//        // 📌 VolunteerList Dependency Property
-//        // --------------------------
-//        public IEnumerable<VolunteerInList> VolunteerList
-//        {
-//            get { return (IEnumerable<VolunteerInList>)GetValue(VolunteerListProperty); }
-//            set { SetValue(VolunteerListProperty, value); }
-//        }
-
-//        public static readonly DependencyProperty VolunteerListProperty =
-//            DependencyProperty.Register(
-//                nameof(VolunteerList),
-//                typeof(IEnumerable<VolunteerInList>),
-//                typeof(VolunteerListWindow),
-//                new PropertyMetadata(null));
-
-//        // --------------------------
-//        // 📌 FilterText Dependency Property
-//        // --------------------------
-//        public string FilterText
-//        {
-//            get { return (string)GetValue(FilterTextProperty); }
-//            set { SetValue(FilterTextProperty, value); }
-//        }
-
-//        public static readonly DependencyProperty FilterTextProperty =
-//            DependencyProperty.Register(
-//                nameof(FilterText),
-//                typeof(string),
-//                typeof(VolunteerListWindow),
-//                new PropertyMetadata(string.Empty, OnFilterTextChanged));
-
-//        private static void OnFilterTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-//        {
-//            var window = d as VolunteerListWindow;
-//            window?.ApplyFilter();
-//        }
-
-//        // --------------------------
-//        // 📌 רשימת כל המתנדבים הלא מסוננים
-//        // --------------------------
-//        private List<VolunteerInList> AllVolunteers = new();
-
-//        // --------------------------
-//        // 📌 סינון לפי טקסט
-//        // --------------------------
-//        private void ApplyFilter()
-//        {
-//            try
-//            {
-//                if (string.IsNullOrWhiteSpace(FilterText))
-//                {
-//                    VolunteerList = AllVolunteers.ToList();
-//                }
-//                else
-//                {
-//                    //VolunteerList = AllVolunteers
-//                    //    .Where(v => v.FullName.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
-//                    //    .ToList();
-
-//                    VolunteerList = string.IsNullOrWhiteSpace(FilterText)
-//                  ? s_bl?.Volunteer.ReadAll()!
-//                  : s_bl?.Volunteer.GetFilteredAndSortedVolunteers(filterBy: VolunteerFilter, filterValue: FilterText)!;
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                MessageBox.Show("סינון" + ex.Message);
-
-//            }
-//        }
-
-//        // --------------------------
-//        // 📌 טעינת הנתונים
-//        // --------------------------
-//        private void queryVolunteerList()
-//        {
-//            var volunteers = (VolunteerFilter == VolunteerInListFields.None) ?
-//                s_bl?.Volunteer.ReadAll()! :
-//                s_bl?.Volunteer.ReadAll(null, null)!;
-
-//            AllVolunteers = volunteers.ToList(); // שומרת את כל הרשימה
-//            ApplyFilter(); // מסננת לפי הטקסט מהמשתמש
-//        }
-
-//        // --------------------------
-//        // 📌 עדכון ברגע שיש שינוי בדאטה
-//        // --------------------------
-//        private void volunteerListObserver() => queryVolunteerList();
-
-//        private void VolunteerWindow_Loaded(object sender, RoutedEventArgs e)
-//        {
-//            s_bl.Volunteer.AddObserver(volunteerListObserver);
-//            queryVolunteerList();
-//        }
-
-//        private void VolunteerWindow_Closed(object? sender, EventArgs e)
-//        {
-//            s_bl.Volunteer.RemoveObserver(volunteerListObserver);
-//        }
-
-//        // --------------------------
-//        // 📌 לחיצה כפולה פותחת חלון מתנדב
-//        // --------------------------
-//        private void Volunteer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-//        {
-//            if (SelectedVolunteer != null)
-//            {
-//                new VolunteerWindow(SelectedVolunteer.VolunteerId).Show();
-//            }
-//        }
-
-//        // --------------------------
-//        // 📌 שינוי בקומבו – לפי פילטר
-//        // --------------------------
-//        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-//        {
-//            VolunteerList = string.IsNullOrWhiteSpace(FilterText)
-//                ? s_bl?.Volunteer.ReadAll()!
-//                : s_bl?.Volunteer.GetFilteredAndSortedVolunteers(filterBy: VolunteerFilter, filterValue: FilterText)!;
-//        }
-
-//        // --------------------------
-//        // 📌 הוספת מתנדב
-//        // --------------------------
-//        private void Add_Click(object sender, RoutedEventArgs e)
-//        {
-//            new VolunteerWindow().Show();
-//        }
-
-//        // --------------------------
-//        // 📌 מחיקת מתנדב
-//        // --------------------------
-//        private void DeleteVolunteer_click(object sender, RoutedEventArgs e)
-//        {
-//            if (sender is Button btn && btn.CommandParameter is VolunteerInList volunteer)
-//            {
-//                var result = MessageBox.Show("האם אתה בטוח שברצונך למחוק את המתנדב?", "אישור מחיקה", MessageBoxButton.YesNo);
-
-//                if (result == MessageBoxResult.Yes)
-//                {
-//                    try
-//                    {
-//                        s_bl.Volunteer.Delete(volunteer.VolunteerId);
-//                    }
-//                    catch (Exception ex)
-//                    {
-//                        MessageBox.Show("המחיקה נכשלה: " + ex.Message);
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
-
-
-
-
-
-
-
-
-
-
-
-
 using BO;
 using System;
 using System.Collections.Generic;
@@ -541,10 +341,16 @@ namespace PL.Volunteer
             queryVolunteerList();
         }
 
+        // --------------------------
+        // 📌 INotifyPropertyChanged
+        // --------------------------
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        // --------------------------
+        // 📌 VolunteerList Dependency Property
+        // --------------------------
         public IEnumerable<VolunteerInList> VolunteerList
         {
             get { return (IEnumerable<VolunteerInList>)GetValue(VolunteerListProperty); }
@@ -558,6 +364,9 @@ namespace PL.Volunteer
                 typeof(VolunteerListWindow),
                 new PropertyMetadata(null));
 
+        // --------------------------
+        // 📌 FilterText Dependency Property
+        // --------------------------
         public string FilterText
         {
             get { return (string)GetValue(FilterTextProperty); }
@@ -577,8 +386,14 @@ namespace PL.Volunteer
             window?.ApplyFilter();
         }
 
+        // --------------------------
+        // 📌 רשימת כל המתנדבים הלא מסוננים
+        // --------------------------
         private List<VolunteerInList> AllVolunteers = new();
 
+        // --------------------------
+        // 📌 סינון לפי טקסט
+        // --------------------------
         private void ApplyFilter()
         {
             try
@@ -589,32 +404,38 @@ namespace PL.Volunteer
                 }
                 else
                 {
-                    VolunteerList = s_bl?.Volunteer.GetFilteredAndSortedVolunteers(filterBy: VolunteerFilter, filterValue: FilterText)!;
+                    //VolunteerList = AllVolunteers
+                    //    .Where(v => v.FullName.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
+                    //    .ToList();
+
+                    VolunteerList = string.IsNullOrWhiteSpace(FilterText)
+                  ? s_bl?.Volunteer.ReadAll()!
+                  : s_bl?.Volunteer.GetFilteredAndSortedVolunteers(filterBy: VolunteerFilter, filterValue: FilterText)!;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("אירעה שגיאה בעת סינון הרשימה. ודא שהוזן טקסט חוקי.", "שגיאת סינון", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("סינון" + ex.Message);
+
             }
         }
 
+        // --------------------------
+        // 📌 טעינת הנתונים
+        // --------------------------
         private void queryVolunteerList()
         {
-            try
-            {
-                var volunteers = (VolunteerFilter == VolunteerInListFields.None) ?
-                    s_bl?.Volunteer.ReadAll()! :
-                    s_bl?.Volunteer.ReadAll(null, null)!;
+            var volunteers = (VolunteerFilter == VolunteerInListFields.None) ?
+                s_bl?.Volunteer.ReadAll()! :
+                s_bl?.Volunteer.ReadAll(null, null)!;
 
-                AllVolunteers = volunteers.ToList();
-                ApplyFilter();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("אירעה שגיאה בטעינת רשימת המתנדבים. נא לנסות שוב מאוחר יותר.", "שגיאת טעינה", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            AllVolunteers = volunteers.ToList(); // שומרת את כל הרשימה
+            ApplyFilter(); // מסננת לפי הטקסט מהמשתמש
         }
 
+        // --------------------------
+        // 📌 עדכון ברגע שיש שינוי בדאטה
+        // --------------------------
         private void volunteerListObserver() => queryVolunteerList();
 
         private void VolunteerWindow_Loaded(object sender, RoutedEventArgs e)
@@ -628,52 +449,43 @@ namespace PL.Volunteer
             s_bl.Volunteer.RemoveObserver(volunteerListObserver);
         }
 
+        // --------------------------
+        // 📌 לחיצה כפולה פותחת חלון מתנדב
+        // --------------------------
         private void Volunteer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (SelectedVolunteer != null)
             {
-                try
-                {
-                    new VolunteerWindow(SelectedVolunteer.VolunteerId).Show();
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("אירעה שגיאה בפתיחת חלון פרטי המתנדב.", "שגיאה בפתיחה", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                new VolunteerWindow(SelectedVolunteer.VolunteerId).Show();
             }
         }
 
+        // --------------------------
+        // 📌 שינוי בקומבו – לפי פילטר
+        // --------------------------
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
-            {
-                VolunteerList = string.IsNullOrWhiteSpace(FilterText)
-                    ? s_bl?.Volunteer.ReadAll()!
-                    : s_bl?.Volunteer.GetFilteredAndSortedVolunteers(filterBy: VolunteerFilter, filterValue: FilterText)!;
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("אירעה שגיאה בעת עדכון הרשימה.", "שגיאת סינון", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            VolunteerList = string.IsNullOrWhiteSpace(FilterText)
+                ? s_bl?.Volunteer.ReadAll()!
+                : s_bl?.Volunteer.GetFilteredAndSortedVolunteers(filterBy: VolunteerFilter, filterValue: FilterText)!;
         }
 
+        // --------------------------
+        // 📌 הוספת מתנדב
+        // --------------------------
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                new VolunteerWindow().Show();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("אירעה שגיאה בפתיחת חלון הוספת מתנדב.", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            new VolunteerWindow().Show();
         }
 
+        // --------------------------
+        // 📌 מחיקת מתנדב
+        // --------------------------
         private void DeleteVolunteer_click(object sender, RoutedEventArgs e)
         {
             if (sender is Button btn && btn.CommandParameter is VolunteerInList volunteer)
             {
-                var result = MessageBox.Show("האם אתה בטוח שברצונך למחוק את המתנדב?", "אישור מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                var result = MessageBox.Show("האם אתה בטוח שברצונך למחוק את המתנדב?", "אישור מחיקה", MessageBoxButton.YesNo);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -681,12 +493,200 @@ namespace PL.Volunteer
                     {
                         s_bl.Volunteer.Delete(volunteer.VolunteerId);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("המחיקה נכשלה. ייתכן שהמתנדב מקושר לנתונים אחרים במערכת.", "שגיאת מחיקה", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("המחיקה נכשלה: " + ex.Message);
                     }
                 }
             }
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+//using BO;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Windows;
+//using System.Windows.Controls;
+//using System.Windows.Input;
+//using System.ComponentModel;
+
+//namespace PL.Volunteer
+//{
+//    public partial class VolunteerListWindow : Window, INotifyPropertyChanged
+//    {
+//        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+//        public VolunteerInListFields VolunteerFilter { get; set; } = VolunteerInListFields.None;
+
+//        public VolunteerInList? SelectedVolunteer { get; set; }
+
+//        public VolunteerListWindow()
+//        {
+//            InitializeComponent();
+//            Loaded += VolunteerWindow_Loaded;
+//            Closed += VolunteerWindow_Closed;
+//            queryVolunteerList();
+//        }
+
+//        public event PropertyChangedEventHandler? PropertyChanged;
+//        protected void OnPropertyChanged(string propertyName)
+//            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+//        public IEnumerable<VolunteerInList> VolunteerList
+//        {
+//            get { return (IEnumerable<VolunteerInList>)GetValue(VolunteerListProperty); }
+//            set { SetValue(VolunteerListProperty, value); }
+//        }
+
+//        public static readonly DependencyProperty VolunteerListProperty =
+//            DependencyProperty.Register(
+//                nameof(VolunteerList),
+//                typeof(IEnumerable<VolunteerInList>),
+//                typeof(VolunteerListWindow),
+//                new PropertyMetadata(null));
+
+//        public string FilterText
+//        {
+//            get { return (string)GetValue(FilterTextProperty); }
+//            set { SetValue(FilterTextProperty, value); }
+//        }
+
+//        public static readonly DependencyProperty FilterTextProperty =
+//            DependencyProperty.Register(
+//                nameof(FilterText),
+//                typeof(string),
+//                typeof(VolunteerListWindow),
+//                new PropertyMetadata(string.Empty, OnFilterTextChanged));
+
+//        private static void OnFilterTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+//        {
+//            var window = d as VolunteerListWindow;
+//            window?.ApplyFilter();
+//        }
+
+//        private List<VolunteerInList> AllVolunteers = new();
+
+//        private void ApplyFilter()
+//        {
+//            try
+//            {
+//                if (string.IsNullOrWhiteSpace(FilterText))
+//                {
+//                    VolunteerList = AllVolunteers.ToList();
+//                }
+//                else
+//                {
+//                    VolunteerList = s_bl?.Volunteer.GetFilteredAndSortedVolunteers(filterBy: VolunteerFilter, filterValue: FilterText)!;
+//                }
+//            }
+//            catch (Exception)
+//            {
+//                MessageBox.Show("אירעה שגיאה בעת סינון הרשימה. ודא שהוזן טקסט חוקי.", "שגיאת סינון", MessageBoxButton.OK, MessageBoxImage.Warning);
+//            }
+//        }
+
+//        private void queryVolunteerList()
+//        {
+//            try
+//            {
+//                var volunteers = (VolunteerFilter == VolunteerInListFields.None) ?
+//                    s_bl?.Volunteer.ReadAll()! :
+//                    s_bl?.Volunteer.ReadAll(null, null)!;
+
+//                AllVolunteers = volunteers.ToList();
+//                ApplyFilter();
+//            }
+//            catch (Exception)
+//            {
+//                MessageBox.Show("אירעה שגיאה בטעינת רשימת המתנדבים. נא לנסות שוב מאוחר יותר.", "שגיאת טעינה", MessageBoxButton.OK, MessageBoxImage.Error);
+//            }
+//        }
+
+//        private void volunteerListObserver() => queryVolunteerList();
+
+//        private void VolunteerWindow_Loaded(object sender, RoutedEventArgs e)
+//        {
+//            s_bl.Volunteer.AddObserver(volunteerListObserver);
+//            queryVolunteerList();
+//        }
+
+//        private void VolunteerWindow_Closed(object? sender, EventArgs e)
+//        {
+//            s_bl.Volunteer.RemoveObserver(volunteerListObserver);
+//        }
+
+//        private void Volunteer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+//        {
+//            if (SelectedVolunteer != null)
+//            {
+//                try
+//                {
+//                    new VolunteerWindow(SelectedVolunteer.VolunteerId).Show();
+//                }
+//                catch (Exception)
+//                {
+//                    MessageBox.Show("אירעה שגיאה בפתיחת חלון פרטי המתנדב.", "שגיאה בפתיחה", MessageBoxButton.OK, MessageBoxImage.Error);
+//                }
+//            }
+//        }
+
+//        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+//        {
+//            try
+//            {
+//                VolunteerList = string.IsNullOrWhiteSpace(FilterText)
+//                    ? s_bl?.Volunteer.ReadAll()!
+//                    : s_bl?.Volunteer.GetFilteredAndSortedVolunteers(filterBy: VolunteerFilter, filterValue: FilterText)!;
+//            }
+//            catch (Exception)
+//            {
+//                MessageBox.Show("אירעה שגיאה בעת עדכון הרשימה.", "שגיאת סינון", MessageBoxButton.OK, MessageBoxImage.Warning);
+//            }
+//        }
+
+//        private void Add_Click(object sender, RoutedEventArgs e)
+//        {
+//            try
+//            {
+//                new VolunteerWindow().Show();
+//            }
+//            catch (Exception)
+//            {
+//                MessageBox.Show("אירעה שגיאה בפתיחת חלון הוספת מתנדב.", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+//            }
+//        }
+
+//        private void DeleteVolunteer_click(object sender, RoutedEventArgs e)
+//        {
+//            if (sender is Button btn && btn.CommandParameter is VolunteerInList volunteer)
+//            {
+//                var result = MessageBox.Show("האם אתה בטוח שברצונך למחוק את המתנדב?", "אישור מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+//                if (result == MessageBoxResult.Yes)
+//                {
+//                    try
+//                    {
+//                        s_bl.Volunteer.Delete(volunteer.VolunteerId);
+//                    }
+//                    catch (Exception)
+//                    {
+//                        MessageBox.Show("המחיקה נכשלה. ייתכן שהמתנדב מקושר לנתונים אחרים במערכת.", "שגיאת מחיקה", MessageBoxButton.OK, MessageBoxImage.Error);
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}

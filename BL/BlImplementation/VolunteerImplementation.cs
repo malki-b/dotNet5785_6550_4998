@@ -200,6 +200,8 @@ boVolunteer.MaxDistance);
     {
         DO.Volunteer? requester = _dal.Volunteer.Read(requesterId);
         DO.Volunteer? up = _dal.Volunteer.Read(boVolunteer.Id);
+        //if (requester is null || requester.Role != DO.Role.Manager)
+        //    throw new BO.BlDoesNotExistException("You do not have permission to perform this action.");
         if (requester is null || requester.Role != DO.Role.Manager)
             throw new BO.BlDoesNotExistException("You do not have permission to perform this action.");
         if (up == null)

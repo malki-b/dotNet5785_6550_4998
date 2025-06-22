@@ -39,7 +39,7 @@
 //    }
 
 //    public event PropertyChangedEventHandler? PropertyChanged;
-//    protected void OnPropertyChanged(string propertyName) 
+//    protected void OnPropertyChanged(string propertyName)
 //    {
 //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 //    }
@@ -396,15 +396,27 @@ namespace PL.Volunteer
         // --------------------------
         private void ApplyFilter()
         {
-            if (string.IsNullOrWhiteSpace(FilterText))
+            try
             {
-                VolunteerList = AllVolunteers.ToList();
+                if (string.IsNullOrWhiteSpace(FilterText))
+                {
+                    VolunteerList = AllVolunteers.ToList();
+                }
+                else
+                {
+                    //VolunteerList = AllVolunteers
+                    //    .Where(v => v.FullName.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
+                    //    .ToList();
+
+                    VolunteerList = string.IsNullOrWhiteSpace(FilterText)
+                  ? s_bl?.Volunteer.ReadAll()!
+                  : s_bl?.Volunteer.GetFilteredAndSortedVolunteers(filterBy: VolunteerFilter, filterValue: FilterText)!;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                VolunteerList = AllVolunteers
-                    .Where(v => v.FullName.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
+                MessageBox.Show("סינון" + ex.Message);
+
             }
         }
 

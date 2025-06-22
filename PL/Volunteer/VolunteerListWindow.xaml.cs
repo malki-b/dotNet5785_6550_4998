@@ -1,6 +1,7 @@
 ﻿using BO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,11 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace PL.Volunteer;
 
@@ -21,7 +24,7 @@ namespace PL.Volunteer;
 /// </summary>
 ///
 
-public partial class VolunteerListWindow : Window
+public partial class VolunteerListWindow : Window, INotifyPropertyChanged // ✅ הוספתי INotifyPropertyChanged
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     public BO.VolunteerField VolunteerFilter { get; set; } = BO.VolunteerField.None;
@@ -35,11 +38,54 @@ public partial class VolunteerListWindow : Window
         Loaded += VolunteerWindow_Loaded;
         queryVolunteerList();
     }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+    protected void OnPropertyChanged(string propertyName) 
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
     public IEnumerable<BO.VolunteerInList> VolunteerList
     {
         get { return (IEnumerable<BO.VolunteerInList>)GetValue(VolunteerListProperty); }
         set { SetValue(VolunteerListProperty, value); }
     }
+
+
+    // ✅ הוספה: שמירת כל הרשימת מתנדבים (לצורך סינון)
+    private List<BO.VolunteerInList> AllVolunteers = new();
+
+    // ✅ הוספה חדשה: שדה טקסט שאליו נקשר ה־TextBox מה־XAML
+    private string _filterText = "";
+    public string FilterText
+    {
+        get => _filterText;
+        set
+        {
+            _filterText = value;
+            OnPropertyChanged(nameof(FilterText)); // ✅ חובה לעדכן את ה־UI
+
+            ApplyFilter(); // ← בכל שינוי טקסט, נבצע סינון
+        }
+    }
+
+    // ✅ הוספה חדשה: פונקציה שמסננת את הרשימה לפי הטקסט של המשתמש
+    private void ApplyFilter()
+    {
+        if (string.IsNullOrWhiteSpace(FilterText))
+        {
+            // אם אין טקסט - נציג את כל הרשימה
+            VolunteerList = AllVolunteers.ToList();
+        }
+        else
+        {
+            // אחרת נסנן לפי שם (בצורה לא תלויה רישיות)
+            VolunteerList = AllVolunteers
+                .Where(v => v.FullName.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+    }
+
 
     public static readonly DependencyProperty VolunteerListProperty =
         DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
@@ -74,9 +120,21 @@ public partial class VolunteerListWindow : Window
 
 
 
+    //private void queryVolunteerList()
+    //=> VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
+    //    s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, null)!;
+    
+    //gpt
     private void queryVolunteerList()
-    => VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
-        s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, null)!;
+    {
+        var volunteers = (VolunteerFilter == BO.VolunteerField.None) ?
+            s_bl?.Volunteer.ReadAll()! :
+            s_bl?.Volunteer.ReadAll(null, null)!;
+
+        AllVolunteers = volunteers.ToList(); // שומרת את הרשימה המלאה
+        ApplyFilter(); // מסננת לפי טקסט מהמשתמש
+    }
+
 
     private void volunteerListObserver()
         => queryVolunteerList();
@@ -96,12 +154,6 @@ public partial class VolunteerListWindow : Window
         new VolunteerWindow().Show();
 
     }
-
-    private void Select(object sender, SelectionChangedEventArgs e)
-    {
-
-    }
-
 
     private void DeleteVolunteer_click(object sender, RoutedEventArgs e)
     {

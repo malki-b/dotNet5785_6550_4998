@@ -16,7 +16,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
-
 namespace PL.Volunteer;
 
 /// <summary>
@@ -27,7 +26,7 @@ namespace PL.Volunteer;
 public partial class VolunteerListWindow : Window, INotifyPropertyChanged // ✅ הוספתי INotifyPropertyChanged
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    public BO.VolunteerField VolunteerFilter { get; set; } = BO.VolunteerField.None;
+    public BO.VolunteerInListFields VolunteerFilter { get; set; } = BO.VolunteerInListFields.None;
 
     public BO.VolunteerInList? SelectedVolunteer { get; set; }
 
@@ -80,9 +79,10 @@ public partial class VolunteerListWindow : Window, INotifyPropertyChanged // ✅
         else
         {
             // אחרת נסנן לפי שם (בצורה לא תלויה רישיות)
-            VolunteerList = AllVolunteers
-                .Where(v => v.FullName.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
-                .ToList();
+
+            //VolunteerList = AllVolunteers
+            //    .Where(v => v.FullName.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
+            //    .ToList();
         }
     }
 
@@ -95,9 +95,13 @@ public partial class VolunteerListWindow : Window, INotifyPropertyChanged // ✅
 
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        //  VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
-        //s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerField, VolunteerFilter)!;
+      //  VolunteerList = (VolunteerFilter == BO.VolunteerField.None) ?
+      //s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.GetFilteredAndSortedVolunteers()!;//////here
 
+
+        VolunteerList = string.IsNullOrWhiteSpace(FilterText)
+    ? s_bl?.Volunteer.ReadAll()!
+    : s_bl?.Volunteer.GetFilteredAndSortedVolunteers(filterBy: VolunteerFilter, filterValue: FilterText)!;
     }
 
 
@@ -127,7 +131,7 @@ public partial class VolunteerListWindow : Window, INotifyPropertyChanged // ✅
     //gpt
     private void queryVolunteerList()
     {
-        var volunteers = (VolunteerFilter == BO.VolunteerField.None) ?
+        var volunteers = (VolunteerFilter == BO.VolunteerInListFields.None) ?
             s_bl?.Volunteer.ReadAll()! :
             s_bl?.Volunteer.ReadAll(null, null)!;
 

@@ -64,6 +64,10 @@ public interface IVolunteer: IObservable
     /// <param name="volunteerId">The ID (T.Z) of the volunteer to be deleted.</param>
     public void Delete(int id);
 
- 
+    IEnumerable<BO.VolunteerInList> GetFilteredAndSortedVolunteers(
+       BO.VolunteerInListFields? filterBy = null,
+       object? filterValue = null,
+       BO.VolunteerInListFields? sortBy = null);
+
 
 }

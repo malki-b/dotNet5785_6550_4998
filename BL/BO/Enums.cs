@@ -99,6 +99,7 @@ public enum VolunteerSortBy
 
 public enum VolunteerInListFields
 {
+    None,
     VolunteerId,
     FullName,
     IsActive,

@@ -61,6 +61,7 @@ public class Volunteer
     }
     //private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
+    public Volunteer() { }
     /// <summary>
     /// Represents the ID of the volunteer.
     /// </summary>

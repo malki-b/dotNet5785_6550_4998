@@ -23,7 +23,7 @@ public class Volunteer
     //    IsActive = isActive;
     //    MaxDistance = maxDistance;
     //}
-
+  //  public Volunteer() { }
     public Volunteer(
     int id,
     string name,

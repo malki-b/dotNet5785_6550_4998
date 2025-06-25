@@ -18,13 +18,17 @@ internal class VolunteerImplementation : IVolunteer
     {
         try
         {
+
+            
+            (double Latitude, double Longitude) = Tools.GetCoordinates(boVolunteer.Address);
+
             //ClockManager.Now,
             //ClockManager.Now,
             //DO.Volunteer doVolunteer = VolunteerManager.ConvertToDO(boVolunteer)
             DO.Volunteer doVolunteer =
 new(boVolunteer.Id, boVolunteer.FullName, boVolunteer.Phone, boVolunteer.Email,
-boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolunteer.Role, boVolunteer.Address, boVolunteer.Latitude,
-boVolunteer.Longitude, boVolunteer.IsActive,
+boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolunteer.Role, boVolunteer.Address, Latitude,
+Longitude, boVolunteer.IsActive,
 boVolunteer.MaxDistance);
             _dal.Volunteer.Create(doVolunteer);
 
@@ -202,7 +206,7 @@ boVolunteer.MaxDistance);
         DO.Volunteer? up = _dal.Volunteer.Read(boVolunteer.Id);
         //if (requester is null || requester.Role != DO.Role.Manager)
         //    throw new BO.BlDoesNotExistException("You do not have permission to perform this action.");
-        if (requester is null || requester.Role != DO.Role.Manager)
+        if (requester is null )
             throw new BO.BlDoesNotExistException("You do not have permission to perform this action.");
         if (up == null)
         {

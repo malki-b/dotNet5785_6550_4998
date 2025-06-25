@@ -197,14 +197,28 @@
     <Max_Distance>16</Max_Distance>
   </Volunteer>
   <Volunteer>
+    <Id>214324998</Id>
+    <Name>nbv</Name>
+    <Phone>0556700295</Phone>
+    <Email>f@gmail.com</Email>
+    <Password>bhjESDRTFGYHJ@56789</Password>
+    <Role>Manager</Role>
+    <IsActive>true</IsActive>
+    <Type_Distance>Drive</Type_Distance>
+    <Address>10 King David Street, Jerusalem City Center, Jerusalem, Israel</Address>
+    <Latitude>31.70954</Latitude>
+    <Longitude>35.205725</Longitude>
+    <Max_Distance>52</Max_Distance>
+  </Volunteer>
+  <Volunteer>
     <Id>100000157</Id>
     <Name>Yaakov Levi</Name>
     <Phone>0521234567</Phone>
     <Email>yaakovlevi@gmail.com</Email>
     <Password>Passw0rd!</Password>
     <Role>Manager</Role>
-    <IsActive>true</IsActive>
-    <Type_Distance>Walking</Type_Distance>
+    <IsActive>false</IsActive>
+    <Type_Distance>Drive</Type_Distance>
     <Address>5 Hamerkaz Street, Haifa City Center, Haifa, Israel</Address>
     <Latitude>32.792761</Latitude>
     <Longitude>34.995336</Longitude>

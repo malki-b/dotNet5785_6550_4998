@@ -75,7 +75,7 @@ internal class VolunteerImplementation : IVolunteer
     {
         XElement Volunteers = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
 
-        
+
 
         if (filter == null)
             return Volunteers.Elements("Volunteer")
@@ -84,7 +84,7 @@ internal class VolunteerImplementation : IVolunteer
             return Volunteers.Elements("Volunteer")
                                                  .Select(v => getVolunteer(v)).Where(filter);
     }
- 
+
     public void Update(Volunteer item)
     {
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
@@ -100,6 +100,25 @@ internal class VolunteerImplementation : IVolunteer
 
 
 
+    //private XElement createVolunteerElement(Volunteer item)
+    //{
+    //    XElement volunteerElem = new XElement("Volunteer",
+    //                        new XElement("Id", item.Id),
+    //                        new XElement("Name", item.Name),
+    //                        new XElement("Phone", item.Phone),
+    //                        new XElement("Email", item.Email),
+    //                        new XElement("Password", item.Password),
+    //                         new XElement("Role", item.Role),
+    //                        //new XElement("IsActive", item.IsActive ?? null),
+    //                        new XElement("IsActive", item.IsActive == true ? "true" : "false"),
+    //                         new XElement("Type_Distance", item.Type_Distance),
+    //                        new XElement("Address", item.Address ?? string.Empty),
+    //                         new XElement("Latitude", item.Latitude ?? null),
+    //                         new XElement("Longitude", item.Longitude ?? null),
+    //                        new XElement("Max_Distance", item.Max_Distance ?? 0));
+
+    //    return volunteerElem;
+    //}
     private XElement createVolunteerElement(Volunteer item)
     {
         XElement volunteerElem = new XElement("Volunteer",
@@ -127,8 +146,8 @@ internal class VolunteerImplementation : IVolunteer
             Id = s.ToIntNullable("Id") ?? throw new FormatException("can't convert id"),
             Name = (string?)s.Element("Name") ?? "",
             Phone = (string?)s.Element("Phone") ?? "",
-            Email= (string?)s.Element("Email") ?? "",
-            Password= (string?)s.Element("Password") ?? "",
+            Email = (string?)s.Element("Email") ?? "",
+            Password = (string?)s.Element("Password") ?? "",
             IsActive = (bool?)s.Element("IsActive") ?? false,
             Address = (string?)s.Element("Address") ?? "",
             Latitude = (double?)s.Element("Latitude") ?? 0,

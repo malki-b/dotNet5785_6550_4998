@@ -83,7 +83,7 @@ public enum CallCompletionType
 
 public enum VolunteerSortBy
 {
-    
+
     Id,
     FullName,
     Phone,

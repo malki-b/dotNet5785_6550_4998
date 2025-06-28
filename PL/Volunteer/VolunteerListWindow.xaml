@@ -1,32 +1,37 @@
 ﻿<Window x:Class="PL.Volunteer.VolunteerListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Volunteer List" Height="600" Width="900"
+        Title="Volunteer List" Height="640" Width="900"
         Background="#F9FAFC"
         WindowStartupLocation="CenterScreen"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
+    <!--External Grid-->
     <Grid Margin="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- סרגל חיפוש עליון -->
-        <DockPanel Grid.Row="0" Margin="0,0,0,10">
-            <Label Content="Select Volunteer:" FontWeight="Bold" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+        <!--Internal, Upper Grid-->
+        <Grid HorizontalAlignment="Stretch" Height="Auto" Grid.Row="0" VerticalAlignment="Stretch" Width="Auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Select Semester:" Grid.Column="0" VerticalAlignment="Center"/>
             <ComboBox ItemsSource="{Binding Source={StaticResource VolunteerCollectionKey}}"
                       SelectedValue="{Binding VolunteerFilter, Mode=TwoWay}"
                       SelectionChanged="ComboBox_SelectionChanged"
-                      Width="200" Margin="10,0"/>
-            <TextBox Width="200" Margin="10,0" VerticalAlignment="Center"
-                     Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Content="Add Volunteer" Click="Add_Click" Margin="10,0"
-                    Background="#4CD8C2" Foreground="White" Width="130" Height="30"/>
-        </DockPanel>
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"/>
+            <TextBox Margin="28,0,37,0" VerticalAlignment="Center"
+                     Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Height="39"/>
+        </Grid>
 
-        <!-- רשימה -->
+        <!-- ListView -->
         <ListView ItemsSource="{Binding VolunteerList}"
                   SelectedItem="{Binding SelectedVolunteer, Mode=TwoWay}"
                   MouseDoubleClick="Volunteer_MouseDoubleClick"
@@ -56,5 +61,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <!-- כפתור ה-Add -->
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
     </Grid>
 </Window>

@@ -4,7 +4,7 @@
         Title="Main Window"
         Height="600" Width="900"
         WindowStartupLocation="CenterScreen"
-        Background="#F3F6FA"
+        Background="#F3F6FA" 
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Closed="MainWindow_Closed">
 

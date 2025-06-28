@@ -20,8 +20,6 @@ namespace PL.Volunteer;
 public partial class VolunteerWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
-
     public VolunteerWindow(int id = 0)
     {
         try
@@ -55,7 +53,6 @@ public partial class VolunteerWindow : Window
         }
     }
 
-
     public string ButtonText
     {
         get { return (string)GetValue(ButtonTextProperty); }
@@ -64,7 +61,6 @@ public partial class VolunteerWindow : Window
 
     public static readonly DependencyProperty ButtonTextProperty =
     DependencyProperty.Register("ButtonText", typeof(string), typeof(VolunteerWindow), new PropertyMetadata(null));
-
 
     public BO.Volunteer CurrentVolunteer
     {
@@ -96,7 +92,6 @@ public partial class VolunteerWindow : Window
         int id = CurrentVolunteer!.Id;
         CurrentVolunteer = null;
         CurrentVolunteer = s_bl.Volunteer.Read(id);
-
     }
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {

@@ -74,9 +74,6 @@ internal class VolunteerImplementation : IVolunteer
     public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
     {
         XElement Volunteers = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
-
-
-
         if (filter == null)
             return Volunteers.Elements("Volunteer")
                                                   .Select(v => getVolunteer(v));
@@ -88,37 +85,13 @@ internal class VolunteerImplementation : IVolunteer
     public void Update(Volunteer item)
     {
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
-
         (volunteerRootElem.Elements().FirstOrDefault(st => (int?)st.Element("Id") == item.Id)
         ?? throw new DO.DalDoesNotExistException($"Volunteer with ID={item.Id} does Not exist"))
                 .Remove();
-
         volunteerRootElem.Add(new XElement(createVolunteerElement(item)));
-
         XMLTools.SaveListToXMLElement(volunteerRootElem, Config.s_volunteers_xml);
     }
 
-
-
-    //private XElement createVolunteerElement(Volunteer item)
-    //{
-    //    XElement volunteerElem = new XElement("Volunteer",
-    //                        new XElement("Id", item.Id),
-    //                        new XElement("Name", item.Name),
-    //                        new XElement("Phone", item.Phone),
-    //                        new XElement("Email", item.Email),
-    //                        new XElement("Password", item.Password),
-    //                         new XElement("Role", item.Role),
-    //                        //new XElement("IsActive", item.IsActive ?? null),
-    //                        new XElement("IsActive", item.IsActive == true ? "true" : "false"),
-    //                         new XElement("Type_Distance", item.Type_Distance),
-    //                        new XElement("Address", item.Address ?? string.Empty),
-    //                         new XElement("Latitude", item.Latitude ?? null),
-    //                         new XElement("Longitude", item.Longitude ?? null),
-    //                        new XElement("Max_Distance", item.Max_Distance ?? 0));
-
-    //    return volunteerElem;
-    //}
     private XElement createVolunteerElement(Volunteer item)
     {
         XElement volunteerElem = new XElement("Volunteer",
@@ -137,8 +110,7 @@ internal class VolunteerImplementation : IVolunteer
 
         return volunteerElem;
     }
-
-
+    
     static Volunteer getVolunteer(XElement s)
     {
         return new DO.Volunteer()
@@ -157,6 +129,27 @@ internal class VolunteerImplementation : IVolunteer
             Type_Distance = (TypeDistance)Enum.Parse(typeof(TypeDistance), (string)s.Element("Type_Distance")!)
         };
     }
-
-
 }
+
+
+
+
+//private XElement createVolunteerElement(Volunteer item)
+//{
+//    XElement volunteerElem = new XElement("Volunteer",
+//                        new XElement("Id", item.Id),
+//                        new XElement("Name", item.Name),
+//                        new XElement("Phone", item.Phone),
+//                        new XElement("Email", item.Email),
+//                        new XElement("Password", item.Password),
+//                         new XElement("Role", item.Role),
+//                        //new XElement("IsActive", item.IsActive ?? null),
+//                        new XElement("IsActive", item.IsActive == true ? "true" : "false"),
+//                         new XElement("Type_Distance", item.Type_Distance),
+//                        new XElement("Address", item.Address ?? string.Empty),
+//                         new XElement("Latitude", item.Latitude ?? null),
+//                         new XElement("Longitude", item.Longitude ?? null),
+//                        new XElement("Max_Distance", item.Max_Distance ?? 0));
+
+//    return volunteerElem;
+//}

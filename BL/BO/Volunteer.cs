@@ -23,7 +23,7 @@ public class Volunteer
     //    IsActive = isActive;
     //    MaxDistance = maxDistance;
     //}
-  //  public Volunteer() { }
+    //  public Volunteer() { }
     public Volunteer(
     int id,
     string name,
@@ -50,8 +50,8 @@ public class Volunteer
         TypeDistance = typeDistance;
         Role = role;
         Address = address;
-        (Latitude , Longitude) = Tools.GetCoordinates(address);
-       // Longitude = longitude;
+        (Latitude, Longitude) = Tools.GetCoordinates(address);
+        // Longitude = longitude;
         IsActive = isActive;
         MaxDistance = maxDistance;
         TotalHandledCalls = totalHandledCalls;
@@ -61,7 +61,6 @@ public class Volunteer
     }
     //private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
-    public Volunteer() { }
     /// <summary>
     /// Represents the ID of the volunteer.
     /// </summary>

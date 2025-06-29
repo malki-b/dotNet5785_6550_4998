@@ -4,7 +4,7 @@
     <Id>060164563</Id>
     <Name>Avraham Goldstein</Name>
     <Phone>0506543298</Phone>
-    <Email>avrahamgoldstein@gmail.com</Email>
+    <Email>avrahamgoldstein@gmail.com</Email> 
     <Password>Gmail1234!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>

@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace PL.Volunteer
 {
     /// <summary>
-    /// Interaction logic for VolunteerMainWindow.xaml
+    /// Interaction logic for Vvailable.xaml
     /// </summary>
-    public partial class VolunteerMainWindow : Window
+    public partial class Vvailable : Window
     {
-        public VolunteerMainWindow()
+        public Vvailable()
         {
             InitializeComponent();
         }

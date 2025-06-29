@@ -89,7 +89,7 @@ boVolunteer.MaxDistance);
     {
         try
         {
-        //    var user = _dal.Volunteer.ReadAll().FirstOrDefault(u => u.id == id);
+           var user = _dal.Volunteer.ReadAll().FirstOrDefault(u => u.Id == id);
             if (user == null || user.Password != password)
                 throw new("The Id or password is incorrect.");
             // return AssignmentManager.LinkStudentToCourse(VolunteerId, callId);

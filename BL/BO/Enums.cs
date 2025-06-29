@@ -173,3 +173,23 @@ public enum VolunteerField
     TotalExpiredHandledCalls,
     CurrentCallInProgress
 }
+public enum ClosedCallField
+{
+    Id,
+    TypeOfReading,
+    FullAddress,
+    OpeningTime,
+    EntryTimeForHandling,
+    ActualHandlingEndTime,
+    TypeOfEnding
+}
+public enum OpenCallField
+{
+    Id,
+    Type,
+    Description,
+    FullAddress,
+    OpeningTime,
+    MaxCompletionTime,
+    DistanceFromVolunteer
+}

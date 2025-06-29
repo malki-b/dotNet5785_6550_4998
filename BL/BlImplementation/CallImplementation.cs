@@ -406,8 +406,41 @@ internal class CallImplementation : ICall
 
     //}
     public IEnumerable<BO.OpenCallInList> RequestOpenCallsForSelection(int volunteerId, BO.TypeOfReading? filterBy = null, CallField? sortByField = null)
+
     {
-        return CallManager.GetCallsByFilter<BO.OpenCallInList>(volunteerId, filterBy, sortByField, isOpen: true); // הפונקציה משתמשת ב-GetCallsByFilter
+      //  var openedCalls = ReadAll();
+      //  openedCalls = openedCalls.Where(a =>
+      //Helpers.CallManager.GetCallStatus(a.CallId) == BO.Status.Open ||
+      // Helpers.CallManager.GetCallStatus(a.CallId) == BO.Status.OpenAtRisk);
+      //  var openCallsToReturn = openedCalls.Select(a =>
+      //  {
+      //      var call = _dal.Call.Read(c => c.Id == a.CallId)!;
+      //      return new BO.OpenCallInList
+      //      {
+      //          Id = a.CallId,
+      //          Type = (BO.TypeOfReading)call.TypeOfReading,
+      //          FullAddress = call.Address,
+      //          OpeningTime = call.OpeningTime,
+      //          MaxCompletionTime = call.MaxTimeFinishRead,
+      //          DistanceFromVolunteer = Helpers.CallManager.CalculateDistance(volunteerId, a.CallId),
+      //          DistanceFromVolunteer = call.VerbalDescription
+      //      };
+      //  });
+
+      //  if (filterBy != null)
+      //      openCallsToReturn = openCallsToReturn.Where(call => call.TypeOfReading == filterBy);
+      //  openCallsToReturn = sortByField switch
+      //  {
+      //      BO.CallField.Address => openCallsToReturn.OrderBy(call => call.Address),
+      //      BO.CallField.CallType => openCallsToReturn.OrderBy(call => call.CallType),
+      //      BO.OpenCallInListFields.OpenTime => openCallsToReturn.OrderBy(call => call.OpenTime),
+      //      BO.OpenCallInListFields.MaxCloseTime => openCallsToReturn.OrderBy(call => call.MaxCloseTime),
+      //      BO.OpenCallInListFields.Distance => openCallsToReturn.OrderBy(call => call.Distance),
+      //      BO.OpenCallInListFields.Description => openCallsToReturn.OrderBy(call => call.Description),
+      //      _ => openCallsToReturn.OrderBy(call => call.Id),
+      //  };
+      //  return openCallsToReturn;
+      return CallManager.GetCallsByFilter<BO.OpenCallInList>(volunteerId, filterBy, sortByField, isOpen: true); // הפונקציה משתמשת ב-GetCallsByFilter
     }
 
 

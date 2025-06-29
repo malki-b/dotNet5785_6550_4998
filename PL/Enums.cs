@@ -37,15 +37,13 @@ internal class TypeOfReadingCollection : IEnumerable
     static readonly IEnumerable<BO.TypeOfReading> s_TypeOfReadingCollection = (Enum.GetValues(typeof(BO.TypeOfReading)) as IEnumerable<BO.TypeOfReading>)!;
     public IEnumerator GetEnumerator() => s_TypeOfReadingCollection.GetEnumerator();
 }
-//public enum TypeDistance
-//{
-//    None,
-//    Air,
-//    Walking,
-//    Drive
-//}
-//public enum Role
-//{
-//    Volunteer,
-//    Manager,
-//}
+internal class OpenCallFieldCollection : IEnumerable
+{
+    static readonly IEnumerable<BO.OpenCallField> s_OpenCallFieldCollection = (Enum.GetValues(typeof(BO.OpenCallField)) as IEnumerable<BO.OpenCallField>)!;
+    public IEnumerator GetEnumerator() => s_OpenCallFieldCollection.GetEnumerator();
+}
+internal class ClosedCallFieldCollection : IEnumerable
+{
+    static readonly IEnumerable<BO.ClosedCallField> s_ClosedCallFieldCollection = (Enum.GetValues(typeof(BO.ClosedCallField)) as IEnumerable<BO.ClosedCallField>)!;
+    public IEnumerator GetEnumerator() => s_ClosedCallFieldCollection.GetEnumerator();
+}

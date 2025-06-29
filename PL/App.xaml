@@ -9,6 +9,8 @@
         <local:DistanceCollection x:Key="DistanceCollectionKey" />
         <local:CallFieldCollection x:Key="CallFieldCollectionKey" />
         <local:TypeOfReadingCollection x:Key="TypeOfReadingCollectionKey" />
+        <local:ClosedCallFieldCollection x:Key="ClosedCallFieldKeyCollectiondKey" />
+        <local:OpenCallFieldCollection x:Key="OpenCallFieldCollectionKey" />
 
         <local:NullToVisibilityConverter x:Key="NullToVisibilityConverterKey" />
 

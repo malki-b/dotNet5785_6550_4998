@@ -40,7 +40,7 @@
 
         <!-- שדות -->
         <Label Content="ID:" Grid.Row="0" Grid.Column="0"/>
-        <TextBox Text="{Binding CurrentVolunteer.Id}" Style="{StaticResource InputStyle}" Grid.Row="0" Grid.Column="1" IsReadOnly="True"/>
+        <TextBox Text="{Binding CurrentVolunteer.Id}" Style="{StaticResource InputStyle}" Grid.Row="0" Grid.Column="1" IsReadOnly="True" TextChanged="TextBox_TextChanged"/>
 
         <Label Content="Name:" Grid.Row="1" Grid.Column="0"/>
         <TextBox Text="{Binding CurrentVolunteer.FullName}" Style="{StaticResource InputStyle}" Grid.Row="1" Grid.Column="1"/>
@@ -127,6 +127,7 @@
             <Button Content="Available Calls" Width="140" Height="36"
                     Click="OpenAvailableCalls_Click"/>
         </StackPanel>
+        
     </Grid>
 </Window>
 

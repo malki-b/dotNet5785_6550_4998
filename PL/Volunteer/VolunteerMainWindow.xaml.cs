@@ -55,7 +55,9 @@ namespace PL.Volunteer
         {
             try
             {
-                CurrentVolunteer = s_bl.Volunteer.Read(VolunteerId);
+
+                //CurrentVolunteer = s_bl.Volunteer.Read(VolunteerId);
+                CurrentVolunteer = s_bl.Volunteer.Read(330986704);
                 CurrentVolunteer.Password = "";
             }
             catch (Exception ex)
@@ -155,6 +157,11 @@ namespace PL.Volunteer
         {
             new LoginWindow().Show();
             Close();
+        }
+
+        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
         }
     }
 }

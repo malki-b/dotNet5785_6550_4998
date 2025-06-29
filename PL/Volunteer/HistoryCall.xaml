@@ -28,7 +28,7 @@
                                    FontSize="14"
                                    FontWeight="SemiBold"
                                    Margin="0,0,0,4"/>
-						<ComboBox ItemsSource="{Binding Source={StaticResource ClosedCallFieldKey}}"
+                        <ComboBox ItemsSource="{Binding Source={StaticResource ClosedCallFieldKeyCollectiondKey}}"
                                   SelectedValue="{Binding Path=CallSortProp, Mode=TwoWay}"
                                   SelectionChanged="SelectionChangedInCallHistoryListProp"
                                   Height="32"
@@ -41,7 +41,7 @@
                                    FontSize="14"
                                    FontWeight="SemiBold"
                                    Margin="0,0,0,4"/>
-						<ComboBox ItemsSource="{Binding Source={StaticResource TypeOfCallPropertyKey}}"
+                        <ComboBox ItemsSource="{Binding Source={StaticResource TypeOfReadingCollectionKey}}"
                                   SelectionChanged="SelectionChangedInCallHistoryListProp"
                                   SelectedValue="{Binding Path=TypeOfCallFilterProp, Mode=TwoWay}"
                                   Height="32"

@@ -26,17 +26,26 @@ internal class DistanceCollection : IEnumerable
     static readonly IEnumerable<BO.TypeDistance> s_DistanceCollection = (Enum.GetValues(typeof(BO.TypeDistance)) as IEnumerable<BO.TypeDistance>)!;
     public IEnumerator GetEnumerator() => s_DistanceCollection.GetEnumerator();
 }
-
-
-public enum TypeDistance
+internal class CallFieldCollection : IEnumerable
 {
-    None,
-    Air,
-    Walking,
-    Drive
+    static readonly IEnumerable<BO.CallField> s_CallFieldCollection = (Enum.GetValues(typeof(BO.CallField)) as IEnumerable<BO.CallField>)!;
+    public IEnumerator GetEnumerator() => s_CallFieldCollection.GetEnumerator();
 }
-public enum Role
+
+internal class TypeOfReadingCollection : IEnumerable
 {
-    Volunteer,
-    Manager,
+    static readonly IEnumerable<BO.TypeOfReading> s_TypeOfReadingCollection = (Enum.GetValues(typeof(BO.TypeOfReading)) as IEnumerable<BO.TypeOfReading>)!;
+    public IEnumerator GetEnumerator() => s_TypeOfReadingCollection.GetEnumerator();
 }
+//public enum TypeDistance
+//{
+//    None,
+//    Air,
+//    Walking,
+//    Drive
+//}
+//public enum Role
+//{
+//    Volunteer,
+//    Manager,
+//}

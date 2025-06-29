@@ -146,9 +146,9 @@ internal static class CallManager
             ///
             if (filterBy != null)
                 calls = calls.Where(x => x.call.TypeOfReading.Equals(filterBy));
-
+            
             ////
-                        var result = calls.Select(c => isOpen
+            var result = calls.Select(c => isOpen
                         ? new BO.OpenCallInList
                         {
                             Id = c.call.Id,

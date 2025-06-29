@@ -37,9 +37,9 @@
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
     <Type_Distance>Drive</Type_Distance>
-    <Address>30 Hanevi'im Street, Jerusalem, Israel</Address>
-    <Latitude>34.98719</Latitude>
-    <Longitude>32.820918</Longitude>
+    <Address>Yisrael Yaakov St 12, Jerusalem</Address>
+    <Latitude>31.780179</Latitude>
+    <Longitude>35.221711</Longitude>
     <Max_Distance>1</Max_Distance>
   </Volunteer>
   <Volunteer>

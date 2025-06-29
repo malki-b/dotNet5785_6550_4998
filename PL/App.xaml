@@ -7,7 +7,10 @@
         <local:VolunteerCollection x:Key="VolunteerCollectionKey" />
         <local:RolesCollection x:Key="RolesCollectionKey" />
         <local:DistanceCollection x:Key="DistanceCollectionKey" />
-		<local:NullToVisibilityConverter x:Key="NullToVisibilityConverterKey" />
+        <local:CallFieldCollection x:Key="CallFieldCollectionKey" />
+        <local:TypeOfReadingCollection x:Key="TypeOfReadingCollectionKey" />
+
+        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverterKey" />
 
 
 

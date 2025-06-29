@@ -149,7 +149,7 @@ namespace PL.Volunteer
             new HistoryCall(VolunteerId).Show();
 
         private void OpenAvailableCalls_Click(object sender, RoutedEventArgs e) =>
-            new AvailableCallsWindow(VolunteerId).Show();
+            new Available(VolunteerId).Show();
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {

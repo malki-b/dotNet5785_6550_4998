@@ -101,13 +101,13 @@ using System.Windows.Input;
 
 namespace PL.Volunteer
 {
-    public partial class AvailableCallsWindow : Window
+    public partial class Available : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
 
 
-        public AvailableCallsWindow(int volunteerId)
+        public Available(int volunteerId)
         {
             MessageBox.Show($"{volunteerId}");
             _volunteerId = volunteerId;
@@ -126,7 +126,7 @@ namespace PL.Volunteer
         }
 
         public static readonly DependencyProperty OpenCallListProperty =
-            DependencyProperty.Register("OpenCallList", typeof(IEnumerable<BO.OpenCallInList>), typeof(AvailableCallsWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("OpenCallList", typeof(IEnumerable<BO.OpenCallInList>), typeof(Available), new PropertyMetadata(null));
 
         public BO.CallField CallSortProp { get; set; } = BO.CallField.None;
         public BO.TypeOfReading TypeOfCallFilterProp { get; set; } = BO.TypeOfReading.None;

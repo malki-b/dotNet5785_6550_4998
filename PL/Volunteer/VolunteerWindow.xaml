@@ -48,11 +48,16 @@
         <Label Content="Phone:" Grid.Row="2" Grid.Column="0"/>
         <TextBox Text="{Binding CurrentVolunteer.Phone}" Style="{StaticResource InputStyle}" Grid.Row="2" Grid.Column="1"/>
 
+        
         <Label Content="Email:" Grid.Row="3" Grid.Column="0"/>
         <TextBox Text="{Binding CurrentVolunteer.Email}" Style="{StaticResource InputStyle}" Grid.Row="3" Grid.Column="1"/>
 
         <Label Content="Password:" Grid.Row="4" Grid.Column="0"/>
-        <PasswordBox Grid.Row="4" Grid.Column="1" Style="{StaticResource InputStyle}"/>
+        <TextBox Text="{Binding CurrentVolunteer.Password}" Style="{StaticResource InputStyle}" Grid.Row="4" Grid.Column="1"/>
+
+        <!--<Label Content="Password:" Grid.Row="4" Grid.Column="0"/>
+        <PasswordBox Grid.Row="4" Grid.Column="1" Style="{StaticResource InputStyle}"
+         />-->
 
         <Label Content="Role:" Grid.Row="5" Grid.Column="0"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource RolesCollectionKey}}" 

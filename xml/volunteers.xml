@@ -1,25 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfVolunteer>
   <Volunteer>
-    <Id>214388381</Id>
-    <Name>Moshe Cohen</Name>
-    <Phone>0549876543</Phone>
-    <Email>moshecohen@gmail.com</Email>
-    <Password>SecurePass123</Password>
-    <Role>Volunteer</Role>
-    <IsActive>true</IsActive>
-    <Type_Distance>Walking</Type_Distance>
-    <Address>12 Rothschild Boulevard, Tel Aviv, Israel</Address>
-    <Latitude>34.773367</Latitude>
-    <Longitude>32.072976</Longitude>
-    <Max_Distance>2</Max_Distance>
-  </Volunteer>
-  <Volunteer>
     <Id>060164563</Id>
     <Name>Avraham Goldstein</Name>
     <Phone>0506543298</Phone>
     <Email>avrahamgoldstein@gmail.com</Email>
-    <Password>Gmail1234</Password>
+    <Password>Gmail1234!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
     <Type_Distance>Air</Type_Distance>
@@ -29,25 +15,11 @@
     <Max_Distance>19</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>218445062</Id>
-    <Name>David Friedman</Name>
-    <Phone>0525432187</Phone>
-    <Email>davidfriedman@gmail.com</Email>
-    <Password>Password123</Password>
-    <Role>Volunteer</Role>
-    <IsActive>true</IsActive>
-    <Type_Distance>Walking</Type_Distance>
-    <Address>25 Herzl Street, Rehovot, Israel</Address>
-    <Latitude>34.778712</Latitude>
-    <Longitude>32.074741</Longitude>
-    <Max_Distance>2</Max_Distance>
-  </Volunteer>
-  <Volunteer>
     <Id>330986704</Id>
     <Name>Shlomo Rabinowitz</Name>
     <Phone>0589876543</Phone>
     <Email>shlomorabinowitz@gmail.com</Email>
-    <Password>SecretPass</Password>
+    <Password>SecretPass!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
     <Type_Distance>None</Type_Distance>
@@ -75,7 +47,7 @@
     <Name>Shimon Baruch</Name>
     <Phone>0551987654</Phone>
     <Email>shimonbaruch@gmail.com</Email>
-    <Password>Baruch2021</Password>
+    <Password>Baruch2021!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
     <Type_Distance>Walking</Type_Distance>
@@ -83,20 +55,6 @@
     <Latitude>34.988004</Latitude>
     <Longitude>32.820536</Longitude>
     <Max_Distance>6</Max_Distance>
-  </Volunteer>
-  <Volunteer>
-    <Id>332987908</Id>
-    <Name>Shlomo Fisher</Name>
-    <Phone>0509876543</Phone>
-    <Email>shlomofisher@gmail.com</Email>
-    <Password>Fish1234</Password>
-    <Role>Volunteer</Role>
-    <IsActive>true</IsActive>
-    <Type_Distance>Walking</Type_Distance>
-    <Address>22 Jabotinsky Street, Ramat Gan, Israel</Address>
-    <Latitude>34.79496</Latitude>
-    <Longitude>32.07283</Longitude>
-    <Max_Distance>18</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>329333488</Id>
@@ -117,7 +75,7 @@
     <Name>Avraham Super</Name>
     <Phone>0576543219</Phone>
     <Email>avrahamsuper@gmail.com</Email>
-    <Password>SuperPass2021</Password>
+    <Password>SuperPass2021!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
     <Type_Distance>Walking</Type_Distance>
@@ -127,25 +85,11 @@
     <Max_Distance>8</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>215281288</Id>
-    <Name>Shmuel Gross</Name>
-    <Phone>0509876543</Phone>
-    <Email>shmuelgross@gmail.com</Email>
-    <Password>ShmuelPass</Password>
-    <Role>Volunteer</Role>
-    <IsActive>true</IsActive>
-    <Type_Distance>None</Type_Distance>
-    <Address>8 Agron Street, Jerusalem, Israel</Address>
-    <Latitude>34.801429</Latitude>
-    <Longitude>32.070131</Longitude>
-    <Max_Distance>5</Max_Distance>
-  </Volunteer>
-  <Volunteer>
     <Id>214324998</Id>
     <Name>Menachem Green</Name>
     <Phone>0524321987</Phone>
     <Email>menachemgreen@gmail.com</Email>
-    <Password>Green2021</Password>
+    <Password>Green2021!</Password>
     <Role>Volunteer</Role>
     <IsActive>false</IsActive>
     <Type_Distance>Drive</Type_Distance>
@@ -159,7 +103,7 @@
     <Name>Aharon Fried</Name>
     <Phone>0587654321</Phone>
     <Email>aharonfried@gmail.com</Email>
-    <Password>Aharon12345</Password>
+    <Password>Aharon1234!5</Password>
     <Role>Volunteer</Role>
     <IsActive>false</IsActive>
     <Type_Distance>None</Type_Distance>
@@ -183,11 +127,67 @@
     <Max_Distance>16</Max_Distance>
   </Volunteer>
   <Volunteer>
+    <Id>219595907</Id>
+    <Name>Yisrael Weiner</Name>
+    <Phone>0534567892</Phone>
+    <Email>yisraelweiner@gmail.com</Email>
+    <Password>WeinerPas84565s!</Password>
+    <Role>Volunteer</Role>
+    <IsActive>true</IsActive>
+    <Type_Distance>Walking</Type_Distance>
+    <Address>7 Dizengoff Street, Tel Aviv, Israel</Address>
+    <Latitude>32.084319</Latitude>
+    <Longitude>34.781364</Longitude>
+    <Max_Distance>3</Max_Distance>
+  </Volunteer>
+  <Volunteer>
+    <Id>215281288</Id>
+    <Name>Shmuel Gross</Name>
+    <Phone>0509876543</Phone>
+    <Email>shmuelgross@gmail.com</Email>
+    <Password>ShmuelPass!</Password>
+    <Role>Volunteer</Role>
+    <IsActive>false</IsActive>
+    <Type_Distance>None</Type_Distance>
+    <Address>8 Agron Street, Jerusalem, Israel</Address>
+    <Latitude>31.712552</Latitude>
+    <Longitude>35.224389</Longitude>
+    <Max_Distance>5</Max_Distance>
+  </Volunteer>
+  <Volunteer>
+    <Id>218445062</Id>
+    <Name>David Friedman</Name>
+    <Phone>0525432187</Phone>
+    <Email>davidfriedman@gmail.com</Email>
+    <Password>Password123!</Password>
+    <Role>Volunteer</Role>
+    <IsActive>true</IsActive>
+    <Type_Distance>Walking</Type_Distance>
+    <Address>25 Herzl Street, Rehovot, Israel</Address>
+    <Latitude>31.916661</Latitude>
+    <Longitude>35.176402</Longitude>
+    <Max_Distance>2</Max_Distance>
+  </Volunteer>
+  <Volunteer>
+    <Id>332987908</Id>
+    <Name>Shlomo Fisher</Name>
+    <Phone>0509876543</Phone>
+    <Email>shlomofisher@gmail.com</Email>
+    <Password>Fish123!4</Password>
+    <Role>Volunteer</Role>
+    <IsActive>false</IsActive>
+    <Type_Distance>Walking</Type_Distance>
+    <Address>22 Jabotinsky Street, Ramat Gan, Israel</Address>
+    <Latitude>32.062593</Latitude>
+    <Longitude>34.776051</Longitude>
+    <Max_Distance>20</Max_Distance>
+  </Volunteer>
+  <Volunteer>
     <Id>214875379</Id>
     <Name>Eliyahu Braun</Name>
     <Phone>0565432198</Phone>
     <Email>eliyahubraun@gmail.com</Email>
-    <Password>Braun2021</Password>
+    <Password>Braun2021!</Password>
     <Role>Volunteer</Role>
     <IsActive>false</IsActive>
     <Type_Distance>Walking</Type_Distance>
@@ -197,17 +197,17 @@
     <Max_Distance>10</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>219595907</Id>
-    <Name>Yisrael Weiner</Name>
-    <Phone>0534567892</Phone>
-    <Email>yisraelweiner@gmail.com</Email>
-    <Password>WeinerPass</Password>
+    <Id>214388381</Id>
+    <Name>Moshe Cohen</Name>
+    <Phone>0549876543</Phone>
+    <Email>moshecohen@gmail.com</Email>
+    <Password>SecurePass123!!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
     <Type_Distance>Walking</Type_Distance>
-    <Address>7 Dizengoff Street, Tel Aviv, Israel</Address>
-    <Latitude>32.084319</Latitude>
-    <Longitude>34.781364</Longitude>
-    <Max_Distance>3</Max_Distance>
+    <Address>12 Rothschild Boulevard, Tel Aviv, Israel</Address>
+    <Latitude>32.062745</Latitude>
+    <Longitude>34.770447</Longitude>
+    <Max_Distance>2</Max_Distance>
   </Volunteer>
 </ArrayOfVolunteer>

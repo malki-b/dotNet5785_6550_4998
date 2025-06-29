@@ -89,8 +89,8 @@ internal static class VolunteerManager
             return false;
         if (!IsValidIdNumber(v.Id))
             return false;
-        //if (v.Password is not null && !IsStrongPassword(v.Password))
-        //    return false;
+        if (v.Password is not null && !IsStrongPassword(v.Password))
+            return false;
         return true;
     }
     private static bool IsValidIdNumber(int id)

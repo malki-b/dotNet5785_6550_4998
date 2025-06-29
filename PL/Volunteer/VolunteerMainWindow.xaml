@@ -81,38 +81,57 @@
         <TextBox Text="{Binding CurrentVolunteer.MaxDistance}" 
                  Style="{StaticResource InputStyle}" Grid.Row="9" Grid.Column="1"/>
 
-        <!-- כפתור עם Border -->
-        <!--<Border CornerRadius="6" Background="#4CD8C2" Margin="98,35,199,-74" Grid.Column="1" Grid.Row="11">
-            <Button Content="{Binding ButtonText}" 
-                    Click="AddAndUpdate_Click" Width="223" 
-                    HorizontalAlignment="Center" 
-                    Foreground="#4CD8C2" FontWeight="Bold"
-                    BorderThickness="0"/>
-        </Border>-->
+         <!--כפתור עם Border-->
+
         <Border CornerRadius="6" Background="#4CD8C2" Margin="98,35,199,-74" Grid.Column="1" Grid.Row="11">
-            <Button Content="{Binding ButtonText}" 
-            Click="AddAndUpdate_Click" Width="224" 
+            <Button Content="update" 
+            Click="update_Click" Width="223" 
+            HorizontalAlignment="Center" 
+            Foreground="#4CD8C2" FontWeight="Bold"
+            BorderThickness="0"/>
+        </Border>
+        <Border CornerRadius="6" Background="#4CD8C2" Margin="98,35,199,-74" Grid.Column="1" Grid.Row="11">
+            <Button  Content="update" 
+            Click="update_Click" Width="224" 
             HorizontalAlignment="Center" 
             Foreground="White" FontWeight="Bold"
             Background="#4CD8C2" BorderThickness="0"/>
         </Border>
 
+        <StackPanel Margin="0,30,0,0"
+                    Visibility="{Binding CurrentVolunteer.CurrentCallInProgress, Converter={StaticResource NullToVisibilityConverterKey}}">
+            <TextBlock Text="Current Call in Progress"
+                       FontSize="20"
+                       FontWeight="SemiBold"
+                       Foreground="#333"
+                       Margin="0,0,0,20" />
 
+            <TextBlock Text="{Binding CurrentVolunteer.CurrentCallInProgress.Description}" FontSize="16" FontWeight="Bold"/>
+            <TextBlock Text="{Binding CurrentVolunteer.CurrentCallInProgress.FullAddress}"/>
+            <TextBlock Text="{Binding CurrentVolunteer.CurrentCallInProgress.TypeOfReading}"/>
+            <TextBlock Text="{Binding CurrentVolunteer.CurrentCallInProgress.OpeningTime}"/>
+            <TextBlock Text="{Binding CurrentVolunteer.CurrentCallInProgress.DistanceFromVolunteer}"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
+                <Button Content="Approve" Width="100" Height="32"
+                        Background="#4caf50" Foreground="White" Click="ApproveCall_Click" Margin="0,0,12,0"/>
+                <Button Content="Cancel" Width="100" Height="32"
+                        Background="#f44336" Foreground="White" Click="CancelCall_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Action Buttons -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,0">
+            <Button Content="Call History" Width="140" Height="36"
+                    Click="OpenHistory_Click" Margin="0,0,12,0"/>
+            <Button Content="Available Calls" Width="140" Height="36"
+                    Click="OpenAvailableCalls_Click"/>
+        </StackPanel>
     </Grid>
 </Window>
 
-
-<!--<Button Content="Update Info"
-                            Click="UpdateInfo_Click"
-                            Background="#2770f1"
-                            Foreground="White"
-                            FontWeight="SemiBold"
-                            Width="140"
-                            Height="36"
-                            Margin="0,30,0,0"/>
-
-                    --><!-- Call Details --><!--
-                    <StackPanel Margin="0,30,0,0"
+<!-- Call Details -->
+                    <!--<StackPanel Margin="0,30,0,0"
                                 Visibility="{Binding CurrentVolunteer.currentCallInProgress, Converter={StaticResource NullToVisibilityConverter}}">
                         <TextBlock Text="Current Call in Progress"
                                    FontSize="20"
@@ -134,7 +153,7 @@
                         </StackPanel>
                     </StackPanel>
 
-                    --><!-- Action Buttons --><!--
+                     Action Buttons 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,0">
                         <Button Content="Call History" Width="140" Height="36"
                                 Click="OpenHistory_Click" Margin="0,0,12,0"/>
@@ -143,8 +162,6 @@
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
-        </DockPanel>
-    </Border>
-</Window>-->
+        </DockPanel>-->
 
-
+

@@ -7,6 +7,9 @@
         <local:VolunteerCollection x:Key="VolunteerCollectionKey" />
         <local:RolesCollection x:Key="RolesCollectionKey" />
         <local:DistanceCollection x:Key="DistanceCollectionKey" />
-       
-    </Application.Resources>
+		<local:NullToVisibilityConverter x:Key="NullToVisibilityConverterKey" />
+
+
+
+	</Application.Resources>
 </Application>

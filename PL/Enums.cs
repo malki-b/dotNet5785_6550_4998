@@ -27,6 +27,7 @@ internal class DistanceCollection : IEnumerable
     public IEnumerator GetEnumerator() => s_DistanceCollection.GetEnumerator();
 }
 
+
 public enum TypeDistance
 {
     None,

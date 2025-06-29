@@ -4,6 +4,7 @@
     x:Class="PL.LoginWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:helpers="clr-namespace:Helpers"
     Title="Login Management Screen" Height="600" Width="976"
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
     WindowStartupLocation="CenterScreen"
@@ -32,11 +33,11 @@
                 <StackPanel Margin="0,0,0,20">
                     <TextBlock Text="Password:" FontSize="15" Margin="0,0,0,5" Foreground="#1B4F72"
                                HorizontalAlignment="Left"/>
-                    <!--<PasswordBox
+                    <PasswordBox
                         helpers:PasswordBoxBinding.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         FontSize="16" Height="38" Padding="8"
                         BorderBrush="#2E86C1" BorderThickness="1.5" Background="White"
-                        Foreground="#1C2833"/>-->
+                        Foreground="#1C2833"/>
                 </StackPanel>
 
                 <Button Content="Login" Click="btnLogin_Click"

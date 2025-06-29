@@ -59,7 +59,7 @@ public interface ICall: IObservable
     /// <param name="volunteerId">The ID of the volunteer.</param>
     /// <param name="filterBy">Filter by call type (nullable).</param>
     /// <param name="sortBy">Sort the list by a specific field (nullable).</param>
-    public IEnumerable<BO.ClosedCallInList> RequestClosedCallsByVolunteer(int volunteerId, BO.TypeOfReading? filterBy, CallField? sortBy);
+    public IEnumerable<BO.ClosedCallInList> RequestClosedCallsByVolunteer(int volunteerId, BO.TypeOfReading? filterBy = null, CallField? sortBy = null);
 
     /// <summary>
     /// Method to request open calls available for selection by a volunteer.
@@ -67,7 +67,7 @@ public interface ICall: IObservable
     /// <param name="volunteerId">The ID of the volunteer.</param>
     /// <param name="filterBy">Filter by call type (nullable).</param>
     /// <param name="sortBy">Sort the list by a specific field (nullable).</param>
-    public IEnumerable<BO.OpenCallInList> RequestOpenCallsForSelection(int volunteerId, BO.TypeOfReading? filterBy, CallField? sortByField);
+    public IEnumerable<BO.OpenCallInList> RequestOpenCallsForSelection(int volunteerId, BO.TypeOfReading? filterBy = null, CallField? sortByField = null);
 
 
 

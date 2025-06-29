@@ -29,6 +29,7 @@ internal class DistanceCollection : IEnumerable
 
 public enum TypeDistance
 {
+    None,
     Air,
     Walking,
     Drive

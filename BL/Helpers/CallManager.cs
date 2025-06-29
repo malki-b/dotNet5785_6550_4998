@@ -115,7 +115,7 @@ internal static class CallManager
             throw new Exception("Expiration time must be later than start time");
     }
 
-    public static IEnumerable<T> GetCallsByFilter<T>(int volunteerId, BO.TypeOfReading? filterBy, CallField? sortByField, bool isOpen) where T : class
+    public static IEnumerable<T> GetCallsByFilter<T>(int volunteerId, BO.TypeOfReading? filterBy=null, CallField? sortByField = null, bool isOpen=true) where T : class
     {
       
         try

@@ -130,6 +130,7 @@ public enum VolunteerInListFields
 
 public enum CallField
 {
+    None,
     Id,
     CallType,
     Description,

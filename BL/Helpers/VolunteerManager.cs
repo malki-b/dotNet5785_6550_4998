@@ -60,7 +60,7 @@ using System.Security.Cryptography;
 
 namespace Helpers;
 
-internal static class VolunteerManager
+public static class VolunteerManager
 {
     private static IDal s_dal = Factory.Get;
 
@@ -116,7 +116,7 @@ internal static class VolunteerManager
         return (sum + lastDigit) % 10 == 0;
     }
 
-    private static bool IsStrongPassword(string password)
+    public static bool IsStrongPassword(string password)
     {
         if (password.Length < 8)
             return false;

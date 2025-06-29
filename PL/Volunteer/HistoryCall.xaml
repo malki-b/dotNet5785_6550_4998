@@ -1,4 +1,4 @@
-﻿<Window x:Class="PL.Volunteer.CallHistoryWindow"
+﻿<Window x:Class="PL.Volunteer.HistoryCall"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Volunteer List"
@@ -131,3 +131,4 @@
 		</DockPanel>
 	</Border>
 </Window>
+

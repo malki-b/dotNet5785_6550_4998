@@ -395,7 +395,7 @@ internal class CallImplementation : ICall
 
     //}
     #endregion
-    public IEnumerable<BO.ClosedCallInList> RequestClosedCallsByVolunteer(int volunteerId, BO.TypeOfReading? filterBy, CallField? sortByField)
+    public IEnumerable<BO.ClosedCallInList> RequestClosedCallsByVolunteer(int volunteerId, BO.TypeOfReading? filterBy = null, CallField? sortByField = null)
     {
         return CallManager.GetCallsByFilter<BO.ClosedCallInList>(volunteerId, filterBy, sortByField, isOpen: false);
     }
@@ -405,7 +405,7 @@ internal class CallImplementation : ICall
     //    return CallManager.GetCallsByFilter<BO.OpenCallInList>(volunteerId, filterBy, sortByField, isOpen: true);
 
     //}
-    public IEnumerable<BO.OpenCallInList> RequestOpenCallsForSelection(int volunteerId, BO.TypeOfReading? filterBy, CallField? sortByField)
+    public IEnumerable<BO.OpenCallInList> RequestOpenCallsForSelection(int volunteerId, BO.TypeOfReading? filterBy = null, CallField? sortByField = null)
     {
         return CallManager.GetCallsByFilter<BO.OpenCallInList>(volunteerId, filterBy, sortByField, isOpen: true); // הפונקציה משתמשת ב-GetCallsByFilter
     }

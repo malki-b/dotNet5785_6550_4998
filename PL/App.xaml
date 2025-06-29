@@ -2,14 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:PL"
-             StartupUri="MainWindow.xaml">
+             StartupUri="LoginWindow.xaml">
     <Application.Resources>
         <local:VolunteerCollection x:Key="VolunteerCollectionKey" />
         <local:RolesCollection x:Key="RolesCollectionKey" />
         <local:DistanceCollection x:Key="DistanceCollectionKey" />
-        <!--<local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey" />-->
-
-
-
+       
     </Application.Resources>
 </Application>

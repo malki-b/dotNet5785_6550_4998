@@ -1,7 +1,7 @@
 ﻿using PL.Volunteer;
 using System.Windows;
 
-
+using PL.Admin;
 
 namespace PL
 {
@@ -49,7 +49,7 @@ namespace PL
                     );
 
                     if (result == MessageBoxResult.Yes)
-                        new AdminMainWindow().Show();
+                        new MainWindow().Show();
                     else
                         new VolunteerMainWindow(id).Show();
                 }

@@ -85,13 +85,13 @@ boVolunteer.MaxDistance);
     //    throw new NotImplementedException();
     //}
 
-    public BO.Role Login(string username, string password)
+    public BO.Role Login(int id, string password)
     {
         try
         {
-            var user = _dal.Volunteer.ReadAll().FirstOrDefault(u => u.Name == username);
+        //    var user = _dal.Volunteer.ReadAll().FirstOrDefault(u => u.id == id);
             if (user == null || user.Password != password)
-                throw new("The username or password is incorrect.");
+                throw new("The Id or password is incorrect.");
             // return AssignmentManager.LinkStudentToCourse(VolunteerId, callId);
             return (BO.Role)user.Role;
         }

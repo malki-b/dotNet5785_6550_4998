@@ -28,10 +28,10 @@ public interface IVolunteer: IObservable
     /// <summary>
     /// Method to log in to the system.
     /// </summary>
-    /// <param name="username">The username of the volunteer.</param>
+    /// <param name="id">The id of the volunteer.</param>
     /// <param name="password">The password of the volunteer.</param>
     /// <returns>The role of the user.</returns>
-    public BO.Role Login(string username, string password);
+    public BO.Role Login(int id, string password);
 
     /// <summary>
     /// Method to request a list of volunteers.

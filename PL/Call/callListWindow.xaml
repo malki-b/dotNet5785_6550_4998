@@ -1,4 +1,4 @@
-﻿<Window x:Class="PL.Call.CallistWindow"
+﻿<Window x:Class="PL.Call.CallListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Call List" Height="640" Width="900"
@@ -40,12 +40,12 @@
                 <GridView>
                     <GridViewColumn Header="Assignment ID" DisplayMemberBinding="{Binding AssignmentId}" Width="80"/>
                     <GridViewColumn Header="Call ID" DisplayMemberBinding="{Binding CallId}" Width="80"/>
-                    <!--<GridViewColumn Header="Type" DisplayMemberBinding="{Binding TypeOfReading}" Width="100"/>-->
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding TypeOfReading}" Width="100"/>
                     <GridViewColumn Header="Opening Time" DisplayMemberBinding="{Binding OpeningTime}" Width="120"/>
                     <GridViewColumn Header="Remaining Time" DisplayMemberBinding="{Binding RemainingTimeToEndCall}" Width="120"/>
                     <GridViewColumn Header="Last Volunteer" DisplayMemberBinding="{Binding LastVolunteerName}" Width="150"/>
                     <GridViewColumn Header="Total Handling Time" DisplayMemberBinding="{Binding TotalHandlingTime}" Width="120"/>
-                    <!--<GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"/>-->
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"/>
                     <GridViewColumn Header="Total Assignments" DisplayMemberBinding="{Binding TotalAssignments}" Width="120"/>
                     <GridViewColumn Width="100">
                         <GridViewColumn.CellTemplate>

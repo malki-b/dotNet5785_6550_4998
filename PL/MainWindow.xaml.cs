@@ -188,7 +188,7 @@ namespace PL
         {
             try
             {
-                // new CallListWindow().Show();
+                new CallListWindow().Show();
             }
             catch (Exception ex)
             {

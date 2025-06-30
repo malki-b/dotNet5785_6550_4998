@@ -28,8 +28,8 @@ internal class DistanceCollection : IEnumerable
 }
 internal class CallFieldCollection : IEnumerable
 {
-    static readonly IEnumerable<BO.CallField> s_CallFieldCollection = (Enum.GetValues(typeof(BO.CallField)) as IEnumerable<BO.CallField>)!;
-    public IEnumerator GetEnumerator() => s_CallFieldCollection.GetEnumerator();
+    static readonly IEnumerable<BO.CallInListFields> s_CallInListFieldsCollection = (Enum.GetValues(typeof(BO.CallInListFields)) as IEnumerable<BO.CallInListFields>)!;
+    public IEnumerator GetEnumerator() => s_CallInListFieldsCollection.GetEnumerator();
 }
 
 internal class TypeOfReadingCollection : IEnumerable

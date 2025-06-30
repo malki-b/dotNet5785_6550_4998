@@ -180,7 +180,7 @@ internal class CallImplementation : ICall
                     var lastAssignment = assignments.OrderByDescending(a => a.EntryTimeForTreatment).FirstOrDefault();
                     return new CallInList
                     {
-                        AssignmentId = c.Id,
+                        AssignmentId = lastAssignment?.Id,
                         CallId = c.Id,
                         TypeOfReading = (BO.TypeOfReading)c.TypeOfReading,
                         OpeningTime = c.OpeningTime,

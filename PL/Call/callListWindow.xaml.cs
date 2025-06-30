@@ -76,9 +76,9 @@ namespace PL.Call
                 }
                 else
                 {
-                   CallList = string.IsNullOrWhiteSpace(FilterText)
-                  ? s_bl?.Call.ReadAll()!
-                  : s_bl?.Call.GetFilteredAndSortedCalls(filterBy: CallFilter, filterValue: FilterText)!;
+                    CallList = string.IsNullOrWhiteSpace(FilterText)
+                      ? s_bl?.Call.ReadAll()!
+                      : s_bl?.Call.GetFilteredAndSortedCalls(filterBy: CallFilter, filterValue: FilterText)!;
                 }
             }
             catch (Exception ex)
@@ -141,7 +141,7 @@ namespace PL.Call
             }
             catch (Exception ex)
             {
-                MessageBox.Show("אירעה שגיאה בעת פתיחת חלון המתנדב. אנא נסה שוב.", "שגיאת פתיחה", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("אירעה שגיאה בעת פתיחת חלון הקריאה. אנא נסה שוב.", "שגיאת פתיחה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -155,7 +155,7 @@ namespace PL.Call
             }
             catch (Exception ex)
             {
-                MessageBox.Show("אירעה שגיאה בעת עדכון רשימת המתנדבים. אנא נסה שוב.", "שגיאת עדכון", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("אירעה שגיאה בעת עדכון רשימת הקריאות. אנא נסה שוב.", "שגיאת עדכון", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -167,16 +167,15 @@ namespace PL.Call
             }
             catch (Exception ex)
             {
-                MessageBox.Show("אירעה שגיאה בעת הוספת מתנדב. אנא נסה שוב.", "שגיאת הוספה", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("אירעה שגיאה בעת הוספת קריאה. אנא נסה שוב.", "שגיאת הוספה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
 
         private void DeleteCall_click(object sender, RoutedEventArgs e)
         {
             if (sender is Button btn && btn.CommandParameter is CallInList call)
             {
-                var result = MessageBox.Show("האם אתה בטוח שברצונך למחוק את המתנדב?", "אישור מחיקה", MessageBoxButton.YesNo);
+                var result = MessageBox.Show("האם אתה בטוח שברצונך למחוק את הקריאה?", "אישור מחיקה", MessageBoxButton.YesNo);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -193,5 +192,3 @@ namespace PL.Call
         }
     }
 }
-
-

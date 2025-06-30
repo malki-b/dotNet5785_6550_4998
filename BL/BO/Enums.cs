@@ -112,21 +112,7 @@ public enum VolunteerInListFields
 }
 
 
-/// <summary>
-/// Enum for specifying the field by which calls can be sorted.
-/// </summary>
-//public enum CallField//פנינה
-//{
-//    Id,             // Sort by the unique identifier of the call
-//    Type,           // Sort by the type of the call
-//    Description,    // Sort by the description of the call
-//    Address,        // Sort by the address of the call
-//    Latitude,       // Sort by the latitude coordinate
-//    Longitude,      // Sort by the longitude coordinate
-//    OpeningTime,    // Sort by the opening time of the call
-//    MaxEndTime,     // Sort by the maximum end time
-//    Status          // Sort by the current status of the call
-//}
+
 
 public enum CallField
 {

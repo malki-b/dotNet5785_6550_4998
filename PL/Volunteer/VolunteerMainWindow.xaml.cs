@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using Helpers;
+
 namespace PL.Volunteer
 {
     public partial class VolunteerMainWindow : Window
@@ -19,10 +20,9 @@ namespace PL.Volunteer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("אירעה שגיאה בעת טעינת המתנדב. אנא נסה שוב מאוחר יותר.", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"אירעה שגיאה בעת טעינת המתנדב: {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
 
         public BO.Volunteer CurrentVolunteer
         {
@@ -38,6 +38,7 @@ namespace PL.Volunteer
             get => (string)GetValue(CurrentPasswordProperty);
             set => SetValue(CurrentPasswordProperty, value);
         }
+
         public static readonly DependencyProperty CurrentPasswordProperty =
             DependencyProperty.Register(nameof(CurrentPassword), typeof(string), typeof(VolunteerMainWindow));
 
@@ -46,6 +47,7 @@ namespace PL.Volunteer
             get => (string)GetValue(NewPasswordProperty);
             set => SetValue(NewPasswordProperty, value);
         }
+
         public static readonly DependencyProperty NewPasswordProperty =
             DependencyProperty.Register(nameof(NewPassword), typeof(string), typeof(VolunteerMainWindow));
 
@@ -55,15 +57,15 @@ namespace PL.Volunteer
         {
             try
             {
-
                 CurrentVolunteer = s_bl.Volunteer.Read(VolunteerId);
-                CurrentVolunteer.Password = "";
+                CurrentVolunteer.Password = ""; 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("אירעה שגיאה בעת טעינת המתנדב. אנא נסה שוב מאוחר יותר.", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"אירעה שגיאה בעת טעינת המתנדב: {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void update_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -86,7 +88,7 @@ namespace PL.Volunteer
                 }
 
                 s_bl.Volunteer.Update(VolunteerId, CurrentVolunteer);
-                MessageBox.Show($"Update the Volunteer: {CurrentVolunteer.Id} successfully");
+                MessageBox.Show($"המתנדב {CurrentVolunteer.Id} עודכן בהצלחה");
 
                 CurrentPassword = string.Empty;
                 NewPassword = string.Empty;
@@ -94,30 +96,14 @@ namespace PL.Volunteer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("אירעה שגיאה בעת עדכון המתנדב. אנא נסה שוב מאוחר יותר.", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"אירעה שגיאה בעת עדכון המתנדב: {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        //private void VerifyPassword_Click(object sender, RoutedEventArgs e)
-        //{
-        //    string originalHashed = s_bl.Volunteer.Read(VolunteerId).Password;
-
-        //    if (Helpers.VolunteerManager.VerifyPassword(CurrentPassword, originalHashed))
-        //    {
-        //        MessageBox.Show("הכנס סיסמא חדשה לעדכון");
-        //        NewPasswordPanel.Visibility = Visibility.Visible;
-        //        _canUpdatePassword = true;
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("סיסמא שגויה");
-        //        NewPasswordPanel.Visibility = Visibility.Collapsed;
-        //        _canUpdatePassword = false;
-        //    }
-        //}
-
         private void volunteerObserver() => LoadVolunteer();
+
         private void Window_Loaded(object sender, RoutedEventArgs e) => s_bl.Volunteer.AddObserver(VolunteerId, volunteerObserver);
+
         private void Window_Closed(object sender, EventArgs e) => s_bl.Volunteer.RemoveObserver(VolunteerId, volunteerObserver);
 
         private void ApproveCall_Click(object sender, RoutedEventArgs e)
@@ -129,10 +115,9 @@ namespace PL.Volunteer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("אירעה שגיאה בעת אישור השיחה. אנא נסה שוב מאוחר יותר.", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"אירעה שגיאה בעת אישור השיחה: {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
 
         private void CancelCall_Click(object sender, RoutedEventArgs e)
         {
@@ -143,9 +128,10 @@ namespace PL.Volunteer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("אירעה שגיאה בעת ביטול השיחה. אנא נסה שוב מאוחר יותר.", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"אירעה שגיאה בעת ביטול השיחה: {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void OpenHistory_Click(object sender, RoutedEventArgs e) =>
             new HistoryCall(VolunteerId).Show();
 
@@ -160,7 +146,7 @@ namespace PL.Volunteer
 
         private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-
+            // אפשר להוסיף כאן לוגיקה אם יש צורך
         }
     }
 }

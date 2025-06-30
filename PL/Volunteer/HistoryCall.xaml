@@ -9,22 +9,22 @@
         FontFamily="Segoe UI"
         Background="#f7faff">
 
-	<Border>
-		<DockPanel LastChildFill="True" Margin="0">
+    <Border>
+        <DockPanel LastChildFill="True" Margin="0">
 
-			<!-- Header Section -->
-			<StackPanel DockPanel.Dock="Top" Orientation="Vertical" Margin="0,0,0,20">
-				<TextBlock Text="History Calls List"
+            <!-- Header Section -->
+            <StackPanel DockPanel.Dock="Top" Orientation="Vertical" Margin="0,0,0,20">
+                <TextBlock Text="History Calls List"
                            FontSize="26"
                            FontWeight="Bold"
                            Foreground="#2770f1"
                            Margin="20,10,0,10" Width="209"/>
 
-				<!-- Filters Row -->
-				<UniformGrid Columns="2" Margin="20,0,20,0" HorizontalAlignment="Stretch" Width="822">
-					<!-- Sorting -->
-					<StackPanel Orientation="Vertical" Margin="0,0,12,0">
-						<TextBlock Text="Sort by"
+                <!-- Filters Row -->
+                <UniformGrid Columns="2" Margin="20,0,20,0" HorizontalAlignment="Stretch" Width="822">
+                    <!-- Sorting -->
+                    <StackPanel Orientation="Vertical" Margin="0,0,12,0">
+                        <TextBlock Text="Sort by"
                                    FontSize="14"
                                    FontWeight="SemiBold"
                                    Margin="0,0,0,4"/>
@@ -33,11 +33,11 @@
                                   SelectionChanged="SelectionChangedInCallHistoryListProp"
                                   Height="32"
                                   FontSize="14"/>
-					</StackPanel>
+                    </StackPanel>
 
-					<!-- Filter by Type -->
-					<StackPanel Orientation="Vertical" Margin="0,0,12,0">
-						<TextBlock Text="Filter by Type"
+                    <!-- Filter by Type -->
+                    <StackPanel Orientation="Vertical" Margin="0,0,12,0">
+                        <TextBlock Text="Filter by Type"
                                    FontSize="14"
                                    FontWeight="SemiBold"
                                    Margin="0,0,0,4"/>
@@ -46,89 +46,76 @@
                                   SelectedValue="{Binding Path=TypeOfCallFilterProp, Mode=TwoWay}"
                                   Height="32"
                                   FontSize="14"/>
-					</StackPanel>
+                    </StackPanel>
+                </UniformGrid>
+            </StackPanel>
 
-					<!-- Future filter placeholder -->
-					<!--<StackPanel Orientation="Vertical">
-                        <TextBlock Text="(Other Filter)"
-                                   FontSize="14"
-                                   FontWeight="SemiBold"
-                                   Margin="0,0,0,4"/>
-                        <ComboBox Height="32"
-                                  FontSize="14"
-                                  IsEnabled="False" SelectionChanged="ComboBox_SelectionChanged"
-                               />
-                    </StackPanel>-->
-				</UniformGrid>
-			</StackPanel>
-
-			<!-- ListView Section -->
-			<ListView ItemsSource="{Binding Path=CallHistoryList}"
+            <!-- ListView Section -->
+            <ListView ItemsSource="{Binding Path=CallHistoryList}"
                       Margin="20,0,20,20"
                       BorderThickness="1"
                       BorderBrush="#e1e6f2"
                       Background="White" Width="827" SelectionChanged="ListView_SelectionChanged">
-				<ListView.View>
-					<GridView AllowsColumnReorder="True">
-						<GridViewColumn Header="ID" Width="60">
-							<GridViewColumn.CellTemplate>
-								<DataTemplate>
-									<TextBlock Text="{Binding Id}" />
-								</DataTemplate>
-							</GridViewColumn.CellTemplate>
-						</GridViewColumn>
+                <ListView.View>
+                    <GridView AllowsColumnReorder="True">
+                        <GridViewColumn Header="ID" Width="60">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Id}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-						<GridViewColumn Header="Type of Call" Width="120">
-							<GridViewColumn.CellTemplate>
-								<DataTemplate>
-									<TextBlock Text="{Binding TypeOfCall}" />
-								</DataTemplate>
-							</GridViewColumn.CellTemplate>
-						</GridViewColumn>
+                        <GridViewColumn Header="Type" Width="120">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding TypeOfReading}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-						<GridViewColumn Header="Address" Width="150">
-							<GridViewColumn.CellTemplate>
-								<DataTemplate>
-									<TextBlock Text="{Binding Address}" />
-								</DataTemplate>
-							</GridViewColumn.CellTemplate>
-						</GridViewColumn>
+                        <GridViewColumn Header="Address" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding FullAddress}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-						<GridViewColumn Header="Opened" Width="130">
-							<GridViewColumn.CellTemplate>
-								<DataTemplate>
-									<TextBlock Text="{Binding TimeOfOpeningCall}" />
-								</DataTemplate>
-							</GridViewColumn.CellTemplate>
-						</GridViewColumn>
+                        <GridViewColumn Header="Opened" Width="130">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding OpeningTime}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-						<GridViewColumn Header="Started" Width="130">
-							<GridViewColumn.CellTemplate>
-								<DataTemplate>
-									<TextBlock Text="{Binding TimeOfStartHandling}" />
-								</DataTemplate>
-							</GridViewColumn.CellTemplate>
-						</GridViewColumn>
+                        <GridViewColumn Header="Entry Time" Width="130">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding EntryTimeForHandling}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-						<GridViewColumn Header="Ended" Width="130">
-							<GridViewColumn.CellTemplate>
-								<DataTemplate>
-									<TextBlock Text="{Binding TimeOfEndHandling}" />
-								</DataTemplate>
-							</GridViewColumn.CellTemplate>
-						</GridViewColumn>
+                        <GridViewColumn Header="End Time" Width="130">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ActualHandlingEndTime}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-						<GridViewColumn Header="End Type" Width="100">
-							<GridViewColumn.CellTemplate>
-								<DataTemplate>
-									<TextBlock Text="{Binding EndType}" />
-								</DataTemplate>
-							</GridViewColumn.CellTemplate>
-						</GridViewColumn>
-					</GridView>
-				</ListView.View>
-			</ListView>
-		</DockPanel>
-	</Border>
+                        <GridViewColumn Header="Ending" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding TypeOfEnding}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </DockPanel>
+    </Border>
 </Window>
-

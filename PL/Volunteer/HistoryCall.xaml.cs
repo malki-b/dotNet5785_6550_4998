@@ -80,21 +80,11 @@ namespace PL.Volunteer
 
         }
 
-        //private void SelectionChangedInCallHistoryListProp(object sender, SelectionChangedEventArgs e)
-        //{
+        private void SelectionChangedInCallHistoryListProp(object sender, SelectionChangedEventArgs e)
+        {
             
-        //        try
-        //        {
-        //            VolunteerList = string.IsNullOrWhiteSpace(FilterText)
-        //                ? s_bl?.Volunteer.ReadAll()!
-        //                : s_bl?.Volunteer.GetFilteredAndSortedVolunteers(filterBy: VolunteerFilter, filterValue: FilterText)!;
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            MessageBox.Show($"אירעה שגיאה בעת עדכון רשימת המתנדבים: {ex.Message}", "שגיאת עדכון", MessageBoxButton.OK, MessageBoxImage.Error);
-        //        }
-            
-        //}
+             
+        }
 
         //private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         //{

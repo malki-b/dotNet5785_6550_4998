@@ -125,7 +125,7 @@ namespace PL.Volunteer
             try
             {
                 if (CurrentVolunteer?.CurrentCallInProgress != null)
-                    s_bl.Call.UpdateCallCompletion(VolunteerId, CurrentVolunteer.CurrentCallInProgress.CallId);
+                    s_bl.Call.UpdateCallCompletion(VolunteerId, CurrentVolunteer.CurrentCallInProgress.Id);
             }
             catch (Exception ex)
             {
@@ -139,7 +139,7 @@ namespace PL.Volunteer
             try
             {
                 if (CurrentVolunteer?.CurrentCallInProgress != null)
-                    s_bl.Call.UpdateCallCancellation(VolunteerId, CurrentVolunteer.CurrentCallInProgress.CallId);
+                    s_bl.Call.UpdateCallCancellation(VolunteerId, CurrentVolunteer.CurrentCallInProgress.Id);
             }
             catch (Exception ex)
             {

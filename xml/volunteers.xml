@@ -183,20 +183,6 @@
     <Max_Distance>20</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>214875379</Id>
-    <Name>Eliyahu Braun</Name>
-    <Phone>0565432198</Phone>
-    <Email>eliyahubraun@gmail.com</Email>
-    <Password>Braun2021!</Password>
-    <Role>Volunteer</Role>
-    <IsActive>false</IsActive>
-    <Type_Distance>Walking</Type_Distance>
-    <Address>6 Zamenhoff Street, Tel Aviv, Israel</Address>
-    <Latitude>32.066455</Latitude>
-    <Longitude>34.783553</Longitude>
-    <Max_Distance>10</Max_Distance>
-  </Volunteer>
-  <Volunteer>
     <Id>214388381</Id>
     <Name>Moshe Cohen</Name>
     <Phone>0549876543</Phone>
@@ -209,5 +195,19 @@
     <Latitude>32.062745</Latitude>
     <Longitude>34.770447</Longitude>
     <Max_Distance>3</Max_Distance>
+  </Volunteer>
+  <Volunteer>
+    <Id>214875379</Id>
+    <Name>Eliyahu Braun</Name>
+    <Phone>0565432198</Phone>
+    <Email>eliyahubraun@gmail.com</Email>
+    <Password>Braun2021!</Password>
+    <Role>Volunteer</Role>
+    <IsActive>true</IsActive>
+    <Type_Distance>Walking</Type_Distance>
+    <Address>6 Zamenhoff Street, Tel Aviv, Israel</Address>
+    <Latitude>32.066455</Latitude>
+    <Longitude>34.783553</Longitude>
+    <Max_Distance>10</Max_Distance>
   </Volunteer>
 </ArrayOfVolunteer>

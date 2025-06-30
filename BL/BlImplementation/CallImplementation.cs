@@ -518,7 +518,7 @@ internal class CallImplementation : ICall
                 throw new Exception("You do not have permission to cancel this call");
 
             // Ensure the assignment is still open
-            if (assignment.EndOfTreatmentTime != null) // שורה זו נבדקת אם זמן הסיום כבר קיים
+                if (assignment.EndOfTreatmentTime != null) // שורה זו נבדקת אם זמן הסיום כבר קיים
                 throw new Exception("Cannot cancel a call that has already been closed");
 
             // Create a new assignment with updated EntryTimeForTreatment
@@ -593,8 +593,8 @@ internal class CallImplementation : ICall
                 throw new Exception("Volunteer is not authorized to close this call");
 
             // Ensure the call is still open
-            if (assignment.TypeOfEnding == DO.TypeOfEnding.None)
-                throw new Exception("Call has already been closed or expired");
+            //if (assignment.TypeOfEnding == DO.TypeOfEnding.None)
+            //    throw new Exception("Call has already been closed or expired");
 
             // Update the assignment
 

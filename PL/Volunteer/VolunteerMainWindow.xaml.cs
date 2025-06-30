@@ -70,22 +70,22 @@ namespace PL.Volunteer
         {
             try
             {
-                if (_canUpdatePassword && !string.IsNullOrWhiteSpace(NewPassword))
-                {
-                    if (NewPassword.Length < 8)
-                    {
-                        MessageBox.Show("הסיסמא חייבת להיות לפחות 8 תווים.");
-                        return;
-                    }
+                //if (_canUpdatePassword && !string.IsNullOrWhiteSpace(NewPassword))
+                //{
+                //    if (NewPassword.Length < 8)
+                //    {
+                //        MessageBox.Show("הסיסמא חייבת להיות לפחות 8 תווים.");
+                //        return;
+                //    }
 
-                    if (!Helpers.VolunteerManager.IsStrongPassword(NewPassword))
-                    {
-                        MessageBox.Show("הסיסמא החדשה אינה חזקה מספיק (חייבת להכיל אות גדולה, אות קטנה, מספר ותו מיוחד)");
-                        return;
-                    }
+                //    if (!Helpers.VolunteerManager.IsStrongPassword(NewPassword))
+                //    {
+                //        MessageBox.Show("הסיסמא החדשה אינה חזקה מספיק (חייבת להכיל אות גדולה, אות קטנה, מספר ותו מיוחד)");
+                //        return;
+                //    }
 
-                    CurrentVolunteer.Password = NewPassword;
-                }
+                //    CurrentVolunteer.Password = NewPassword;
+                //}
 
                 s_bl.Volunteer.Update(VolunteerId, CurrentVolunteer);
                 MessageBox.Show($"המתנדב {CurrentVolunteer.Id} עודכן בהצלחה");

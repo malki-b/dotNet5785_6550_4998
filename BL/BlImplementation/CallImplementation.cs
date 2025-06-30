@@ -60,7 +60,20 @@ internal class CallImplementation : ICall
                 {
                     //Attempt to delete the volunteer from the data access layer
                     _dal.Call.Delete(callId);
+                  
+                    DO.Assignment assignment = _dal.Assignment.Read(a => a.CallId == callId) ??
+          throw new Exception("The requested assignment does not exist");
+
+
+                    var updatedAssignment = assignment with // יצירת אובייקט חדש עם הערכים המעודכנים
+                    {
+                        TypeOfEnding = DO.TypeOfEnding.ManagerCancellation, // עדכון זמן הסיום
+                        //TypeOfEnding = DO.TypeOfEnding.Teated // עדכון סוג הסיום
+                    };
+                    _dal.Assignment.Update(updatedAssignment); // עדכון האובייקט ב- DAL
+                    CallManager.Observers.NotifyItemUpdated(updatedAssignment.Id);
                     CallManager.Observers.NotifyListUpdated();
+
 
                 }
                 catch (DO.DalNotFoundException ex)

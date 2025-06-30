@@ -491,14 +491,14 @@
     <Id>1048</Id>
   </Call>
 	<Call>
-		<Address>aaaa Yisrael Yaakov St 12, Jerusalem</Address>
-		<Latitude>31.780179</Latitude>
-		<Longitude>35.221711</Longitude>
-		<OpeningTime>2025-06-22T18:40:01</OpeningTime>
-		<TypeOfReading>LongTermDanger</TypeOfReading>
-		<VerbalDescription>Fear of groins injury</VerbalDescription>
-		<MaxTimeFinishRead>2025-06-22T19:40:01</MaxTimeFinishRead>
-		<Id>2002</Id>
+	<Address>aaaa Yisrael Yaakov St 12, Jerusalem</Address>
+	<Latitude>31.780179</Latitude>
+	<Longitude>35.221711</Longitude>
+	<OpeningTime>2025-06-22T18:40:01</OpeningTime>
+	<TypeOfReading>LongTermDanger</TypeOfReading>
+	<VerbalDescription>Fear of groins injury</VerbalDescription>
+	<MaxTimeFinishRead>2025-06-22T19:40:01</MaxTimeFinishRead>
+	<Id>2002</Id>
 	</Call>
   <Call>
     <Address>Yisrael Yaakov St 12, Jerusalem</Address>
@@ -510,5 +510,4 @@
     <MaxTimeFinishRead>2025-06-22T19:40:01</MaxTimeFinishRead>
     <Id>1049</Id>
   </Call>
-	
 </ArrayOfCall>

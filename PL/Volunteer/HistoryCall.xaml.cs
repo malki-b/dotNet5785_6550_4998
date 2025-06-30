@@ -1,5 +1,4 @@
-﻿using BO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -70,31 +69,18 @@ namespace PL.Volunteer
             }
         }
         private void CallHistoryListObserver() => queryCallHistoryList();
-
-
         private void Window_Loaded(object sender, RoutedEventArgs e) => s_bl.Volunteer.AddObserver(CallHistoryListObserver);
         private void Window_Closed(object sender, EventArgs e) => s_bl.Volunteer.RemoveObserver(CallHistoryListObserver);
+
+        private void SelectionChangedInCallHistoryListProp(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
-
-        //private void SelectionChangedInCallHistoryListProp(object sender, SelectionChangedEventArgs e)
-        //{
-            
-        //        try
-        //        {
-        //            VolunteerList = string.IsNullOrWhiteSpace(FilterText)
-        //                ? s_bl?.Volunteer.ReadAll()!
-        //                : s_bl?.Volunteer.GetFilteredAndSortedVolunteers(filterBy: VolunteerFilter, filterValue: FilterText)!;
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            MessageBox.Show($"אירעה שגיאה בעת עדכון רשימת המתנדבים: {ex.Message}", "שגיאת עדכון", MessageBoxButton.OK, MessageBoxImage.Error);
-        //        }
-            
-        //}
 
         //private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         //{
@@ -155,4 +141,3 @@ namespace PL.Volunteer
 
     }
 }
-

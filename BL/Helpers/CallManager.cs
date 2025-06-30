@@ -24,6 +24,7 @@ internal static class CallManager
         var assignments = s_dal.Assignment.ReadAll(a => a.CallId == callId).ToList();
         Assignment? activeAssignment = assignments.Find(a => a.EndOfTreatmentTime == null);
         Assignment? handledAssignments = assignments.Find(a => a.EndOfTreatmentTime != null && a.TypeOfEnding == DO.TypeOfEnding.Teated);
+       // Assignment? historyAssignments = assignments.Find(a => a.EndOfTreatmentTime != null && a.TypeOfEnding != DO.TypeOfEnding.None);
 
         if (activeAssignment != null)
         {
@@ -134,7 +135,7 @@ internal static class CallManager
             var assignments = s_dal.Assignment.ReadAll()
                 .Where(a => a.VolunteerId == volunteerId &&
                             (isOpen ? CallManager.GetCallStatus(a.CallId) == Status.Open || CallManager.GetCallStatus(a.CallId) == Status.OpenAtRisk
-                                    : CallManager.GetCallStatus(a.CallId) == Status.Closed));
+                                    :( CallManager.GetCallStatus(a.CallId) == Status.Closed || a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation)));
 
             //(isOpen ? a.TypeOfEnding == DO.TypeOfEnding.Open || a.TypeOfEnding == DO.TypeOfEnding.OpenRisk
             //                        : a.TypeOfEnding == DO.TypeOfEnding.Closed));

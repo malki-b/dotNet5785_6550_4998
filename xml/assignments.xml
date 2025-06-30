@@ -193,14 +193,6 @@
     <Id>1025</Id>
   </Assignment>
   <Assignment>
-    <CallId>0</CallId>
-    <VolunteerId>0</VolunteerId>
-    <EntryTimeForTreatment>2025-06-30T15:57:51.7909581+03:00</EntryTimeForTreatment>
-    <EndOfTreatmentTime xsi:nil="true" />
-    <TypeOfEnding>None</TypeOfEnding>
-    <Id>0</Id>
-  </Assignment>
-  <Assignment>
     <CallId>1009</CallId>
     <VolunteerId>330986704</VolunteerId>
     <EntryTimeForTreatment>2025-06-22T20:40:32</EntryTimeForTreatment>
@@ -208,12 +200,12 @@
     <TypeOfEnding>Teated</TypeOfEnding>
     <Id>1015</Id>
   </Assignment>
-	<Assignment>
-		<CallId>2002</CallId>
-		<VolunteerId>330986704</VolunteerId>
-		<EntryTimeForTreatment>2025-06-22T20:40:32</EntryTimeForTreatment>
-		<EndOfTreatmentTime>2025-06-30T18:31:40.4737995+03:00</EndOfTreatmentTime>
-		<TypeOfEnding>Teated</TypeOfEnding>
-		<Id>1015</Id>
-	</Assignment>
+  <Assignment>
+    <CallId>2002</CallId>
+    <VolunteerId>330986704</VolunteerId>
+    <EntryTimeForTreatment>2025-06-30T20:40:32</EntryTimeForTreatment>
+    <EndOfTreatmentTime>2025-06-30T21:02:23.8115135+03:00</EndOfTreatmentTime>
+    <TypeOfEnding>SelfCancellation</TypeOfEnding>
+    <Id>2020</Id>
+  </Assignment>
 </ArrayOfAssignment>

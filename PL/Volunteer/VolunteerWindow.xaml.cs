@@ -1,16 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL.Volunteer;
 
@@ -20,6 +9,7 @@ namespace PL.Volunteer;
 public partial class VolunteerWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
     public VolunteerWindow(int id = 0)
     {
         try
@@ -49,7 +39,7 @@ public partial class VolunteerWindow : Window
         }
         catch (Exception ex)
         {
-            MessageBox.Show("אירעה שגיאה בטעינת פרטי המתנדב. אנא נסה שוב מאוחר יותר.", "שגיאת טעינה", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"אירעה שגיאה בטעינת פרטי המתנדב: {ex.Message}", "שגיאת טעינה", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -84,25 +74,26 @@ public partial class VolunteerWindow : Window
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"ה{ButtonText} נכשל: אירעה שגיאה. אנא נסה שוב.", "שגיאת עדכון", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"ה{ButtonText} נכשל: {ex.Message}", "שגיאת עדכון", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
     private void VolunteerObserver()
     {
         int id = CurrentVolunteer!.Id;
-        CurrentVolunteer = null;
         CurrentVolunteer = s_bl.Volunteer.Read(id);
     }
+
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
         try
         {
-            if (CurrentVolunteer!.Id != 0)
-                s_bl.Volunteer.AddObserver(CurrentVolunteer!.Id, VolunteerObserver);
+            if (CurrentVolunteer != null && CurrentVolunteer.Id != 0)
+                s_bl.Volunteer.AddObserver(CurrentVolunteer.Id, VolunteerObserver);
         }
         catch (Exception ex)
         {
-            MessageBox.Show("אירעה שגיאה במהלך הוספת המעקב למתנדב. אנא נסה שוב.", "שגיאת מעקב", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"אירעה שגיאה במהלך הוספת המעקב למתנדב: {ex.Message}", "שגיאת מעקב", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -110,12 +101,12 @@ public partial class VolunteerWindow : Window
     {
         try
         {
-            s_bl.Volunteer.RemoveObserver(CurrentVolunteer!.Id, VolunteerObserver);
+            if (CurrentVolunteer != null)
+                s_bl.Volunteer.RemoveObserver(CurrentVolunteer.Id, VolunteerObserver);
         }
         catch (Exception ex)
         {
-            MessageBox.Show("אירעה שגיאה במהלך הסרת המעקב למתנדב. אנא נסה שוב.", "שגיאת הסרה", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"אירעה שגיאה במהלך הסרת המעקב למתנדב: {ex.Message}", "שגיאת הסרה", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
-

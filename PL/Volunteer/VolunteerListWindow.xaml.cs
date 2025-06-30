@@ -14,6 +14,7 @@ namespace PL.Volunteer
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public VolunteerInListFields VolunteerFilter { get; set; } = VolunteerInListFields.None;
         public VolunteerInList? SelectedVolunteer { get; set; }
+
         public VolunteerListWindow()
         {
             InitializeComponent();
@@ -21,6 +22,7 @@ namespace PL.Volunteer
             Closed += VolunteerWindow_Closed;
             queryVolunteerList();
         }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -60,7 +62,7 @@ namespace PL.Volunteer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("אירעה שגיאה בעת עדכון הפילטר. אנא נסה שוב מאוחר יותר.", "שגיאת פילטר", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"אירעה שגיאה בעת עדכון הפילטר: {ex.Message}", "שגיאת פילטר", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -76,14 +78,12 @@ namespace PL.Volunteer
                 }
                 else
                 {
-                    VolunteerList = string.IsNullOrWhiteSpace(FilterText)
-                  ? s_bl?.Volunteer.ReadAll()!
-                  : s_bl?.Volunteer.GetFilteredAndSortedVolunteers(filterBy: VolunteerFilter, filterValue: FilterText)!;
+                    VolunteerList = s_bl?.Volunteer.GetFilteredAndSortedVolunteers(filterBy: VolunteerFilter, filterValue: FilterText) ?? Enumerable.Empty<VolunteerInList>();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("סינון" + ex.Message);
+                MessageBox.Show($"אירעה שגיאה בעת סינון: {ex.Message}", "שגיאת סינון", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -95,14 +95,15 @@ namespace PL.Volunteer
                     s_bl?.Volunteer.ReadAll()! :
                     s_bl?.Volunteer.ReadAll(null, null)!;
 
-                AllVolunteers = volunteers.ToList(); 
-                ApplyFilter(); 
+                AllVolunteers = volunteers.ToList();
+                ApplyFilter();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("טעינת הרשימה נכשלה. אנא נסה שוב מאוחר יותר.", "שגיאת טעינה", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"טעינת הרשימה נכשלה: {ex.Message}", "שגיאת טעינה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void volunteerListObserver() => queryVolunteerList();
 
         private void VolunteerWindow_Loaded(object sender, RoutedEventArgs e)
@@ -114,7 +115,7 @@ namespace PL.Volunteer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("אירעה שגיאה במהלך טעינת החלון. אנא נסה שוב מאוחר יותר.", "שגיאת טעינה", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"אירעה שגיאה במהלך טעינת החלון: {ex.Message}", "שגיאת טעינה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -126,7 +127,7 @@ namespace PL.Volunteer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("אירעה שגיאה במהלך סגירת החלון. אנא נסה שוב.", "שגיאת סגירה", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"אירעה שגיאה במהלך סגירת החלון: {ex.Message}", "שגיאת סגירה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -141,7 +142,7 @@ namespace PL.Volunteer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("אירעה שגיאה בעת פתיחת חלון המתנדב. אנא נסה שוב.", "שגיאת פתיחה", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"אירעה שגיאה בעת פתיחת חלון המתנדב: {ex.Message}", "שגיאת פתיחה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -155,7 +156,7 @@ namespace PL.Volunteer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("אירעה שגיאה בעת עדכון רשימת המתנדבים. אנא נסה שוב.", "שגיאת עדכון", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"אירעה שגיאה בעת עדכון רשימת המתנדבים: {ex.Message}", "שגיאת עדכון", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -167,10 +168,9 @@ namespace PL.Volunteer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("אירעה שגיאה בעת הוספת מתנדב. אנא נסה שוב.", "שגיאת הוספה", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"אירעה שגיאה בעת הוספת מתנדב: {ex.Message}", "שגיאת הוספה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
 
         private void DeleteVolunteer_click(object sender, RoutedEventArgs e)
         {
@@ -183,10 +183,11 @@ namespace PL.Volunteer
                     try
                     {
                         s_bl.Volunteer.Delete(volunteer.VolunteerId);
+                        queryVolunteerList(); // Reload the list after deletion
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("המחיקה נכשלה: " + ex.Message);
+                        MessageBox.Show($"המחיקה נכשלה: {ex.Message}", "שגיאת מחיקה", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -194,15 +195,12 @@ namespace PL.Volunteer
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            // אפשר להוסיף לוגיקה אם יש צורך
         }
 
-       
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             new VolunteerWindow().Show();
         }
     }
 }
-
-

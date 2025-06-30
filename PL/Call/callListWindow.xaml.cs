@@ -103,6 +103,7 @@ namespace PL.Call
                 MessageBox.Show("טעינת הרשימה נכשלה. אנא נסה שוב מאוחר יותר.", "שגיאת טעינה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void callListObserver() => queryCallList();
 
         private void CallWindow_Loaded(object sender, RoutedEventArgs e)

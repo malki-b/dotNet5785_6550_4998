@@ -67,7 +67,7 @@
                       Margin="20,0,20,20"
                       BorderThickness="1"
                       BorderBrush="#e1e6f2"
-                      Background="White" Width="827">
+                      Background="White" Width="827" SelectionChanged="ListView_SelectionChanged">
 				<ListView.View>
 					<GridView AllowsColumnReorder="True">
 						<GridViewColumn Header="ID" Width="60">

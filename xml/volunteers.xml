@@ -4,7 +4,7 @@
     <Id>060164563</Id>
     <Name>Avraham Goldstein</Name>
     <Phone>0506543298</Phone>
-    <Email>avrahamgoldstein@gmail.com</Email> 
+    <Email>avrahamgoldstein@gmail.com</Email>
     <Password>Gmail1234!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
@@ -208,6 +208,6 @@
     <Address>12 Rothschild Boulevard, Tel Aviv, Israel</Address>
     <Latitude>32.062745</Latitude>
     <Longitude>34.770447</Longitude>
-    <Max_Distance>2</Max_Distance>
+    <Max_Distance>3</Max_Distance>
   </Volunteer>
 </ArrayOfVolunteer>

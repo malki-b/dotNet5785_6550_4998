@@ -39,47 +39,47 @@
         </Grid.RowDefinitions>
 
         <!-- שדות -->
-        <Label Content="ID:" Grid.Row="0" Grid.Column="0"/>
-        <TextBox Text="{Binding CurrentVolunteer.Id}" Style="{StaticResource InputStyle}" Grid.Row="0" Grid.Column="1" IsReadOnly="True" TextChanged="TextBox_TextChanged"/>
+        <Label Content="ID:" Grid.Row="1" Grid.Column="0"/>
+        <TextBox Text="{Binding CurrentVolunteer.Id}" Style="{StaticResource InputStyle}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" TextChanged="TextBox_TextChanged"/>
 
-        <Label Content="Name:" Grid.Row="1" Grid.Column="0"/>
-        <TextBox Text="{Binding CurrentVolunteer.FullName}" Style="{StaticResource InputStyle}" Grid.Row="1" Grid.Column="1"/>
+        <Label Content="Name:" Grid.Row="2" Grid.Column="0"/>
+        <TextBox Text="{Binding CurrentVolunteer.FullName}" Style="{StaticResource InputStyle}" Grid.Row="2" Grid.Column="1"/>
 
-        <Label Content="Phone:" Grid.Row="2" Grid.Column="0"/>
-        <TextBox Text="{Binding CurrentVolunteer.Phone}" Style="{StaticResource InputStyle}" Grid.Row="2" Grid.Column="1"/>
+        <Label Content="Phone:" Grid.Row="3" Grid.Column="0"/>
+        <TextBox Text="{Binding CurrentVolunteer.Phone}" Style="{StaticResource InputStyle}" Grid.Row="3" Grid.Column="1"/>
 
 
-        <Label Content="Email:" Grid.Row="3" Grid.Column="0"/>
-        <TextBox Text="{Binding CurrentVolunteer.Email}" Style="{StaticResource InputStyle}" Grid.Row="3" Grid.Column="1"/>
+        <Label Content="Email:" Grid.Row="4" Grid.Column="0"/>
+        <TextBox Text="{Binding CurrentVolunteer.Email}" Style="{StaticResource InputStyle}" Grid.Row="4" Grid.Column="1"/>
 
-        <Label Content="Password:" Grid.Row="4" Grid.Column="0"/>
-        <TextBox Text="{Binding CurrentVolunteer.Password}" Style="{StaticResource InputStyle}" Grid.Row="4" Grid.Column="1"/>
+        <Label Content="Password:" Grid.Row="5" Grid.Column="0"/>
+        <TextBox Text="{Binding CurrentVolunteer.Password}" Style="{StaticResource InputStyle}" Grid.Row="5" Grid.Column="1"/>
 
         <!--<Label Content="Password:" Grid.Row="4" Grid.Column="0"/>
         <PasswordBox Grid.Row="4" Grid.Column="1" Style="{StaticResource InputStyle}"
          />-->
 
-        <Label Content="Role:" Grid.Row="5" Grid.Column="0"/>
+        <Label Content="Role:" Grid.Row="6" Grid.Column="0"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource RolesCollectionKey}}" 
                   SelectedItem="{Binding CurrentVolunteer.Role}" 
-                  Style="{StaticResource InputStyle}" Grid.Row="5" Grid.Column="1"/>
-
-        <Label Content="Active?" Grid.Row="6" Grid.Column="0"/>
-        <CheckBox IsChecked="{Binding CurrentVolunteer.IsActive}" 
                   Style="{StaticResource InputStyle}" Grid.Row="6" Grid.Column="1"/>
 
-        <Label Content="Distance Type:" Grid.Row="7" Grid.Column="0"/>
-        <ComboBox ItemsSource="{Binding Source={StaticResource DistanceCollectionKey}}" 
-                  SelectedItem="{Binding CurrentVolunteer.TypeDistance}" 
+        <Label Content="Active?" Grid.Row="7" Grid.Column="0"/>
+        <CheckBox IsChecked="{Binding CurrentVolunteer.IsActive}" 
                   Style="{StaticResource InputStyle}" Grid.Row="7" Grid.Column="1"/>
 
-        <Label Content="Address:" Grid.Row="8" Grid.Column="0"/>
-        <TextBox Text="{Binding CurrentVolunteer.Address}" 
-                 Style="{StaticResource InputStyle}" Grid.Row="8" Grid.Column="1"/>
+        <Label Content="Distance Type:" Grid.Row="8" Grid.Column="0"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource DistanceCollectionKey}}" 
+                  SelectedItem="{Binding CurrentVolunteer.TypeDistance}" 
+                  Style="{StaticResource InputStyle}" Grid.Row="8" Grid.Column="1"/>
 
-        <Label Content="Max Distance:" Grid.Row="9" Grid.Column="0"/>
-        <TextBox Text="{Binding CurrentVolunteer.MaxDistance}" 
+        <Label Content="Address:" Grid.Row="9" Grid.Column="0"/>
+        <TextBox Text="{Binding CurrentVolunteer.Address}" 
                  Style="{StaticResource InputStyle}" Grid.Row="9" Grid.Column="1"/>
+
+        <Label Content="Max Distance:" Grid.Row="10" Grid.Column="0"/>
+        <TextBox Text="{Binding CurrentVolunteer.MaxDistance}" 
+                 Style="{StaticResource InputStyle}" Grid.Row="10" Grid.Column="1"/>
 
         <!--כפתור עם Border-->
 
@@ -98,7 +98,7 @@
             Background="#4CD8C2" BorderThickness="0"/>
         </Border>
 
-        <StackPanel Margin="0,30,0,0"
+        <StackPanel Margin="0,20,0,0"
                     Visibility="{Binding CurrentVolunteer.CurrentCallInProgress, Converter={StaticResource NullToVisibilityConverterKey}}">
             <TextBlock Text="Current Call in Progress"
                        FontSize="20"

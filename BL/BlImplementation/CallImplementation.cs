@@ -645,6 +645,153 @@ internal class CallImplementation : ICall
 
 
 
+
+    ///// <summary>
+    ///// Retrieves a filtered and sorted list of calls based on optional filtering and sorting criteria.
+    ///// </summary>
+    ///// <param name="filterBy">Optional property to filter by.</param>
+    ///// <param name="filterValue">Value to filter the specified property by.</param>
+    ///// <param name="sortBy">Optional property to sort results by.</param>
+    ///// <returns>An <see cref="IEnumerable{BO.CallInList}"/> containing the filtered and sorted calls.</returns>
+    //public IEnumerable<BO.CallInList> GetFilteredAndSortedCalls(
+    //    BO.CallInListFields? filterBy = null,
+    //    object? filterValue = null,
+    //    BO.CallInListFields? sortBy = null)
+    //{
+    //    IEnumerable<DO.Call> allCalls = _dal.Call.ReadAll().ToList();
+
+    //    IEnumerable<BO.CallInList> callsList = allCalls.Select(call =>
+    //    {
+    //        var callAssignments = _dal.Assignment.ReadAll(a => a.CallId == call.Id);
+
+    //        int TotalHandledRequests = callAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.Teated);
+    //        int TotalCanceledRequests = callAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation || a.TypeOfEnding == DO.TypeOfEnding.ManagerCancellation);
+    //        int TotalExpiredRequests = callAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.CancellationHasExpired);
+
+    //        var currentCallHandled = callAssignments.FirstOrDefault(a => a.TypeOfEnding == null);
+    //        var currentCallId = currentCallHandled?.CallId;
+    //        BO.TypeOfReading callType = currentCallId.HasValue ? (BO.TypeOfReading)_dal.Call.Read(currentCallId.Value)!.TypeOfReading : (BO.TypeOfReading)DO.TypeOfReading.None;
+
+    //        return new BO.CallInList
+    //        {
+    //            CallId = call.Id,
+    //            AssignmentId = call.Id,
+    //            IsActive = call.IsActive ?? false,
+    //            TotalHandledRequests = TotalHandledRequests,
+    //            TotalCanceledRequests = TotalCanceledRequests,
+    //            TotalExpiredRequests = TotalExpiredRequests,
+    //            HandledRequestId = currentCallId,
+    //            TypeOfReading = callType
+    //        };
+    //    });
+
+    //    // Filtering
+    //    if (filterBy != null && filterValue != null)
+    //    {
+    //        callsList = filterBy switch
+    //        {
+    //            BO.CallInListFields.CallId => callsList.Where(c => c.CallId.Equals(Convert.ToInt32(filterValue))),
+    //            BO.CallInListFields.FullName => callsList.Where(c => c.FullName.Equals(filterValue.ToString())),
+    //            BO.CallInListFields.IsActive => callsList.Where(c => c.IsActive.Equals(Convert.ToBoolean(filterValue))),
+    //            BO.CallInListFields.TotalHandledRequests => callsList.Where(c => c.TotalHandledRequests.Equals(Convert.ToInt32(filterValue))),
+    //            BO.CallInListFields.TotalCanceledRequests => callsList.Where(c => c.TotalCanceledRequests.Equals(Convert.ToInt32(filterValue))),
+    //            BO.CallInListFields.TotalExpiredRequests => callsList.Where(c => c.TotalExpiredRequests.Equals(Convert.ToInt32(filterValue))),
+    //            BO.CallInListFields.HandledRequestId => callsList.Where(c => c.HandledRequestId.Equals(Convert.ToInt32(filterValue))),
+    //            BO.CallInListFields.TypeOfReading => callsList.Where(c => c.TypeOfReading.Equals((BO.TypeOfReading)filterValue)),
+    //            _ => callsList
+    //        };
+    //    }
+
+    //    // Sorting
+    //    callsList = sortBy switch
+    //    {
+    //        BO.CallInListFields.CallId => callsList.OrderBy(c => c.CallId),
+    //        BO.CallInListFields.FullName => callsList.OrderBy(c => c.FullName),
+    //        BO.CallInListFields.IsActive => callsList.OrderBy(c => c.IsActive),
+    //        BO.CallInListFields.TotalHandledRequests => callsList.OrderBy(c => c.TotalHandledRequests),
+    //        BO.CallInListFields.TotalCanceledRequests => callsList.OrderBy(c => c.TotalCanceledRequests),
+    //        BO.CallInListFields.TotalExpiredRequests => callsList.OrderBy(c => c.TotalExpiredRequests),
+    //        BO.CallInListFields.HandledRequestId => callsList.OrderBy(c => c.HandledRequestId),
+    //        BO.CallInListFields.TypeOfReading => callsList.OrderBy(c => c.TypeOfReading),
+    //        _ => callsList.OrderBy(c => c.CallId)
+    //    };
+
+    //    return callsList;
+    //}
+    /// <summary>
+    /// Retrieves a filtered and sorted list of calls based on optional filtering and sorting criteria.
+    /// </summary>
+    /// <param name="filterBy">Optional property to filter by.</param>
+    /// <param name="filterValue">Value to filter the specified property by.</param>
+    /// <param name="sortBy">Optional property to sort results by.</param>
+    /// <returns>An <see cref="IEnumerable{BO.CallInList}"/> containing the filtered and sorted calls.</returns>
+    public IEnumerable<BO.CallInList> GetFilteredAndSortedCalls(
+        BO.CallInListFields? filterBy = null,
+        object? filterValue = null,
+        BO.CallInListFields? sortBy = null)
+    {
+        IEnumerable<DO.Call> allCalls = _dal.Call.ReadAll().ToList();
+
+        IEnumerable<BO.CallInList> callsList = allCalls.Select(call =>
+        {
+            var callAssignments = _dal.Assignment.ReadAll(a => a.CallId == call.Id);
+
+            int totalAssignments = callAssignments.Count();
+            var lastVolunteer = callAssignments.LastOrDefault();
+            string lastVolunteerName = lastVolunteer != null ? _dal.Volunteer.Read(lastVolunteer.VolunteerId)?.Name : null;
+
+            TimeSpan? totalHandlingTime = callAssignments.Sum(a => a.EndOfTreatmentTime - a.EntryTimeForTreatment);
+            
+            return new BO.CallInList
+            {
+                AssignmentId = lastVolunteer?.Id,
+                CallId = call.Id,
+                TypeOfReading = (BO.TypeOfReading)call.TypeOfReading,
+                OpeningTime = call.OpeningTime,
+                RemainingTimeToEndCall = call.MaxCompletionTime - (DateTime.Now - call.OpeningTime),
+                LastVolunteerName = lastVolunteerName,
+                TotalHandlingTime = totalHandlingTime,
+                Status = call.Status,
+                TotalAssignments = totalAssignments
+            };
+        });
+
+        // Filtering
+        if (filterBy != null && filterValue != null)
+        {
+            callsList = filterBy switch
+            {
+                BO.CallInListFields.CallId => callsList.Where(c => c.CallId.Equals(Convert.ToInt32(filterValue))),
+                BO.CallInListFields.TypeOfReading => callsList.Where(c => c.TypeOfReading.Equals((BO.TypeOfReading)filterValue)),
+                BO.CallInListFields.OpeningTime => callsList.Where(c => c.OpeningTime.Equals(Convert.ToDateTime(filterValue))),
+                BO.CallInListFields.RemainingTimeToEndCall => callsList.Where(c => c.RemainingTimeToEndCall.Equals(Convert.ToTimeSpan(filterValue))),
+                BO.CallInListFields.LastVolunteerName => callsList.Where(c => c.LastVolunteerName.Equals(filterValue.ToString())),
+                BO.CallInListFields.TotalHandlingTime => callsList.Where(c => c.TotalHandlingTime.Equals(Convert.ToTimeSpan(filterValue))),
+                BO.CallInListFields.Status => callsList.Where(c => c.Status.Equals((BO.Status)filterValue)),
+                BO.CallInListFields.TotalAssignments => callsList.Where(c => c.TotalAssignments.Equals(Convert.ToInt32(filterValue))),
+                _ => callsList
+            };
+        }
+
+        // Sorting
+        callsList = sortBy switch
+        {
+            BO.CallInListFields.CallId => callsList.OrderBy(c => c.CallId),
+            BO.CallInListFields.TypeOfReading => callsList.OrderBy(c => c.TypeOfReading),
+            BO.CallInListFields.OpeningTime => callsList.OrderBy(c => c.OpeningTime),
+            BO.CallInListFields.RemainingTimeToEndCall => callsList.OrderBy(c => c.RemainingTimeToEndCall),
+            BO.CallInListFields.LastVolunteerName => callsList.OrderBy(c => c.LastVolunteerName),
+            BO.CallInListFields.TotalHandlingTime => callsList.OrderBy(c => c.TotalHandlingTime),
+            BO.CallInListFields.Status => callsList.OrderBy(c => c.Status),
+            BO.CallInListFields.TotalAssignments => callsList.OrderBy(c => c.TotalAssignments),
+            _ => callsList.OrderBy(c => c.CallId)
+        };
+
+        return callsList;
+    }
+
+
+
     #region Stage 5
     public void AddObserver(Action listObserver) =>
     CallManager.Observers.AddListObserver(listObserver); //stage 5

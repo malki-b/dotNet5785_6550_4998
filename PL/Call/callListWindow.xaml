@@ -23,7 +23,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="Select Semester:" Grid.Column="0" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{Binding Source={StaticResource CallCollectionKey}}"
+            <ComboBox ItemsSource="{Binding Source={StaticResource CallFieldCollectionKey}}"
                       SelectedValue="{Binding CallFilter, Mode=TwoWay}"
                       SelectionChanged="ComboBox_SelectionChanged"
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"/>

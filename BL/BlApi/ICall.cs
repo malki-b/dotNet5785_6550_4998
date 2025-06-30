@@ -93,4 +93,10 @@ public interface ICall: IObservable
     /// <param name="volunteerId">The ID of the volunteer.</param>
     /// <param name="callId">The ID of the call to be treated.</param>
     public void SelectCallForTreatment(int volunteerId, int callId);
+    IEnumerable<BO.CallInList> GetFilteredAndSortedCalls(
+   BO.CallInListFields? filterBy = null,
+   object? filterValue = null,
+   BO.CallInListFields? sortBy = null);
+
+
 }

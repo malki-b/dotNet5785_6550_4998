@@ -193,3 +193,17 @@ public enum OpenCallField
     MaxCompletionTime,
     DistanceFromVolunteer
 }
+
+public enum CallInListFields
+{
+    None,
+    AssignmentId,
+    CallId,
+    TypeOfReading,
+    OpeningTime,
+    RemainingTimeToEndCall,
+    LastVolunteerName,
+    TotalHandlingTime,
+    Status,
+    TotalAssignments
+}

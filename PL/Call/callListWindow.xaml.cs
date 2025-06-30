@@ -12,7 +12,7 @@ namespace PL.Call
     public partial class CallListWindow : Window, INotifyPropertyChanged
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-       // public CallInListFields CallFilter { get; set; } = CallInListFields.None;
+        public CallInListFields CallFilter { get; set; } = CallInListFields.None;
         public CallInList? SelectedCall { get; set; }
         public CallListWindow()
         {

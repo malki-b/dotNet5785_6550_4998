@@ -22,11 +22,11 @@
     <Password>SecretPass!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>None</Type_Distance>
+    <Type_Distance>Air</Type_Distance>
     <Address>18 Bialik Street, Ramat Gan, Israel</Address>
     <Latitude>34.774574</Latitude>
     <Longitude>32.069773</Longitude>
-    <Max_Distance>0</Max_Distance>
+    <Max_Distance>25000000000</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>053050639</Id>

@@ -204,8 +204,8 @@
     <CallId>2002</CallId>
     <VolunteerId>330986704</VolunteerId>
     <EntryTimeForTreatment>2025-06-30T20:40:32</EntryTimeForTreatment>
-    <EndOfTreatmentTime>2025-06-30T21:02:23.8115135+03:00</EndOfTreatmentTime>
-    <TypeOfEnding>SelfCancellation</TypeOfEnding>
+    <EndOfTreatmentTime>2025-06-30T22:16:56.4746964+03:00</EndOfTreatmentTime>
+    <TypeOfEnding>Teated</TypeOfEnding>
     <Id>2020</Id>
   </Assignment>
 </ArrayOfAssignment>

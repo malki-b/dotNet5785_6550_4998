@@ -510,4 +510,14 @@
     <MaxTimeFinishRead>2025-06-22T19:40:01</MaxTimeFinishRead>
     <Id>1049</Id>
   </Call>
+	<Call>
+		<Address>18 Bialik Street, Ramat Gan, Israel</Address>
+		<Latitude>34.774574</Latitude>
+		<Longitude>32.069773</Longitude>
+		<OpeningTime>2024-06-22T18:40:01</OpeningTime>
+		<TypeOfReading>LongTermDanger</TypeOfReading>
+		<VerbalDescription>Fearr of groins injury</VerbalDescription>
+		<MaxTimeFinishRead>2029-06-22T19:40:01</MaxTimeFinishRead>
+		<Id>1050</Id>
+	</Call>
 </ArrayOfCall>

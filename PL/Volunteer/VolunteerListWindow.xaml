@@ -35,7 +35,7 @@
         <ListView ItemsSource="{Binding VolunteerList}"
                   SelectedItem="{Binding SelectedVolunteer, Mode=TwoWay}"
                   MouseDoubleClick="Volunteer_MouseDoubleClick"
-                  Grid.Row="1" Margin="0,0,0,10">
+                  Grid.Row="1" Margin="0,0,0,10" SelectionChanged="ListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding VolunteerId}" Width="80"/>

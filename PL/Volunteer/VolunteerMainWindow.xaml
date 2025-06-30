@@ -1,7 +1,7 @@
 ﻿<Window x:Class="PL.Volunteer.VolunteerMainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Volunteer Details" Height="700" Width="700" Background="#F9FAFC"
+        Title="Volunteer Details" Height="770" Width="700" Background="#F9FAFC"
         WindowStartupLocation="CenterScreen"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
@@ -83,14 +83,14 @@
 
         <!--כפתור עם Border-->
 
-        <Border CornerRadius="6" Background="#4CD8C2" Margin="98,35,199,-74" Grid.Column="1" Grid.Row="11">
+        <Border CornerRadius="6" Background="#4CD8C2" Margin="98,35,199,74" Grid.Column="1" Grid.Row="11">
             <Button Content="update" 
             Click="update_Click" Width="223" 
             HorizontalAlignment="Center" 
             Foreground="#4CD8C2" FontWeight="Bold"
             BorderThickness="0"/>
         </Border>
-        <Border CornerRadius="6" Background="#4CD8C2" Margin="98,35,199,-74" Grid.Column="1" Grid.Row="11">
+        <Border CornerRadius="6" Background="#4CD8C2" Margin="98,35,199,74" Grid.Column="1" Grid.Row="11">
             <Button  Content="update" 
             Click="update_Click" Width="224" 
             HorizontalAlignment="Center" 
@@ -121,7 +121,7 @@
         </StackPanel>
 
         <!-- Action Buttons -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,89,0,10" Grid.Column="1" Grid.RowSpan="3">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="176,110,0,-11" Grid.Row="11" Grid.ColumnSpan="2">
             <Button Content="Call History" Width="140" Height="36"
                     Click="OpenHistory_Click" Margin="0,0,12,0"/>
             <Button Content="Available Calls" Width="140" Height="36"

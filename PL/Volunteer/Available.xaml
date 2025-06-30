@@ -9,23 +9,22 @@
         FontFamily="Segoe UI"
         Background="#f7faff">
 
+    <Border>
+        <DockPanel LastChildFill="True" Margin="0">
 
-	<Border>
-		<DockPanel LastChildFill="True" Margin="0">
-
-			<!-- Header Section -->
-			<StackPanel DockPanel.Dock="Top" Orientation="Vertical" Margin="0,0,0,20">
-				<TextBlock Text="Available Calls List"
+            <!-- Header Section -->
+            <StackPanel DockPanel.Dock="Top" Orientation="Vertical" Margin="0,0,0,20">
+                <TextBlock Text="Available Calls List"
                            FontSize="26"
                            FontWeight="Bold"
                            Foreground="#4CD8C2"
                            Margin="20,10,0,10" Width="228"/>
 
-				<!-- Filters Row -->
-				<UniformGrid Columns="2" Margin="20,0,20,0" HorizontalAlignment="Stretch" Width="822">
-					<!-- Sorting -->
-					<StackPanel Orientation="Vertical" Margin="0,0,12,0">
-						<TextBlock Text="Sort by"
+                <!-- Filters Row -->
+                <UniformGrid Columns="2" Margin="20,0,20,0" HorizontalAlignment="Stretch" Width="822">
+                    <!-- Sorting -->
+                    <StackPanel Orientation="Vertical" Margin="0,0,12,0">
+                        <TextBlock Text="Sort by"
                                    FontSize="14"
                                    FontWeight="SemiBold"
                                    Margin="0,0,0,4"/>
@@ -34,11 +33,11 @@
                                   SelectionChanged="SelectionChangedInOpenCallListProp"
                                   Height="32"
                                   FontSize="14"/>
-					</StackPanel>
+                    </StackPanel>
 
-					<!-- Filter by Type -->
-					<StackPanel Orientation="Vertical" Margin="0,0,12,0">
-						<TextBlock Text="Filter by Type"
+                    <!-- Filter by Type -->
+                    <StackPanel Orientation="Vertical" Margin="0,0,12,0">
+                        <TextBlock Text="Filter by Type"
                                    FontSize="14"
                                    FontWeight="SemiBold"
                                    Margin="0,0,0,4"/>
@@ -47,97 +46,16 @@
                                   SelectedValue="{Binding Path=TypeOfCallFilterProp, Mode=TwoWay}"
                                   Height="32"
                                   FontSize="14"/>
-					</StackPanel>
+                    </StackPanel>
+                </UniformGrid>
+            </StackPanel>
 
-					<!-- Future filter placeholder -->
-					<!--<StackPanel Orientation="Vertical">
-                        <TextBlock Text="(Other Filter)"
-                                   FontSize="14"
-                                   FontWeight="SemiBold"
-                                   Margin="0,0,0,4"/>
-                        <ComboBox Height="32"
-                                  FontSize="14"
-                                  IsEnabled="False" SelectionChanged="ComboBox_SelectionChanged"
-                               />
-                    </StackPanel>-->
-				</UniformGrid>
-			</StackPanel>
-
-			<!-- ListView Section -->
-			<ListView ItemsSource="{Binding Path=OpenCallList}"
+            <!-- ListView Section -->
+            <ListView ItemsSource="{Binding Path=OpenCallList}"
                       Margin="20,0,20,20"
                       BorderThickness="1"
                       BorderBrush="#e1e6f2"
                       Background="White" Width="827" SelectionChanged="ListView_SelectionChanged">
-				<ListView.View>
-					<GridView AllowsColumnReorder="True">
-						<GridViewColumn Header="ID" Width="60">
-							<GridViewColumn.CellTemplate>
-								<DataTemplate>
-                                    <TextBlock Text="{Binding Id}" />
-								</DataTemplate>
-							</GridViewColumn.CellTemplate>
-						</GridViewColumn>
-
-						<GridViewColumn Header="Type of Call" Width="120">
-							<GridViewColumn.CellTemplate>
-								<DataTemplate>
-                                    <TextBlock Text="{Binding TypeOfReading}" />
-								</DataTemplate>
-							</GridViewColumn.CellTemplate>
-						</GridViewColumn>
-
-						<GridViewColumn Header="Description Of Call" Width="120">
-							<GridViewColumn.CellTemplate>
-								<DataTemplate>
-                                    <TextBlock Text="{Binding Description}" />
-								</DataTemplate>
-							</GridViewColumn.CellTemplate>
-						</GridViewColumn>
-
-						<GridViewColumn Header="Address" Width="150">
-							<GridViewColumn.CellTemplate>
-								<DataTemplate>
-                                    <TextBlock Text="{Binding FullAddress}" />
-								</DataTemplate>
-							</GridViewColumn.CellTemplate>
-						</GridViewColumn>
-
-						<GridViewColumn Header="Opened" Width="130">
-							<GridViewColumn.CellTemplate>
-								<DataTemplate>
-                                    <TextBlock Text="{Binding OpeningTime}" />
-								</DataTemplate>
-							</GridViewColumn.CellTemplate>
-						</GridViewColumn>
-
-						<GridViewColumn Header="Ended" Width="130">
-							<GridViewColumn.CellTemplate>
-								<DataTemplate>
-                                    <TextBlock Text="{Binding MaxCompletionTime}" />
-								</DataTemplate>
-							</GridViewColumn.CellTemplate>
-						</GridViewColumn>
-
-						<GridViewColumn Header="DistanceFromTheVolunteer" Width="130">
-							<GridViewColumn.CellTemplate>
-								<DataTemplate>
-                                    <TextBlock Text="{Binding DistanceFromVolunteer}" />
-								</DataTemplate>
-							</GridViewColumn.CellTemplate>
-						</GridViewColumn>
-					</GridView>
-				</ListView.View>
-			</ListView>
-			<!--<ListView ItemsSource="{Binding OpenCallList}"
-          SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
-          SelectionChanged="ListView_SelectionChanged"
-          MouseDoubleClick="lsvVolunteerList_MouseDoubleClick"
-          Margin="20,0,20,20"
-          BorderThickness="1"
-          BorderBrush="#e1e6f2"
-          Background="White"
-          Width="827">
                 <ListView.View>
                     <GridView AllowsColumnReorder="True">
                         <GridViewColumn Header="ID" Width="60">
@@ -148,18 +66,18 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Type of Call" Width="120">
+                        <GridViewColumn Header="Type" Width="120">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding TypeOfCall}" />
+                                    <TextBlock Text="{Binding TypeOfReading}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Description Of Call" Width="120">
+                        <GridViewColumn Header="Description" Width="120">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding DescriptionOfCall}" />
+                                    <TextBlock Text="{Binding Description}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -167,7 +85,7 @@
                         <GridViewColumn Header="Address" Width="150">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Address}" />
+                                    <TextBlock Text="{Binding FullAddress}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -175,7 +93,7 @@
                         <GridViewColumn Header="Opened" Width="130">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding TimeOfOpeningCall}" />
+                                    <TextBlock Text="{Binding OpeningTime}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -183,7 +101,7 @@
                         <GridViewColumn Header="Ended" Width="130">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding MaxTimeOfFinishCall}" />
+                                    <TextBlock Text="{Binding MaxCompletionTime}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -191,14 +109,14 @@
                         <GridViewColumn Header="Distance" Width="130">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding DistanceFromTheVolunteer}" />
+                                    <TextBlock Text="{Binding DistanceFromVolunteer}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
-            </ListView>-->
+            </ListView>
 
-		</DockPanel>
-	</Border>
+        </DockPanel>
+    </Border>
 </Window>

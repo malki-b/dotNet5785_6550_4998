@@ -267,11 +267,8 @@ boVolunteer.MaxDistance);
             int TotalCanceledCalls = closedAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation || a.TypeOfEnding == DO.TypeOfEnding.ManagerCancellation);
             int TotalExpiredHandledCalls = closedAssignments.Count(a => a.TypeOfEnding == DO.TypeOfEnding.CancellationHasExpired);
 
-            Assignment? activeAssignment = myAssignments.FirstOrDefault(a => a.TypeOfEnding == null);
-
+            Assignment? activeAssignment = myAssignments.FirstOrDefault(a => a.TypeOfEnding == DO.TypeOfEnding.None);
             BO.CallInProgress? callInHandling = null;
-
-
 
             if (activeAssignment != null)
             {
@@ -291,7 +288,6 @@ boVolunteer.MaxDistance);
                     DistanceFromVolunteer = Tools.DistanceCalculation(call.Address, doVolunteer.Address!),
                     Status = CallManager.GetCallStatus(call.Id)
                 };
-
             }
 
             //return new BO.Volunteer

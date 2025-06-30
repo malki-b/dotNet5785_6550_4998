@@ -81,7 +81,7 @@
         <TextBox Text="{Binding CurrentVolunteer.MaxDistance}" 
                  Style="{StaticResource InputStyle}" Grid.Row="9" Grid.Column="1"/>
 
-         <!--כפתור עם Border-->
+        <!--כפתור עם Border-->
 
         <Border CornerRadius="6" Background="#4CD8C2" Margin="98,35,199,-74" Grid.Column="1" Grid.Row="11">
             <Button Content="update" 
@@ -121,18 +121,18 @@
         </StackPanel>
 
         <!-- Action Buttons -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,0">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="56,30,0,34" Grid.RowSpan="2" Grid.Column="1">
             <Button Content="Call History" Width="140" Height="36"
                     Click="OpenHistory_Click" Margin="0,0,12,0"/>
             <Button Content="Available Calls" Width="140" Height="36"
                     Click="OpenAvailableCalls_Click"/>
         </StackPanel>
-        
+
     </Grid>
 </Window>
 
 <!-- Call Details -->
-                    <!--<StackPanel Margin="0,30,0,0"
+<!--<StackPanel Margin="0,30,0,0"
                                 Visibility="{Binding CurrentVolunteer.currentCallInProgress, Converter={StaticResource NullToVisibilityConverter}}">
                         <TextBlock Text="Current Call in Progress"
                                    FontSize="20"

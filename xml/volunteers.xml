@@ -15,20 +15,6 @@
     <Max_Distance>19</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>330986704</Id>
-    <Name>Shlomo Rabinowitz</Name>
-    <Phone>0589876543</Phone>
-    <Email>shlomorabinowitz@gmail.com</Email>
-    <Password>SecretPass!</Password>
-    <Role>Volunteer</Role>
-    <IsActive>true</IsActive>
-    <Type_Distance>Air</Type_Distance>
-    <Address>18 Bialik Street, Ramat Gan, Israel</Address>
-    <Latitude>34.774574</Latitude>
-    <Longitude>32.069773</Longitude>
-    <Max_Distance>25000000000</Max_Distance>
-  </Volunteer>
-  <Volunteer>
     <Id>053050639</Id>
     <Name>Aryeh Schwartz</Name>
     <Phone>0583219876</Phone>
@@ -209,5 +195,19 @@
     <Latitude>32.066455</Latitude>
     <Longitude>34.783553</Longitude>
     <Max_Distance>10</Max_Distance>
+  </Volunteer>
+  <Volunteer>
+    <Id>330986704</Id>
+    <Name>Shlomo Rabinowitz</Name>
+    <Phone>0589876543</Phone>
+    <Email>shlomorabinowitz@gmail.com</Email>
+    <Password>SecretPass1!</Password>
+    <Role>Volunteer</Role>
+    <IsActive>false</IsActive>
+    <Type_Distance>Air</Type_Distance>
+    <Address>18 Bialik Street, Ramat Gan, Israel</Address>
+    <Latitude>31.797499</Latitude>
+    <Longitude>34.645104</Longitude>
+    <Max_Distance>25000000000</Max_Distance>
   </Volunteer>
 </ArrayOfVolunteer>

@@ -199,12 +199,12 @@
   <Volunteer>
     <Id>330986704</Id>
     <Name>Shlomo Rabinowitz</Name>
-    <Phone>0589876543</Phone>
+    <Phone>0527150715</Phone>
     <Email>shlomorabinowitz@gmail.com</Email>
     <Password>SecretPass1!</Password>
     <Role>Volunteer</Role>
-    <IsActive>false</IsActive>
-    <Type_Distance>Air</Type_Distance>
+    <IsActive>true</IsActive>
+    <Type_Distance>Drive</Type_Distance>
     <Address>18 Bialik Street, Ramat Gan, Israel</Address>
     <Latitude>31.797499</Latitude>
     <Longitude>34.645104</Longitude>

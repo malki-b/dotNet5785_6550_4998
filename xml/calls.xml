@@ -490,16 +490,16 @@
     <MaxTimeFinishRead>2025-06-22T19:40:01</MaxTimeFinishRead>
     <Id>1048</Id>
   </Call>
-	<Call>
-	<Address>aaaa Yisrael Yaakov St 12, Jerusalem</Address>
-	<Latitude>31.780179</Latitude>
-	<Longitude>35.221711</Longitude>
-	<OpeningTime>2025-06-22T18:40:01</OpeningTime>
-	<TypeOfReading>LongTermDanger</TypeOfReading>
-	<VerbalDescription>Fear of groins injury</VerbalDescription>
-	<MaxTimeFinishRead>2025-06-22T19:40:01</MaxTimeFinishRead>
-	<Id>2002</Id>
-	</Call>
+  <Call>
+    <Address>aaaa Yisrael Yaakov St 12, Jerusalem</Address>
+    <Latitude>31.780179</Latitude>
+    <Longitude>35.221711</Longitude>
+    <OpeningTime>2025-06-22T18:40:01</OpeningTime>
+    <TypeOfReading>LongTermDanger</TypeOfReading>
+    <VerbalDescription>Fear of groins injury</VerbalDescription>
+    <MaxTimeFinishRead>2025-06-22T19:40:01</MaxTimeFinishRead>
+    <Id>2002</Id>
+  </Call>
   <Call>
     <Address>Yisrael Yaakov St 12, Jerusalem</Address>
     <Latitude>31.780179</Latitude>
@@ -510,14 +510,24 @@
     <MaxTimeFinishRead>2025-06-22T19:40:01</MaxTimeFinishRead>
     <Id>1049</Id>
   </Call>
-	<Call>
-		<Address>18 Bialik Street, Ramat Gan, Israel</Address>
-		<Latitude>34.774574</Latitude>
-		<Longitude>32.069773</Longitude>
-		<OpeningTime>2024-06-22T18:40:01</OpeningTime>
-		<TypeOfReading>LongTermDanger</TypeOfReading>
-		<VerbalDescription>Fearr of groins injury</VerbalDescription>
-		<MaxTimeFinishRead>2029-06-22T19:40:01</MaxTimeFinishRead>
-		<Id>1050</Id>
-	</Call>
+  <Call>
+    <Address>18 Bialik Street, Ramat Gan, Israel</Address>
+    <Latitude>34.774574</Latitude>
+    <Longitude>32.069773</Longitude>
+    <OpeningTime>2024-06-22T18:40:01</OpeningTime>
+    <TypeOfReading>LongTermDanger</TypeOfReading>
+    <VerbalDescription>Fearr of groins injury</VerbalDescription>
+    <MaxTimeFinishRead>2029-06-22T19:40:01</MaxTimeFinishRead>
+    <Id>1051</Id>
+  </Call>
+  <Call>
+    <Address>20 Bialik Street, Ramat Gan, Israel</Address>
+    <Latitude>31.797499</Latitude>
+    <Longitude>34.645104</Longitude>
+    <OpeningTime>0001-01-01T00:00:00</OpeningTime>
+    <TypeOfReading>None</TypeOfReading>
+    <VerbalDescription>check availble</VerbalDescription>
+    <MaxTimeFinishRead>2050-10-10T00:00:00</MaxTimeFinishRead>
+    <Id>1050</Id>
+  </Call>
 </ArrayOfCall>

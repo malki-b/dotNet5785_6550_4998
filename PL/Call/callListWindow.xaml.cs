@@ -17,9 +17,9 @@ namespace PL.Call
         public CallListWindow()
         {
             InitializeComponent();
-            Loaded += VolunteerWindow_Loaded;
-            Closed += VolunteerWindow_Closed;
-            queryVolunteerList();
+            Loaded += CallWindow_Loaded;
+            Closed += CallWindow_Closed;
+            queryCallList();
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
@@ -64,7 +64,7 @@ namespace PL.Call
             }
         }
 
-        private List<VolunteerInList> AllCalls = new();
+        private List<CallInList> AllCalls = new();
 
         private void ApplyFilter()
         {
@@ -77,8 +77,8 @@ namespace PL.Call
                 else
                 {
                    CallList = string.IsNullOrWhiteSpace(FilterText)
-                  ? s_bl?.Volunteer.ReadAll()!
-                  : s_bl?.Volunteer.GetFilteredAndSortedVolunteers(filterBy: CallFilter, filterValue: FilterText)!;
+                  ? s_bl?.Call.ReadAll()!
+                  : s_bl?.Call.GetFilteredAndSortedCalls(filterBy: CallFilter, filterValue: FilterText)!;
                 }
             }
             catch (Exception ex)
@@ -87,15 +87,15 @@ namespace PL.Call
             }
         }
 
-        private void queryVolunteerList()
+        private void queryCallList()
         {
             try
             {
-                var volunteers = (CallFilter == VolunteerInListFields.None) ?
-                    s_bl?.Volunteer.ReadAll()! :
-                    s_bl?.Volunteer.ReadAll(null, null)!;
+                var calls = (CallFilter == CallInListFields.None) ?
+                    s_bl?.Call.ReadAll()! :
+                    s_bl?.Call.ReadAll(null, null)!;
 
-                AllCalls = volunteers.ToList();
+                AllCalls = calls.ToList();
                 ApplyFilter();
             }
             catch (Exception ex)
@@ -103,14 +103,14 @@ namespace PL.Call
                 MessageBox.Show("טעינת הרשימה נכשלה. אנא נסה שוב מאוחר יותר.", "שגיאת טעינה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        private void volunteerListObserver() => queryVolunteerList();
+        private void callListObserver() => queryCallList();
 
-        private void VolunteerWindow_Loaded(object sender, RoutedEventArgs e)
+        private void CallWindow_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
-                s_bl.Volunteer.AddObserver(volunteerListObserver);
-                queryVolunteerList();
+                s_bl.Call.AddObserver(callListObserver);
+                queryCallList();
             }
             catch (Exception ex)
             {
@@ -118,11 +118,11 @@ namespace PL.Call
             }
         }
 
-        private void VolunteerWindow_Closed(object? sender, EventArgs e)
+        private void CallWindow_Closed(object? sender, EventArgs e)
         {
             try
             {
-                s_bl.Volunteer.RemoveObserver(volunteerListObserver);
+                s_bl.Call.RemoveObserver(callListObserver);
             }
             catch (Exception ex)
             {
@@ -130,7 +130,7 @@ namespace PL.Call
             }
         }
 
-        private void Volunteer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Call_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace PL.Call
             {
                 CallList = string.IsNullOrWhiteSpace(FilterText)
                     ? s_bl?.Call.ReadAll()!
-                    : s_bl?.Call.GetFilteredAndSortedVolunteers(filterBy: CallFilter, filterValue: FilterText)!;
+                    : s_bl?.Call.GetFilteredAndSortedCalls(filterBy: CallFilter, filterValue: FilterText)!;
             }
             catch (Exception ex)
             {
@@ -172,9 +172,9 @@ namespace PL.Call
         }
 
 
-        private void DeleteVolunteer_click(object sender, RoutedEventArgs e)
+        private void DeleteCall_click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button btn && btn.CommandParameter is VolunteerInList volunteer)
+            if (sender is Button btn && btn.CommandParameter is CallInList call)
             {
                 var result = MessageBox.Show("האם אתה בטוח שברצונך למחוק את המתנדב?", "אישור מחיקה", MessageBoxButton.YesNo);
 
@@ -182,7 +182,7 @@ namespace PL.Call
                 {
                     try
                     {
-                        s_bl.Volunteer.Delete(volunteer.VolunteerId);
+                        s_bl.Call.Delete(call.CallId);
                     }
                     catch (Exception ex)
                     {

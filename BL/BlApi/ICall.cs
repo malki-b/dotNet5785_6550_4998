@@ -22,7 +22,7 @@ public interface ICall: IObservable
     /// <param name="filterValue">The value to filter by (nullable).</param>
     /// <param name="sortBy">The enum field to sort the list (nullable).</param>
     /// <returns>A collection of CallInList entities.</returns>
-    public IEnumerable<BO.CallInList> ReadAll(BO.CallField? filterBy, object? filterValue, BO.CallField? sortBy);
+    public IEnumerable<BO.CallInList> ReadAll(BO.CallField? filterBy = null, object? filterValue = null, BO.CallField? sortBy = null);
 
     /// <summary>
     /// Method to request details of a specific call by its ID.

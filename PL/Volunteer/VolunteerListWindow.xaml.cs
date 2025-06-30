@@ -196,6 +196,12 @@ namespace PL.Volunteer
         {
 
         }
+
+       
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new VolunteerWindow().Show();
+        }
     }
 }
 

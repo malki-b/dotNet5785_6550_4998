@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.ComponentModel;
+using PL.Volunteer;
 
 namespace PL.Call
 {
@@ -190,6 +191,11 @@ namespace PL.Call
                     }
                 }
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new CallWindow().Show();
         }
     }
 }

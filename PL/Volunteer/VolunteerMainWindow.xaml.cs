@@ -56,8 +56,7 @@ namespace PL.Volunteer
             try
             {
 
-                //CurrentVolunteer = s_bl.Volunteer.Read(VolunteerId);
-                CurrentVolunteer = s_bl.Volunteer.Read(330986704);
+                CurrentVolunteer = s_bl.Volunteer.Read(VolunteerId);
                 CurrentVolunteer.Password = "";
             }
             catch (Exception ex)

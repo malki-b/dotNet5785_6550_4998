@@ -34,25 +34,23 @@
         <!-- ListView -->
         <ListView ItemsSource="{Binding CallList}"
                   SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
-                  MouseDoubleClick="Volunteer_MouseDoubleClick"
+                  MouseDoubleClick="Call_MouseDoubleClick"
                   Grid.Row="1" Margin="0,0,0,10">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding VolunteerId}" Width="80"/>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding FullName}" Width="150"/>
-                    <GridViewColumn Header="Handled" DisplayMemberBinding="{Binding TotalHandledRequests}" Width="100"/>
-                    <GridViewColumn Header="Canceled" DisplayMemberBinding="{Binding TotalCanceledRequests}" Width="100"/>
-                    <GridViewColumn Header="Active">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsActive}" IsEnabled="False"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    <GridViewColumn Header="Assignment ID" DisplayMemberBinding="{Binding AssignmentId}" Width="80"/>
+                    <GridViewColumn Header="Call ID" DisplayMemberBinding="{Binding CallId}" Width="80"/>
+                    <!--<GridViewColumn Header="Type" DisplayMemberBinding="{Binding TypeOfReading}" Width="100"/>-->
+                    <GridViewColumn Header="Opening Time" DisplayMemberBinding="{Binding OpeningTime}" Width="120"/>
+                    <GridViewColumn Header="Remaining Time" DisplayMemberBinding="{Binding RemainingTimeToEndCall}" Width="120"/>
+                    <GridViewColumn Header="Last Volunteer" DisplayMemberBinding="{Binding LastVolunteerName}" Width="150"/>
+                    <GridViewColumn Header="Total Handling Time" DisplayMemberBinding="{Binding TotalHandlingTime}" Width="120"/>
+                    <!--<GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"/>-->
+                    <GridViewColumn Header="Total Assignments" DisplayMemberBinding="{Binding TotalAssignments}" Width="120"/>
                     <GridViewColumn Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Delete" Click="DeleteVolunteer_click"
+                                <Button Content="Delete" Click="DeleteCall_click"
                                         CommandParameter="{Binding}" Background="#F87171"
                                         Foreground="White" Padding="4"/>
                             </DataTemplate>

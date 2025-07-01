@@ -14,21 +14,28 @@ internal static class CallManager
 {
     private static IDal s_dal = Factory.Get; //stage 4
 
-    internal static ObserverManager Observers = new(); //stage 5 
+    internal static ObserverManager Observers = new(); //stage 5
+
     internal static Status GetCallStatus(int callId)
     {
-        var call = s_dal.Call.Read(callId) ??
-            throw new BO.BlDoesNotExistException($"Call with ID {callId} not found.");
+        DO.Call call;
+        List<Assignment> assignments;
+        TimeSpan riskRange;
+        lock (AdminManager.BlMutex)
+        {
+            call = s_dal.Call.Read(callId) ??
+                throw new BO.BlDoesNotExistException($"Call with ID {callId} not found.");
+            assignments = s_dal.Assignment.ReadAll(a => a.CallId == callId).ToList();
+            riskRange = s_dal.Config.RiskRange;
+        }
 
         DateTime currentTime = AdminManager.Now;
-        var assignments = s_dal.Assignment.ReadAll(a => a.CallId == callId).ToList();
         Assignment? activeAssignment = assignments.Find(a => a.EndOfTreatmentTime == null);
         Assignment? handledAssignments = assignments.Find(a => a.EndOfTreatmentTime != null && a.TypeOfEnding == DO.TypeOfEnding.Teated);
-       // Assignment? historyAssignments = assignments.Find(a => a.EndOfTreatmentTime != null && a.TypeOfEnding != DO.TypeOfEnding.None);
 
         if (activeAssignment != null)
         {
-            if (call.MaxTimeFinishRead.HasValue && currentTime > call.MaxTimeFinishRead.Value - s_dal.Config.RiskRange)
+            if (call.MaxTimeFinishRead.HasValue && currentTime > call.MaxTimeFinishRead.Value - riskRange)
                 return Status.Open;
 
             return Status.InProgress;
@@ -40,12 +47,11 @@ internal static class CallManager
         if (call.MaxTimeFinishRead.HasValue && currentTime > call.MaxTimeFinishRead.Value)
             return Status.Expired;
 
-        if (call.MaxTimeFinishRead.HasValue && currentTime > call.MaxTimeFinishRead.Value - s_dal.Config.RiskRange)
+        if (call.MaxTimeFinishRead.HasValue && currentTime > call.MaxTimeFinishRead.Value - riskRange)
             return Status.OpenAtRisk;
 
         return Status.Open;
     }
-
 
     public static TimeSpan getRemainingTimeToEndCall(DO.Call c)
     {
@@ -55,9 +61,10 @@ internal static class CallManager
         }
         else
         {
-            return TimeSpan.Zero; // או להחזיר ערך אחר במידה ואין MaxTimeFinishRead
+            return TimeSpan.Zero;
         }
     }
+
     public static TimeSpan getMaxTimeFinishRead(DO.Call c)
     {
         if (c.MaxTimeFinishRead.HasValue)
@@ -66,9 +73,10 @@ internal static class CallManager
         }
         else
         {
-            return TimeSpan.Zero; // או להחזיר ערך אחר במידה ואין MaxTimeFinishRead
+            return TimeSpan.Zero;
         }
     }
+
     public static DO.Call ConvertToDO(BO.Call boCall)
     {
         (double latitude, double longitude) = Tools.GetCoordinates(boCall.Address);
@@ -76,16 +84,13 @@ internal static class CallManager
         {
             Id = boCall.CallId,
             VerbalDescription = boCall.Description,
-            TypeOfReading = (DO.TypeOfReading)boCall.TypeOfReading,  // המרה בין הטיפוסים
+            TypeOfReading = (DO.TypeOfReading)boCall.TypeOfReading,
             Address = boCall.Address,
-            //Latitude = boCall.Latitude,
-            //Longitude = boCall.Longitude,
             Latitude = latitude,
             Longitude = longitude,
             OpeningTime = boCall.OpeningTime,
             MaxTimeFinishRead = boCall.MaxEndTime
         };
-
     }
 
     public static BO.Call ConvertToBO(DO.Call call, List<CallAssignInList> assignments)
@@ -103,6 +108,7 @@ internal static class CallManager
             CallAssignments = assignments
         };
     }
+
     public static void ValidateCall(BO.Call newCall)
     {
         if (newCall == null)
@@ -115,142 +121,58 @@ internal static class CallManager
         if (newCall.MaxEndTime <= newCall.OpeningTime)
             throw new Exception("Expiration time must be later than start time");
     }
-    //public static IEnumerable<T> GetCallsByFilterClose<T>(int volunteerId, BO.TypeOfReading? filterBy = null, ClosedCallField? sortByField = null, bool isOpen = true) where T : class
-    //{
 
-    //    try
-    //    {
-    //        var volunteer = s_dal.Volunteer.Read(v => v.Id == volunteerId);
-    //        if (volunteer == null)
-    //            throw new BO.BlNullPropertyException($"Volunteer with ID {volunteerId} not found.");
-
-    //        // "קריאה סגורה ברשימה"
-    //        //קריאה סגורה
-    //        //var assignments = s_dal.Assignment.ReadAll()
-    //        //    .Where(a => a.VolunteerId == volunteerId &&
-    //        //                (isOpen ? a. == BO.Status.Open || a.TypeOfEnding == DO.TypeOfEnding.OpenRisk
-    //        //                        : a.TypeOfEnding == DO.TypeOfEnding.Closed));
-
-    //        var assignments = s_dal.Assignment.ReadAll()
-    //            .Where(a => a.VolunteerId == volunteerId &&
-    //                        (isOpen ? CallManager.GetCallStatus(a.CallId) == Status.Open || CallManager.GetCallStatus(a.CallId) == Status.OpenAtRisk
-    //                                : (CallManager.GetCallStatus(a.CallId) == Status.Closed || a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation)));
-
-    //        //(isOpen ? a.TypeOfEnding == DO.TypeOfEnding.Open || a.TypeOfEnding == DO.TypeOfEnding.OpenRisk
-    //        //                        : a.TypeOfEnding == DO.TypeOfEnding.Closed));
-
-    //        var calls = from assign in assignments
-    //                    join call in s_dal.Call.ReadAll()
-    //                        on assign.CallId equals call.Id
-    //                    select new { call, assign };
-    //        ///
-    //        if (filterBy != null)
-    //            calls = calls.Where(x => x.call.TypeOfReading.Equals(filterBy));
-
-    //        ////
-    //        var result = calls.Select(c => isOpen
-    //                    ? new BO.OpenCallInList
-    //                    {
-    //                        Id = c.call.Id,
-    //                        Type = (BO.TypeOfReading)c.call.TypeOfReading,
-    //                        Description = c.call.VerbalDescription,
-    //                        FullAddress = c.call.Address,
-    //                        OpeningTime = c.call.OpeningTime,
-    //                        MaxCompletionTime = c.call.MaxTimeFinishRead,
-    //                        DistanceFromVolunteer = CalculateDistance(volunteer.Latitude, volunteer.Longitude, c.call.Latitude, c.call.Longitude)
-    //                    } as T
-    //                    : new BO.ClosedCallInList
-    //                    {
-    //                        Id = c.call.Id,
-    //                        TypeOfReading = (BO.TypeOfReading)c.call.TypeOfReading,
-    //                        FullAddress = c.call.Address,
-    //                        OpeningTime = c.call.OpeningTime,
-    //                        EntryTimeForHandling = c.assign.EntryTimeForTreatment,
-    //                        ActualHandlingEndTime = c.assign.EndOfTreatmentTime,
-    //                        TypeOfEnding = (BO.TypeOfEnding)c.assign.TypeOfEnding
-    //                        //TypeOfEnding = Enum.TryParse<BO.TypeOfReading>(c.assign.TypeOfEnding.ToString(), out BO.TypeOfEnding completionStatus)
-    //                        //                   ? (BO.TypeOfReading?)completionStatus
-    //                        //                   : null
-    //                    } as T);
-
-    //        if (sortByField != null)
-    //        {
-    //            var property = typeof(T).GetProperty(sortByField.ToString());
-    //            if (property != null)
-    //                result = result.OrderBy(call => property.GetValue(call));
-    //        }
-    //        else
-    //        {
-    //            result = isOpen
-    //                ? result.Cast<BO.OpenCallInList>().OrderBy(call => call.Id).Cast<T>()
-    //                : result.Cast<BO.ClosedCallInList>().OrderBy(call => call.OpeningTime).Cast<T>();
-    //        }
-
-    //        return result;
-    //    }
-    //    catch (DO.DalDoesNotExistException)
-    //    {
-    //        throw new BO.BlDoesNotExistException("Error retrieving calls.");
-    //    }
-
-    //}
-    public static IEnumerable<T> GetCallsByFilter<T>(int volunteerId, BO.TypeOfReading? filterBy=null, CallField? sortByField = null, bool isOpen=true) where T : class
+    public static IEnumerable<T> GetCallsByFilter<T>(int volunteerId, BO.TypeOfReading? filterBy = null, CallField? sortByField = null, bool isOpen = true) where T : class
     {
-      
         try
         {
-            var volunteer = s_dal.Volunteer.Read(v => v.Id == volunteerId);
-            if (volunteer == null)
-                throw new BO.BlNullPropertyException($"Volunteer with ID {volunteerId} not found.");
+            DO.Volunteer volunteer;
+            List<DO.Assignment> assignments;
+            List<DO.Call> callsList;
+            lock (AdminManager.BlMutex)
+            {
+                volunteer = s_dal.Volunteer.Read(v => v.Id == volunteerId);
+                if (volunteer == null)
+                    throw new BO.BlNullPropertyException($"Volunteer with ID {volunteerId} not found.");
 
-            // "קריאה סגורה ברשימה"
-            //קריאה סגורה
-            //var assignments = s_dal.Assignment.ReadAll()
-            //    .Where(a => a.VolunteerId == volunteerId &&
-            //                (isOpen ? a. == BO.Status.Open || a.TypeOfEnding == DO.TypeOfEnding.OpenRisk
-            //                        : a.TypeOfEnding == DO.TypeOfEnding.Closed));
+                assignments = s_dal.Assignment.ReadAll().Where(a =>
+                    a.VolunteerId == volunteerId &&
+                    (isOpen
+                        ? CallManager.GetCallStatus(a.CallId) == Status.Open || CallManager.GetCallStatus(a.CallId) == Status.OpenAtRisk
+                        : CallManager.GetCallStatus(a.CallId) == Status.Closed || a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation)
+                ).ToList();
 
-            var assignments = s_dal.Assignment.ReadAll()
-                .Where(a => a.VolunteerId == volunteerId &&
-                            (isOpen ? CallManager.GetCallStatus(a.CallId) == Status.Open || CallManager.GetCallStatus(a.CallId) == Status.OpenAtRisk
-                                    :( CallManager.GetCallStatus(a.CallId) == Status.Closed || a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation)));
-
-            //(isOpen ? a.TypeOfEnding == DO.TypeOfEnding.Open || a.TypeOfEnding == DO.TypeOfEnding.OpenRisk
-            //                        : a.TypeOfEnding == DO.TypeOfEnding.Closed));
+                callsList = s_dal.Call.ReadAll().ToList();
+            }
 
             var calls = from assign in assignments
-                        join call in s_dal.Call.ReadAll()
-                            on assign.CallId equals call.Id
+                        join call in callsList on assign.CallId equals call.Id
                         select new { call, assign };
-            ///
+
             if (filterBy != null)
                 calls = calls.Where(x => x.call.TypeOfReading.Equals(filterBy));
-            
-            ////
+
             var result = calls.Select(c => isOpen
-                        ? new BO.OpenCallInList
-                        {
-                            Id = c.call.Id,
-                            Type = (BO.TypeOfReading)c.call.TypeOfReading,
-                            Description = c.call.VerbalDescription,
-                            FullAddress = c.call.Address,
-                            OpeningTime = c.call.OpeningTime,
-                            MaxCompletionTime = c.call.MaxTimeFinishRead,
-                            DistanceFromVolunteer =CalculateDistance(volunteer.Latitude, volunteer.Longitude, c.call.Latitude, c.call.Longitude)
-                        } as T
-                        : new BO.ClosedCallInList
-                        {
-                            Id = c.call.Id,
-                            TypeOfReading = (BO.TypeOfReading)c.call.TypeOfReading,
-                            FullAddress = c.call.Address,
-                            OpeningTime = c.call.OpeningTime,
-                            EntryTimeForHandling = c.assign.EntryTimeForTreatment,
-                            ActualHandlingEndTime = c.assign.EndOfTreatmentTime,
-                            TypeOfEnding = (BO.TypeOfEnding)c.assign.TypeOfEnding
-                            //TypeOfEnding = Enum.TryParse<BO.TypeOfReading>(c.assign.TypeOfEnding.ToString(), out BO.TypeOfEnding completionStatus)
-                            //                   ? (BO.TypeOfReading?)completionStatus
-                            //                   : null
-                        } as T);
+                ? new BO.OpenCallInList
+                {
+                    Id = c.call.Id,
+                    Type = (BO.TypeOfReading)c.call.TypeOfReading,
+                    Description = c.call.VerbalDescription,
+                    FullAddress = c.call.Address,
+                    OpeningTime = c.call.OpeningTime,
+                    MaxCompletionTime = c.call.MaxTimeFinishRead,
+                    DistanceFromVolunteer = CalculateDistance(volunteer.Latitude, volunteer.Longitude, c.call.Latitude, c.call.Longitude)
+                } as T
+                : new BO.ClosedCallInList
+                {
+                    Id = c.call.Id,
+                    TypeOfReading = (BO.TypeOfReading)c.call.TypeOfReading,
+                    FullAddress = c.call.Address,
+                    OpeningTime = c.call.OpeningTime,
+                    EntryTimeForHandling = c.assign.EntryTimeForTreatment,
+                    ActualHandlingEndTime = c.assign.EndOfTreatmentTime,
+                    TypeOfEnding = (BO.TypeOfEnding)c.assign.TypeOfEnding
+                } as T);
 
             if (sortByField != null)
             {
@@ -271,14 +193,14 @@ internal static class CallManager
         {
             throw new BO.BlDoesNotExistException("Error retrieving calls.");
         }
-
     }
+
     public static double CalculateDistance(double? lat1, double? lon1, double lat2, double lon2)
     {
         if (lat1 == null || lon1 == null)
             throw new ArgumentException("Latitude or Longitude values are null.");
 
-        const double R = 6371; // רדיוס כדור הארץ בקילומטרים
+        const double R = 6371;
         double lat1Value = lat1.Value;
         double lon1Value = lon1.Value;
         double dLat = (lat2 - lat1Value) * Math.PI / 180;
@@ -290,45 +212,37 @@ internal static class CallManager
         return R * c;
     }
 
-
-    /// <summary>
-    /// Periodically updates the calls based on the current clock and checks for expired assignments.
-    /// </summary>
-    /// <param name="oldClock">The previous clock time.</param>
-    /// <param name="newClock">The new clock time.</param>
     internal static void PeriodicCallsUpdates(DateTime oldClock, DateTime newClock)
     {
-        //Thread.CurrentThread.Name = $"Periodic{++s_periodicCounter}"; //stage 7 (optional)
         List<DO.Call> expiredCalls;
-        List<DO.Assignment> assignments;
-        List<DO.Assignment> assignmentsWithNull;
-        lock (AdminManager.BlMutex) //stage 7
+        lock (AdminManager.BlMutex)
             expiredCalls = s_dal.Call.ReadAll(c => c.MaxTimeFinishRead < newClock).ToList();
+
         expiredCalls.ForEach(call =>
         {
+            List<DO.Assignment> assignments;
             lock (AdminManager.BlMutex)
-            {//stage 7
+            {
                 assignments = s_dal.Assignment.ReadAll(a => a.CallId == call.Id).ToList();
                 if (!assignments.Any())
                 {
                     s_dal.Assignment.Create(new DO.Assignment(
-                    //Id: 0,
-                    CallId: call.Id,
-                    VolunteerId: 0,
-                    TypeOfEnding: (DO.TypeOfEnding)BO.TypeOfEnding.CancellationHasExpired,
-                    EntryTimeForTreatment: AdminManager.Now,
-                    EndOfTreatmentTime: AdminManager.Now
-                ));
+                        CallId: call.Id,
+                        VolunteerId: 0,
+                        TypeOfEnding: (DO.TypeOfEnding)BO.TypeOfEnding.CancellationHasExpired,
+                        EntryTimeForTreatment: AdminManager.Now,
+                        EndOfTreatmentTime: AdminManager.Now
+                    ));
                 }
             }
             Observers.NotifyItemUpdated(call.Id);
 
-
-            lock (AdminManager.BlMutex) //stage 7
+            List<DO.Assignment> assignmentsWithNull;
+            lock (AdminManager.BlMutex)
                 assignmentsWithNull = s_dal.Assignment.ReadAll(a => a.CallId == call.Id && a.TypeOfEnding is null).ToList();
             if (assignmentsWithNull.Any())
             {
-                lock (AdminManager.BlMutex) //stage 7
+                lock (AdminManager.BlMutex)
                     foreach (var assignment in assignmentsWithNull)
                     {
                         s_dal.Assignment.Update(assignment with
@@ -340,10 +254,6 @@ internal static class CallManager
 
                 Observers.NotifyItemUpdated(call.Id);
             }
-
         });
-
     }
-
 }
-

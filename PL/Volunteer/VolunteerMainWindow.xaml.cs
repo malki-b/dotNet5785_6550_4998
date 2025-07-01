@@ -59,12 +59,18 @@ namespace PL.Volunteer
             {
                 CurrentVolunteer = s_bl.Volunteer.Read(VolunteerId);
                 //CurrentVolunteer.Password = "";
+                //chani
+                //CanChooseCall =
+                //CurrentVolunteer != null &&
+                //CurrentVolunteer.CallInHandling == null &&
+                //CurrentVolunteer.IsActive == true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"אירעה שגיאה בעת טעינת המתנדב: {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+    
 
         private void update_Click(object sender, RoutedEventArgs e)
         {

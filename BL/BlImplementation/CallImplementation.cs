@@ -632,9 +632,10 @@ internal class CallImplementation : ICall
                 VolunteerId: volunteerId,
                 EntryTimeForTreatment: AdminManager.Now,
                 EndOfTreatmentTime: null,
-                TypeOfEnding: null
+                TypeOfEnding: DO.TypeOfEnding.None
             );
             _dal.Assignment.Create(newAssignment);
+            CallManager.Observers.NotifyItemUpdated(newAssignment.Id);
             CallManager.Observers.NotifyListUpdated();
 
         }

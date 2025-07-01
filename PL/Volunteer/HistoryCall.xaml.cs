@@ -24,6 +24,8 @@ namespace PL.Volunteer
             VolunteerId = volunteerId;
 
             CallHistoryList = s_bl.Call.RequestClosedCallsByVolunteer(volunteerId);
+            Loaded += Window_Loaded;
+            Closed += Window_Closed;
         }
 
         public int VolunteerId { get; }
@@ -78,11 +80,19 @@ namespace PL.Volunteer
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e) =>
-            s_bl.Volunteer.AddObserver(CallHistoryListObserver);
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            s_bl.Volunteer.AddObserver(CallHistoryListObserver); // ✅ חדש
+            s_bl.Call.AddObserver(CallHistoryListObserver); // ✅ חדש
 
-        private void Window_Closed(object sender, EventArgs e) =>
-            s_bl.Volunteer.RemoveObserver(CallHistoryListObserver);
+            QueryCallHistoryList(); // ✅ חדש
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            s_bl.Call.RemoveObserver(CallHistoryListObserver); // ✅ חדש
+            s_bl.Volunteer.RemoveObserver(CallHistoryListObserver); // ✅ חדש
+        }
 
         private void CallHistoryListObserver() => QueryCallHistoryList();
 

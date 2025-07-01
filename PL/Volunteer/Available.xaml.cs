@@ -86,6 +86,7 @@
 
 
 
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -105,10 +106,12 @@ namespace PL.Volunteer
             InitializeComponent();
             VolunteerId = volunteerId;
             CallAvailableList = s_bl.Call.RequestOpenCallsForSelection(volunteerId);
+            Loaded += Window_Loaded;
+            Closed += Window_Closed;
         }
 
         public int VolunteerId { get; }
-
+        private OpenCallInList? SelectedCall;
         public IEnumerable<BO.OpenCallInList> CallAvailableList
         {
             get => (IEnumerable<BO.OpenCallInList>)GetValue(CallAvailableListProperty);
@@ -159,9 +162,62 @@ namespace PL.Volunteer
         }
 
         private void CallAvailableListObserver() => queryCallAvailableList();
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            s_bl.Volunteer.AddObserver(CallAvailableListObserver); // ✅ חדש
+            s_bl.Call.AddObserver(CallAvailableListObserver); // ✅ חדש
+            queryCallAvailableList(); // ✅ חדש
+        }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e) => s_bl.Volunteer.AddObserver(CallAvailableListObserver);
-        private void Window_Closed(object sender, EventArgs e) => s_bl.Volunteer.RemoveObserver(CallAvailableListObserver);
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            s_bl.Volunteer.RemoveObserver(CallAvailableListObserver); // ✅ חדש
+            s_bl.Call.RemoveObserver(CallAvailableListObserver); // ✅ חדש
+        }
+
+        //private void SelectCall_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (SelectedCall == null)
+        //        return;
+
+        //    try
+        //    {
+        //        s_bl.Call.SelectCallForTreatment(VolunteerId, SelectedCall.Id);
+        //        OpenCalls.Remove(SelectedCall);
+        //        SelectedCall = null;
+        //        MessageBox.Show("The call was successfully selected for treatment.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        //        Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Error selecting call: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //}
+        private void SelectCall_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && btn.CommandParameter is OpenCallInList call)
+            {
+                try
+                {
+                    s_bl.Call.SelectCallForTreatment(VolunteerId, call.Id);
+
+                    // Remove the selected call from the list and update the property
+                    //if (CallAvailableList is IEnumerable<BO.OpenCallInList> currentList)
+                    //{
+                    //    // If your list is OpenCallInList, match by Id
+                    //    CallAvailableList = currentList.Where(c => c.Id != call.Id).ToList();
+
+                    //}
+
+                    MessageBox.Show("The call was successfully selected for treatment.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"המחיקה נכשלה: {ex.Message}", "שגיאת מחיקה", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

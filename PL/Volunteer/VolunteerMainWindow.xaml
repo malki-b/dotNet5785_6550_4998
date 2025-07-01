@@ -89,7 +89,7 @@
 
         <!--כפתור עם Border-->
 
-        <Border CornerRadius="6" Background="#4CD8C2" Margin="98,35,199,74" Grid.Column="1" Grid.Row="12">
+        <!--<Border CornerRadius="6" Background="#4CD8C2" Margin="98,35,199,74" Grid.Column="1" Grid.Row="12">
             <Button Content="update" 
             Click="update_Click" Width="223" 
             HorizontalAlignment="Center" 
@@ -102,6 +102,12 @@
             HorizontalAlignment="Center" 
             Foreground="White" FontWeight="Bold"
             Background="#4CD8C2" BorderThickness="0"/>
+        </Border>-->
+        <Border CornerRadius="6" Background="#4CD8C2" Margin="98,35,199,74" Grid.Column="1" Grid.Row="12">
+            <Button Content="update" 
+            Click="update_Click" 
+            Foreground="White" FontWeight="Bold"
+            Background="#4CD8C2" BorderThickness="0" Margin="-14,0,-100,0"/>
         </Border>
 
         <StackPanel Margin="0,20,0,0"

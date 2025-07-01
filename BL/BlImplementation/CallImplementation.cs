@@ -420,8 +420,9 @@ internal class CallImplementation : ICall
 
             var assignments = _dal.Assignment.ReadAll()
                 .Where(a => a.VolunteerId == volunteerId &&
-                            CallManager.GetCallStatus(a.CallId) == Status.Closed || a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation);
+                            (CallManager.GetCallStatus(a.CallId) == Status.Closed || a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation));
 
+       
             var calls = from assign in assignments
                         join call in _dal.Call.ReadAll()
                             on assign.CallId equals call.Id

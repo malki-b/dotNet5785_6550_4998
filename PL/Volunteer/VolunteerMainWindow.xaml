@@ -110,6 +110,7 @@
             Background="#4CD8C2" BorderThickness="0" Margin="-14,0,-100,0"/>
         </Border>
 
+
         <StackPanel Margin="0,20,0,0"
                     Visibility="{Binding CurrentVolunteer.CurrentCallInProgress, Converter={StaticResource NullToVisibilityConverterKey}}">
             <TextBlock Text="Current Call in Progress"
@@ -136,8 +137,30 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="176,110,0,-11" Grid.Row="13" Grid.ColumnSpan="2">
             <Button Content="Call History" Width="140" Height="36"
                     Click="OpenHistory_Click" Margin="0,0,12,0"/>
+            <!--<Button Content="Available Calls" Width="140" Height="36"
+                    Click="OpenAvailableCalls_Click"/>-->
+            
+            <!--<Button Content="Available Calls" Width="140" Height="36"
+        Click="OpenAvailableCalls_Click"
+        IsEnabled="{Binding CurrentVolunteer.CurrentCallInProgress, Converter={StaticResource NullToBoolConverterKey}}"/>-->
+
             <Button Content="Available Calls" Width="140" Height="36"
-                    Click="OpenAvailableCalls_Click"/>
+        Click="OpenAvailableCalls_Click">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource VolunteerStatusConverterKey}">
+                        <Binding Path="CurrentVolunteer.IsActive"/>
+                        <Binding Path="CurrentVolunteer.CurrentCallInProgress"/>
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
+    <!--cahni-->
+            <!--<Button Content="Available Calls" Width="160" Height="42"
+ IsEnabled="{Binding CanChooseCall}"
+ Click="OpenAvailableCalls_Click"
+ FontWeight="SemiBold" FontSize="14" Foreground="White" BorderThickness="0" Cursor="Hand">
+         <Button.Background>-->
+
+            
         </StackPanel>
 
     </Grid>

@@ -12,5 +12,8 @@
         <local:ClosedCallFieldCollection x:Key="ClosedCallFieldCollectionKey" /> 
         <local:OpenCallFieldCollection x:Key="OpenCallFieldCollectionKey" />
         <local:NullToVisibilityConverter x:Key="NullToVisibilityConverterKey" />
+        <local:NullToBoolConverter x:Key="NullToBoolConverterKey" />
+        <local:VolunteerStatusConverter x:Key="VolunteerStatusConverterKey"/>
+
     </Application.Resources>
 </Application>

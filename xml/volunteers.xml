@@ -201,7 +201,7 @@
     <Name>Shlomo Rabinowitz</Name>
     <Phone>0527150715</Phone>
     <Email>shlomorabinowitz@gmail.com</Email>
-    <Password>SecretPass1!</Password>
+    <Password>SecretPass1!!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
     <Type_Distance>Drive</Type_Distance>

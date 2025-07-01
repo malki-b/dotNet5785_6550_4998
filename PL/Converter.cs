@@ -123,17 +123,32 @@ namespace PL
         }
     }
 
-    // האם הערך null? מחזיר false/true (אפשר גם הפוך עם parameter)
+    //// האם הערך null? מחזיר false/true (אפשר גם הפוך עם parameter)
+    //public class NullToBoolConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        bool invert = parameter?.ToString() == "invert";
+    //        bool isNull = value == null;
+    //        return invert ? isNull : !isNull;
+    //    }
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    //}
     public class NullToBoolConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool invert = parameter?.ToString() == "invert";
-            bool isNull = value == null;
-            return invert ? isNull : !isNull;
+            // מחזיר false אם value אינו null, אחרת מחזיר true
+            return value == null;
         }
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
+
+
 
     // האם הערך null? מחזיר Collapsed/Visible
     public class NullToVisibilityConverter : IValueConverter
@@ -146,5 +161,45 @@ namespace PL
     }
 
 
+    //public class VolunteerStatusConverter : IMultiValueConverter
+    //    {
+    //        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    //        {
+    //            if (values.Length < 2)
+    //                return false;
+
+    //            bool isActive = (bool)values[0];
+    //            var currentCallInProgress = values[1];
+
+    //            return isActive && currentCallInProgress == null;
+    //        }
+
+    //        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    //        {
+    //            throw new NotImplementedException();
+    //        }
+    //    }
+    public class VolunteerStatusConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values.Length < 2)
+                return false;
+
+            // בדוק אם הערך הראשון הוא bool
+            if (values[0] is bool isActive)
+            {
+                var currentCallInProgress = values[1];
+                return isActive && currentCallInProgress == null;
+            }
+
+            return false; // אם הערך הראשון אינו bool, החזר false
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }

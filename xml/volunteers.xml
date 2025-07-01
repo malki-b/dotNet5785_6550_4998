@@ -183,20 +183,6 @@
     <Max_Distance>10</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>330986704</Id>
-    <Name>Shlomo Rabinowitz</Name>
-    <Phone>0527150715</Phone>
-    <Email>shlomorabinowitz@gmail.com</Email>
-    <Password>SecretPass1!</Password>
-    <Role>Volunteer</Role>
-    <IsActive>true</IsActive>
-    <Type_Distance>Drive</Type_Distance>
-    <Address>18 Bialik Street, Ramat Gan, Israel</Address>
-    <Latitude>31.797499</Latitude>
-    <Longitude>34.645104</Longitude>
-    <Max_Distance>25000000000</Max_Distance>
-  </Volunteer>
-  <Volunteer>
     <Id>328306550</Id>
     <Name>Yaakov Levi</Name>
     <Phone>0521234567</Phone>
@@ -209,5 +195,19 @@
     <Latitude>32.792761</Latitude>
     <Longitude>34.995336</Longitude>
     <Max_Distance>16</Max_Distance>
+  </Volunteer>
+  <Volunteer>
+    <Id>330986704</Id>
+    <Name>Shlomo Rabinowitz</Name>
+    <Phone>0527150715</Phone>
+    <Email>shlomorabinowitz@gmail.com</Email>
+    <Password>SecretPass1!</Password>
+    <Role>Volunteer</Role>
+    <IsActive>true</IsActive>
+    <Type_Distance>Drive</Type_Distance>
+    <Address>18 Bialik Street, Ramat Gan, Israel</Address>
+    <Latitude>31.797499</Latitude>
+    <Longitude>34.645104</Longitude>
+    <Max_Distance>25000000000</Max_Distance>
   </Volunteer>
 </ArrayOfVolunteer>

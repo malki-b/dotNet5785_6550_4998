@@ -11,15 +11,14 @@ internal static class AssignmentManager
 {
     private static IDal s_dal = Factory.Get; //stage 4
 
-    internal static ObserverManager Observers = new(); //stage 5 
+    internal static ObserverManager Observers = new(); //stage 5
 
     internal static bool VolunteerIsOnCall(int volunteerId)
     {
-        DO.Assignment? doLink = s_dal.Assignment.Read(l => l.VolunteerId == volunteerId);
-        //?? throw new BO.BlDoesNotExistException($"Volunteer with ID={volunteerId} does Not take Call");
-
-        return doLink != null; // Return true if the volunteer is on call, false otherwise
+        lock (AdminManager.BlMutex)
+        {
+            DO.Assignment? doLink = s_dal.Assignment.Read(l => l.VolunteerId == volunteerId);
+            return doLink != null; // Return true if the volunteer is on call, false otherwise
+        }
     }
-
-
 }

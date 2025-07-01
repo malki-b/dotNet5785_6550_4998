@@ -51,7 +51,7 @@
             </StackPanel>
 
             <!-- ListView Section -->
-            <ListView ItemsSource="{Binding Path=OpenCallList}"
+            <ListView ItemsSource="{Binding Path=CallAvailableList}"
                       Margin="20,0,20,20"
                       BorderThickness="1"
                       BorderBrush="#e1e6f2"
@@ -69,7 +69,7 @@
                         <GridViewColumn Header="Type" Width="120">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding TypeOfReading}" />
+                                    <TextBlock Text="{Binding Type}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

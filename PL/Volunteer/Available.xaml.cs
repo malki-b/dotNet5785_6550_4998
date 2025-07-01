@@ -24,7 +24,10 @@ namespace PL.Volunteer
         {
             InitializeComponent();
             VolunteerId = volunteerId;
-            queryCallAvailableList();
+            // CallHistoryList = s_bl.Call.RequestCallsByVolunteer(volunteerId);
+            CallAvailableList = s_bl.Call.RequestOpenCallsForSelection(volunteerId);
+
+            //queryCallAvailableList();
         }
 
         public int VolunteerId { get; }
@@ -59,6 +62,7 @@ namespace PL.Volunteer
                    )!;
             }
         }
+
         private void CallAvailableListObserver() => queryCallAvailableList();
         private void Window_Loaded(object sender, RoutedEventArgs e) => s_bl.Volunteer.AddObserver(CallAvailableListObserver);
         private void Window_Closed(object sender, EventArgs e) => s_bl.Volunteer.RemoveObserver(CallAvailableListObserver);

@@ -471,67 +471,102 @@ internal class CallImplementation : ICall
     //}
     public IEnumerable<BO.OpenCallInList> RequestOpenCallsForSelection(int volunteerId, BO.TypeOfReading? filterBy = null, OpenCallField? sortByField = null)
     {
-        try
-        {
-            var volunteer = _dal.Volunteer.Read(v => v.Id == volunteerId);
-            if (volunteer == null)
-                throw new BO.BlNullPropertyException($"Volunteer with ID {volunteerId} not found.");
+  
+        var volunteer = _dal.Volunteer.Read(v => v.Id == volunteerId)
+            ?? throw new BO.BlNullPropertyException($"Volunteer with ID {volunteerId} not found.");
 
-            var assignments = _dal.Assignment.ReadAll()
-                .Where(a => a.VolunteerId == volunteerId &&
-                            (CallManager.GetCallStatus(a.CallId) == Status.Open || CallManager.GetCallStatus(a.CallId) == Status.OpenAtRisk));
-
-            var calls = from assign in assignments
-                        join call in _dal.Call.ReadAll()
-                            on assign.CallId equals call.Id
-                        select new { call, assign };
-
-            if (filterBy != null)
-                calls = calls.Where(x => x.call.TypeOfReading == (DO.TypeOfReading)filterBy);
-            var result = calls.Select(c => new BO.OpenCallInList
+        var calls = _dal.Call.ReadAll()
+            .Where(c =>
             {
-                Id = c.call.Id,
-                Type = (BO.TypeOfReading)c.call.TypeOfReading,
-                Description = c.call.VerbalDescription,
-                FullAddress = c.call.Address,
-                OpeningTime = c.call.OpeningTime,
-                MaxCompletionTime = c.call.MaxTimeFinishRead,
-                DistanceFromVolunteer = CallManager.CalculateDistance(volunteer.Latitude, volunteer.Longitude, c.call.Latitude, c.call.Longitude)
+                var status = CallManager.GetCallStatus(c.Id);
+                return status == Status.Open || status == Status.OpenAtRisk;
             });
 
-            // מיון בטוח לפי השדה שנבחר
-            if (sortByField != null)
-            {
-                switch (sortByField)
-                {
-                    case OpenCallField.FullAddress:
-                        result = result.OrderBy(call => call.FullAddress);
-                        break;
-                    case OpenCallField.OpeningTime:
-                        result = result.OrderBy(call => call.OpeningTime);
-                        break;
-                    case OpenCallField.MaxCompletionTime:
-                        result = result.OrderBy(call => call.MaxCompletionTime);
-                        break;
-                    case OpenCallField.DistanceFromVolunteer:
-                        result = result.OrderBy(call => call.DistanceFromVolunteer);
-                        break;
-                    default:
-                        result = result.OrderBy(call => call.OpeningTime);
-                        break;
-                }
-            }
-            else
-            {
-                result = result.OrderBy(call => call.OpeningTime);
-            }
+        if (filterBy != null)
+            calls = calls.Where(c => c.TypeOfReading == (DO.TypeOfReading)filterBy);
 
-            return result;
-        }
-        catch (DO.DalDoesNotExistException)
+        var openCallList = calls.Select(c => new BO.OpenCallInList
         {
-            throw new BO.BlDoesNotExistException("Error retrieving calls.");
+            Id = c.Id,
+            Type = (BO.TypeOfReading)c.TypeOfReading,
+            Description = c.VerbalDescription,
+            FullAddress = c.Address,
+            OpeningTime = c.OpeningTime,
+            MaxCompletionTime = c.MaxTimeFinishRead,
+            DistanceFromVolunteer = CallManager.CalculateDistance(volunteer.Latitude, volunteer.Longitude, c.Latitude, c.Longitude)
+        });
+
+        if (sortByField != null)
+        {
+            var prop = typeof(BO.OpenCallInList).GetProperty(sortByField.ToString());
+            if (prop != null)
+                openCallList = openCallList.OrderBy(c => prop.GetValue(c));
         }
+
+        return openCallList;
+   
+
+        //try
+        //{
+        //    var volunteer = _dal.Volunteer.Read(v => v.Id == volunteerId);
+        //    if (volunteer == null)
+        //        throw new BO.BlNullPropertyException($"Volunteer with ID {volunteerId} not found.");
+
+        //    var assignments = _dal.Assignment.ReadAll()
+        //        .Where(a => a.VolunteerId == volunteerId &&
+        //                    (CallManager.GetCallStatus(a.CallId) == Status.Open || CallManager.GetCallStatus(a.CallId) == Status.OpenAtRisk));
+
+        //    var calls = from assign in assignments
+        //                join call in _dal.Call.ReadAll()
+        //                    on assign.CallId equals call.Id
+        //                select new { call, assign };
+
+        //    if (filterBy != null)
+        //        calls = calls.Where(x => x.call.TypeOfReading == (DO.TypeOfReading)filterBy);
+        //    var result = calls.Select(c => new BO.OpenCallInList
+        //    {
+        //        Id = c.call.Id,
+        //        Type = (BO.TypeOfReading)c.call.TypeOfReading,
+        //        Description = c.call.VerbalDescription,
+        //        FullAddress = c.call.Address,
+        //        OpeningTime = c.call.OpeningTime,
+        //        MaxCompletionTime = c.call.MaxTimeFinishRead,
+        //        DistanceFromVolunteer = CallManager.CalculateDistance(volunteer.Latitude, volunteer.Longitude, c.call.Latitude, c.call.Longitude)
+        //    });
+
+        //    // מיון בטוח לפי השדה שנבחר
+        //    if (sortByField != null)
+        //    {
+        //        switch (sortByField)
+        //        {
+        //            case OpenCallField.FullAddress:
+        //                result = result.OrderBy(call => call.FullAddress);
+        //                break;
+        //            case OpenCallField.OpeningTime:
+        //                result = result.OrderBy(call => call.OpeningTime);
+        //                break;
+        //            case OpenCallField.MaxCompletionTime:
+        //                result = result.OrderBy(call => call.MaxCompletionTime);
+        //                break;
+        //            case OpenCallField.DistanceFromVolunteer:
+        //                result = result.OrderBy(call => call.DistanceFromVolunteer);
+        //                break;
+        //            default:
+        //                result = result.OrderBy(call => call.OpeningTime);
+        //                break;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        result = result.OrderBy(call => call.OpeningTime);
+        //    }
+
+        //    return result;
+        //}
+        //catch (DO.DalDoesNotExistException)
+        //{
+        //    throw new BO.BlDoesNotExistException("Error retrieving calls.");
+        //}
     }
 
       //  var openedCalls = ReadAll();

@@ -455,7 +455,7 @@ namespace PL.Volunteer
         {
             InitializeComponent();
             VolunteerId = volunteerId;
-            // טען את הרשימה הראשונית
+         
             CallHistoryList = s_bl.Call.RequestClosedCallsByVolunteer(volunteerId);
         }
 

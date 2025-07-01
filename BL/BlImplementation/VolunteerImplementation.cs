@@ -18,10 +18,8 @@ internal class VolunteerImplementation : IVolunteer
     {
         try
         {
-
-
+            AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
             (double Latitude, double Longitude) = Tools.GetCoordinates(boVolunteer.Address);
-
             //ClockManager.Now,
             //ClockManager.Now,
             //DO.Volunteer doVolunteer = VolunteerManager.ConvertToDO(boVolunteer)
@@ -31,7 +29,6 @@ boVolunteer.Password, (DO.TypeDistance)boVolunteer.TypeDistance, (DO.Role)boVolu
 Longitude, boVolunteer.IsActive,
 boVolunteer.MaxDistance);
             _dal.Volunteer.Create(doVolunteer);
-
             VolunteerManager.Observers.NotifyListUpdated(); //stage 5
         }
         catch (DO.DalAlreadyExistsException ex)
@@ -44,12 +41,11 @@ boVolunteer.MaxDistance);
     {
         try
         {
+            AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
             if (_dal.Volunteer.Read(id) == null)
                 throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does not exist.");
-
             //var volunteer = _dal.Volunteer.Read(id)
             //    ?? throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does not exist.");
-
             // Check if the volunteer is handling any cases
             if (!AssignmentManager.VolunteerIsOnCall(id))
             {
@@ -77,7 +73,6 @@ boVolunteer.MaxDistance);
         {
             throw new BO.BlCannotDeleteException("Volunteer with ID already exists", ex);
         }
-
     }
 
     //public BO.StudentGradeSheet GetGradeSheetPerStudent(int studentId, BO.Year year = null)
@@ -113,8 +108,6 @@ boVolunteer.MaxDistance);
     //}
     public IEnumerable<BO.VolunteerInList> ReadAll(bool? isActive = null, BO.VolunteerSortBy? sortBy = null)
     {
-
-
         //var Volunteer = _dal.Volunteer.ReadAll();
 
         //if (isActive == null)
@@ -202,6 +195,7 @@ boVolunteer.MaxDistance);
 
     public void Update(int requesterId, BO.Volunteer boVolunteer)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
         DO.Volunteer? requester = _dal.Volunteer.Read(requesterId);
         DO.Volunteer? up = _dal.Volunteer.Read(boVolunteer.Id);
         //if (requester is null || requester.Role != DO.Role.Manager)

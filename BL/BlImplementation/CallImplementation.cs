@@ -17,10 +17,9 @@ internal class CallImplementation : ICall
         //לזכור לעשות בדיקת תקינות 2 חשוב מאדדדדדדדדדדדדדדדדדדדדדד
         try
         {
+            AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
             CallManager.ValidateCall(boCall);
-
             DO.Call newCallDO = CallManager.ConvertToDO(boCall);
-
             _dal.Call.Create(newCallDO);
             CallManager.Observers.NotifyListUpdated();
             // Assuming the constructor for DO.Call takes parameters in a specific order.
@@ -46,6 +45,7 @@ internal class CallImplementation : ICall
     {
         try
         {
+            AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
             var doCall = _dal.Call.Read(callId) ?? throw new BO.BlDoesNotExistException($"Call with ID={callId} does not exist.");
 
             //var volunteer = _dal.Volunteer.Read(id)
@@ -174,13 +174,6 @@ internal class CallImplementation : ICall
 
         }
     }
-
-
-
-
-
-
-
 
     public IEnumerable<CallInList> ReadAll(BO.CallField? filterField = null, object? filterValue = null, BO.CallField? sortField = null)
     {
@@ -410,8 +403,6 @@ internal class CallImplementation : ICall
     #endregion
     public IEnumerable<BO.ClosedCallInList> RequestClosedCallsByVolunteer(int volunteerId, BO.TypeOfReading? filterBy = null, ClosedCallField? sortByField = null)
     {
-
-  
         try
         {
             var volunteer = _dal.Volunteer.Read(v => v.Id == volunteerId);
@@ -458,8 +449,6 @@ internal class CallImplementation : ICall
         {
             throw new BO.BlDoesNotExistException("Error retrieving calls.");
         }
-
-
     }
 
     //return CallManager.GetCallsByFilterClose<BO.ClosedCallInList>(volunteerId, filterBy, sortByField, isOpen: false);
@@ -664,6 +653,7 @@ internal class CallImplementation : ICall
     {
         try
         {
+            AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
             // Retrieve the assignment from the data layer using Read with filter
             DO.Assignment assignment = _dal.Assignment.Read(a => a.Id == assignmentId) ??
                 throw new Exception("The requested assignment does not exist");
@@ -746,6 +736,7 @@ internal class CallImplementation : ICall
     {
         try
         {
+            AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
             // Retrieve the assi gnment from the data layer
             var assignment = _dal.Assignment.Read(a => a.Id == assignmentId)
                 ?? throw new Exception($"Assignment with ID {assignmentId} not found");
@@ -785,6 +776,7 @@ internal class CallImplementation : ICall
 
         try
         {
+            AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
             CallManager.ValidateCall(call);
             var (latitude, longitude) = Tools.GetCoordinates(call.Address);///
             if (latitude == 0 || longitude == 0)

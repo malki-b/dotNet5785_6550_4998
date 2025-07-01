@@ -1,90 +1,103 @@
-﻿using BlApi;
-using BO;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace PL.Volunteer
 {
-    public partial class HistoryCall : Window, INotifyPropertyChanged
+    public partial class HistoryCall : Window
     {
-        private static readonly IBl s_bl = Factory.Get();
-        private volatile DispatcherOperation? _observerOperation = null;
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
         public HistoryCall(int volunteerId)
         {
             InitializeComponent();
             VolunteerId = volunteerId;
-            DataContext = this;
-            RefreshCallHistory(); // טעינה ראשונית
+
+            CallHistoryList = s_bl.Call.RequestClosedCallsByVolunteer(volunteerId);
         }
 
         public int VolunteerId { get; }
 
-        private IEnumerable<ClosedCallInList> _callHistoryList = Enumerable.Empty<ClosedCallInList>();
-        public IEnumerable<ClosedCallInList> CallHistoryList
+        public IEnumerable<BO.ClosedCallInList> CallHistoryList
         {
-            get => _callHistoryList;
-            set
-            {
-                _callHistoryList = value;
-                OnPropertyChanged();
-            }
+            get => (IEnumerable<BO.ClosedCallInList>)GetValue(CallHistoryListListProperty);
+            set => SetValue(CallHistoryListListProperty, value);
         }
 
-        private TypeOfReading _typeOfCallFilterProp = TypeOfReading.None;
-        public TypeOfReading TypeOfCallFilterProp
+        public static readonly DependencyProperty CallHistoryListListProperty =
+            DependencyProperty.Register(nameof(CallHistoryList), typeof(IEnumerable<BO.ClosedCallInList>), typeof(HistoryCall), new PropertyMetadata(null));
+
+        public BO.ClosedCallField CallSortProp
         {
-            get => _typeOfCallFilterProp;
-            set
-            {
-                _typeOfCallFilterProp = value;
-                OnPropertyChanged();
-                RefreshCallHistory();
-            }
+            get => (BO.ClosedCallField)GetValue(CallSortPropProperty);
+            set => SetValue(CallSortPropProperty, value);
         }
 
-        private ClosedCallField _callSortProp = ClosedCallField.None;
-        public ClosedCallField CallSortProp
+        public static readonly DependencyProperty CallSortPropProperty =
+            DependencyProperty.Register(nameof(CallSortProp), typeof(BO.ClosedCallField), typeof(HistoryCall), new PropertyMetadata(BO.ClosedCallField.None, OnFilterOrSortChanged));
+
+        public BO.TypeOfReading TypeOfCallFilterProp
         {
-            get => _callSortProp;
-            set
-            {
-                _callSortProp = value;
-                OnPropertyChanged();
-                RefreshCallHistory();
-            }
+            get => (BO.TypeOfReading)GetValue(TypeOfCallFilterPropProperty);
+            set => SetValue(TypeOfCallFilterPropProperty, value);
         }
 
-        // === Observer-Style Loader ===
-        private void RefreshCallHistory()
-        {
-            if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
-            {
-                _observerOperation = Dispatcher.BeginInvoke(() =>
-                {
-                    //var calls = s_bl.Call.RequestClosedCallsByVolunteer(
-                    //    volunteerId: VolunteerId,
-                    //    TypeOfReading: TypeOfCallFilterProp == TypeOfReading.None ? null : TypeOfCallFilterProp,
-                    //    sortField: CallSortProp == ClosedCallField.None ? null : CallSortProp
-                    //);
+        public static readonly DependencyProperty TypeOfCallFilterPropProperty =
+            DependencyProperty.Register(nameof(TypeOfCallFilterProp), typeof(BO.TypeOfReading), typeof(HistoryCall), new PropertyMetadata(BO.TypeOfReading.None, OnFilterOrSortChanged));
 
-                    //CallHistoryList = calls.ToList();
-                });
+        // כל שינוי במיון או בסינון יפעיל את הפונקציה הזו
+        private static void OnFilterOrSortChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is HistoryCall window)
+                window.QueryCallHistoryList();
+        }
+
+        private void QueryCallHistoryList()
+        {
+            try
+            {
+                CallHistoryList = s_bl.Call.RequestClosedCallsByVolunteer(
+                    VolunteerId,
+                    TypeOfCallFilterProp == BO.TypeOfReading.None ? null : TypeOfCallFilterProp,
+                    CallSortProp == BO.ClosedCallField.None ? null : CallSortProp
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to load the CallHistoryList: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e) =>
-            s_bl.Volunteer.AddObserver(RefreshCallHistory);
+            s_bl.Volunteer.AddObserver(CallHistoryListObserver);
 
         private void Window_Closed(object sender, EventArgs e) =>
-            s_bl.Volunteer.RemoveObserver(RefreshCallHistory);
+            s_bl.Volunteer.RemoveObserver(CallHistoryListObserver);
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        private void CallHistoryListObserver() => QueryCallHistoryList();
+
+        // לא צריך יותר את SelectionChangedInCallHistoryListProp – הכל קורה דרך ה־Binding
+        // אם בכל זאת רוצים להפעיל ידנית:
+        // private void SelectionChangedInCallHistoryListProp(object sender, SelectionChangedEventArgs e) => QueryCallHistoryList();
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // אפשר להוסיף כאן קוד אם רוצים לטפל בבחירה ברשימה
+        }
+
+        private void SelectionChangedInCallHistoryListProp(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

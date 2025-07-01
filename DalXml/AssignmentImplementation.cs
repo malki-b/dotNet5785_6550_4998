@@ -9,6 +9,8 @@ using System.Collections.Generic;
 //A class that will implement the CRUD methods that can be performed on any assignmemnt entity by accessing a data collection of type XML file. According to method 1.
 internal class AssignmentImplementation : IAssignment
 {
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Create(Assignment item)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml);
@@ -18,8 +20,8 @@ internal class AssignmentImplementation : IAssignment
         XMLTools.SaveListToXMLSerializer(Assignments, Config.s_assignments_xml);
     }
 
-   
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         List<Assignment> Courses = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml);
@@ -27,23 +29,27 @@ internal class AssignmentImplementation : IAssignment
             throw new DalDoesNotExistException($"Course with ID={id} does Not exist");
         XMLTools.SaveListToXMLSerializer(Courses, Config.s_assignments_xml);
     }
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void DeleteAll()
     {
         XMLTools.SaveListToXMLSerializer(new List<Assignment>(), Config.s_assignments_xml);
     }
 
-
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Assignment? Read(int id)
     {
         return XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml).FirstOrDefault(item => item.Id == id);
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Assignment? Read(Func<Assignment, bool> filter)
     {
         return XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml).FirstOrDefault(filter);
 
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml);
@@ -56,7 +62,7 @@ internal class AssignmentImplementation : IAssignment
 
       }
 
-
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Assignment item)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml);

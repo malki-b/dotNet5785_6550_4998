@@ -8,6 +8,8 @@ using System.Linq;
 
 internal class AssignmentImplementation : IAssignment
 {
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     public void Create(Assignment item)
     {
         int idCall = Config.NextAssignmentId;
@@ -15,6 +17,7 @@ internal class AssignmentImplementation : IAssignment
         DataSource.Assignments.Add(copy);
 
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
 
     public void Delete(int id)
     {
@@ -27,11 +30,13 @@ internal class AssignmentImplementation : IAssignment
         else
             throw new DalDoesNotExistException($"Assignment with id {id} no exists");
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
 
     public void DeleteAll()
     {
         DataSource.Assignments.Clear();
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
 
     public Assignment? Read(int id)
     {
@@ -44,6 +49,7 @@ internal class AssignmentImplementation : IAssignment
     //    return DataSource.Assignments.FirstOrDefault(item => item); //stage 2
     //    throw new NotImplementedException();
     //}
+    [MethodImpl(MethodImplOptions.Synchronized)]
 
     public Assignment? Read(Func<Assignment, bool> filter)
     {
@@ -55,11 +61,13 @@ internal class AssignmentImplementation : IAssignment
     //    return DataSource.Assignments.ToList();
 
     //}
+    [MethodImpl(MethodImplOptions.Synchronized)]
 
     public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null) => filter == null
 ? DataSource.Assignments.Select(item => item)
 : DataSource.Assignments.Where(filter);
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
 
     public void Update(Assignment item)
     {

@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 internal class CallImplementation : ICall
 {
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     public void Create(Call item)
     {
         int newId = Config.NextCallId;
@@ -14,6 +17,8 @@ internal class CallImplementation : ICall
         DataSource.Calls.Add(newCall);
         //Console.WriteLine($"your id is {newId}");
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     public void Delete(int id)
     {
         Call? currentCall = Read(id);
@@ -24,17 +29,20 @@ internal class CallImplementation : ICall
         //האם לשים DalDeletionImpossible או  DalDoesNotExistException
 
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
 
     public void DeleteAll()
     {
         DataSource.Calls.Clear();
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
 
     public Call? Read(int id)
     {
         //return DataSource.Calls.Find(c => c.Id == id);
         return DataSource.Calls.FirstOrDefault(item => item.Id == id); //stage 2
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
 
     public Call? Read(Func<Call, bool> filter)
     {
@@ -62,10 +70,13 @@ internal class CallImplementation : ICall
     //  ? DataSource.Calls.Select(item => item);
     //    : DataSource.Calls.Where(filter);
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
 
     public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null)=> filter == null
 ? DataSource.Calls.Select(item => item)
 : DataSource.Calls.Where(filter);
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
 
     public void Update(Call item)
     {

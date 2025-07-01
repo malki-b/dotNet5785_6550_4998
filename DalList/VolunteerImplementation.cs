@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 internal class VolunteerImplementation : IVolunteer
 {
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Create(Volunteer item)
     {
 
@@ -16,6 +18,7 @@ internal class VolunteerImplementation : IVolunteer
             DataSource.Volunteers.Add(item);
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         Volunteer? currentVolunteer = Read(id);
@@ -27,17 +30,20 @@ internal class VolunteerImplementation : IVolunteer
             throw new DalDoesNotExistException($"Volunteer with id {id} no exists");
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void DeleteAll()
     {
         DataSource.Volunteers.Clear();
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Volunteer? Read(int id)
     {
         // return DataSource.Volunteers.Find(v => v.Id == id);
         return DataSource.Volunteers.FirstOrDefault(item => item.Id == id); //stage 2
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Volunteer? Read(Func<Volunteer, bool> filter)
     {
         return DataSource.Volunteers.FirstOrDefault(filter);
@@ -51,10 +57,12 @@ internal class VolunteerImplementation : IVolunteer
     //    return s_volunteer;
     //}
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null) => filter == null
 ? DataSource.Volunteers.Select(item => item)
 : DataSource.Volunteers.Where(filter);
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Volunteer item)
     {
         Volunteer? itemWithId = Read(item.Id);

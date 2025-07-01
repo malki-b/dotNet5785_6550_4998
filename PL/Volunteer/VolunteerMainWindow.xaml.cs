@@ -106,12 +106,41 @@ namespace PL.Volunteer
 
         private void Window_Closed(object sender, EventArgs e) => s_bl.Volunteer.RemoveObserver(VolunteerId, volunteerObserver);
 
+        //private void ApproveCall_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (CurrentVolunteer?.CurrentCallInProgress != null)
+        //            s_bl.Call.UpdateCallCompletion(VolunteerId, CurrentVolunteer.CurrentCallInProgress.Id);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"אירעה שגיאה בעת אישור השיחה: {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //}
+
+        //private void CancelCall_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (CurrentVolunteer?.CurrentCallInProgress != null)
+        //            s_bl.Call.UpdateCallCancellation(VolunteerId, CurrentVolunteer.CurrentCallInProgress.Id);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"אירעה שגיאה בעת ביטול השיחה: {ex.Message}", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //}
+
         private void ApproveCall_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (CurrentVolunteer?.CurrentCallInProgress != null)
+                {
                     s_bl.Call.UpdateCallCompletion(VolunteerId, CurrentVolunteer.CurrentCallInProgress.Id);
+                    LoadVolunteer(); // עדכון המסך לאחר אישור השיחה
+                }
             }
             catch (Exception ex)
             {
@@ -124,7 +153,10 @@ namespace PL.Volunteer
             try
             {
                 if (CurrentVolunteer?.CurrentCallInProgress != null)
+                {
                     s_bl.Call.UpdateCallCancellation(VolunteerId, CurrentVolunteer.CurrentCallInProgress.Id);
+                    LoadVolunteer(); // עדכון המסך לאחר ביטול השיחה
+                }
             }
             catch (Exception ex)
             {

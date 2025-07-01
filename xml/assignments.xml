@@ -464,4 +464,20 @@
     <TypeOfEnding>CancellationHasExpired</TypeOfEnding>
     <Id>1058</Id>
   </Assignment>
+  <Assignment>
+    <CallId>2002</CallId>
+    <VolunteerId>330986704</VolunteerId>
+    <EntryTimeForTreatment>2025-06-23T21:44:32</EntryTimeForTreatment>
+    <EndOfTreatmentTime>2025-07-02T01:42:25.2069048+03:00</EndOfTreatmentTime>
+    <TypeOfEnding>SelfCancellation</TypeOfEnding>
+    <Id>1059</Id>
+  </Assignment>
+  <Assignment>
+    <CallId>1050</CallId>
+    <VolunteerId>330986704</VolunteerId>
+    <EntryTimeForTreatment>2025-06-23T21:44:32</EntryTimeForTreatment>
+    <EndOfTreatmentTime xsi:nil="true" />
+    <TypeOfEnding>None</TypeOfEnding>
+    <Id>1060</Id>
+  </Assignment>
 </ArrayOfAssignment>

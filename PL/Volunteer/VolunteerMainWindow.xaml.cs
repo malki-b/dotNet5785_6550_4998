@@ -17,6 +17,8 @@ namespace PL.Volunteer
             try
             {
                 LoadVolunteer();
+                Loaded += Window_Loaded;
+                Closed += Window_Closed;
             }
             catch (Exception ex)
             {
@@ -106,11 +108,25 @@ namespace PL.Volunteer
             }
         }
 
-        private void volunteerObserver() => LoadVolunteer();
+        //private void volunteerObserver() => LoadVolunteer();
 
-        private void Window_Loaded(object sender, RoutedEventArgs e) => s_bl.Volunteer.AddObserver(VolunteerId, volunteerObserver);
+        //private void Window_Loaded(object sender, RoutedEventArgs e) => s_bl.Volunteer.AddObserver(VolunteerId, volunteerObserver);
 
-        private void Window_Closed(object sender, EventArgs e) => s_bl.Volunteer.RemoveObserver(VolunteerId, volunteerObserver);
+        //private void Window_Closed(object sender, EventArgs e) => s_bl.Volunteer.RemoveObserver(VolunteerId, volunteerObserver);
+
+        private void CallInProgressAvilbleObserver() => LoadVolunteer();
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            s_bl.Volunteer.AddObserver(CallInProgressAvilbleObserver); // ✅ חדש
+            s_bl.Call.AddObserver(CallInProgressAvilbleObserver); // ✅ חדש
+            LoadVolunteer(); // ✅ חדש
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            s_bl.Volunteer.RemoveObserver(CallInProgressAvilbleObserver); // ✅ חדש
+            s_bl.Call.RemoveObserver(CallInProgressAvilbleObserver); // ✅ חדש
+        }
 
         //private void ApproveCall_Click(object sender, RoutedEventArgs e)
         //{

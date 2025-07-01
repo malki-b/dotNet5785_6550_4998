@@ -57,6 +57,7 @@ using DalApi;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Security.Cryptography;
+using BlImplementation;
 
 namespace Helpers;
 
@@ -192,6 +193,90 @@ public static class VolunteerManager
 
     //    return EarthRadius * c;
     //}
+    internal static void SimulateVolunteerAssignmentsAndCallHandling()
+    {
+        Thread.CurrentThread.Name = $"Simulator{Thread.CurrentThread.ManagedThreadId}";
+
+        List<int> updatedVolunteerIds = new();
+        List<int> updatedCallIds = new();
+
+        List<DO.Volunteer> activeVolunteers;
+        lock (AdminManager.BlMutex)
+            activeVolunteers = s_dal.Volunteer.ReadAll(v => v.IsActive==true).ToList();
+
+        foreach (var volunteer in activeVolunteers)
+        {
+            DO.Assignment? currentAssignment;
+
+            lock (AdminManager.BlMutex)
+            {
+                currentAssignment = s_dal.Assignment
+                    .ReadAll(a => a.VolunteerId == volunteer.Id && a.EndOfTreatmentTime == null)
+                    .FirstOrDefault();
+            }
+
+            if (currentAssignment == null)
+            {
+                List<BO.OpenCallInList> openCalls;
+                lock (AdminManager.BlMutex)
+                    openCalls = new CallImplementation().RequestOpenCallsForSelection(volunteer.Id).ToList();
+
+                if (!openCalls.Any() || Random.Shared.NextDouble() > 0.2) continue;
+                if (openCalls.Any())
+                {
+                    var selectedCall = openCalls[Random.Shared.Next(openCalls.Count)];
+                    try
+                    {
+                        new CallImplementation().SelectCallForTreatment(volunteer.Id, selectedCall.Id);
+                        updatedVolunteerIds.Add(volunteer.Id);
+                        updatedCallIds.Add(selectedCall.Id);
+                    }
+                    catch { continue; }
+                }// במקרה של בעיה עם הקריאה
+            }
+            else
+            {
+                DO.Call? call;
+                lock (AdminManager.BlMutex)
+                    call = s_dal.Call.Read(currentAssignment.CallId);
+
+                if (call is null) continue;
+
+                //double distance = Tools.DistanceCalculation((volunteer.Latitude!, volunteer.Longitude!), (call.Latitude, call.Longitude));
+                double distance = Tools.DistanceCalculation(volunteer.Address! , call.Address);
+                TimeSpan baseTime = TimeSpan.FromMinutes(distance * 2);
+                TimeSpan extra = TimeSpan.FromMinutes(Random.Shared.Next(1, 5));
+                TimeSpan totalNeeded = baseTime + extra;
+                TimeSpan actual = AdminManager.Now - currentAssignment.EntryTimeForTreatment;
+
+                if (actual >= totalNeeded)
+                {
+                    try
+                    {
+                        new CallImplementation().UpdateCallCompletion(volunteer.Id, currentAssignment.Id);
+                        updatedVolunteerIds.Add(volunteer.Id);
+                        updatedCallIds.Add(call.Id);
+                    }
+                    catch { continue; }
+                }
+                else if (Random.Shared.NextDouble() < 0.1)
+                {
+                    try
+                    {
+                        new CallImplementation().UpdateCallCancellation(volunteer.Id, currentAssignment.Id);
+                        updatedVolunteerIds.Add(volunteer.Id);
+                        updatedCallIds.Add(call.Id);
+                    }
+                    catch { continue; }
+                }
+            }
+        }
+
+        foreach (var id in updatedVolunteerIds.Distinct())
+            VolunteerManager.Observers.NotifyItemUpdated(id);
+        foreach (var id in updatedCallIds.Distinct())
+            CallManager.Observers.NotifyItemUpdated(id);
+    }
 
 
 }

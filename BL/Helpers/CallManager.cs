@@ -289,5 +289,61 @@ internal static class CallManager
         double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
         return R * c;
     }
+
+
+    /// <summary>
+    /// Periodically updates the calls based on the current clock and checks for expired assignments.
+    /// </summary>
+    /// <param name="oldClock">The previous clock time.</param>
+    /// <param name="newClock">The new clock time.</param>
+    internal static void PeriodicCallsUpdates(DateTime oldClock, DateTime newClock)
+    {
+        //Thread.CurrentThread.Name = $"Periodic{++s_periodicCounter}"; //stage 7 (optional)
+        List<DO.Call> expiredCalls;
+        List<DO.Assignment> assignments;
+        List<DO.Assignment> assignmentsWithNull;
+        lock (AdminManager.BlMutex) //stage 7
+            expiredCalls = s_dal.Call.ReadAll(c => c.MaxTimeFinishRead < newClock).ToList();
+        expiredCalls.ForEach(call =>
+        {
+            lock (AdminManager.BlMutex)
+            {//stage 7
+                assignments = s_dal.Assignment.ReadAll(a => a.CallId == call.Id).ToList();
+                if (!assignments.Any())
+                {
+                    s_dal.Assignment.Create(new DO.Assignment(
+                    //Id: 0,
+                    CallId: call.Id,
+                    VolunteerId: 0,
+                    TypeOfEnding: (DO.TypeOfEnding)BO.TypeOfEnding.CancellationHasExpired,
+                    EntryTimeForTreatment: AdminManager.Now,
+                    EndOfTreatmentTime: AdminManager.Now
+                ));
+                }
+            }
+            Observers.NotifyItemUpdated(call.Id);
+
+
+            lock (AdminManager.BlMutex) //stage 7
+                assignmentsWithNull = s_dal.Assignment.ReadAll(a => a.CallId == call.Id && a.TypeOfEnding is null).ToList();
+            if (assignmentsWithNull.Any())
+            {
+                lock (AdminManager.BlMutex) //stage 7
+                    foreach (var assignment in assignmentsWithNull)
+                    {
+                        s_dal.Assignment.Update(assignment with
+                        {
+                            EndOfTreatmentTime = AdminManager.Now,
+                            TypeOfEnding = (DO.TypeOfEnding)BO.TypeOfEnding.CancellationHasExpired
+                        });
+                    }
+
+                Observers.NotifyItemUpdated(call.Id);
+            }
+
+        });
+
+    }
+
 }
 

@@ -5,6 +5,7 @@ using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 //A class that will implement the CRUD methods that can be performed on any assignmemnt entity by accessing a data collection of type XML file. According to method 1.
 internal class AssignmentImplementation : IAssignment

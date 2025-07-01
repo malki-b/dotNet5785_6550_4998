@@ -5,11 +5,12 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 internal class AssignmentImplementation : IAssignment
 {
-    [MethodImpl(MethodImplOptions.Synchronized)]
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Create(Assignment item)
     {
         int idCall = Config.NextAssignmentId;

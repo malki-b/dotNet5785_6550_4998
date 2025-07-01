@@ -1,24 +1,36 @@
 ﻿
+using System.Runtime.CompilerServices;
+
 namespace Dal;
 
 internal static class Config
 {
     internal const int startCallId = 1000;
     private static int nextCallId = startCallId;
-    [MethodImpl(MethodImplOptions.Synchronized)]
-    internal static int NextCallId { get => nextCallId++; }
+    internal static int NextCallId {
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        get => nextCallId++; }
 
     internal const int startAssignmentId = 1000;
 
     private static int nextAssignmentId = startAssignmentId;
 
-    [MethodImpl(MethodImplOptions.Synchronized)]
-    public static int NextAssignmentId { get => nextAssignmentId++; }
-    [MethodImpl(MethodImplOptions.Synchronized)]
-    internal static DateTime Clock { get; set; } = new DateTime(2024, 12, 08, 19, 59, 30);
+    public static int NextAssignmentId {
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        get => nextAssignmentId++; }
+    internal static DateTime Clock {
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        get;
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        set; } = new DateTime(2024, 12, 08, 19, 59, 30);
 
-    [MethodImpl(MethodImplOptions.Synchronized)]
-    internal static TimeSpan RiskRange { get; set; } = TimeSpan.FromHours(1);
+    internal static TimeSpan RiskRange
+    
+    {
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        get;
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        set; } = TimeSpan.FromHours(1);
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     internal static void Reset()

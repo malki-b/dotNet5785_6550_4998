@@ -115,7 +115,85 @@ internal static class CallManager
         if (newCall.MaxEndTime <= newCall.OpeningTime)
             throw new Exception("Expiration time must be later than start time");
     }
+    //public static IEnumerable<T> GetCallsByFilterClose<T>(int volunteerId, BO.TypeOfReading? filterBy = null, ClosedCallField? sortByField = null, bool isOpen = true) where T : class
+    //{
 
+    //    try
+    //    {
+    //        var volunteer = s_dal.Volunteer.Read(v => v.Id == volunteerId);
+    //        if (volunteer == null)
+    //            throw new BO.BlNullPropertyException($"Volunteer with ID {volunteerId} not found.");
+
+    //        // "קריאה סגורה ברשימה"
+    //        //קריאה סגורה
+    //        //var assignments = s_dal.Assignment.ReadAll()
+    //        //    .Where(a => a.VolunteerId == volunteerId &&
+    //        //                (isOpen ? a. == BO.Status.Open || a.TypeOfEnding == DO.TypeOfEnding.OpenRisk
+    //        //                        : a.TypeOfEnding == DO.TypeOfEnding.Closed));
+
+    //        var assignments = s_dal.Assignment.ReadAll()
+    //            .Where(a => a.VolunteerId == volunteerId &&
+    //                        (isOpen ? CallManager.GetCallStatus(a.CallId) == Status.Open || CallManager.GetCallStatus(a.CallId) == Status.OpenAtRisk
+    //                                : (CallManager.GetCallStatus(a.CallId) == Status.Closed || a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation)));
+
+    //        //(isOpen ? a.TypeOfEnding == DO.TypeOfEnding.Open || a.TypeOfEnding == DO.TypeOfEnding.OpenRisk
+    //        //                        : a.TypeOfEnding == DO.TypeOfEnding.Closed));
+
+    //        var calls = from assign in assignments
+    //                    join call in s_dal.Call.ReadAll()
+    //                        on assign.CallId equals call.Id
+    //                    select new { call, assign };
+    //        ///
+    //        if (filterBy != null)
+    //            calls = calls.Where(x => x.call.TypeOfReading.Equals(filterBy));
+
+    //        ////
+    //        var result = calls.Select(c => isOpen
+    //                    ? new BO.OpenCallInList
+    //                    {
+    //                        Id = c.call.Id,
+    //                        Type = (BO.TypeOfReading)c.call.TypeOfReading,
+    //                        Description = c.call.VerbalDescription,
+    //                        FullAddress = c.call.Address,
+    //                        OpeningTime = c.call.OpeningTime,
+    //                        MaxCompletionTime = c.call.MaxTimeFinishRead,
+    //                        DistanceFromVolunteer = CalculateDistance(volunteer.Latitude, volunteer.Longitude, c.call.Latitude, c.call.Longitude)
+    //                    } as T
+    //                    : new BO.ClosedCallInList
+    //                    {
+    //                        Id = c.call.Id,
+    //                        TypeOfReading = (BO.TypeOfReading)c.call.TypeOfReading,
+    //                        FullAddress = c.call.Address,
+    //                        OpeningTime = c.call.OpeningTime,
+    //                        EntryTimeForHandling = c.assign.EntryTimeForTreatment,
+    //                        ActualHandlingEndTime = c.assign.EndOfTreatmentTime,
+    //                        TypeOfEnding = (BO.TypeOfEnding)c.assign.TypeOfEnding
+    //                        //TypeOfEnding = Enum.TryParse<BO.TypeOfReading>(c.assign.TypeOfEnding.ToString(), out BO.TypeOfEnding completionStatus)
+    //                        //                   ? (BO.TypeOfReading?)completionStatus
+    //                        //                   : null
+    //                    } as T);
+
+    //        if (sortByField != null)
+    //        {
+    //            var property = typeof(T).GetProperty(sortByField.ToString());
+    //            if (property != null)
+    //                result = result.OrderBy(call => property.GetValue(call));
+    //        }
+    //        else
+    //        {
+    //            result = isOpen
+    //                ? result.Cast<BO.OpenCallInList>().OrderBy(call => call.Id).Cast<T>()
+    //                : result.Cast<BO.ClosedCallInList>().OrderBy(call => call.OpeningTime).Cast<T>();
+    //        }
+
+    //        return result;
+    //    }
+    //    catch (DO.DalDoesNotExistException)
+    //    {
+    //        throw new BO.BlDoesNotExistException("Error retrieving calls.");
+    //    }
+
+    //}
     public static IEnumerable<T> GetCallsByFilter<T>(int volunteerId, BO.TypeOfReading? filterBy=null, CallField? sortByField = null, bool isOpen=true) where T : class
     {
       

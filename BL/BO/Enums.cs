@@ -161,6 +161,7 @@ public enum VolunteerField
 }
 public enum ClosedCallField
 {
+    None,
     Id,
     TypeOfReading,
     FullAddress,
@@ -171,6 +172,7 @@ public enum ClosedCallField
 }
 public enum OpenCallField
 {
+    None,
     Id,
     Type,
     Description,

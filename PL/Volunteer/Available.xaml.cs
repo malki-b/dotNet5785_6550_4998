@@ -24,7 +24,7 @@ namespace PL.Volunteer
         {
             InitializeComponent();
             VolunteerId = volunteerId;
-            CallAvailableList = s_bl.Call.RequestOpenCallsForSelection(volunteerId);
+            queryCallAvailableList();
         }
 
         public int VolunteerId { get; }
@@ -36,7 +36,7 @@ namespace PL.Volunteer
         public static readonly DependencyProperty CallAvailableListProperty =
         DependencyProperty.Register("CallAvailableList", typeof(IEnumerable<BO.OpenCallInList>), typeof(Available), new PropertyMetadata(null));
 
-        public BO.CallField CallSortProp { get; set; } = BO.CallField.None;
+        public BO.OpenCallField CallSortProp { get; set; } = BO.OpenCallField.None; // Changed from CallField to OpenCallField
         public BO.TypeOfReading TypeOfCallFilterProp { get; set; } = BO.TypeOfReading.None;
 
         private void SelectionChangedInCallAvailableListProp(object sender, RoutedEventArgs e)
@@ -49,13 +49,13 @@ namespace PL.Volunteer
             if (TypeOfCallFilterProp == BO.TypeOfReading.None)
             {
                 CallAvailableList = s_bl?.Call.RequestOpenCallsForSelection(VolunteerId, null,
-                    CallSortProp == BO.CallField.None ? null : CallSortProp
+                    CallSortProp == BO.OpenCallField.None ? null : CallSortProp // Changed from CallField to OpenCallField
                 )!;
             }
             else
             {
                 CallAvailableList = s_bl?.Call.RequestOpenCallsForSelection(VolunteerId, TypeOfCallFilterProp,
-                       CallSortProp == BO.CallField.None ? null : CallSortProp
+                       CallSortProp == BO.OpenCallField.None ? null : CallSortProp // Changed from CallField to OpenCallField
                    )!;
             }
         }

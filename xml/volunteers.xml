@@ -12,7 +12,7 @@
     <Address>5 Hamerkaz Street, Haifa City Center, Haifa, Israel</Address>
     <Latitude>32.792761</Latitude>
     <Longitude>34.995336</Longitude>
-    <Max_Distance>12</Max_Distance>
+    <Max_Distance>19</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>329333488</Id>
@@ -26,7 +26,7 @@
     <Address>12 Rothschild Boulevard, Tel Aviv, Israel</Address>
     <Latitude>32.062745</Latitude>
     <Longitude>34.770447</Longitude>
-    <Max_Distance>17</Max_Distance>
+    <Max_Distance>6</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>214491060</Id>
@@ -36,7 +36,7 @@
     <Password>Gmail1234!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Air</Type_Distance>
+    <Type_Distance>Drive</Type_Distance>
     <Address>10 King David Street, Jerusalem City Center, Jerusalem, Israel</Address>
     <Latitude>31.70954</Latitude>
     <Longitude>35.205725</Longitude>
@@ -50,11 +50,11 @@
     <Password>Password123!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Walking</Type_Distance>
+    <Type_Distance>Drive</Type_Distance>
     <Address>25 Herzl Street, Rehovot, Israel</Address>
     <Latitude>31.916661</Latitude>
     <Longitude>35.176402</Longitude>
-    <Max_Distance>18</Max_Distance>
+    <Max_Distance>14</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>215281288</Id>
@@ -64,11 +64,11 @@
     <Password>SecretPass!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Air</Type_Distance>
+    <Type_Distance>None</Type_Distance>
     <Address>18 Bialik Street, Ramat Gan, Israel</Address>
     <Latitude>31.797499</Latitude>
     <Longitude>34.645104</Longitude>
-    <Max_Distance>17</Max_Distance>
+    <Max_Distance>12</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>218445062</Id>
@@ -78,11 +78,11 @@
     <Password>Green2021!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Walking</Type_Distance>
+    <Type_Distance>Drive</Type_Distance>
     <Address>9 Ben Yehuda Street, Tel Aviv, Israel</Address>
     <Latitude>32.087066</Latitude>
     <Longitude>34.773227</Longitude>
-    <Max_Distance>12</Max_Distance>
+    <Max_Distance>16</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>332987908</Id>
@@ -96,7 +96,7 @@
     <Address>30 Hanevi'im Street, Jerusalem, Israel</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <Max_Distance>2</Max_Distance>
+    <Max_Distance>14</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>214388381</Id>
@@ -110,7 +110,7 @@
     <Address>15 Hahistadrut Avenue, Haifa, Israel</Address>
     <Latitude>32.7992802</Latitude>
     <Longitude>35.0497902</Longitude>
-    <Max_Distance>10</Max_Distance>
+    <Max_Distance>11</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>214875379</Id>
@@ -120,11 +120,11 @@
     <Password>WeinerPass!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Walking</Type_Distance>
+    <Type_Distance>None</Type_Distance>
     <Address>7 Dizengoff Street, Tel Aviv, Israel</Address>
     <Latitude>32.084319</Latitude>
     <Longitude>34.781364</Longitude>
-    <Max_Distance>12</Max_Distance>
+    <Max_Distance>16</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>330986704</Id>
@@ -138,7 +138,7 @@
     <Address>20 Menachem Begin Road, Tel Aviv, Israel</Address>
     <Latitude>32.066455</Latitude>
     <Longitude>34.783553</Longitude>
-    <Max_Distance>16</Max_Distance>
+    <Max_Distance>9</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>214324998</Id>
@@ -152,6 +152,62 @@
     <Address>22 Jabotinsky Street, Ramat Gan, Israel</Address>
     <Latitude>32.062593</Latitude>
     <Longitude>34.776051</Longitude>
-    <Max_Distance>13</Max_Distance>
+    <Max_Distance>4</Max_Distance>
+  </Volunteer>
+  <Volunteer>
+    <Id>327786612</Id>
+    <Name>Daniel Grossman</Name>
+    <Phone>0541234567</Phone>
+    <Email>danielgrossman@gmail.com</Email>
+    <Password>GrossPass!!</Password>
+    <Role>Volunteer</Role>
+    <IsActive>true</IsActive>
+    <Type_Distance>Air</Type_Distance>
+    <Address>14 Weizmann Street, Herzliya, Israel</Address>
+    <Latitude>32.171739</Latitude>
+    <Longitude>34.825672</Longitude>
+    <Max_Distance>4</Max_Distance>
+  </Volunteer>
+  <Volunteer>
+    <Id>327880845</Id>
+    <Name>Avraham Super</Name>
+    <Phone>0576543219</Phone>
+    <Email>avrahamsuper@gmail.com</Email>
+    <Password>SuperPass2021!</Password>
+    <Role>Volunteer</Role>
+    <IsActive>true</IsActive>
+    <Type_Distance>Drive</Type_Distance>
+    <Address>3 Shderot Ben Gurion, Haifa, Israel</Address>
+    <Latitude>32.792761</Latitude>
+    <Longitude>34.995336</Longitude>
+    <Max_Distance>16</Max_Distance>
+  </Volunteer>
+  <Volunteer>
+    <Id>329236087</Id>
+    <Name>Shmuel Gross</Name>
+    <Phone>0509876543</Phone>
+    <Email>shmuelgross@gmail.com</Email>
+    <Password>ShmuelPass!</Password>
+    <Role>Volunteer</Role>
+    <IsActive>true</IsActive>
+    <Type_Distance>None</Type_Distance>
+    <Address>8 Agron Street, Jerusalem, Israel</Address>
+    <Latitude>31.712552</Latitude>
+    <Longitude>35.224389</Longitude>
+    <Max_Distance>2</Max_Distance>
+  </Volunteer>
+  <Volunteer>
+    <Id>327796678</Id>
+    <Name>Eliyahu Braun</Name>
+    <Phone>0565432198</Phone>
+    <Email>eliyahubraun@gmail.com</Email>
+    <Password>Braun2021!</Password>
+    <Role>Volunteer</Role>
+    <IsActive>true</IsActive>
+    <Type_Distance>Drive</Type_Distance>
+    <Address>6 Zamenhoff Street, Tel Aviv, Israel</Address>
+    <Latitude>32.066455</Latitude>
+    <Longitude>34.783553</Longitude>
+    <Max_Distance>18</Max_Distance>
   </Volunteer>
 </ArrayOfVolunteer>

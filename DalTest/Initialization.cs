@@ -33,7 +33,7 @@ public static class Initialization
     "Baruch2021!",
     "WeinerPass!",
     "Aharon12345!",
-    "Fish1234!",
+    "Fish1234!3456",
     "GrossPass!!",
     "SuperPass2021!",
     "ShmuelPass!",
@@ -319,15 +319,15 @@ public static class Initialization
                 int minutesRange = (int)(ending - opening).TotalMinutes;
 
                 if (minutesRange <= 0) continue;
-
-                DateTime endTime = opening.AddMinutes(s_rand.Next(minutesRange));
+                TypeOfEnding endType = (TypeOfEnding)s_rand.Next(Enum.GetValues(typeof(TypeOfEnding)).Length);
+                DateTime? endTime = endType == TypeOfEnding.None ? null : opening.AddMinutes(s_rand.Next(minutesRange));
 
                 var assignment = new Assignment(
                     call.Id,
                     volunteer.Id,
                     opening,
                     endTime,
-                    (TypeOfEnding)s_rand.Next(Enum.GetValues(typeof(TypeOfEnding)).Length)
+                    endType
                 );
 
                 s_dal.Assignment.Create(assignment);

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Volunteer Details" Height="700" Width="700" Background="#F9FAFC"
         WindowStartupLocation="CenterScreen"
+        Loaded="VolunteerWindow_Loaded" Closed="VolunteerWindow_Closed"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <Grid Margin="30">

@@ -4,6 +4,8 @@ using DO;
 using System.Data;
 using System.Data.Common;
 using System.Net.NetworkInformation;
+using System.Text.Json;
+
 /// <summary>
 /// Updating the Initialization class to work with one interface in the 
 /// data layer rather than 4 separate interfaces.
@@ -19,7 +21,24 @@ public static class Initialization
         string[] namesVolunteer = ["Yaakov Levi", "Moshe Cohen", "Avraham Goldstein", "David Friedman", "Shlomo Rabinowitz", "Menachem Green", "Aryeh Schwartz", "Shimon Baruch", "Yisrael Weiner", "Aharon Fried", "Shlomo Fisher", "Daniel Grossman", "Avraham Super", "Shmuel Gross", "Eliyahu Braun"];
         string[] phoneVolunteer = ["0521234567", "0549876543", "0506543298", "0525432187", "0589876543", "0524321987", "0583219876", "0551987654", "0534567892", "0587654321", "0509876543", "0541234567", "0576543219", "0509876543", "0565432198"];
         string[] emailVolunteer = ["yaakovlevi@gmail.com", "moshecohen@gmail.com", "avrahamgoldstein@gmail.com", "davidfriedman@gmail.com", "shlomorabinowitz@gmail.com", "menachemgreen@gmail.com", "aryehschwartz@gmail.com", "shimonbaruch@gmail.com", "yisraelweiner@gmail.com", "aharonfried@gmail.com", "shlomofisher@gmail.com", "danielgrossman@gmail.com", "avrahamsuper@gmail.com", "shmuelgross@gmail.com", "eliyahubraun@gmail.com"];
-        string[] passVolunteer = ["Passw0rd!", "SecurePass123", "Gmail1234", "Password123", "SecretPass", "Green2021", "AryehS!23", "Baruch2021", "WeinerPass", "Aharon12345", "Fish1234", "GrossPass!", "SuperPass2021", "ShmuelPass", "Braun2021"];
+        string[] passVolunteer = new string[]
+        {
+    "Passw0rd!",
+    "SecurePass123!",
+    "Gmail1234!",
+    "Password123!",
+    "SecretPass!",
+    "Green2021!",
+    "AryehS!23!",
+    "Baruch2021!",
+    "WeinerPass!",
+    "Aharon12345!",
+    "Fish1234!",
+    "GrossPass!!",
+    "SuperPass2021!",
+    "ShmuelPass!",
+    "Braun2021!"
+        };
         string[] addressVolunteer = [
    "5 Hamerkaz Street, Haifa City Center, Haifa, Israel",
 "12 Rothschild Boulevard, Tel Aviv, Israel",
@@ -37,45 +56,59 @@ public static class Initialization
 "8 Agron Street, Jerusalem, Israel",
 "6 Zamenhoff Street, Tel Aviv, Israel"
 ];
-        double[] Longitude = [ 32.093035,32.072976, 32.075237,
-    32.074741,
-    32.069773,
-    32.820103,
-    32.820918,
-    32.820536,
-    32.977347,
-    32.175679,
-    32.072830,
-    32.175537,
-    32.070820,
-    32.070131,
-    32.074038
-];
-        double[] Latitude = [
-    34.770410,
-    34.773367,
-    34.775382,
-    34.778712,
-    34.774574,
-    34.983579,
-    34.987190,
-    34.988004,
-    34.742663,
-    34.912945,
-    34.794960,
-    34.912181,
-    34.799589,
-    34.801429,
-    34.790317
-];
+        //        double[] Longitude = [ 32.093035,32.072976, 32.075237,
+        //    32.074741,
+        //    32.069773,
+        //    32.820103,
+        //    32.820918,
+        //    32.820536,
+        //    32.977347,
+        //    32.175679,
+        //    32.072830,
+        //    32.175537,
+        //    32.070820,
+        //    32.070131,
+        //    32.074038
+        //];
+        //        double[] Latitude = [
+        //    34.770410,
+        //    34.773367,
+        //    34.775382,
+        //    34.778712,
+        //    34.774574,
+        //    34.983579,
+        //    34.987190,
+        //    34.988004,
+        //    34.742663,
+        //    34.912945,
+        //    34.794960,
+        //    34.912181,
+        //    34.799589,
+        //    34.801429,
+        //    34.790317
+        //];
+        int[] volunteerIds =
+ [
+     329333488,
+    214491060,
+    219595907,
+    215281288,
+    218445062,
+    332987908,
+    214388381,
+    214875379,
+    328306550,
+    330986704,
+    214324998
+ ];
         int MIN_ID = 200000000;
         int MAX_ID = 400000000;
         for (int i = 0; i < 15; i++)
         {
-            int id;
-            do
-                id = s_rand.Next(MIN_ID, MAX_ID);
-            while (s_dal!.Volunteer.Read(id) != null);
+            //int id;
+            //do
+            //    id = s_rand.Next(MIN_ID, MAX_ID);
+            //while (s_dal!.Volunteer.Read(id) != null);
 
             Role r;
             if (i == 0)
@@ -92,8 +125,8 @@ public static class Initialization
             var values = Enum.GetValues(typeof(TypeDistance));
             int randomIndex = s_rand.Next(0, values.Length);
             TypeDistance distanceType = (TypeDistance)values.GetValue(randomIndex)!;
-
-            Volunteer v = new(id, namesVolunteer[i], phoneVolunteer[i], emailVolunteer[i], passVolunteer[i], distanceType, r, addressVolunteer[i], Latitude[i], Longitude[i], true, s_rand.Next(0, 20));
+            var (latitude, longitude) =GetCoordinates(addressVolunteer[i]);
+            Volunteer v = new(volunteerIds[i], namesVolunteer[i], phoneVolunteer[i], emailVolunteer[i], passVolunteer[i], distanceType, r, addressVolunteer[i], latitude, longitude, true, s_rand.Next(0, 20));
             s_dal!.Volunteer.Create(v);
         }
     }
@@ -226,7 +259,9 @@ public static class Initialization
                 type = TypeOfReading.LongTermDanger;
                 ending = start.AddMinutes(60);
             }
-            s_dal!.Call.Create(new Call(callAddresses[i], callLatitudes[i], callLongitudes[i], start, type, cases[i], ending));
+            var (latitude, longitude) = GetCoordinates(callAddresses[i]);
+
+            s_dal!.Call.Create(new Call(callAddresses[i], latitude, longitude, start, type, cases[i], ending));
         }
     }
 
@@ -275,6 +310,39 @@ public static class Initialization
 
         Console.WriteLine("Initializing IAssignment list ...");
         createAssignment();
+    }
+    private static string apiKey = "PK.83B935C225DF7E2F9B1ee90A6B46AD86";
+
+    public static (double, double) GetCoordinates(string address)
+    {
+        using var client = new HttpClient();
+        string url = $"https://us1.locationiq.com/v1/search.php?key={apiKey}&q={Uri.EscapeDataString(address)}&format=json";
+
+        var response = client.GetAsync(url).GetAwaiter().GetResult();
+        //if (!response.IsSuccessStatusCode)
+        //    throw new Exception("Invalid address or API error.");
+
+        var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+        using var doc = JsonDocument.Parse(json);
+
+        if (doc.RootElement.ValueKind != JsonValueKind.Array || doc.RootElement.GetArrayLength() == 0)
+            throw new Exception("Address not found.");
+
+        var root = doc.RootElement[0];
+
+        if (!root.TryGetProperty("lat", out var latProperty) ||
+            !root.TryGetProperty("lon", out var lonProperty))
+        {
+            throw new Exception("Missing latitude or longitude in response.");
+        }
+
+        if (!double.TryParse(latProperty.GetString(), out double latitude) ||
+            !double.TryParse(lonProperty.GetString(), out double longitude))
+        {
+            throw new Exception("Invalid latitude or longitude format.");
+        }
+
+        return (latitude, longitude);
     }
 
 }

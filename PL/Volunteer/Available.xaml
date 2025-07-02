@@ -114,12 +114,22 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="100">
+                        <GridViewColumn Header="קבל" Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Content="קבל" Click="SelectCall_Click"
-                                             CommandParameter="{Binding}" Background="#F87171"
-                                             Foreground="White" Padding="4"/>
+                                            CommandParameter="{Binding}" Background="#F87171"
+                                            Foreground="White" Padding="4"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="מחיקה" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="מחיקה" Click="DeleteVolunteer_click"
+                                            CommandParameter="{Binding}" Background="#F87171"
+                                            Foreground="White" Padding="4"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -131,4 +141,3 @@
         </DockPanel>
     </Border>
 </Window>
-

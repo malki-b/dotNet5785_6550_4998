@@ -67,13 +67,6 @@ internal static class AdminManager //stage 4
         var oldClock = s_dal.Config.Clock; //stage 4
         s_dal.Config.Clock = newClock; //stage 4
 
-        //TO_DO:
-        //Add calls here to any logic method that should be called periodically,
-        //after each clock update
-        //for example, Periodic students' updates:
-        //Go through all students to update properties that are affected by the clock update
-        //(students becomes not active after 5 years etc.)
-
         //StudentManager.PeriodicStudentsUpdates(oldClock, newClock); //stage 4
         if (_periodicTask is null || _periodicTask.IsCompleted) //stage 7
             _periodicTask = Task.Run(() => CallManager.PeriodicCallsUpdates(oldClock, newClock));

@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto"/>
             <!-- כפתורי ניווט -->
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <!-- פעולות מערכת -->
             <RowDefinition Height="Auto"/>
             <!-- קביעת טווח שנה -->
@@ -28,32 +29,46 @@
 
         <!-- פעולות מערכת -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
-            <Button Content="אתחול בסיס נתונים" Width="160" Height="50" Click="Init_Click" Margin="0,0,20,0"/>
-            <Button Content="איפוס תצורה + בסיס נתונים" Width="180" Height="50" Click="Resert_Click" Margin="0,0,20,0"/>
-            <Button Content="סיכום קריאות לפי סטטוסים" Width="180" Height="50" Click="Button_Click_2" Margin="0,0,20,0"/>
-            <Button Content="סימולטור מצב" Width="180" Height="50" Click="Button_Click_2"/>
+            <Button Content="אתחול בסיס נתונים" Width="160" Height="50" Click="Init_Click" Margin="0,0,20,0"
+                    IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BooleanInverseConverter}}"/>
+            <Button Content="איפוס תצורה + בסיס נתונים" Width="180" Height="50" Click="Resert_Click" Margin="0,0,20,0"
+                    IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BooleanInverseConverter}}"/>
+            <!--<Button Content="סיכום קריאות לפי סטטוסים" Width="180" Height="50" Click="Button_Click_2" Margin="0,0,20,0"/>-->
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+            <Label Content="Simualtor Interval:" VerticalAlignment="Center"/>
+            <TextBox Width="80" Height="28" Text="{Binding Interval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="{Binding IsSimulatorRunning, Converter={StaticResource BoolToStartStopConverter}}" Width="180" Height="50" Click="Simulator_Click"/>
+            <Label Content="{Binding ErrorMessage}" Foreground="Red" FontWeight="Bold" VerticalAlignment="Center"/>
         </StackPanel>
 
         <!-- קביעת טווח שנה -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
             <Label Content="Max year range:" VerticalAlignment="Center"/>
             <TextBox Width="80" Height="28" Text="{Binding CurrentMaxRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Content="Update" Width="80" Height="28" Click="Update_Click"/>
+            <Button Content="Update" Width="80" Height="28" Click="Update_Click"
+                    IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BooleanInverseConverter}}"/>
             <Label Content="{Binding ErrorMessage}" Foreground="Red" FontWeight="Bold" VerticalAlignment="Center"/>
         </StackPanel>
 
         <!-- סימולטור זמן -->
-        <StackPanel Grid.Row="3" Orientation="Vertical" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="4" Orientation="Vertical" HorizontalAlignment="Center">
             <Label Content="{Binding CurrentTime}" FontSize="22" FontWeight="Bold" Foreground="#2F3E46"
                    Background="#E0FBFC" Padding="10" HorizontalAlignment="Center"/>
 
             <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <StackPanel Grid.Row="3" Orientation="Vertical" HorizontalAlignment="Center">
-                    <Button Content="Add 1 Minute" Width="110" Click="Add_One_Minute_Click" Margin="0,0,0,10"/>
-                    <Button Content="Add 1 Hour" Width="110" Click="Add_One_Hour_Click" Margin="0,0,0,10"/>
-                    <Button Content="Add 1 Day" Width="110" Click="Add_One_Day_Click" Margin="0,0,0,10"/>
-                    <Button Content="Add 1 Month" Width="110" Click="Add_One_Month_Click" Margin="0,0,0,10"/>
-                    <Button Content="Add 1 Year" Width="110" Click="Add_One_Year_Click"/>
+                    <Button Content="Add 1 Minute" Width="110" Click="Add_One_Minute_Click" Margin="0,0,0,10"
+                            IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BooleanInverseConverter}}"/>
+                    <Button Content="Add 1 Hour" Width="110" Click="Add_One_Hour_Click" Margin="0,0,0,10"
+                            IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BooleanInverseConverter}}"/>
+                    <Button Content="Add 1 Day" Width="110" Click="Add_One_Day_Click" Margin="0,0,0,10"
+                            IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BooleanInverseConverter}}"/>
+                    <Button Content="Add 1 Month" Width="110" Click="Add_One_Month_Click" Margin="0,0,0,10"
+                            IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BooleanInverseConverter}}"/>
+                    <Button Content="Add 1 Year" Width="110" Click="Add_One_Year_Click"
+                            IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BooleanInverseConverter}}"/>
                 </StackPanel>
 
             </WrapPanel>

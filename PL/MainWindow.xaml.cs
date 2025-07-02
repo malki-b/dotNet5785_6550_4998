@@ -37,6 +37,34 @@ namespace PL
                new PropertyMetadata(null)
            );
 
+        public int Interval
+        {
+            get { return (int)GetValue(InternalProperty); }
+            set { SetValue(InternalProperty, value); }
+        }
+
+        public static readonly DependencyProperty InternalProperty =
+           DependencyProperty.Register(
+               "Internal",
+               typeof(int),
+               typeof(MainWindow),
+               new PropertyMetadata(1000)
+           );
+
+        /// <summary>
+        /// Dependency property indicating whether the simulator is currently running.
+        /// </summary>
+        public static readonly DependencyProperty IsSimulatorRunningProperty =
+            DependencyProperty.Register("IsSimulatorRunning", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the simulator is currently running.
+        /// </summary>
+        public bool IsSimulatorRunning
+        {
+            get { return (bool)GetValue(IsSimulatorRunningProperty); }
+            set { SetValue(IsSimulatorRunningProperty, value); }
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -196,9 +224,18 @@ namespace PL
             }
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Simulator_Click(object sender, RoutedEventArgs e)
         {
-
+            if (IsSimulatorRunning)
+            {
+                s_bl.Admin.StopSimulator();
+                IsSimulatorRunning = false;
+            }
+            else
+            {
+                s_bl.Admin.StartSimulator(Interval);
+                IsSimulatorRunning = true;
+            }
         }
 
     }

@@ -291,24 +291,14 @@ public static class Initialization
     //}
     private static void createAssignment()
     {
-        List<Volunteer>? volunteers = s_dal!.Volunteer.ReadAll().ToList();
-        List<Call>? calls = s_dal!.Call.ReadAll().ToList();
+        var volunteers = s_dal!.Volunteer.ReadAll().ToList();
+        var calls = s_dal!.Call.ReadAll().ToList();
 
-        if (volunteers == null || volunteers.Count == 0)
+        if (volunteers.Count == 0 || calls.Count < 40)
         {
-            Console.WriteLine("No volunteers found. Skipping assignment creation.");
+            Console.WriteLine("Insufficient volunteers or calls.");
             return;
         }
-
-        if (calls == null || calls.Count < 50)
-        {
-            Console.WriteLine($"Not enough calls to assign. Found only {calls.Count}. Need at least 50.");
-            return;
-        }
-
-        Console.WriteLine($"Creating assignments: volunteers={volunteers.Count}, calls={calls.Count}");
-
-        HashSet<int> assignedCalls = new();
 
         for (int i = 15; i < 50; i++)
         {
@@ -316,41 +306,36 @@ public static class Initialization
             {
                 var call = calls[i];
 
-                // בדיקה שלא הוקצה כבר
-                if (assignedCalls.Contains(call.Id))
+                if (call.MaxTimeFinishRead <= call.OpeningTime)
                 {
-                    Console.WriteLine($"Call {call.Id} already assigned. Skipping.");
+                    Console.WriteLine($"Call {call.Id} has invalid time range.");
                     continue;
                 }
 
-                // בחירת מתנדב אקראי
-                Volunteer volunteer = volunteers[s_rand.Next(volunteers.Count)];
+                var volunteer = volunteers[s_rand.Next(volunteers.Count)];
 
-                DateTime openingCase = s_dal.Config.Clock;
-                DateTime endingCase = call.MaxTimeFinishRead ?? openingCase.AddMinutes(30); // גיבוי למקרה ש-null
-                TimeSpan rangeOfTime = endingCase - openingCase;
-                int validDifference = (int)Math.Max(rangeOfTime.TotalMinutes, 0);
+                DateTime opening = call.OpeningTime;
+                DateTime ending = call.MaxTimeFinishRead!.Value;
+                int minutesRange = (int)(ending - opening).TotalMinutes;
 
-                if (validDifference == 0)
-                {
-                    Console.WriteLine($"Skipping assignment for call {call.Id} due to invalid time range.");
-                    continue;
-                }
+                if (minutesRange <= 0) continue;
 
-                int randomMinute = s_rand.Next(0, validDifference);
-                DateTime handlingTime = openingCase.AddMinutes(randomMinute);
+                DateTime endTime = opening.AddMinutes(s_rand.Next(minutesRange));
 
-                TypeOfEnding endingType = (TypeOfEnding)s_rand.Next(Enum.GetValues(typeof(TypeOfEnding)).Length - 1);
+                var assignment = new Assignment(
+                    call.Id,
+                    volunteer.Id,
+                    opening,
+                    endTime,
+                    (TypeOfEnding)s_rand.Next(Enum.GetValues(typeof(TypeOfEnding)).Length)
+                );
 
-                Assignment assignment = new Assignment(call.Id, volunteer.Id, openingCase, handlingTime, endingType);
                 s_dal.Assignment.Create(assignment);
-
-                assignedCalls.Add(call.Id);
-                Console.WriteLine($"Assigned call {call.Id} to volunteer {volunteer.Id} at {handlingTime}");
+                Console.WriteLine($"✅ Assigned call {call.Id} to volunteer {volunteer.Id}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error assigning call index {i}: {ex.Message}");
+                Console.WriteLine($"❌ Error in call index {i}: {ex.Message}");
             }
         }
     }

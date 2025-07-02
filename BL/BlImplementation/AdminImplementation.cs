@@ -67,7 +67,7 @@ internal class AdminImplementation : IAdmin
         {
             AdminManager.ThrowOnSimulatorIsRunning();
             AdminManager.InitializeDB();
-            DalTest.Initialization.Do();
+            //DalTest.Initialization.Do();
             AdminManager.UpdateClock(AdminManager.Now);
         }
     }

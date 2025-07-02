@@ -9,14 +9,17 @@ namespace PL.Volunteer;
 public partial class VolunteerWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    public bool IsUpdateMode { get; private set; }
 
     public VolunteerWindow(int id = 0)
     {
         try
         {
-            ButtonText = id == 0 ? "Add" : "Update";
+            IsUpdateMode = id != 0; 
+            ButtonText = IsUpdateMode ? "Update" : "Add";
             InitializeComponent();
-            CurrentVolunteer = (id != 0)
+
+            CurrentVolunteer = IsUpdateMode
                 ? s_bl.Volunteer.Read(id)!
                 : new BO.Volunteer(
                     0,

@@ -71,20 +71,6 @@
     <Max_Distance>8</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>214324998</Id>
-    <Name>Menachem Green</Name>
-    <Phone>0524321987</Phone>
-    <Email>menachemgreen@gmail.com</Email>
-    <Password>Green2021!</Password>
-    <Role>Volunteer</Role>
-    <IsActive>false</IsActive>
-    <Type_Distance>Drive</Type_Distance>
-    <Address>9 Ben Yehuda Street, Tel Aviv, Israel</Address>
-    <Latitude>32.087066</Latitude>
-    <Longitude>34.773227</Longitude>
-    <Max_Distance>16</Max_Distance>
-  </Volunteer>
-  <Volunteer>
     <Id>214491060</Id>
     <Name>Aharon Fried</Name>
     <Phone>0587654321</Phone>
@@ -209,5 +195,19 @@
     <Latitude>31.797499</Latitude>
     <Longitude>34.645104</Longitude>
     <Max_Distance>25000000000</Max_Distance>
+  </Volunteer>
+  <Volunteer>
+    <Id>214324998</Id>
+    <Name>Menachem Green</Name>
+    <Phone>0524321987</Phone>
+    <Email>menachemgreen@gmail.com</Email>
+    <Password>Green2021!</Password>
+    <Role>Volunteer</Role>
+    <IsActive>false</IsActive>
+    <Type_Distance>Drive</Type_Distance>
+    <Address>9 Ben Yehuda Street, Tel Aviv, Israel</Address>
+    <Latitude>32.087066</Latitude>
+    <Longitude>34.773227</Longitude>
+    <Max_Distance>10</Max_Distance>
   </Volunteer>
 </ArrayOfVolunteer>

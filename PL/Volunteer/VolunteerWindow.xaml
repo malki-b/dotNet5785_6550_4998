@@ -39,8 +39,10 @@
         </Grid.RowDefinitions>
 
         <!-- שדות -->
-        <Label Content="ID:" Grid.Row="0" Grid.Column="0"/>
-        <TextBox Text="{Binding CurrentVolunteer.Id}" Style="{StaticResource InputStyle}" Grid.Row="0" Grid.Column="1" IsReadOnly="True"/>
+        <TextBox Text="{Binding CurrentVolunteer.Id}" 
+         Style="{StaticResource InputStyle}" 
+         Grid.Row="0" Grid.Column="1" 
+         IsReadOnly="{Binding IsUpdateMode}"/>
 
         <Label Content="Name:" Grid.Row="1" Grid.Column="0"/>
         <TextBox Text="{Binding CurrentVolunteer.FullName}" Style="{StaticResource InputStyle}" Grid.Row="1" Grid.Column="1"/>

@@ -8,11 +8,11 @@
     <Password>Passw0rd!</Password>
     <Role>Manager</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Drive</Type_Distance>
+    <Type_Distance>Air</Type_Distance>
     <Address>5 Hamerkaz Street, Haifa City Center, Haifa, Israel</Address>
     <Latitude>32.792761</Latitude>
     <Longitude>34.995336</Longitude>
-    <Max_Distance>15</Max_Distance>
+    <Max_Distance>12</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>329333488</Id>
@@ -22,11 +22,11 @@
     <Password>SecurePass123!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Air</Type_Distance>
+    <Type_Distance>None</Type_Distance>
     <Address>12 Rothschild Boulevard, Tel Aviv, Israel</Address>
     <Latitude>32.062745</Latitude>
     <Longitude>34.770447</Longitude>
-    <Max_Distance>18</Max_Distance>
+    <Max_Distance>17</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>214491060</Id>
@@ -36,11 +36,11 @@
     <Password>Gmail1234!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>None</Type_Distance>
+    <Type_Distance>Air</Type_Distance>
     <Address>10 King David Street, Jerusalem City Center, Jerusalem, Israel</Address>
     <Latitude>31.70954</Latitude>
     <Longitude>35.205725</Longitude>
-    <Max_Distance>11</Max_Distance>
+    <Max_Distance>17</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>219595907</Id>
@@ -50,11 +50,11 @@
     <Password>Password123!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Air</Type_Distance>
+    <Type_Distance>Walking</Type_Distance>
     <Address>25 Herzl Street, Rehovot, Israel</Address>
     <Latitude>31.916661</Latitude>
     <Longitude>35.176402</Longitude>
-    <Max_Distance>12</Max_Distance>
+    <Max_Distance>18</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>215281288</Id>
@@ -64,11 +64,11 @@
     <Password>SecretPass!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Walking</Type_Distance>
+    <Type_Distance>Air</Type_Distance>
     <Address>18 Bialik Street, Ramat Gan, Israel</Address>
     <Latitude>31.797499</Latitude>
     <Longitude>34.645104</Longitude>
-    <Max_Distance>10</Max_Distance>
+    <Max_Distance>17</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>218445062</Id>
@@ -82,7 +82,7 @@
     <Address>9 Ben Yehuda Street, Tel Aviv, Israel</Address>
     <Latitude>32.087066</Latitude>
     <Longitude>34.773227</Longitude>
-    <Max_Distance>2</Max_Distance>
+    <Max_Distance>12</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>332987908</Id>
@@ -96,7 +96,7 @@
     <Address>30 Hanevi'im Street, Jerusalem, Israel</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <Max_Distance>13</Max_Distance>
+    <Max_Distance>2</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>214388381</Id>
@@ -110,7 +110,7 @@
     <Address>15 Hahistadrut Avenue, Haifa, Israel</Address>
     <Latitude>32.7992802</Latitude>
     <Longitude>35.0497902</Longitude>
-    <Max_Distance>6</Max_Distance>
+    <Max_Distance>10</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>214875379</Id>
@@ -120,11 +120,11 @@
     <Password>WeinerPass!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Drive</Type_Distance>
+    <Type_Distance>Walking</Type_Distance>
     <Address>7 Dizengoff Street, Tel Aviv, Israel</Address>
     <Latitude>32.084319</Latitude>
     <Longitude>34.781364</Longitude>
-    <Max_Distance>5</Max_Distance>
+    <Max_Distance>12</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>330986704</Id>
@@ -134,11 +134,11 @@
     <Password>Aharon12345!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Air</Type_Distance>
+    <Type_Distance>None</Type_Distance>
     <Address>20 Menachem Begin Road, Tel Aviv, Israel</Address>
     <Latitude>32.066455</Latitude>
     <Longitude>34.783553</Longitude>
-    <Max_Distance>7</Max_Distance>
+    <Max_Distance>16</Max_Distance>
   </Volunteer>
   <Volunteer>
     <Id>214324998</Id>
@@ -148,10 +148,10 @@
     <Password>Fish1234!</Password>
     <Role>Volunteer</Role>
     <IsActive>true</IsActive>
-    <Type_Distance>Walking</Type_Distance>
+    <Type_Distance>Air</Type_Distance>
     <Address>22 Jabotinsky Street, Ramat Gan, Israel</Address>
     <Latitude>32.062593</Latitude>
     <Longitude>34.776051</Longitude>
-    <Max_Distance>15</Max_Distance>
+    <Max_Distance>13</Max_Distance>
   </Volunteer>
 </ArrayOfVolunteer>

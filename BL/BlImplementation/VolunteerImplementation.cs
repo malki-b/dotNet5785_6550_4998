@@ -57,6 +57,7 @@ internal class VolunteerImplementation : IVolunteer
                     {
                         _dal.Volunteer.Delete(id);
                     }
+                    CallManager.Observers.NotifyListUpdated();
                     VolunteerManager.Observers.NotifyListUpdated();
                 }
                 catch (DO.DalNotFoundException ex)
@@ -204,7 +205,7 @@ internal class VolunteerImplementation : IVolunteer
                 _dal.Volunteer.Update(doVolunteer);
             }
             VolunteerManager.Observers.NotifyItemUpdated(doVolunteer.Id);
-            VolunteerManager.Observers.NotifyListUpdated();
+            CallManager.Observers.NotifyListUpdated();
         }
         catch
         {

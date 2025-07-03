@@ -50,8 +50,9 @@ public class Volunteer
         TypeDistance = typeDistance;
         Role = role;
         Address = address;
-        (Latitude, Longitude) = Tools.GetCoordinates(address);
-        // Longitude = longitude;
+        //(Latitude, Longitude) = Tools.GetCoordinates(address);
+        Longitude= longitude;
+         Longitude = longitude;
         IsActive = isActive;
         MaxDistance = maxDistance;
         TotalHandledCalls = totalHandledCalls;

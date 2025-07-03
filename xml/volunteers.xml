@@ -198,7 +198,7 @@
   </Volunteer>
   <Volunteer>
     <Id>328306550</Id>
-    <Name>Yaakov Levi</Name>
+    <Name>Yaakov Levi4</Name>
     <Phone>0521234567</Phone>
     <Email>yaakovlevi@gmail.com</Email>
     <Password>Passw0rd!</Password>
@@ -208,6 +208,6 @@
     <Address>5 Hamerkaz Street, Haifa City Center, Haifa, Israel</Address>
     <Latitude>32.792761</Latitude>
     <Longitude>34.995336</Longitude>
-    <Max_Distance>18</Max_Distance>
+    <Max_Distance>1</Max_Distance>
   </Volunteer>
 </ArrayOfVolunteer>

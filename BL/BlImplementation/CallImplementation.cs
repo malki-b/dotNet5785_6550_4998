@@ -23,6 +23,7 @@ internal class CallImplementation : ICall
                 _dal.Call.Create(newCallDO);
             }
             CallManager.Observers.NotifyListUpdated();
+            VolunteerManager.Observers.NotifyListUpdated();
         }
         catch (DO.DalAlreadyExistsException ex)
         {
@@ -59,6 +60,8 @@ internal class CallImplementation : ICall
                         _dal.Assignment.Update(updatedAssignment);
                         CallManager.Observers.NotifyItemUpdated(updatedAssignment.Id);
                         CallManager.Observers.NotifyListUpdated();
+                        VolunteerManager.Observers.NotifyItemUpdated(updatedAssignment.Id);
+                        VolunteerManager.Observers.NotifyListUpdated();
                     }
                 }
                 catch (DO.DalNotFoundException ex)
@@ -309,7 +312,7 @@ internal class CallImplementation : ICall
             if (prop != null)
                 openCallList = openCallList.OrderBy(c => prop.GetValue(c));
         }
-        //CallManager.Observers.NotifyListUpdated();
+       
 
         return openCallList;
     }
@@ -367,6 +370,7 @@ internal class CallImplementation : ICall
             //}
             //CallManager.Observers.NotifyItemUpdated(callId);
             CallManager.Observers.NotifyListUpdated();
+            VolunteerManager.Observers.NotifyListUpdated();
         }
         catch (BO.BlInvalidException ex)
         {
@@ -411,6 +415,8 @@ internal class CallImplementation : ICall
             }
             CallManager.Observers.NotifyItemUpdated(updatedAssignment.Id);
             CallManager.Observers.NotifyListUpdated();
+            VolunteerManager.Observers.NotifyItemUpdated(updatedAssignment.Id);
+            VolunteerManager.Observers.NotifyListUpdated();
         }
         catch (Exception ex)
         {
@@ -441,8 +447,11 @@ internal class CallImplementation : ICall
             {
                 _dal.Assignment.Update(updatedAssignment);
             }
+            
             CallManager.Observers.NotifyItemUpdated(updatedAssignment.Id);
             CallManager.Observers.NotifyListUpdated();
+            VolunteerManager.Observers.NotifyItemUpdated(updatedAssignment.Id);
+            VolunteerManager.Observers.NotifyListUpdated();
         }
         catch (Exception ex)
         {
@@ -473,6 +482,7 @@ internal class CallImplementation : ICall
             }
             CallManager.Observers.NotifyItemUpdated(doCall.Id);
             CallManager.Observers.NotifyListUpdated();
+            VolunteerManager.Observers.NotifyListUpdated();
         }
         catch (Exception ex)
         {

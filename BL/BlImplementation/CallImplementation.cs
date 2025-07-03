@@ -11,7 +11,6 @@ using ICall = BlApi.ICall;
 internal class CallImplementation : ICall
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
-
     public void Create(BO.Call boCall)
     {
         try
@@ -310,6 +309,7 @@ internal class CallImplementation : ICall
             if (prop != null)
                 openCallList = openCallList.OrderBy(c => prop.GetValue(c));
         }
+        //CallManager.Observers.NotifyListUpdated();
 
         return openCallList;
     }
@@ -322,6 +322,7 @@ internal class CallImplementation : ICall
             lock (AdminManager.BlMutex)
             {
                 call = _dal.Call.Read(callId);
+
             }
             if (call == null)
                 throw new BO.BlInvalidException($"Call with ID {callId} not found.");
@@ -331,6 +332,7 @@ internal class CallImplementation : ICall
             lock (AdminManager.BlMutex)
             {
                 assignmentExists = _dal.Assignment.Read(callId) != null;
+
             }
             if (status == Status.Expired || status == Status.Closed || (status == Status.InProgress && assignmentExists))
             {
@@ -344,10 +346,26 @@ internal class CallImplementation : ICall
                 EndOfTreatmentTime: null,
                 TypeOfEnding: DO.TypeOfEnding.None
             );
+
             lock (AdminManager.BlMutex)
             {
                 _dal.Assignment.Create(newAssignment);
             }
+            //BO.Call? callBo;
+            //lock (AdminManager.BlMutex)
+            //{
+            //    callBo = RequestCallDetails(callId);
+
+            //    // Update the status to InProgress only in the BO.Call object
+            //    if (callBo != null)
+            //    {
+            //        callBo.CallStatus = Status.InProgress;
+            //        _dal.Call.Update(CallManager.ConvertToDO(callBo));
+            //    }
+                    
+            //    // No need to update DAL if you only want to change the BO object in memory
+            //}
+            //CallManager.Observers.NotifyItemUpdated(callId);
             CallManager.Observers.NotifyListUpdated();
         }
         catch (BO.BlInvalidException ex)

@@ -33,7 +33,10 @@ internal class AdminImplementation : IAdmin
                 default:
                     throw new ArgumentException("Invalid TimeUnit", nameof(unit));
             }
+
         }
+        CallManager.Observers.NotifyListUpdated();
+
     }
 
     public DateTime GetClock()
@@ -51,6 +54,8 @@ internal class AdminImplementation : IAdmin
         {
             AdminManager.MaxRange = riskTimeRange;
         }
+        CallManager.Observers.NotifyListUpdated();
+
     }
 
     public TimeSpan GetMaxRange()
@@ -70,6 +75,8 @@ internal class AdminImplementation : IAdmin
             //DalTest.Initialization.Do();
             AdminManager.UpdateClock(AdminManager.Now);
         }
+        CallManager.Observers.NotifyListUpdated();
+
     }
 
     public void ResetDB()
@@ -80,6 +87,8 @@ internal class AdminImplementation : IAdmin
             AdminManager.ResetDB();
             GetClock();
         }
+        CallManager.Observers.NotifyListUpdated();
+
     }
 
     #region Stage 5
@@ -100,6 +109,8 @@ internal class AdminImplementation : IAdmin
             AdminManager.ThrowOnSimulatorIsRunning();
             AdminManager.Start(interval);
         }
+        CallManager.Observers.NotifyListUpdated();
+
     }
 
     public void StopSimulator()
@@ -108,5 +119,8 @@ internal class AdminImplementation : IAdmin
         {
             AdminManager.Stop();
         }
+        CallManager.Observers.NotifyListUpdated();
+
     }
+
 }

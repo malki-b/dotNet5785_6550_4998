@@ -80,6 +80,23 @@ internal class CallImplementation : ICall
         }
     }
 
+    //public int[] RequestCallCounts()
+    //{
+    //    List<DO.Call> calls;
+    //    lock (AdminManager.BlMutex)
+    //    {
+    //        calls = _dal.Call.ReadAll().ToList();
+    //    }
+    //    var statusId = from dalCall in calls
+    //                   select new { Id = dalCall.Id, Status = CallManager.GetCallStatus(dalCall.Id) };
+
+    //    var counter = from callLine in statusId
+    //                  group callLine by callLine.Status into statusGroup
+    //                  select statusGroup.Count();
+
+
+    //    return counter.ToArray();
+    //}
     public int[] RequestCallCounts()
     {
         List<DO.Call> calls;
@@ -87,15 +104,14 @@ internal class CallImplementation : ICall
         {
             calls = _dal.Call.ReadAll().ToList();
         }
-        var statusId = from dalCall in calls
-                       select new { Id = dalCall.Id, Status = CallManager.GetCallStatus(dalCall.Id) };
 
-        var counter = from callLine in statusId
-                      group callLine by callLine.Status into statusGroup
-                      select statusGroup.Count();
-
-        Console.WriteLine(counter.ToArray());
-        return counter.ToArray();
+        int[] counts = new int[Enum.GetValues(typeof(BO.Status)).Length];
+        foreach (var call in calls)
+        {
+            var status = CallManager.GetCallStatus(call.Id);
+            counts[(int)status]++;
+        }
+        return counts;
     }
 
     public BO.Call RequestCallDetails(int callId)

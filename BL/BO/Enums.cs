@@ -40,6 +40,7 @@ public enum TypeOfEnding//סוג סיום הטיפול
 /// </summary>
 public enum Status
 {
+    None,
     Open,
     InProgress,
     Closed,

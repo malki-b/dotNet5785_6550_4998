@@ -70,7 +70,66 @@
                     <Button Content="Add 1 Year" Width="110" Click="Add_One_Year_Click"
                             IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource BooleanInverseConverter}}"/>
                 </StackPanel>
+                <Border Grid.Row="0" Padding="15" Margin="0,0,0,20">
+                    <StackPanel>
+                        <TextBlock Text="Call Statistics" 
+                   FontSize="16" 
+                   FontWeight="Bold" 
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,10"/>
 
+                        <!-- Statistics Grid - All in one row -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <!-- Open -->
+                            <Button Click="OpenCalls_Click" Width="90" Height="35" Margin="3" BorderThickness="0" Cursor="Hand">
+                                <StackPanel>
+                                    <TextBlock Text="Open" FontSize="9" FontWeight="Bold" Foreground="White"/>
+                                    <TextBlock Text="{Binding OpenCallsCount}" FontSize="14" FontWeight="Bold" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- In Progress -->
+                            <Button Click="InProgressCalls_Click" Width="90" Height="35" Margin="3" BorderThickness="0" Cursor="Hand">
+                                <StackPanel>
+                                    <TextBlock Text="In Progress" FontSize="8" FontWeight="Bold" Foreground="White"/>
+                                    <TextBlock Text="{Binding InProgressCallsCount}" FontSize="14" FontWeight="Bold" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Closed -->
+                            <Button Click="ClosedCalls_Click" Width="90" Height="35" Margin="3" BorderThickness="0" Cursor="Hand">
+                                <StackPanel>
+                                    <TextBlock Text="Closed" FontSize="9" FontWeight="Bold" Foreground="White"/>
+                                    <TextBlock Text="{Binding ClosedCallsCount}" FontSize="14" FontWeight="Bold" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Expired -->
+                            <Button Click="ExpiredCalls_Click" Width="90" Height="35" Margin="3" BorderThickness="0" Cursor="Hand">
+                                <StackPanel>
+                                    <TextBlock Text="Expired" FontSize="9" FontWeight="Bold" Foreground="White"/>
+                                    <TextBlock Text="{Binding ExpiredCallsCount}" FontSize="14" FontWeight="Bold" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Open At Risk -->
+                            <Button Click="OpenAtRiskCalls_Click" Width="90" Height="35" Margin="3" BorderThickness="0" Cursor="Hand">
+                                <StackPanel>
+                                    <TextBlock Text="Open Risk" FontSize="8" FontWeight="Bold" Foreground="White"/>
+                                    <TextBlock Text="{Binding OpenAtRiskCallsCount}" FontSize="14" FontWeight="Bold" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Progress At Risk -->
+                            <Button Click="InProgressAtRiskCalls_Click" Width="90" Height="35" Margin="3" BorderThickness="0" Cursor="Hand">
+                                <StackPanel>
+                                    <TextBlock Text="Progress Risk" FontSize="7" FontWeight="Bold" Foreground="White"/>
+                                    <TextBlock Text="{Binding InProgressAtRiskCallsCount}" FontSize="14" FontWeight="Bold" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
             </WrapPanel>
         </StackPanel>
     </Grid>

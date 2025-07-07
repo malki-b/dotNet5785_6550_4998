@@ -10,7 +10,7 @@ namespace PL
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         private static CallListWindow? callWindow;
-        public int id { get; set; } // Connected volunteer ID
+        //public int id { get; set; } // Connected volunteer ID
 
         public DateTime CurrentTime
         {
@@ -130,13 +130,13 @@ namespace PL
             DataContext = this;
             Loaded += MainWindow_Loaded;
         }
-        public MainWindow(int volunteerId)
-        {
-            id = volunteerId;
-            InitializeComponent();
-            DataContext = this;
-            Loaded += MainWindow_Loaded;
-        }
+        //public MainWindow(int volunteerId)
+        //{
+        //    id = volunteerId;
+        //    InitializeComponent();
+        //    DataContext = this;
+        //    Loaded += MainWindow_Loaded;
+        //}
 
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -285,7 +285,7 @@ namespace PL
         {
             try
             {
-                new CallListWindow(id).Show();
+                new CallListWindow().Show();
             }
             catch (Exception ex)
             {
@@ -338,27 +338,27 @@ namespace PL
 
         private void OpenCallListWithFilter(BO.Status status)
         {
-            try
-            {
-                if (callWindow == null || !callWindow.IsVisible)
-                {
-                    callWindow = new CallListWindow(id);
-                    callWindow.SelectedStatus = status; // Set the filter
-                    callWindow.Closed += (s, args) => callWindow = null;
-                    callWindow.Show();
-                }
-                else
-                {
-                    if (callWindow.WindowState == WindowState.Minimized)
-                        callWindow.WindowState = WindowState.Normal;
-                    callWindow.SelectedStatus = status; // Update the filter
-                    callWindow.Activate();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error opening call list: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            //try
+            //{
+            //    if (callWindow == null || !callWindow.IsVisible)
+            //    {
+            //        callWindow = new CallListWindow(id);
+            //        callWindow.SelectedStatus = status; // Set the filter
+            //        callWindow.Closed += (s, args) => callWindow = null;
+            //        callWindow.Show();
+            //    }
+            //    else
+            //    {
+            //        if (callWindow.WindowState == WindowState.Minimized)
+            //            callWindow.WindowState = WindowState.Normal;
+            //        callWindow.SelectedStatus = status; // Update the filter
+            //        callWindow.Activate();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"Error opening call list: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
         }
 
     }

@@ -1,13 +1,12 @@
 ﻿
 using BO;
-using DO;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.ComponentModel;
 using System.Windows.Threading;
 
 namespace PL.Call
@@ -17,23 +16,11 @@ namespace PL.Call
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public CallInListFields CallFilter { get; set; } = CallInListFields.None;
         public CallInList? SelectedCall { get; set; }
-        public int VolunteerId { get; set; }
-
 
         private volatile bool _observerWorking = false;
 
-        public BO.Status? SelectedStatus
+        public CallListWindow()
         {
-            get => (BO.Status?)GetValue(SelectedStatusProperty);
-            set => SetValue(SelectedStatusProperty, value);
-        }
-        public static readonly DependencyProperty SelectedStatusProperty =
-            DependencyProperty.Register("SelectedStatus", typeof(BO.Status?), typeof(CallListWindow), new PropertyMetadata(null, OnFilterTextChanged));
-
-        public CallListWindow(int volunteerId)
-        {
-            VolunteerId = volunteerId;
-            InitializeComponent();
             InitializeComponent();
             Loaded += CallWindow_Loaded;
             Closed += CallWindow_Closed;
@@ -96,34 +83,21 @@ namespace PL.Call
             }
         }
 
-        //private void queryCallList()
-        //{
-        //    try
-        //    {
-        //        var calls = (CallFilter == CallInListFields.None) ?
-        //            s_bl?.Call.ReadAll()! :
-        //            s_bl?.Call.ReadAll(null, null)!;
-
-        //        AllCalls = calls.ToList();
-        //        ApplyFilter();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("טעינת הרשימה נכשלה. אנא נסה שוב מאוחר יותר.", "שגיאת טעינה", MessageBoxButton.OK, MessageBoxImage.Error);
-        //    }
-        //}
         private void queryCallList()
         {
-            BO.CallInList? filterField = SelectedCall;
-            BO.CallInList? sortField = SelectedCall;
+            try
+            {
+                var calls = (CallFilter == CallInListFields.None) ?
+                    s_bl?.Call.ReadAll()! :
+                    s_bl?.Call.ReadAll(null, null)!;
 
-            IEnumerable<BO.CallInList> list = s_bl?.Call.GetFilteredAndSortedCalls(CallFilter,
-                (SelectedStatus == BO.Status.None) ? null : SelectedStatus,null)!;
-
-            if (SelectedStatus != null && SelectedStatus != BO.Status.None)
-                list = list.Where(c => c.Status == SelectedStatus);
-
-            CallList = list;
+                AllCalls = calls.ToList();
+                ApplyFilter();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("טעינת הרשימה נכשלה. אנא נסה שוב מאוחר יותר.", "שגיאת טעינה", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void callListObserver()

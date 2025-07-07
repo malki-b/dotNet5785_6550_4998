@@ -205,6 +205,8 @@ internal class VolunteerImplementation : IVolunteer
                 _dal.Volunteer.Update(doVolunteer);
             }
             VolunteerManager.Observers.NotifyItemUpdated(doVolunteer.Id);
+            VolunteerManager.Observers.NotifyListUpdated();
+            CallManager.Observers.NotifyItemUpdated(doVolunteer.Id);
             CallManager.Observers.NotifyListUpdated();
         }
         catch

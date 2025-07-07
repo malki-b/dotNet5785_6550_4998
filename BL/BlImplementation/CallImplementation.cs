@@ -370,21 +370,7 @@ internal class CallImplementation : ICall
             {
                 _dal.Assignment.Create(newAssignment);
             }
-            //BO.Call? callBo;
-            //lock (AdminManager.BlMutex)
-            //{
-            //    callBo = RequestCallDetails(callId);
-
-            //    // Update the status to InProgress only in the BO.Call object
-            //    if (callBo != null)
-            //    {
-            //        callBo.CallStatus = Status.InProgress;
-            //        _dal.Call.Update(CallManager.ConvertToDO(callBo));
-            //    }
-                    
-            //    // No need to update DAL if you only want to change the BO object in memory
-            //}
-            //CallManager.Observers.NotifyItemUpdated(callId);
+            CallManager.Observers.NotifyItemUpdated(callId);
             CallManager.Observers.NotifyListUpdated();
             VolunteerManager.Observers.NotifyListUpdated();
         }
@@ -498,6 +484,7 @@ internal class CallImplementation : ICall
             }
             CallManager.Observers.NotifyItemUpdated(doCall.Id);
             CallManager.Observers.NotifyListUpdated();
+            VolunteerManager.Observers.NotifyItemUpdated(doCall.Id);
             VolunteerManager.Observers.NotifyListUpdated();
         }
         catch (Exception ex)

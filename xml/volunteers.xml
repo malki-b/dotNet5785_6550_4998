@@ -85,20 +85,6 @@
     <Max_Distance>10</Max_Distance>
   </Volunteer>
   <Volunteer>
-    <Id>214324998</Id>
-    <Name>Shlomo Fisher</Name>
-    <Phone>0509876543</Phone>
-    <Email>shlomofisher@gmail.com</Email>
-    <Password>Fish1234!</Password>
-    <Role>Volunteer</Role>
-    <IsActive>true</IsActive>
-    <Type_Distance>Walking</Type_Distance>
-    <Address>22 Jabotinsky Street, Ramat Gan, Israel</Address>
-    <Latitude>32.062593</Latitude>
-    <Longitude>34.776051</Longitude>
-    <Max_Distance>3</Max_Distance>
-  </Volunteer>
-  <Volunteer>
     <Id>327786612</Id>
     <Name>Daniel Grossman</Name>
     <Phone>0541234567</Phone>
@@ -209,5 +195,19 @@
     <Latitude>32.792761</Latitude>
     <Longitude>34.995336</Longitude>
     <Max_Distance>1</Max_Distance>
+  </Volunteer>
+  <Volunteer>
+    <Id>214324998</Id>
+    <Name>Shlomo Fisher45</Name>
+    <Phone>0509876543</Phone>
+    <Email>shlomofisher@gmail.com</Email>
+    <Password>Fish1234!</Password>
+    <Role>Volunteer</Role>
+    <IsActive>true</IsActive>
+    <Type_Distance>Walking</Type_Distance>
+    <Address>22 Jabotinsky Street, Ramat Gan, Israel</Address>
+    <Latitude>32.062593</Latitude>
+    <Longitude>34.776051</Longitude>
+    <Max_Distance>3</Max_Distance>
   </Volunteer>
 </ArrayOfVolunteer>

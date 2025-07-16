@@ -307,24 +307,49 @@ namespace PL
             }
         }
 
+        //private void LoadCallStatistics()
+        //{
+        //    try
+        //    {
+        //        var counts = s_bl.Call.RequestCallCounts();
+
+        //        OpenCallsCount = counts.Length > (int)BO.Status.Open ? counts[(int)BO.Status.Open] : 0;
+        //        InProgressCallsCount = counts.Length > (int)BO.Status.InProgress ? counts[(int)BO.Status.InProgress] : 0;
+        //        ClosedCallsCount = counts.Length > (int)BO.Status.Closed ? counts[(int)BO.Status.Closed] : 0;
+        //        ExpiredCallsCount = counts.Length > (int)BO.Status.Expired ? counts[(int)BO.Status.Expired] : 0;
+        //        OpenAtRiskCallsCount = counts.Length > (int)BO.Status.OpenAtRisk ? counts[(int)BO.Status.OpenAtRisk] : 0;
+        //        // InProgressAtRiskCallsCount = counts.Length > (int)BO.Status.InProgressAtRisk ? counts[(int)BO.Status.InProgressAtRisk] : 0;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Error loading call statistics: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //}
         private void LoadCallStatistics()
         {
             try
             {
                 var counts = s_bl.Call.RequestCallCounts();
 
-                OpenCallsCount = counts.Length > (int)BO.Status.Open ? counts[(int)BO.Status.Open] : 0;
-                InProgressCallsCount = counts.Length > (int)BO.Status.InProgress ? counts[(int)BO.Status.InProgress] : 0;
-                ClosedCallsCount = counts.Length > (int)BO.Status.Closed ? counts[(int)BO.Status.Closed] : 0;
-                ExpiredCallsCount = counts.Length > (int)BO.Status.Expired ? counts[(int)BO.Status.Expired] : 0;
-                OpenAtRiskCallsCount = counts.Length > (int)BO.Status.OpenAtRisk ? counts[(int)BO.Status.OpenAtRisk] : 0;
-                // InProgressAtRiskCallsCount = counts.Length > (int)BO.Status.InProgressAtRisk ? counts[(int)BO.Status.InProgressAtRisk] : 0;
+                Dispatcher.Invoke(() =>
+                {
+                    OpenCallsCount = counts.Length > (int)BO.Status.Open ? counts[(int)BO.Status.Open] : 0;
+                    InProgressCallsCount = counts.Length > (int)BO.Status.InProgress ? counts[(int)BO.Status.InProgress] : 0;
+                    ClosedCallsCount = counts.Length > (int)BO.Status.Closed ? counts[(int)BO.Status.Closed] : 0;
+                    ExpiredCallsCount = counts.Length > (int)BO.Status.Expired ? counts[(int)BO.Status.Expired] : 0;
+                    OpenAtRiskCallsCount = counts.Length > (int)BO.Status.OpenAtRisk ? counts[(int)BO.Status.OpenAtRisk] : 0;
+                    InProgressAtRiskCallsCount = counts.Length > (int)BO.Status.OpenAtRisk ? counts[(int)BO.Status.OpenAtRisk] : 0;
+                });
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading call statistics: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Dispatcher.Invoke(() =>
+                {
+                    MessageBox.Show($"Error loading call statistics: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                });
             }
         }
+
 
         private void callStatisticsObserver() => LoadCallStatistics();
 

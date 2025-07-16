@@ -4,500 +4,500 @@
     <Address>Meah Shearim St 10, Jerusalem</Address>
     <Latitude>31.7865608</Latitude>
     <Longitude>35.2208052</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>FearOfHumanLife</TypeOfReading>
     <VerbalDescription>Serious road accident</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:01:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:07:01</MaxTimeFinishRead>
     <Id>1000</Id>
+  </Call>
+  <Call>
+    <Address>Chazon Ish St 6, Jerusalem</Address>
+    <Latitude>31.759595</Latitude>
+    <Longitude>35.215315</Longitude>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
+    <TypeOfReading>FearOfHumanLife</TypeOfReading>
+    <VerbalDescription>Suspected heart attack</VerbalDescription>
+    <MaxTimeFinishRead>2025-07-12T22:07:01</MaxTimeFinishRead>
+    <Id>1001</Id>
   </Call>
   <Call>
     <Address>Ramat Eshkol St 11, Jerusalem</Address>
     <Latitude>31.8017893</Latitude>
     <Longitude>35.2228759</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>FearOfHumanLife</TypeOfReading>
     <VerbalDescription>Breathing cessation</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:01:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:07:01</MaxTimeFinishRead>
     <Id>1002</Id>
   </Call>
   <Call>
     <Address>Har Safra St 1, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>FearOfHumanLife</TypeOfReading>
     <VerbalDescription>High fever</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:01:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:07:01</MaxTimeFinishRead>
     <Id>1003</Id>
   </Call>
   <Call>
     <Address>Mount Scopus St 4, Jerusalem</Address>
     <Latitude>31.794767</Latitude>
     <Longitude>35.2425346</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>FearOfHumanLife</TypeOfReading>
     <VerbalDescription>Humanitarian crisis</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:01:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:07:01</MaxTimeFinishRead>
     <Id>1004</Id>
+  </Call>
+  <Call>
+    <Address>Keren Hayesod St 30, Jerusalem</Address>
+    <Latitude>31.7723879</Latitude>
+    <Longitude>35.2215257</Longitude>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
+    <TypeOfReading>FearOfHumanLife</TypeOfReading>
+    <VerbalDescription>Fear of primary injury</VerbalDescription>
+    <MaxTimeFinishRead>2025-07-12T22:07:01</MaxTimeFinishRead>
+    <Id>1005</Id>
   </Call>
   <Call>
     <Address>Neve Yaakov St 17, Jerusalem</Address>
     <Latitude>31.842212</Latitude>
     <Longitude>35.24206</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>FearOfHumanLife</TypeOfReading>
     <VerbalDescription>Bone injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:01:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:07:01</MaxTimeFinishRead>
     <Id>1006</Id>
   </Call>
   <Call>
     <Address>Shmuel HaNavi St 12, Jerusalem</Address>
     <Latitude>31.7875022</Latitude>
     <Longitude>35.2265973</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>FearOfHumanLife</TypeOfReading>
     <VerbalDescription>Railway incident</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:01:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:07:01</MaxTimeFinishRead>
     <Id>1007</Id>
   </Call>
   <Call>
     <Address>Yechiel St 3, Jerusalem</Address>
     <Latitude>31.78168</Latitude>
     <Longitude>35.220332</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>FearOfHumanLife</TypeOfReading>
     <VerbalDescription>Fear of falling</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:01:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:07:01</MaxTimeFinishRead>
     <Id>1008</Id>
   </Call>
   <Call>
     <Address>Rav Kook St 4, Jerusalem</Address>
     <Latitude>31.7831088</Latitude>
     <Longitude>35.2203032</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>FearOfHumanLife</TypeOfReading>
     <VerbalDescription>Fear of crashing</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:01:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:07:01</MaxTimeFinishRead>
     <Id>1009</Id>
   </Call>
   <Call>
     <Address>Talmud Torah St 8, Jerusalem</Address>
     <Latitude>31.898714</Latitude>
     <Longitude>35.185758</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>FearOfHumanLife</TypeOfReading>
     <VerbalDescription>Tooth injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:01:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:07:01</MaxTimeFinishRead>
     <Id>1010</Id>
   </Call>
   <Call>
     <Address>Sanhedria St 18, Jerusalem</Address>
     <Latitude>31.802587</Latitude>
     <Longitude>35.2175385</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>FearOfHumanLife</TypeOfReading>
     <VerbalDescription>Fear of fall injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:01:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:07:01</MaxTimeFinishRead>
     <Id>1011</Id>
   </Call>
   <Call>
     <Address>Kiryat Moshe St 6, Jerusalem</Address>
     <Latitude>31.7857651</Latitude>
     <Longitude>35.1968887</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>FearOfHumanLife</TypeOfReading>
     <VerbalDescription>Eye injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:01:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:07:01</MaxTimeFinishRead>
     <Id>1012</Id>
   </Call>
   <Call>
     <Address>Achad Ha'am St 2, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>FearOfHumanLife</TypeOfReading>
     <VerbalDescription>Fear of bone injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:01:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:07:01</MaxTimeFinishRead>
     <Id>1013</Id>
   </Call>
   <Call>
     <Address>Bar Ilan St 7, Jerusalem</Address>
-    <Latitude>31.7957696</Latitude>
-    <Longitude>35.2198077</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <Latitude>31.7951708</Latitude>
+    <Longitude>35.2186497</Longitude>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>FearOfHumanLife</TypeOfReading>
     <VerbalDescription>Fear of collapse</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:01:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:07:01</MaxTimeFinishRead>
     <Id>1014</Id>
   </Call>
   <Call>
     <Address>City Center St 14, Jerusalem</Address>
     <Latitude>31.7259643</Latitude>
     <Longitude>34.7437502</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>ImmediateDanger</TypeOfReading>
     <VerbalDescription>Fear of accident</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:16:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:22:01</MaxTimeFinishRead>
     <Id>1015</Id>
   </Call>
   <Call>
     <Address>Rechov Yechiel 3, Jerusalem</Address>
     <Latitude>31.7476677</Latitude>
     <Longitude>35.2323345</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>ImmediateDanger</TypeOfReading>
     <VerbalDescription>Fear of neck injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:16:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:22:01</MaxTimeFinishRead>
     <Id>1016</Id>
   </Call>
   <Call>
     <Address>Giv'at Shaul St 7, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>ImmediateDanger</TypeOfReading>
     <VerbalDescription>Fear of back injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:16:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:22:01</MaxTimeFinishRead>
     <Id>1017</Id>
   </Call>
   <Call>
     <Address>Nachlaot St 7, Jerusalem</Address>
     <Latitude>31.703275</Latitude>
     <Longitude>35.194809</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>ImmediateDanger</TypeOfReading>
     <VerbalDescription>Burn</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:16:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:22:01</MaxTimeFinishRead>
     <Id>1018</Id>
   </Call>
   <Call>
     <Address>Rav Kook St 5, Jerusalem</Address>
     <Latitude>31.7831088</Latitude>
     <Longitude>35.2203032</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>ImmediateDanger</TypeOfReading>
     <VerbalDescription>Head injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:16:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:22:01</MaxTimeFinishRead>
     <Id>1019</Id>
   </Call>
   <Call>
     <Address>Har Nof St 18, Jerusalem</Address>
     <Latitude>31.7858115</Latitude>
     <Longitude>35.1741509</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>ImmediateDanger</TypeOfReading>
     <VerbalDescription>Fear of abduction</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:16:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:22:01</MaxTimeFinishRead>
     <Id>1020</Id>
   </Call>
   <Call>
     <Address>Ramat Shlomo St 15, Jerusalem</Address>
     <Latitude>31.8111253</Latitude>
     <Longitude>35.2174861</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>ImmediateDanger</TypeOfReading>
     <VerbalDescription>Facial injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:16:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:22:01</MaxTimeFinishRead>
     <Id>1021</Id>
   </Call>
   <Call>
     <Address>Sderot Yitzhak Rabin St 5, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>ImmediateDanger</TypeOfReading>
     <VerbalDescription>Joint injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:16:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:22:01</MaxTimeFinishRead>
     <Id>1022</Id>
   </Call>
   <Call>
     <Address>Har Hatzofim St 8, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>ImmediateDanger</TypeOfReading>
     <VerbalDescription>Fear of muscle rupture</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:16:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:22:01</MaxTimeFinishRead>
     <Id>1023</Id>
   </Call>
   <Call>
     <Address>Giv'at HaMivtar St 6, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>ImmediateDanger</TypeOfReading>
     <VerbalDescription>Fear of stumble</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:16:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:22:01</MaxTimeFinishRead>
     <Id>1024</Id>
   </Call>
   <Call>
     <Address>Tefilat Yisrael St 14, Jerusalem</Address>
     <Latitude>31.779042</Latitude>
     <Longitude>35.229702</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>ImmediateDanger</TypeOfReading>
     <VerbalDescription>Ear injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:16:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:22:01</MaxTimeFinishRead>
     <Id>1025</Id>
   </Call>
   <Call>
     <Address>Malkhei Yisrael St 10, Jerusalem</Address>
     <Latitude>31.7909196</Latitude>
     <Longitude>35.2089577</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>ImmediateDanger</TypeOfReading>
     <VerbalDescription>Chin injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:16:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:22:01</MaxTimeFinishRead>
     <Id>1026</Id>
   </Call>
   <Call>
     <Address>Kiryat Tzahal St 6, Jerusalem</Address>
     <Latitude>32.0416824</Latitude>
     <Longitude>34.7904787</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>ImmediateDanger</TypeOfReading>
     <VerbalDescription>Fear of surgery</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:16:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:22:01</MaxTimeFinishRead>
     <Id>1027</Id>
   </Call>
   <Call>
     <Address>Nachal Noach St 17, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>ImmediateDanger</TypeOfReading>
     <VerbalDescription>Shoulder injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:16:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:22:01</MaxTimeFinishRead>
     <Id>1028</Id>
   </Call>
   <Call>
     <Address>Maalot Dafna St 6, Jerusalem</Address>
     <Latitude>31.7933736</Latitude>
     <Longitude>35.2246764</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>ImmediateDanger</TypeOfReading>
     <VerbalDescription>Hand injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:16:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:22:01</MaxTimeFinishRead>
     <Id>1029</Id>
   </Call>
   <Call>
     <Address>Har HaMor St 3, Jerusalem</Address>
     <Latitude>31.7854673</Latitude>
     <Longitude>35.1001866</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Fear of shoulder dislocation</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1030</Id>
   </Call>
   <Call>
     <Address>Ramat HaSharon St 2, Jerusalem</Address>
     <Latitude>32.3260388</Latitude>
     <Longitude>34.8511049</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Fear of disorder</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1031</Id>
   </Call>
   <Call>
     <Address>Yakar St 3, Jerusalem</Address>
     <Latitude>31.8405465</Latitude>
     <Longitude>35.2454408</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Abdominal injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1032</Id>
   </Call>
   <Call>
     <Address>Rav Haim Ozer St 9, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Fear of collapse</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1033</Id>
   </Call>
   <Call>
     <Address>Yehoshua Ben-Nun St 5, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Fear of pain</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1034</Id>
   </Call>
   <Call>
     <Address>Meir Schauer St 12, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Leg injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1035</Id>
   </Call>
   <Call>
     <Address>Menachem Begin St 11, Jerusalem</Address>
     <Latitude>31.7686856</Latitude>
     <Longitude>35.1950858</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Ankle injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1036</Id>
   </Call>
   <Call>
     <Address>Yisrael Yaakov St 13, Jerusalem</Address>
     <Latitude>31.8383352</Latitude>
     <Longitude>35.2441809</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Fear of tear</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1037</Id>
   </Call>
   <Call>
     <Address>Ben Yehuda St 6, Jerusalem</Address>
     <Latitude>31.7807265</Latitude>
     <Longitude>35.2140708</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Fear of slip</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1038</Id>
   </Call>
   <Call>
     <Address>Kiryat Tzahal St 61, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Car accident</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1039</Id>
   </Call>
   <Call>
     <Address>Nachal Noach St 11, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Fear of outbreak</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1040</Id>
   </Call>
   <Call>
     <Address>Maalot Dafna St 16, Jerusalem</Address>
     <Latitude>31.7933736</Latitude>
     <Longitude>35.2246764</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Fear of fall</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1041</Id>
   </Call>
   <Call>
     <Address>Har HaMor St 31, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Fear of injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1042</Id>
   </Call>
   <Call>
     <Address>Ramat HaSharon St 21, Jerusalem</Address>
     <Latitude>32.3260388</Latitude>
     <Longitude>34.8511049</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Foot injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1043</Id>
   </Call>
   <Call>
     <Address>Yakar St 31, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Fear of collapse</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1044</Id>
   </Call>
   <Call>
     <Address>Rav Haim Ozer St 1, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Hip injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1045</Id>
   </Call>
   <Call>
     <Address>Yehoshua Ben-Nun St 2, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Abdominal injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1046</Id>
   </Call>
   <Call>
     <Address>Meir Schauer St 1, Jerusalem</Address>
     <Latitude>31.759595</Latitude>
     <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Fear of groin injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1047</Id>
   </Call>
   <Call>
     <Address>Menachem Begin St 12, Jerusalem</Address>
     <Latitude>31.7686856</Latitude>
     <Longitude>35.1950858</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Fear of neck injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1048</Id>
   </Call>
   <Call>
     <Address>Yisrael Yaakov St 12, Jerusalem</Address>
     <Latitude>31.8383352</Latitude>
     <Longitude>35.2441809</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
+    <OpeningTime>2025-07-12T21:52:01</OpeningTime>
     <TypeOfReading>LongTermDanger</TypeOfReading>
     <VerbalDescription>Fear of groins injury</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:46:01</MaxTimeFinishRead>
+    <MaxTimeFinishRead>2025-07-12T22:52:01</MaxTimeFinishRead>
     <Id>1049</Id>
-  </Call>
-  <Call>
-    <Address>Keren Hayesod St 30, Jerusalem</Address>
-    <Latitude>31.7723879</Latitude>
-    <Longitude>35.2215257</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
-    <TypeOfReading>FearOfHumanLife</TypeOfReading>
-    <VerbalDescription>Fear of primary inju</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:01:01</MaxTimeFinishRead>
-    <Id>1005</Id>
-  </Call>
-  <Call>
-    <Address>Chazon Ish St 6, Jerusalem</Address>
-    <Latitude>31.759595</Latitude>
-    <Longitude>35.215315</Longitude>
-    <OpeningTime>2025-07-02T11:46:01</OpeningTime>
-    <TypeOfReading>FearOfHumanLife</TypeOfReading>
-    <VerbalDescription>Suspected heart</VerbalDescription>
-    <MaxTimeFinishRead>2025-07-02T12:01:01</MaxTimeFinishRead>
-    <Id>1001</Id>
   </Call>
 </ArrayOfCall>

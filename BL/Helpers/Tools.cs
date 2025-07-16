@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BO;
+using DalApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,36 +11,93 @@ namespace Helpers;
 
 public static class Tools
 {
+    private static IDal s_dal = Factory.Get; //stage 4
+
+    public static BO.Status CalculateStatus(DO.Call call)
+    {
+        TimeSpan riskRange = s_dal.Config.RiskRange;
+
+        if (call.MaxTimeFinishRead.HasValue)
+        {
+            TimeSpan remaining = call.MaxTimeFinishRead.Value - AdminManager.Now;
+
+            if (remaining < TimeSpan.Zero)
+                return BO.Status.Expired;
+
+            if (remaining <= riskRange)
+                return BO.Status.OpenAtRisk;
+
+            return BO.Status.InProgress;
+        }
+
+        return BO.Status.InProgress;
+    }
+
 
     private static string apiKey = "PK.83B935C225DF7E2F9B1ee90A6B46AD86";
     // private static readonly string apiKey1 = "vaUo0LbTQF27M9LVCg8w2b35GKIAJJyl";
+    //public static (double, double) GetCoordinates(string address)
+    //{
+    //    using var client = new HttpClient();
+    //    string url = $"https://us1.locationiq.com/v1/search.php?key={apiKey}&q={Uri.EscapeDataString(address)}&format=json";
+
+    //    var response = client.GetAsync(url).GetAwaiter().GetResult();
+    //    //if (!response.IsSuccessStatusCode)
+    //    //    throw new Exception("Invalid address or API error.");
+
+    //    var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+    //    using var doc = JsonDocument.Parse(json);
+
+    //    if (doc.RootElement.ValueKind != JsonValueKind.Array || doc.RootElement.GetArrayLength() == 0)
+    //        throw new Exception("Address not found.");
+
+    //    var root = doc.RootElement[0];
+
+    //    if (!root.TryGetProperty("lat", out var latProperty) ||
+    //        !root.TryGetProperty("lon", out var lonProperty))
+    //    {
+    //        throw new Exception("Missing latitude or longitude in response.");
+    //    }
+
+    //    if (!double.TryParse(latProperty.GetString(), out double latitude) ||
+    //        !double.TryParse(lonProperty.GetString(), out double longitude))
+    //    {
+    //        throw new Exception("Invalid latitude or longitude format.");
+    //    }
+
+    //    return (latitude, longitude);
+    //}
     public static (double, double) GetCoordinates(string address)
     {
+        if (string.IsNullOrWhiteSpace(address))
+            throw new BO.BlInvalidInputException("Address cannot be empty.");
+
         using var client = new HttpClient();
         string url = $"https://us1.locationiq.com/v1/search.php?key={apiKey}&q={Uri.EscapeDataString(address)}&format=json";
 
         var response = client.GetAsync(url).GetAwaiter().GetResult();
-        //if (!response.IsSuccessStatusCode)
-        //    throw new Exception("Invalid address or API error.");
+
+        if (!response.IsSuccessStatusCode)
+            throw new BO.BlInvalidInputException("Invalid address or API error.");
 
         var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
         using var doc = JsonDocument.Parse(json);
 
         if (doc.RootElement.ValueKind != JsonValueKind.Array || doc.RootElement.GetArrayLength() == 0)
-            throw new Exception("Address not found.");
+            throw new BO.BlInvalidInputException("Address not found.");
 
         var root = doc.RootElement[0];
 
         if (!root.TryGetProperty("lat", out var latProperty) ||
             !root.TryGetProperty("lon", out var lonProperty))
         {
-            throw new Exception("Missing latitude or longitude in response.");
+            throw new BO.BlInvalidInputException("Missing latitude or longitude in response.");
         }
 
         if (!double.TryParse(latProperty.GetString(), out double latitude) ||
             !double.TryParse(lonProperty.GetString(), out double longitude))
         {
-            throw new Exception("Invalid latitude or longitude format.");
+            throw new BO.BlInvalidInputException("Invalid latitude or longitude format.");
         }
 
         return (latitude, longitude);

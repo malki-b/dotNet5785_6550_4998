@@ -16,42 +16,98 @@ internal static class CallManager
 
     internal static ObserverManager Observers = new(); //stage 5
 
-    internal static Status GetCallStatus(int callId)
+    //internal static Status GetCallStatus(int callId)
+    //{
+    //    DO.Call call;
+    //    List<Assignment> assignments;
+    //    TimeSpan riskRange;
+    //    lock (AdminManager.BlMutex)
+    //    {
+    //        call = s_dal.Call.Read(callId) ??
+    //            throw new BO.BlDoesNotExistException($"Call with ID {callId} not found.");
+    //        assignments = s_dal.Assignment.ReadAll(a => a.CallId == callId).ToList();
+    //        riskRange = s_dal.Config.RiskRange;
+    //    }
+
+    //    DateTime currentTime = AdminManager.Now;
+    //    Assignment? activeAssignment = assignments.Find(a => a.EndOfTreatmentTime == null);
+    //    Assignment? handledAssignments = assignments.Find(a => a.EndOfTreatmentTime != null && a.TypeOfEnding == DO.TypeOfEnding.Teated);
+
+    //    if (activeAssignment != null)
+    //    {
+    //        if (call.MaxTimeFinishRead.HasValue && currentTime > call.MaxTimeFinishRead.Value - riskRange)
+    //            return Status.Open;
+
+    //        return Status.InProgress;
+    //    }
+
+    //    if (handledAssignments != null)
+    //        return Status.Closed;
+
+    //    if (call.MaxTimeFinishRead.HasValue && currentTime > call.MaxTimeFinishRead.Value)
+    //        return Status.Expired;
+
+    //    if (call.MaxTimeFinishRead.HasValue && currentTime > call.MaxTimeFinishRead.Value - riskRange)
+    //        return Status.OpenAtRisk;
+
+    //    return Status.Open;
+    //}
+    internal static BO.Status GetCallStatus(int callId)
     {
-        DO.Call call;
-        List<Assignment> assignments;
-        TimeSpan riskRange;
-        lock (AdminManager.BlMutex)
+        try
         {
-            call = s_dal.Call.Read(callId) ??
-                throw new BO.BlDoesNotExistException($"Call with ID {callId} not found.");
-            assignments = s_dal.Assignment.ReadAll(a => a.CallId == callId).ToList();
-            riskRange = s_dal.Config.RiskRange;
+            DO.Call? call;
+            List<DO.Assignment> assignments;
+
+            lock (AdminManager.BlMutex)
+            {
+                call = s_dal.Call.Read(callId);
+                if (call == null)
+                    throw new BO.BlDoesNotExistException($"קריאה עם מזהה {callId} לא קיימת.");
+
+                assignments = s_dal.Assignment.ReadAll(a => a.CallId == callId).ToList();
+            }
+
+            // אם אין הקצאות בכלל
+            if (!assignments.Any() ||
+                assignments.All(a =>
+                    a.EndOfTreatmentTime.HasValue &&
+                    (a.TypeOfEnding == DO.TypeOfEnding.ManagerCancellation ||
+                     a.TypeOfEnding == DO.TypeOfEnding.SelfCancellation)))
+            {
+                var status = Tools.CalculateStatus(call);
+                return status switch
+                {
+                    BO.Status.InProgress => BO.Status.Open,
+                    BO.Status.Expired => BO.Status.Expired,
+                    _ => BO.Status.OpenAtRisk
+                };
+            }
+
+            // אם יש הקצאה שטופלה בהצלחה
+            if (assignments.Any(a =>
+                a.EndOfTreatmentTime.HasValue &&
+                a.TypeOfEnding == DO.TypeOfEnding.Teated))
+            {
+                return BO.Status.Closed;
+            }
+
+            // אם עבר הזמן המותר
+            if (call.MaxTimeFinishRead.HasValue &&
+                call.MaxTimeFinishRead.Value < AdminManager.Now)
+            {
+                return BO.Status.Expired;
+            }
+
+            // אחרת - מחשבים לפי הזמן
+            return Tools.CalculateStatus(call);
         }
-
-        DateTime currentTime = AdminManager.Now;
-        Assignment? activeAssignment = assignments.Find(a => a.EndOfTreatmentTime == null);
-        Assignment? handledAssignments = assignments.Find(a => a.EndOfTreatmentTime != null && a.TypeOfEnding == DO.TypeOfEnding.Teated);
-
-        if (activeAssignment != null)
+        catch (DO.DalDoesNotExistException ex)
         {
-            if (call.MaxTimeFinishRead.HasValue && currentTime > call.MaxTimeFinishRead.Value - riskRange)
-                return Status.Open;
-
-            return Status.InProgress;
+            throw new BO.BlDoesNotExistException($"קריאה עם מזהה {callId} לא קיימת.", ex);
         }
-
-        if (handledAssignments != null)
-            return Status.Closed;
-
-        if (call.MaxTimeFinishRead.HasValue && currentTime > call.MaxTimeFinishRead.Value)
-            return Status.Expired;
-
-        if (call.MaxTimeFinishRead.HasValue && currentTime > call.MaxTimeFinishRead.Value - riskRange)
-            return Status.OpenAtRisk;
-
-        return Status.Open;
     }
+
 
     public static TimeSpan getRemainingTimeToEndCall(DO.Call c)
     {

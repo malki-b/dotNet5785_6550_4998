@@ -54,3 +54,11 @@ public class BLTemporaryNotAvailableException : Exception
                 : base(message, innerException) { }
 }
 
+
+[Serializable]
+public class BlInvalidInputException : Exception
+{
+    public BlInvalidInputException(string? message) : base(message) { }
+    public BlInvalidInputException(string message, Exception innerException)
+                : base(message, innerException) { }
+}

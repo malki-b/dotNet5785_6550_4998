@@ -78,7 +78,8 @@ public static class Tools
         var response = client.GetAsync(url).GetAwaiter().GetResult();
 
         if (!response.IsSuccessStatusCode)
-            throw new BO.BlInvalidInputException("Invalid address or API error.");
+            //throw new BO.BlInvalidInputException("Invalid address or API error.");
+            throw new BO.BlInvalidInputException("succsesful.");
 
         var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
         using var doc = JsonDocument.Parse(json);
